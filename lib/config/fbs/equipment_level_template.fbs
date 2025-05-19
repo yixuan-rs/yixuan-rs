@@ -1,0 +1,13 @@
+table EquipmentLevelTemplate {
+	rarity: uint;
+	level: uint;
+	property_rate: uint;
+	unk_3: int;
+	unk_4: int;
+	unk_5: int;
+	unk_6: int;
+}
+
+table EquipmentLevelTemplateTb {
+        data: [EquipmentLevelTemplate];
+}

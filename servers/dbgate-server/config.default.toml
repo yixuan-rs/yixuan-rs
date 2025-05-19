@@ -1,0 +1,10 @@
+[auth]
+type = "enforced"
+sdk_token_verification_url = "http://127.0.0.1:20100/nap_global/combo/granter/login/v2/login"
+permit_login_on_http_error = false
+
+[database]
+addr = "127.0.0.1:5432"
+username = "root"
+password = "root"
+database = "vivian"

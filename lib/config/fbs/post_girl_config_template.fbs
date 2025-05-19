@@ -1,0 +1,15 @@
+table PostGirlConfigTemplate {
+	id: uint;
+	name: string;
+	tag: string;
+	unk_1: int;
+	unk_2: string;
+	unk_3: int;
+	role_icon_name: string;
+	unk_4: string;
+	unk_5: [int];
+}
+
+table PostGirlConfigTemplateTb {
+        data: [PostGirlConfigTemplate];
+}

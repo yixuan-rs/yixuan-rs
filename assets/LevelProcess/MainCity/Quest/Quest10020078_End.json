@@ -1,0 +1,40 @@
+{
+    "ID": 100200781,
+    "Sections": {
+        "1": {
+            "SectionProgress": {
+                "ID": 1002007811,
+                "OnAdd": [
+                    "Sec1_DefaultTrigger"
+                ],
+                "OnExit": [
+                    "Sec1_ClearTrigger"
+                ],
+                "Events": {
+                    "Sec1_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionRemoveMainCityQuestInteractCfg",
+                                "ID": 101
+                            }                      
+                        ]
+                    },
+                    "Sec1_ClearTrigger": {
+                        "ID": 200,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionRemoveMainCityQuestInteractCfg",
+                                "ID": 201
+                            },                            
+                            {
+                                "$type": "Share.CActionRemoveMainCityQuestNpcCfg",
+                                "ID": 202
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

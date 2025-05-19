@@ -1,0 +1,39 @@
+{
+    "ID": 1023,
+    "Events": {
+        "OnStart": {
+            "ID": 10231,
+            "Actions": [
+                {
+                    "$type": "Share.CConfigReward",
+                    "ID": 1,
+                    "OnceRewardID": "specials(OnceRewardID)"
+                },
+                {
+                    "$type": "Share.CConfigPlayAnim",
+                    "ID": 2,
+                    "AnimID": 21052,
+                    "Indexes": []
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 3,
+                    "WaitTime": 0.5
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 4,
+                    "X": 0,
+                    "Y": 0,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1000],
+                    "EventState": "Finished",
+                    "VisibleState": "Visible"
+                }
+            ]
+        }
+    }
+}

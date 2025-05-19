@@ -1,0 +1,58 @@
+{
+    "ID": 10020006,
+    "Sections": {
+        "1": {
+            "SectionProgress": {
+                "ID": 100200061,
+                "OnBeforeEnter": [],
+                "OnEnter": [],
+                "OnExit": [],
+                "OnAdd": [
+                    "Sec1_CreateTrigger"
+                ],
+                "Events": {
+                    "Sec1_CreateTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 101,
+                                "TagIDs": [
+                                    2070,
+                                    2071,
+                                    2072,
+                                    5002,
+                                    2004
+                                ]
+                            },	
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 102,
+                                "InteractID": 100904,
+                                "TagIDs": [
+                                    2070
+                                ],
+                                "Participators": {
+                                    "2070": "A"
+                                },
+                                "InteractShape": "Sector",
+                                "InteractScale": {
+                                    "X": 0,
+                                    "Y": 2.4,
+                                    "Z": 2,
+                                    "W": 150,
+                                    "R": 10
+                                }   
+                            },
+                            {
+                                "$type": "Share.CActionForceRefreshCfg",
+                                "ID": 103,
+                                "IsMask": false
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

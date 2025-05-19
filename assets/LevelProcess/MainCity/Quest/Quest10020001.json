@@ -1,0 +1,204 @@
+{
+    "ID": 10020001,
+    "Sections": {
+        "2": {
+            "SectionProgress": {
+                "ID": 10020001,
+                "OnBeforeEnter": [
+                    "Sec1_SetPlayerPosTrigger"
+                ],
+                "OnEnter": [
+                    "Sec1_DefaultTrigger"
+                ],
+                "Events": {
+                    "Sec1_SetPlayerPosTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                           {
+                               "$type": "Share.CActionChangeBackSceneInfoCfg",
+                               "ID": 101,
+                               "SectionID": 2,
+                               //"OpenUI": "None",
+                               "Transform": "Workshop_PlayerPos_Quest10020001",
+                               "CameraY": 6000,// must * 10000
+                               "CameraX": 0
+                           },
+                           {
+                               "$type": "Share.CActionSetMainCityTime",
+                               "ID": 102,
+                               "TimePeriod": "Morning"
+                           }
+                        ]
+                    },
+                    "Sec1_DefaultTrigger": {
+                        "ID": 200,
+                        "Actions": [
+                            //创建妮可
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 201,
+                                "TagID": 2000
+                            },
+                            //工作室妹妹
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 202,
+                                "TagID": 2051,
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2011
+                                    }
+                                ]
+                            },
+                            //工作室哥哥
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 203,
+                                "TagID": 2052,
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2021
+                                    }
+                                ]
+                            },
+                            //妹妹头顶气泡
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 205,
+                                "InteractID": 19900030,
+                                "TagIDs": [
+                                    2000                           
+                                ],
+                                "Participators": {
+                                    "2000": "A",
+                                    "2051": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2011
+                                    }
+                                ]   
+                            },
+                            //哥哥头顶气泡  
+
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 206,
+                                "InteractID": 19900030,
+                                "TagIDs": [
+                                    2000
+                                ],
+                                "Participators": {
+                                    "2000": "A",
+                                    "2052": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2021
+                                    }
+                                ]                                  
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 207,
+                                "InteractID": 19900006,
+                                "TagIDs": [
+                                    3,
+                                    4
+                                ],
+                                "Participators": {
+                                    "0": ""
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },
+                            // {
+                            //     "$type": "Share.CActionChangeInteractCfg",
+                            //     "ID": 208,
+                            //     "InteractID": 19900061,
+                            //     "TagIDs": [
+                            //         1001
+                            //     ],
+                            //     "Participators": {
+                            //         "0": ""
+                            //     },
+                            //     "InteractShape": "Sphere",
+                            //     "InteractScale": {
+                            //         "X": 2,
+                            //         "Y": 0,
+                            //         "Z": 0
+                            //     }
+                            // },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 209,
+                                "InteractID": 19900062,
+                                "TagIDs": [
+                                    1002
+                                ],
+                                "Participators": {
+                                    "0": ""
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },
+                            {
+                                "$type": "Share.CActionForceRefreshCfg",
+                                "ID": 210,
+                                "IsMask": false
+                            }, 
+                            //妮可状态机修改
+                            // {
+                            //     "$type": "Share.CActionAnimCtrlerParam",
+                            //     "ID": 209,
+                            //     "Target": 2000,
+                            //     "ParamType": "Int",
+                            //     "ParamName": "Int_MainCityAnimParam",
+                            //     "IntVal": 1
+                            // },                    
+                            //演出
+                            {
+                                "$type": "Share.CActionPerformCfg",
+                                "ID": 211,
+                                "PerformID": 2000006,
+                                "BlackMask": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,153 @@
+{
+    "ID": 10020007,
+    "Sections": {
+        "1": {
+            "SectionProgress": {
+                "ID": 100200071,
+                "OnAdd": ["Street_CreateTrigger"],
+                "Events": {
+                    "Street_CreateTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 204,
+                                "TagID": 2019
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 101,
+                                "InteractID": 20000002,
+                                "TagIDs": [
+                                    2019
+                                ],
+                                "Participators": {
+                                    "2019": "A"
+                                },
+                                "InteractShape": "Sector",
+                                "InteractScale": {
+                                    "X": 0,
+                                    "Y": 2.4,
+                                    "Z": 2,
+                                    "W": 150,
+                                    "R": 10
+                                }   
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "2": {
+            "SectionProgress": {
+                "ID": 100200072,
+                "OnAdd": [
+                    "Sec1_DefaultTrigger"
+                ],
+                "Events": {
+                    "Sec1_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 101,
+                                "InteractID": 10001028,
+                                "TagIDs": [
+                                    2256
+                                ],
+                                "Participators": {
+                                    "2256": "A",
+                                    "2011": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2011
+                                    }
+                                ]   
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 102,
+                                "InteractID": 10001028,
+                                "TagIDs": [
+                                    2257
+                                ],
+                                "Participators": {
+                                    "2257": "A",
+                                    "2011": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2021
+                                    }
+                                ]
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 209,
+                                "InteractID": 10000009,
+                                "TagIDs": [
+                                    1002
+                                ],
+                                "Participators": {
+                                    "0": ""
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },
+                            {
+                                 "$type": "Share.CActionCreateNPCCfg",
+                                 "ID": 206,
+                                 "TagID": 520001
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 210,
+                                "TagID": 90330301
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 211,
+                                "InteractID": 100860,
+                                "TagIDs": [
+                                    90330301
+                                ],
+                                "Participators": {
+                                    "90330301": "B"
+                                },
+                                "InteractShape": "Sector",
+                                "InteractScale": {
+                                    "X": 1.2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }   
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

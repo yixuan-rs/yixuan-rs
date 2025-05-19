@@ -1,0 +1,42 @@
+{
+    "ID": 10020074,
+    "Sections": {
+        "2": {
+            "SectionProgress": {
+                "ID": 100200741,
+                "OnAdd": [
+                    "Sec1_DefaultTrigger"
+                ],
+                "Events": {
+                    "Sec1_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 201,
+                                "InteractID": 19900062,
+                                "TagIDs": [
+                                    1002
+                                ],
+                                "Participators": {
+                                    "0": ""
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },
+                            {
+                                 "$type": "Share.CActionCreateNPCCfg",
+                                 "ID": 206,
+                                 "TagID": 520001
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,69 @@
+{
+    "ID": 10020028,
+    "Sections": {
+        "2": {
+            "SectionProgress": {
+                "ID": 100200281,
+                // CUSTOM!
+                "OnAdd": ["WorkShop_OnAdd_CreateDebugNPC"],
+                "OnEnter": ["WorkShop_OnEnter_CreateDebugNPC"],
+                "Events": {
+                    "WorkShop_OnAdd_CreateDebugNPC": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 103,
+                                "TagID": 90330301
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 104,
+                                "InteractID": 100860,
+                                "TagIDs": [
+                                    90330301
+                                ],
+                                "Participators": {
+                                    "90330301": "B"
+                                },
+                                "InteractShape": "Sector",
+                                "InteractScale": {
+                                    "X": 1.2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }   
+                            }
+                        ]
+                    },
+                    "WorkShop_OnEnter_CreateDebugNPC": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 101,
+                                "TagID": 90330301
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 102,
+                                "InteractID": 100860,
+                                "TagIDs": [
+                                    90330301
+                                ],
+                                "Participators": {
+                                    "90330301": "B"
+                                },
+                                "InteractShape": "Sector",
+                                "InteractScale": {
+                                    "X": 1.2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }   
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+table AvatarSkinBaseTemplate {
+	id: uint;
+	server_only_0: int;
+	DLFHPHCLIBA: string;
+	NFIEGMLEEFE: string;
+	avatar_id: uint;
+	server_only_1: int;
+	server_only_2: int;
+	server_only_3: int;
+	GMBBOEGOEPH: string;
+	HMIOIBHJGCM: [string];
+	server_only_4: int;
+	OEMHKAENMHN: int;
+	FGJJELBGBBC: string;
+	FKBJLMBAPDI: int;
+	server_only_5: int;
+	server_only_6: int;
+	server_only_7: int;
+	server_only_8: int;
+	server_only_9: int;
+	DIGLJDFKAMN: string;
+	BKFKIDCLHKL: int;
+	FHJDONJMNKP: string;
+	AHHLKMJEEAE: string;
+	HPMCPJGPKJB: int;
+}
+
+table AvatarSkinBaseTemplateTb {
+        data: [AvatarSkinBaseTemplate];
+}

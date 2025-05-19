@@ -1,0 +1,10 @@
+table HollowChallengeTemplate {
+    id: uint;
+    hollow_quest_id: uint;
+    unk_1: bool;
+    unk_2: bool;
+}
+
+table HollowChallengeTemplateTb {
+    data: [HollowChallengeTemplate];
+}

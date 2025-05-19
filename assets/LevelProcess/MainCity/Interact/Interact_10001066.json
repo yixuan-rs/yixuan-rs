@@ -1,0 +1,23 @@
+{
+    "ID": 10001066,
+    "Specials": {
+        "Firsttalk": 1
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionOpenUI",
+                    "ID": 10,
+                    "UI": "UINewsStandPageController",
+                    "StoreTemplateID": 1061
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 11
+                }
+            ]
+        }
+    }
+}

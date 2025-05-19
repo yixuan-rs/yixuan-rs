@@ -1,0 +1,30 @@
+table QuestConfigTemplate {
+        quest_id: uint;
+        quest_name: string;
+        quest_type: int;
+        desc: string;
+        target_desc: string;
+        quest_desc: string;
+        icon: string;
+        auto_finish: bool;
+        sub_quests: [int];
+        unk_0: [int];
+        unk_1: int;
+        unlock_condition: string;
+        finish_condition: string;
+        reward_id: uint;
+        unk_3: int;
+        unk_4: int;
+        unk_5: string;
+        unk_6: [string];
+        unk_7: string;
+        unk_8: [string];
+        unk_9: [int];
+        unk_10: int;
+        unk_11: int;
+        preorder_quest_ids: [uint];
+}
+
+table QuestConfigTemplateTb {
+        data: [QuestConfigTemplate];
+}

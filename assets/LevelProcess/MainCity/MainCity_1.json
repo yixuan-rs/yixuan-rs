@@ -1,0 +1,233 @@
+{
+    "ID": 1,
+    "DefaultSectionID": 2,
+    "Sections": {
+        "1": {
+            "UnityScenePath": "MainCity_Street",
+            "BornTransform": "Street_PlayerPos_Default",
+            "SectionProgress": {
+                "ID": 100,
+                "OnAdd": [
+                    "Sec1_DefaultTrigger",
+                    "Sec1_DefaultTrigger2"
+                ],
+                "OnEnter": [],
+                "Events": {
+                    "Sec1_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            //主城默认传送-Street2Workshop
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 101,
+                                "TagID": 1
+                            },
+                            //主城默认传送-Street2Garage
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 102,
+                                "TagID": 2
+                            },
+                            //主城默认传送-Street2Garage2
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 103,
+                                "TagID": 7
+                            }                            
+                        ]
+                    },
+                    "Sec1_DefaultTrigger2": {
+                        "ID": 200,
+                        "Actions": [
+                            //主城打开锻造店
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 201,
+                                "TagID": 1003
+                            },
+                            //邦布三人组
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 202,
+                                "TagID": 2016
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 203,
+                                "TagID": 2017
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 204,
+                                "TagID": 2018
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "2": {
+            "UnityScenePath": "MainCity_Workshop",
+            "BornTransform": "Workshop_PlayerPos_Default",
+            "SectionProgress": {
+                "ID": 200,
+                "OnAdd": [
+                    "Sec2_DefaultTrigger",
+                    "Sec2_DefaultTrigger2"
+                ],
+                "OnEnter": [
+                    "Sec2_EnterTrigger1"
+                ],
+                "Events": {
+                    "Sec2_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            //主城默认传送-Workshop2Street
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 103,
+                                "TagID": 3
+                            },
+                            //主城默认传送-Workshop2Garage
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 104,
+                                "TagID": 4
+                            }
+                        ]
+                    },
+                    "Sec2_DefaultTrigger2": {
+                        "ID": 200,
+                        "Actions": [
+                            //主城打开空洞
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 201,
+                                "TagID": 1002
+                            },
+                            //测试用扭蛋
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 203,
+                                "TagID": 1004
+                            },
+                           //主城打开工作台
+                           {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 204,
+                                "TagID": 1005
+                           },
+                           //录像店邦布
+                           {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 205,
+                                "TagID": 2028
+                           },
+                           {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 206,
+                                "TagID": 520001
+                           }
+                        ]
+                    },
+                    "Sec2_EnterTrigger1": {
+                        "ID": 300,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionSetMainCityObjectState",
+                                "ID": 301,
+                                "ObjectState": {
+                                    "999": 10007,
+                                    "1000": 10001,
+                                    "1001": 10003,
+                                    "1003": 10013,
+                                    "1004": 10014,
+                                    "1005": 10027,
+                                    "1006": 10015,
+                                    "1007": 10016,
+                                    "1008": 10017,
+                                    "1009": 10018,
+                                    "1010": 10019,
+                                    "1011": 10020,
+                                    "1012": 10021,
+                                    "1013": 10022,
+                                    "1014": 10023,
+                                    "1015": 10024,
+                                    "1016": 10025,
+                                    "1017": 10026,
+                                    "1018": 10028,
+                                    "1019": 10029,
+                                    "1020": 10030,
+                                    "1021": 10031,
+                                    "1022": 10032,
+                                    "1023": 10033,
+                                    "1024": 10034,
+                                    "1025": 10035,
+                                    "1026": 10036,
+                                    "1027": 10037,
+                                    "1028": 10038,
+                                    "1029": 10039,
+                                    "1101": 11001,
+                                    "1201": 12001,
+                                    "1301": 13001,
+                                    "1302": 13002,
+                                    "1303": 13003,
+                                    "1304": 13004,
+                                    "1305": 13005
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "3": {
+            "UnityScenePath": "MainCity_Street",
+            "BornTransform": "Garage_PlayerPos_Default",
+            "SectionProgress": {
+                "ID": 300,
+                "OnAdd": [
+                    "Sec3_DefaultTrigger"
+                ],
+                "OnEnter": [],
+                "Events": {
+                    "Sec3_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            //主城默认传送-Garage2Street
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 101,
+                                "TagID": 5
+                            },
+                            //主城默认传送-Garage2Workshop
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 102,
+                                "TagID": 6
+                            },
+                            //主城默认传送-Garage2Workshop2
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 103,
+                                "TagID": 8
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 104,
+                                "TagIDs": [
+                                    5016,
+                                    5017,
+                                    5018,
+                                    5019,
+                                    5020
+                                ]
+                            }                         
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
+

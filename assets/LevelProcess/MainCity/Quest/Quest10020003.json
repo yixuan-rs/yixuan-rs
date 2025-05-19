@@ -1,0 +1,186 @@
+{
+    "ID": 10020003,
+    "Sections": {
+        "2": {
+            "SectionProgress": {
+                "ID": 100200031,
+                "OnBeforeEnter": [
+                ],
+                "OnEnter": [
+                        "Sec1_DefaultTrigger"
+                ],
+                "OnExit": [
+                ],
+                "OnAdd": [
+                ],
+                "Events": {
+                   "Sec1_DefaultTrigger": {
+                        "ID": 101,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 202,
+                                "TagID": 200001,
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2011
+                                    }
+                                ]
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 203,
+                                "TagID": 200002,
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2021
+                                    }
+                                ]
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 205,
+                                "InteractID": 10001001,
+                                "TagIDs": [
+                                    200001
+                                ],
+                                "Participators": {
+                                    "200001": "A"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2011
+                                    }
+                                ]   
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 206,
+                                "InteractID": 10001001,
+                                "TagIDs": [
+                                    200002
+                                ],
+                                "Participators": {
+                                    "200002": "A"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2021
+                                    }
+                                ]                                  
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 207,
+                                "InteractID": 19900006,
+                                "TagIDs": [
+                                    3,
+                                    4
+                                ],
+                                "Participators": {
+                                    "0": ""
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },
+                            {
+                                 "$type": "Share.CActionCreateNPCCfg",
+                                 "ID": 206,
+                                 "TagID": 520001
+                            }
+                        ]
+                   }
+                }
+            }
+        },
+        "3": {
+            "SectionProgress": {
+                "ID": 100200032,
+                "OnBeforeEnter": [
+                ],
+                "OnEnter": [
+                    "Sec1_DefaultTrigger"
+                ],
+                "OnExit": [
+                ],
+                "OnAdd": [
+                    "Sec1_CreateTrigger"
+                ],
+                "Events": {
+                    "Sec1_CreateTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionDownloadFullResourceCfg",
+                                "ID": 101
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 109,
+                                "InteractID": 19900055,
+                                "TagIDs": [
+                                    2001
+                                ],
+                                "Participators": {
+                                    "2001": "A"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 110,
+                                "InteractID": 19900049,
+                                "TagIDs": [
+                                    2002
+                                ],
+                                "Participators": {
+                                    "2002": "A",
+                                    "2003": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

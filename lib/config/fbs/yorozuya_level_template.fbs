@@ -1,0 +1,16 @@
+table YorozuyaLevelTemplate {
+        level: uint;
+        experience: uint;
+        reward_id: uint;
+        unk_1: int;
+        unk_2: string;
+        unk_3: string;
+        unk_4: string;
+        unk_5: string;
+        unk_6: string;
+        unk_7: string;
+}
+
+table YorozuyaLevelTemplateTb {
+        data: [YorozuyaLevelTemplate];
+}

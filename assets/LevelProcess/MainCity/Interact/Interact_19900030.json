@@ -1,0 +1,48 @@
+{
+    //主城任务与诺查对话
+    "ID": 19900030,
+    "Specials": {
+        "Radius": 7000
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionPerformCfg",
+                    "ID": 101,
+                    // "BlackMaskFadeOut": true,
+                    "PerformID": 1000002,
+                    "Participators": { "2000": "A" }
+                },
+                {
+                    "$type": "Share.CActionSetQuestPhaseCfg",
+                    "ID": 103,
+                    "TargetPhase": "Finished",
+                    //Unlocked InProgress Finished
+                    "QuestID": 10020001
+                }
+            ]
+        },
+        "OnStart": {
+            "ID": 200,
+            "Actions": [
+                {
+                    "$type": "Share.CActionPerformCfg",
+                    "ID": 201,
+                    "PerformID": 40005
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 202
+                }
+            ]
+        }
+    },
+    "Predicates": [
+        {
+            "$type": "Share.CConfigEventByCharacterType",
+            "Type": "1"
+        }
+    ] 
+}

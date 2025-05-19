@@ -1,0 +1,19 @@
+table WeaponStarTemplate {
+	rarity: uint;
+	star: uint;
+	min_level: uint;
+	max_level: uint;
+	star_rate: uint;
+	rand_rate: uint;
+	unk_6: int;
+	unk_7: int;
+	unk_8: int;
+	unk_9: int;
+	unk_10: int;
+	unk_11: int;
+	unk_12: int;
+}
+
+table WeaponStarTemplateTb {
+        data: [WeaponStarTemplate];
+}

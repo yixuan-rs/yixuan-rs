@@ -1,0 +1,18 @@
+struct RewardConfig {
+        item_id: uint;
+        amount: uint;
+        unk_1: int;
+}
+
+table OnceRewardTemplate {
+        reward_id: uint;
+        unk_1: int;
+        unk_2: int;
+        unk_3: [int];
+        unk_4: [int];
+        reward_list: [RewardConfig];
+}
+
+table OnceRewardTemplateTb {
+        data: [OnceRewardTemplate];
+}

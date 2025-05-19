@@ -1,0 +1,18 @@
+table AvatarBaseTemplate {
+	id: uint;
+	code_name: string;
+	name: string;
+	full_name: string;
+	audio_event_replace_param: string;
+	audio_bank: string;
+	hit_types: [int];
+	element_types: [int];
+	unk_1: int;
+	gender: uint;
+	camp: uint;
+	unk_2: [string];
+}
+
+table AvatarBaseTemplateTb {
+	data: [AvatarBaseTemplate];
+}

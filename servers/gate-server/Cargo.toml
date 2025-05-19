@@ -1,0 +1,21 @@
+[package]
+name = "vivian-gate-server"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+tokio.workspace = true
+
+const_format.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+paste.workspace = true
+
+scc.workspace = true
+rand.workspace = true
+tracing.workspace = true
+
+common.workspace = true
+vivian-proto.workspace = true
+vivian-encryption.workspace = true
+vivian-service.workspace = true

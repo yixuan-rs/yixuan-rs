@@ -1,0 +1,31 @@
+struct RefineCost {
+	item_id: uint;
+	number: int;
+}
+
+table AvatarLevelAdvanceTemplate {
+	avatar_id: uint;
+	id: uint;
+	min_level: uint;
+	max_level: uint;
+	hp_max: int;
+	unk_5: int;
+	unk_6: int;
+	attack: int;
+	defence: int;
+	unk_9: int;
+	unk_10: int;
+	unk_11: int;
+	unk_12: int;
+	unk_13: int;
+	unk_14: int;
+	unk_15: int;
+	unk_16: int;
+	unk_17: int;
+	unk_18: [int];
+	promotion_costs: [RefineCost];
+}
+
+table AvatarLevelAdvanceTemplateTb {
+        data: [AvatarLevelAdvanceTemplate];
+}

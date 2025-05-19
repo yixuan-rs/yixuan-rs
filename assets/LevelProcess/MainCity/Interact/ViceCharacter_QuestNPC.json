@@ -1,0 +1,29 @@
+{
+    //副主角交互-任务NPC
+    "ID": 20000002,
+    "Specials": {
+		"Radius": 2000
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionPerformCfg",
+                    "ID": 101,
+                    "PerformID": 3019021
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 103
+                }
+            ]
+        }
+    },
+    "Predicates": [
+        {
+            "$type": "Share.CConfigEventByCharacterType",
+            "Type": "2"
+        }
+    ]
+}

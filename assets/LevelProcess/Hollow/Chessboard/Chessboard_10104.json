@@ -1,0 +1,70 @@
+// Experimental 'Debug Menu' chessboard
+{
+    "ID": 10104,
+    "DefaultPlayerPos": { "X": 0, "Y": 0 },
+    "DefaultSectionIndex": 0,
+    "Sections": [
+        {
+          "Grids": [
+            {
+              "Position": {
+                "X": 0,
+                "Y": 0
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "Travelled",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 1,
+                "Y": 0
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes",
+                "ShowEventType",
+                "ShowEventId"
+              ]
+            }
+          ],
+          "Events": [
+            {
+              "OwnedBy": { "$type": "Share.CEventOwnerGlobal" },
+              "EventID": 1003,
+              "Priority": 1000
+            },
+            {
+                "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 1,
+                  "Y": 0
+                }
+              },
+              "EventID": 1010408,
+              "Priority": 1000
+            }
+          ]
+        }
+    ]
+}

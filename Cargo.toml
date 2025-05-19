@@ -1,0 +1,57 @@
+[workspace]
+members = ["lib/*", "servers/*"]
+resolver = "2"
+
+[workspace.package]
+version = "0.0.1"
+
+[workspace.dependencies]
+tokio = { version = "1.44.2", features = ["full"] }
+tokio-util = "0.7.15"
+axum = "0.8.3"
+ureq = { version = "3.0.11", features = ["json"] }
+sqlx = { version = "0.8.5", features = ["postgres", "runtime-tokio-rustls"] }
+
+const_format = "0.2.34"
+thiserror = "2.0"
+scc = "2.3.3"
+num_enum = "0.7.3"
+itertools = "0.14"
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json5 = "0.2.1"
+toml = "0.8"
+
+rsa = { version = "0.9.8", features = ["sha2"] }
+rand = "0.8.5" # locked on 0.8 due to RSA crate issues
+base64-simd = "0.8.0"
+rand_mt = "5.0.0"
+xxhash-rust = { version = "0.8.15", features = ["const_xxh64"] }
+
+# Protobuf
+prost = "0.13.5"
+prost-types = "0.13.5"
+prost-build = "0.13.5"
+
+# Flatbuffers
+flatbuffers = "25.2.10"
+flatc-rust = "0.2.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Code Generation
+proc-macro2 = "1.0"
+syn = "2.0"
+prettyplease = "0.2"
+paste = "1.0"
+quote = "1.0"
+
+common = { path = "lib/common" }
+config = { path = "lib/config" }
+vivian-codegen = { path = "lib/codegen" }
+vivian-proto = { path = "lib/proto" }
+vivian-logic = { path = "lib/logic" }
+vivian-encryption = { path = "lib/encryption" }
+vivian-service = { path = "lib/service" }

@@ -1,0 +1,1517 @@
+{
+    "ID": 10002,
+    "DefaultPlayerPos": { "X": 0, "Y": 5 },
+    "DefaultSectionIndex": 0,
+    "Sections": [
+        {
+          "Grids": [
+            {
+              "Position": {
+                "X": 21,
+                "Y": 7
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Up",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 23,
+                "Y": 7
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 18,
+                "Y": 3
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 23,
+                "Y": 6
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 18,
+                "Y": 2
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "Core",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 10,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 23,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 18,
+                "Y": 1
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 7,
+                "Y": 5
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 15,
+                "Y": 2
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 20,
+                "Y": 6
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 4,
+                "Y": 6
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Up",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 17,
+                "Y": 7
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Up",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 21,
+                "Y": 2
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 13,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 18,
+                "Y": 6
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "Core",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 5,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 22,
+                "Y": 7
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right"
+              ],
+              "GridFlags": [
+                "Core",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 9,
+                "Y": 6
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Up",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 17,
+                "Y": 3
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Up",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 12,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 20,
+                "Y": 2
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 14,
+                "Y": 5
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 22,
+                "Y": 2
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 6,
+                "Y": 7
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 15,
+                "Y": 4
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Up",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 7,
+                "Y": 7
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 22,
+                "Y": 4
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Up",
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 8,
+                "Y": 7
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 0,
+                "Y": 5
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "Travelled",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 22,
+                "Y": 5
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 18,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 5,
+                "Y": 7
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 17,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 4,
+                "Y": 7
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Up",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 3,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 22,
+                "Y": 3
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Up",
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 1,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 21,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 9,
+                "Y": 7
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Up"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 19,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 15,
+                "Y": 5
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 15,
+                "Y": 3
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Up",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 2,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 19,
+                "Y": 6
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 6,
+                "Y": 5
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 19,
+                "Y": 3
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 19,
+                "Y": 2
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 11,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 17,
+                "Y": 6
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Up",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 4,
+                "Y": 5
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 18,
+                "Y": 7
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 21,
+                "Y": 6
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 16,
+                "Y": 2
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 8,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 19,
+                "Y": 7
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 9,
+                "Y": 5
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "Visible",
+              "GridLinks": [
+                "Left",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanMove",
+                "CanTriggerEvent",
+                "Visible",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 17,
+                "Y": 2
+              },
+              "NodeState": "Locked",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 22,
+                "Y": 6
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Left",
+                "Up",
+                "Right",
+                "Down"
+              ],
+              "GridFlags": [
+                "Core",
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            },
+            {
+              "Position": {
+                "X": 18,
+                "Y": 4
+              },
+              "NodeState": "ShowEvent",
+              "NodeVisible": "VisibleByTriggerEvent",
+              "GridLinks": [
+                "Up",
+                "Down"
+              ],
+              "GridFlags": [
+                "ShowEventType",
+                "ShowEventId",
+                "CanTriggerEvent",
+                "VisibleByTriggerEvent",
+                "CanTriggerMultiTimes"
+              ]
+            }
+          ],
+          "Events": [
+            {
+              "OwnedBy": { "$type": "Share.CEventOwnerGlobal" },
+              "EventID": 1003,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 23,
+                  "Y": 6
+                }
+              },
+              "EventID": 50002,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 18,
+                  "Y": 2
+                }
+              },
+              "EventID": 30004,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 18,
+                  "Y": 1
+                }
+              },
+              "EventID": 1000209,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 7,
+                  "Y": 5
+                }
+              },
+              "EventID": 60002,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 20,
+                  "Y": 6
+                }
+              },
+              "EventID": 1097,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 4,
+                  "Y": 6
+                }
+              },
+              "EventID": 1098,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 21,
+                  "Y": 2
+                }
+              },
+              "EventID": 1096,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 18,
+                  "Y": 6
+                }
+              },
+              "EventID": 30005,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 22,
+                  "Y": 7
+                }
+              },
+              "EventID": 30006,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 9,
+                  "Y": 6
+                }
+              },
+              "EventID": 1065,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 20,
+                  "Y": 2
+                }
+              },
+              "EventID": 1096,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 14,
+                  "Y": 5
+                }
+              },
+              "EventID": 1000233,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 22,
+                  "Y": 2
+                }
+              },
+              "EventID": 1096,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 6,
+                  "Y": 7
+                }
+              },
+              "EventID": 1062,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 7,
+                  "Y": 7
+                }
+              },
+              "EventID": 1062,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 22,
+                  "Y": 4
+                }
+              },
+              "EventID": 1064,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 8,
+                  "Y": 7
+                }
+              },
+              "EventID": 1070,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 0,
+                  "Y": 5
+                }
+              },
+              "EventID": 1000211,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 22,
+                  "Y": 5
+                }
+              },
+              "EventID": 1000234,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 5,
+                  "Y": 7
+                }
+              },
+              "EventID": 1066,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 4,
+                  "Y": 7
+                }
+              },
+              "EventID": 1098,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 22,
+                  "Y": 3
+                }
+              },
+              "EventID": 1064,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 9,
+                  "Y": 7
+                }
+              },
+              "EventID": 1070,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 15,
+                  "Y": 5
+                }
+              },
+              "EventID": 60003,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 19,
+                  "Y": 6
+                }
+              },
+              "EventID": 1025,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 6,
+                  "Y": 5
+                }
+              },
+              "EventID": 1013,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 19,
+                  "Y": 3
+                }
+              },
+              "EventID": 1000232,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 17,
+                  "Y": 6
+                }
+              },
+              "EventID": 1025,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 4,
+                  "Y": 5
+                }
+              },
+              "EventID": 1000231,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 18,
+                  "Y": 7
+                }
+              },
+              "EventID": 1000232,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 21,
+                  "Y": 6
+                }
+              },
+              "EventID": 1025,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 22,
+                  "Y": 6
+                }
+              },
+              "EventID": 1000223,
+              "Priority": 1000
+            },
+            {
+              "OwnedBy": {
+                "$type": "Share.CEventOwnerGrid",
+                "Position": {
+                  "X": 18,
+                  "Y": 4
+                }
+              },
+              "EventID": 1098,
+              "Priority": 1000
+            }
+          ]
+        }
+    ]
+}

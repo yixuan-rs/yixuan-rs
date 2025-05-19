@@ -1,0 +1,32 @@
+{
+    //主城默认传送-Garage2Street2
+    "ID": 10000017,
+    "Specials": {
+        "Radius": 2000
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionSwitchSection",
+                    "ID": 101,
+                    "SectionID": 1,
+                    "Transform": "Street_PlayerPos_FromGarage2",
+                    "CameraY": 6000,// must * 10000
+                    "CameraX": 0
+                },
+                // {
+                //     "$type": "Share.CActionChangeCameraCfg",
+                //     "ID": 103,
+                //     "CameraY": 50,// must * 10000
+                //     "CameraX": 180
+                // },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 102
+                }
+            ]
+        }
+    }
+}

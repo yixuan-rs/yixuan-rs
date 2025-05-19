@@ -1,0 +1,156 @@
+{
+    "ID": 10020032,
+    "Sections": {
+        "1": {
+            "SectionProgress": {
+                "ID": 100200321,
+                "OnBeforeEnter": [],
+                "OnEnter": [],
+                "OnExit": [],
+                "OnAdd": [
+                    "Sec1_CreateTrigger"
+                ],
+                "Events": {
+                    "Sec1_CreateTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 101,
+                                "InteractID": 20000002,
+                                "TagIDs": [
+                                    2070
+                                ],
+                                "Participators": {
+                                    "2070": "A"
+                                },
+                                "InteractShape": "Sector",
+                                "InteractScale": {
+                                    "X": 0,
+                                    "Y": 2.4,
+                                    "Z": 2,
+                                    "W": 150,
+                                    "R": 10
+                                }   
+                            },
+                            {
+                                "$type": "Share.CActionForceRefreshCfg",
+                                "ID": 103,
+                                "IsMask": false
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "2": {
+            "SectionProgress": {
+                "ID": 100200322,
+                "OnEnter": [
+                    "Sec2_EnterTrigger"
+                ],
+                "Events": {
+                    "Sec2_EnterTrigger": {
+                        "ID": 200,
+                        "Actions": [
+                            // Lock H.D.D.
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 201,
+                                "InteractID": 19900062,
+                                "TagIDs": [
+                                    1002
+                                ],
+                                "Participators": {
+                                    "0": ""
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 202,
+                                "TagID": 2256,
+                                "Predicates": [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2011
+                                    }
+                                ]
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 203,
+                                "TagID": 2257,
+                                "Predicates": [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2021
+                                    }
+                                ]
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 205,
+                                "InteractID": 10001005,
+                                "TagIDs": [
+                                    2256
+                                ],
+                                "Participators": {
+                                    "2256": "A",
+                                    "2011": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2011
+                                    }
+                                ]   
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 205,
+                                "InteractID": 10001005,
+                                "TagIDs": [
+                                    2257
+                                ],
+                                "Participators": {
+                                    "2257": "A",
+                                    "2011": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2021
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

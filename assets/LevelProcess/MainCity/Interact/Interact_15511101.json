@@ -1,0 +1,21 @@
+{
+    "ID": 15511101,
+    "Specials": {
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionPerformCfg",
+                    "ID": 101,
+                    "PerformID": 30051117
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 102
+                }
+            ]
+        }
+    }
+}

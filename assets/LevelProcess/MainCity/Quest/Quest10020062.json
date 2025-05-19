@@ -1,0 +1,82 @@
+{
+    "ID": 10020062,
+    "Sections": {
+        "1": {
+            "SectionProgress": {
+                "ID": 100200621,
+                "OnAdd": [
+                    "Sec1_CreateTrigger"
+                ],
+                "Events": {
+                    "Sec1_CreateTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 101,
+                                "TagID": 10021
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 102,
+                                "TagID": 20281
+                            },
+                            // Anbi, Billy
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 103,
+                                "TagIDs": [2071, 2072]
+                            },
+                            // Newsstand
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 111,
+                                "TagID": 2099
+                            },
+                            // RamenStore
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 114,
+                                "TagID": 2070
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 115,
+                                "TagID": 500023
+                            },
+                            // Newsstand interact
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 151,
+                                "InteractID": 10001066,
+                                "TagIDs": [2099],
+                                "Participators": {
+                                    "2099": "A"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 0,
+                                    "Y": 2.4,
+                                    "Z": 2.0
+                                }
+                            },
+                            {
+                                "$type": "Share.CActionPerformCfg",
+                                "ID": 198,
+                                "PerformID": 50000001,
+                                "NpcID": 10021
+                            },
+                            {
+                                "$type": "Share.CActionSetQuestPhaseCfg",
+                                "ID": 199,
+                                "TargetPhase": "Finished",
+                                //Unlocked InProgress Finished
+                                "QuestID": 10020062
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

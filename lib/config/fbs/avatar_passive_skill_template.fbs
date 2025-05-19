@@ -1,0 +1,31 @@
+struct RefineCost {
+	item_id: uint;
+	number: int;
+}
+
+struct Property {
+	property: uint;
+	value: int;
+}
+
+table AvatarPassiveSkillTemplate {
+	skill_id: int;
+	avatar_id: uint;
+	min_avatar_level: uint;
+	min_passive_skill_level: uint;
+	unlock_passive_skill_level: uint;
+	unk_5: int;
+	unk_levelup: string;
+	unk_7: int;
+	unk_8: int;
+	unk_9: int;
+	unk_10: int;
+	propertys: [Property];
+	names: [string];
+	descriptions: [string];
+	materials_costs: [RefineCost];
+}
+
+table AvatarPassiveSkillTemplateTb {
+        data: [AvatarPassiveSkillTemplate];
+}

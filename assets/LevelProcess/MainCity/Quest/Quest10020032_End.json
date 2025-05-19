@@ -1,0 +1,25 @@
+{
+    "ID": 100200321,
+    "Sections": {
+        "2": {
+            "SectionProgress": {
+                "ID": 1002003211,
+                "OnAdd": [
+                    "Sec1_DefaultTrigger"
+                ],
+                "OnExit": [],
+                "Events": {
+                    "Sec1_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionRemoveMainCityQuestInteractCfg",
+                                "ID": 101
+                            }                      
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

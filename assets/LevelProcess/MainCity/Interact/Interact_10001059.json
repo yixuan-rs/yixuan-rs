@@ -1,0 +1,32 @@
+{
+    "ID": 10001059,
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionPerformCfg",
+                    "ID": 101,
+                    "PerformID": 60000008,
+                    "PerformID2": 10000002,
+                    "AvatarID": 1011,
+                    "NpcID": 10046,
+                    "Participators": { "2103": "A" }
+                },
+                {
+                    "$type": "Share.CActionSetQuestPhaseCfg",
+                    "ID": 102,
+                    "TargetPhase": "Finished",
+                    //Unlocked InProgress Finished
+                    "QuestID": 10020044
+                }
+            ]
+        }
+    },
+    "Predicates": [
+        {
+            "$type": "Share.CConfigEventByCharacterType",
+            "Type": "1"
+        }
+    ] 
+}

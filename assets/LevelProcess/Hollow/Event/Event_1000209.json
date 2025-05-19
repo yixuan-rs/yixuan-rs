@@ -1,0 +1,127 @@
+{
+    "ID": 1000209,
+    "Events": {
+        "OnStart": {
+            "ID": 10002091,
+            "Actions": [
+                {
+                    "$type": "Share.CConfigPushWithDirection",
+                    "ID": 101,
+                    "Direction": 1,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigShowTip",
+                    "ID": 102,
+                    "TipID": 100020042,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigOpenDialog",
+                    "ID": 1,
+                    "OpenEvent": true,
+                    "CameraMove": true,
+                    "UnkOpenDialog": true,
+                    "OpenParam": {
+                        "UnkOpenDialogFlag1": true,
+                        "StartTextureSheet": "30122",
+                        "UnkOpenDialogFlag2": false,
+                        "LoopTextureSheet": "30123",
+                        "EndTextureSheet": "30124",
+                        "UnkOpenDialogFlag3": true
+                    },
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 1
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 4,
+                    "Title": "CommonEvent_LeaveTips_Title",
+                    "Description": "CommonEvent_LeaveTips_Description",
+                    "QuestionDescription": "CommonEvent_LeaveTips_QuestionDescription",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "CommonEvent_LeaveTips_Option1Text1",
+                            "OptionID": "107",
+                            "OptionText2": "CommonEvent_LeaveTips_Option1Text2",
+                            "ChoiceID": 8,
+                            "UID": 1
+                        },
+                        {
+                            "OptionText": "CommonEvent_LeaveTips_Option2Text1",
+                            "OptionID": "108",
+                            "OptionText2": "",
+                            "ChoiceID": 10,
+                            "UID": 2
+                        }
+                    ],
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 1
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigCloseDialog",
+                    "ID": 5,
+                    "CameraMove": true,
+                    "NeedResetCenter": true,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 1
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigFinishHollow",
+                    "ID": 6,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 1
+                        },
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

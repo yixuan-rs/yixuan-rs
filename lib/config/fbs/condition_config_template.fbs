@@ -1,0 +1,13 @@
+table ConditionConfigTemplate {
+	condition_id: int;
+	args: string;
+	commentary: string;
+	unk_2: [int];
+	statis_type: uint;
+	target_num: uint;
+	type: int;
+}
+
+table ConditionConfigTemplateTb {
+        data: [ConditionConfigTemplate];
+}

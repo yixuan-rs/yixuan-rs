@@ -1,0 +1,16 @@
+table EquipmentTemplate {
+	item_id: uint;
+	equipment_type: uint;
+	suit_type: uint;
+	disk_icon_path: string;
+	drawing_path: string;
+	front_label_texture_path: string;
+	back_label_texture_path: string;
+	disk_texture_path: string;
+	play_music_tag: string;
+	pause_music_tag: string;
+}
+
+table EquipmentTemplateTb {
+        data: [EquipmentTemplate];
+}

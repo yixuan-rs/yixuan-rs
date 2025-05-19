@@ -1,0 +1,105 @@
+{
+    "ID": 1000234,
+    "Events": {
+        "OnStart": {
+            "ID": 10002341,
+            "Actions": [
+                {
+                    "$type": "Share.CConfigCameraMoveV2",
+                    "ID": 1,
+                    "StretchKey": "TargetSlow",
+                    "Type": "CustomBound",
+                    "PositionOffsetType": "Relative",
+                    "PositionOffsetX": "",
+                    "PositionOffsetY": "",
+                    "RadiusX": "",
+                    "RadiusY": "",
+                    "BoundIndexX": { "X": 20, "Y": 2 },
+                    "BoundIndexY": { "X": 22, "Y": 4 },
+                    "FreezeZ": true,
+                    "Parallel": true
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 2,
+                    "WaitTime": 1
+                },
+                {
+                    "$type": "Share.CConfigSetMapState",
+                    "ID": 3,
+                    "X": 22,
+                    "Y": 2,
+                    "Position": "Absolute",
+                    "Radius": 0,
+                    "Count": 1,
+                    "FromVisibleState": ["VisibleByTriggerEvent"],
+                    "ToVisibleState": ["Visible"]
+                },
+                {
+                    "$type": "Share.CConfigSetMapState",
+                    "ID": 4,
+                    "X": 22,
+                    "Y": 4,
+                    "Position": "Absolute",
+                    "Radius": 0,
+                    "Count": 1,
+                    "FromVisibleState": ["VisibleByTriggerEvent"],
+                    "ToVisibleState": ["Visible"]
+                },
+                {
+                    "$type": "Share.CConfigSetMapState",
+                    "ID": 5,
+                    "X": 22,
+                    "Y": 3,
+                    "Position": "Absolute",
+                    "Radius": 0,
+                    "Count": 1,
+                    "FromVisibleState": ["VisibleByTriggerEvent"],
+                    "ToVisibleState": ["Visible"]
+                },
+                {
+                    "$type": "Share.CConfigSetMapState",
+                    "ID": 6,
+                    "X": 21,
+                    "Y": 2,
+                    "Position": "Absolute",
+                    "Radius": 0,
+                    "Count": 1,
+                    "FromVisibleState": ["VisibleByTriggerEvent"],
+                    "ToVisibleState": ["Visible"]
+                },
+                {
+                    "$type": "Share.CConfigSetMapState",
+                    "ID": 7,
+                    "X": 20,
+                    "Y": 2,
+                    "Position": "Absolute",
+                    "Radius": 0,
+                    "Count": 1,
+                    "FromVisibleState": ["VisibleByTriggerEvent"],
+                    "ToVisibleState": ["Visible"]
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 8,
+                    "WaitTime": 1
+                },
+                {
+                    "$type": "Share.CConfigCameraMoveV2",
+                    "ID": 9,
+                    "StretchKey": "Back",
+                    "Type": "Back",
+                    "PositionOffsetType": "Relative",
+                    "PositionOffsetX": "",
+                    "PositionOffsetY": "",
+                    "RadiusX": "",
+                    "RadiusY": "",
+                    "BoundIndexX": { "X": -32768, "Y": -32768 },
+                    "BoundIndexY": { "X": -32768, "Y": -32768 },
+                    "FreezeZ": false,
+                    "Parallel": false
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "ID": 10001028,
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionPerformCfg",
+                    "ID": 101,
+                    "PerformID": 3000037,
+                    "Participators": { "2256": "A", "2011": "B" },
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByMainCharacter",
+                            "CompareType": "Equal",
+                            "AvatarID":2011
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CActionPerformCfg",
+                    "ID": 102,
+                    "PerformID": 3000037,
+                    "Participators": { "2257": "A", "2011": "B" },
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByMainCharacter",
+                            "CompareType": "Equal",
+                            "AvatarID":2021
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 103
+                }
+            ]
+        }
+    }
+}

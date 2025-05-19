@@ -1,0 +1,21 @@
+[package]
+name = "vivian-dbgate-server"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+tokio.workspace = true
+sqlx.workspace = true
+ureq.workspace = true
+
+const_format.workspace = true
+serde.workspace = true
+serde_json5.workspace = true
+thiserror.workspace = true
+
+rand.workspace = true
+tracing.workspace = true
+
+common.workspace = true
+vivian-proto.workspace = true
+vivian-service.workspace = true

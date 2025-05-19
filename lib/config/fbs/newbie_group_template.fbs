@@ -1,0 +1,9 @@
+table NewbieGroupTemplate {
+        id: int;
+        unk_1: int;
+        trigger_condition: string;
+}
+
+table NewbieGroupTemplateTb {
+        data: [NewbieGroupTemplate];
+}

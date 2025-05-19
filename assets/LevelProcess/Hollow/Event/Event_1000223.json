@@ -1,0 +1,221 @@
+{
+    "ID": 1000223,
+    "Events": {
+        // Grab the W-Engine
+        "OnStart": {
+            "ID": 10002231,
+            "Actions": [
+                // Subsequent event triggers (after getting weapon)
+                {
+                    "$type": "Share.CConfigOpenDialog",
+                    "ID": 101,
+                    "OpenEvent": true,
+                    "CameraMove": true,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 1
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigLogText",
+                    "ID": 102,
+                    "Messages": ["AutoEvent1000224_1"],
+                    "Voicelines": [],
+                    "LogTitle": "AutoEvent1000224_0",
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 1
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigCloseDialog",
+                    "ID": 103,
+                    "CameraMove": true,
+                    "NeedResetCenter": true,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 1
+                        }
+                    ]
+                },
+                // First-time event trigger
+                {
+                    "$type": "Share.CConfigOpenDialog",
+                    "ID": 1,
+                    "OpenEvent": true,
+                    "CameraMove": true,
+                    "UnkOpenDialog": true,
+                    "OpenParam": {
+                        "UnkOpenDialogFlag1": true,
+                        "StartTextureSheet": "30122",
+                        "UnkOpenDialogFlag2": false,
+                        "LoopTextureSheet": "30123",
+                        "EndTextureSheet": "30124",
+                        "UnkOpenDialogFlag3": true
+                    },
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigLogText",
+                    "ID": 2,
+                    "Messages": [
+                        "AutoEvent1000223_0",
+                        "AutoEvent1000223_1"
+                    ],
+                    "LogTitle": "AutoEvent1000211_3",
+                    "Voicelines": [
+                        "VO_Chessboard/VO_AI/Chessboard_Chapter0_SRL1_AI_07",
+                        "VO_Chessboard/VO_AI/Chessboard_Chapter0_SRL1_AI_08"
+                    ],
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigBreakDialogAnim",
+                    "ID": 3,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 4,
+                    "Title": "AutoEvent1000223_2",
+                    "Description": "AutoEvent1000223_3",
+                    "QuestionDescription": "AutoEvent1000223_4",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "AutoEvent1000223_5",
+                            "OptionID": "111",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1
+                        }
+                    ],
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigCloseDialog",
+                    "ID": 5,
+                    "CameraMove": true,
+                    "NeedResetCenter": true,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigPlayAnim",
+                    "ID": 6,
+                    "AnimID": 20009,
+                    "Indexes": [],
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigShowTip",
+                    "ID": 7,
+                    "TipID": 100020038,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigWaitTipsEnd",
+                    "ID": 8,
+                    "TipsID": [100020037, 100020038],
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigShowTip",
+                    "ID": 9,
+                    "TipID": 100020040,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByHollowVariable",
+                            "Key": "GetWeapon",
+                            "CompareType": "Equal",
+                            "Count": 0
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigSetHollowVariable",
+                    "ID": 10,
+                    "Key": "GetWeapon",
+                    "Value": 1
+                }
+            ]
+        }
+    }
+}

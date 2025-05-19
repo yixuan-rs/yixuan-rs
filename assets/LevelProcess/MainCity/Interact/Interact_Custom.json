@@ -1,0 +1,19 @@
+{
+    "ID": 100860,
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 101
+                },
+                {
+                    "$type": "Share.CActionEnterHollowQuest",
+                    "ID": 102,
+                    "HollowID": 10010104
+                }
+            ]
+        }
+    }
+}

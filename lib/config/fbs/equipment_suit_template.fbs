@@ -1,0 +1,40 @@
+struct Property {
+	property: uint;
+	value: int;
+}
+
+table EquipmentSuitTemplate {
+	id: uint;
+	name: string;
+	primary_condition: uint;
+	unk_3: int;
+	primary_suit_ability: uint;
+	primary_description: string;
+	secondary_condition: uint;
+	unk_7: int;
+	secondary_suit_ability: int;
+	secondary_description: string;
+	suit_icon: string;
+	suit_story: string;
+	suit_filter_option: string;
+	suit_item_icon: string;
+	unk_14: int;
+	order: int;
+	unk_16: int;
+	unk_17: int;
+	unk_18: int;
+	unk_19: int;
+	unk_20: int;
+	unk_21: int;
+	primary_suit_propertys: [Property];
+	unk_23: [int];
+	unk_24: int;
+	unk_25: [int];
+	unk_26: [int];
+	unk_27: [int];
+	tag: string;
+}
+
+table EquipmentSuitTemplateTb {
+        data: [EquipmentSuitTemplate];
+}

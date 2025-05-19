@@ -1,0 +1,18 @@
+[package]
+name = "vivian-proto"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+prost.workspace = true
+prost-types.workspace = true
+# REMOVE
+serde.workspace = true
+
+proto-derive = { path = "../proto-derive" }
+
+[build-dependencies]
+prost-build.workspace = true
+syn.workspace = true
+prettyplease.workspace = true
+

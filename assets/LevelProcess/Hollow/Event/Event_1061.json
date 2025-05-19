@@ -1,0 +1,15 @@
+{
+    "ID": 1061,
+    "Events": {
+        "OnStart": {
+            "ID": 10611,
+            "Actions": [
+                {
+                    "$type": "Share.CConfigPushWithDirection",
+                    "ID": 1,
+                    "Direction": "specials(direct)"
+                }
+            ]
+        }
+    }
+}

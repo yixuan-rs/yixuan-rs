@@ -1,0 +1,17 @@
+[package]
+name = "vivian-logic"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+tracing.workspace = true
+num_enum.workspace = true
+paste.workspace = true
+thiserror.workspace = true
+
+vivian-proto.workspace = true
+common.workspace = true
+config.workspace = true
+
+# Should only be used for testing
+hex = "0.4"

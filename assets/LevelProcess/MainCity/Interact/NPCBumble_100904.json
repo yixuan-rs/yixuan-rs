@@ -1,0 +1,34 @@
+{
+    "ID": 100904,
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionPerformCfg",
+                    "ID": 101,
+                    "PerformID": 3000004,
+                    "Participators": {}
+                },
+                {
+                    "$type": "Share.CConfigUnlockHollowQuest",
+                    "ID": 102,
+                    "QuestID": 10010003
+                },
+                {
+                    "$type": "Share.CActionSetQuestPhaseCfg",
+                    "ID": 103,
+                    "TargetPhase": "Finished",
+                    //Unlocked InProgress Finished
+                    "QuestID": 10020006
+                }
+            ]
+        }
+    },
+    "Predicates": [
+        {
+            "$type": "Share.CConfigEventByCharacterType",
+            "Type": "1"
+        }
+    ] 
+}

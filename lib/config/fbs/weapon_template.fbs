@@ -1,0 +1,43 @@
+struct RefineCost {
+	item_id: uint;
+	number: int;
+}
+
+struct Property {
+	property: uint;
+	value: int;
+}
+
+table WeaponTemplate {
+	item_id: uint;
+	weapon_name: string;
+	unk_missing_field: int;
+	base_property: Property;
+	rand_property: Property;
+	star_limit: uint;
+	exp_recycle: int;
+	weapon_script_config: string;
+	weapon_ui_model: string;
+	unk_1: int;
+	unk_missing_field_2: int;
+	unk_weapon_path: string;
+	unk_missing_field_3: int;
+	refine_initial: uint;
+	refine_limit: uint;
+	unk_missing_field_4: int;
+	unk_missing_field_5: int;
+	unk_string_with_values: string;
+	unk_missing_field_6: int;
+	unk_2: int;
+	weapon_desc: string;
+	weapon_release_tag: string;
+	unk_empty_string: string;
+	avatar_id: uint;
+	weapon_comment: string;
+	refine_costs: [RefineCost];
+	unk_3: int;
+}
+
+table WeaponTemplateTb {
+        data: [WeaponTemplate];
+}

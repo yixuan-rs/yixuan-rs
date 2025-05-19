@@ -1,0 +1,4 @@
+[services]
+gate = { addr = "127.0.0.1:10501", uid = 1 }
+dbgate = { addr = "127.0.0.1:10502", uid = 2 }
+game = { addr = "127.0.0.1:10503", uid = 3 }

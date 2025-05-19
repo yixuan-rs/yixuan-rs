@@ -1,0 +1,106 @@
+enum HollowQuestType: int {
+        AbyssS2_HobaPrefac = 26,
+        NormalBattle = 10,
+        MainQuest = 1,
+        AbyssS2_Period = 20,
+        DifficutyBattle = 12,
+        AbyssS2_RoleChallenge = 22,
+        SideQuest = 2,
+        Common = 0,
+        EnumCount = 27,
+        Urgent = 3,
+        TheGun = 18,
+        AbyssS2_Story = 19,
+        NestVeryHard = 15,
+        Arpeggio = 17,
+        Challenge = 5,
+        DreamEndLess = 24,
+        AvatarSide = 7,
+        BossRushBattle = 14,
+        RallyBattle = 13,
+        ChallengeChaos = 6,
+        PromoteBattle = 11,
+        World = 8,
+        HackerActivity = 16,
+        AbyssS2_Event = 25,
+        DreamNormal = 23,
+        MainQuestChessboard = 21,
+        UrgentSupplement = 4
+}
+
+table HollowQuestTemplate {
+	id: uint;
+	unk_1: int;
+	chessboard_id: uint;
+	unk_2: int;
+	hollow_id: uint;
+	hollow_quest_type: HollowQuestType;
+	unk_3: int;
+	duration: string;
+	has_stamina: string;
+	environments: [string];
+	main_difficulty: string;
+	difficulties: [string];
+	recommended_elements: [string];
+	client: string;
+	unk_4: int;
+	unk_5: bool;
+	unk_6: int;
+	scale: int;
+	show_tip: int;
+	monster_level: int;
+	recommended_level: int;
+	average_level_tips: int;
+	recommended_hit_types: [int];
+	unk_7: [int];
+	unk_8: bool;
+	unk_9: bool;
+	unk_10: string;
+	unk_11: int;
+	unk_12: bool;
+	unk_13: int;
+	slot_1_avatar: int;
+	slot_2_avatar: int;
+	slot_3_avatar: int;
+	unk_14: int;
+	unk_15: bool;
+	unk_16: bool;
+	unk_17: int;
+	preview_res_group_id: int;
+	chessboard_res_group_id: int;
+	bgm_chapter_state: string;
+	unk_18: int;
+	unk_19: string; 
+	unk_20: int; 
+	unk_21: [int]; 
+	unk_22: int; 
+	unk_23: int; 
+	unk_24: int; 
+	unk_25: bool; 
+	unk_26: int; 
+	title: string; 
+	difficulty: string; 
+	target: string;
+	unk_27: [string];
+	unk_28: int;
+	unk_29: int; 
+	unk_30: bool;
+	unk_31: int; 
+	unk_32: bool;
+	unk_33: int;
+	hollow_item_ban_lists: [int];
+	unk_34: bool;
+	enemy_types: [string];
+	background: string;
+	unk_35: int;
+	unk_36: [int];
+	unk_37: [int];
+	unk_38: int;
+	unk_39: int;
+	unk_40: int;
+	unk_41: int;
+}
+
+table HollowQuestTemplateTb {
+        data: [HollowQuestTemplate];
+}

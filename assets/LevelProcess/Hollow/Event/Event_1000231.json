@@ -1,0 +1,227 @@
+{
+    "ID": 1000231,
+    "Events": {
+        "OnStart": {
+            "ID": 10002311,
+            "Actions": [
+                {
+                    "$type": "Share.CConfigCameraStretch",
+                    "ID": 3,
+                    "ShakeKey": "Shake_Standard_Light_LV3",
+                    "Type": "TriggerPosition",
+                    "Parallel": true
+                },
+                {
+                    "$type": "Share.CConfigPlayAnim",
+                    "ID": 4,
+                    "AnimID": 21033,
+                    "Indexes": [ { "X": 4, "Y": 5 } ]
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 6,
+                    "WaitTime": 0.1
+                },
+                {
+                    "$type": "Share.CConfigCameraMoveV2",
+                    "ID": 7,
+                    "StretchKey": "TargetSlow",
+                    "Type": "CustomBound",
+                    "PositionOffsetType": "Relative",
+                    "PositionOffsetX": "",
+                    "PositionOffsetY": "",
+                    "RadiusX": "",
+                    "RadiusY": "",
+                    "BoundIndexX": { "X": 4, "Y": 5 },
+                    "BoundIndexY": { "X": 9, "Y": 7 },
+                    "FreezeZ": false,
+                    "Parallel": true
+                },
+                {
+                    "$type": "Share.CConfigCameraStretch",
+                    "ID": 8,
+                    "ShakeKey": "Shake_Standard_Light_LV3",
+                    "Type": "TriggerPosition",
+                    "Parallel": true
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 7,
+                    "WaitTime": 0.5
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 10,
+                    "X": 0,
+                    "Y": 1,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1065],
+                    "EventState": "ShowEvent",
+                    "VisibleState": "Visible"
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 11,
+                    "WaitTime": 0.1
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 12,
+                    "X": 0,
+                    "Y": 2,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1067],
+                    "EventState": "ShowEvent",
+                    "VisibleState": "Visible"
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 13,
+                    "WaitTime": 0.1
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 14,
+                    "X": 1,
+                    "Y": 2,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1067],
+                    "EventState": "ShowEvent",
+                    "VisibleState": "Visible"
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 15,
+                    "WaitTime": 0.1
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 16,
+                    "X": 2,
+                    "Y": 2,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1067],
+                    "EventState": "ShowEvent",
+                    "VisibleState": "Visible"
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 15,
+                    "WaitTime": 0.1
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 16,
+                    "X": 3,
+                    "Y": 2,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1067],
+                    "EventState": "ShowEvent",
+                    "VisibleState": "Visible"
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 17,
+                    "WaitTime": 0.1
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 18,
+                    "X": 4,
+                    "Y": 2,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1067],
+                    "EventState": "ShowEvent",
+                    "VisibleState": "Visible"
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 19,
+                    "WaitTime": 0.1
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 20,
+                    "X": 5,
+                    "Y": 2,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1072],
+                    "EventState": "ShowEvent",
+                    "VisibleState": "Visible"
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 21,
+                    "WaitTime": 0.1
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 22,
+                    "X": 5,
+                    "Y": 1,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1072],
+                    "EventState": "ShowEvent",
+                    "VisibleState": "Visible"
+                },
+                {
+                    "$type": "Share.CConfigShowTip",
+                    "ID": 114,
+                    "TipID": 100020004
+                },
+                {
+                    "$type": "Share.CConfigCameraMoveV2",
+                    "ID": 111,
+                    "StretchKey": "Back",
+                    "Type": "Back",
+                    "PositionOffsetType": "Relative",
+                    "PositionOffsetX": "",
+                    "PositionOffsetY": "",
+                    "RadiusX": "",
+                    "RadiusY": "",
+                    "BoundIndexX": { "X": -32768, "Y": -32768 },
+                    "BoundIndexY": { "X": -32768, "Y": -32768 },
+                    "FreezeZ": false,
+                    "Parallel": false
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 200,
+                    "X": 0,
+                    "Y": 0,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1000231],
+                    "EventState": "ShowEvent",
+                    "VisibleState": "Visible"
+                }
+            ]
+        }
+    }
+}

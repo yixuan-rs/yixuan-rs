@@ -1,0 +1,39 @@
+table Time {
+        hour: int;
+        minute: int;
+}
+
+table MainCityQuestTemplate {
+        id: uint;
+        quest_name: string;
+        type: int;
+        show_finish_tip: int;
+        unk_2: string;
+        unk_3: bool;
+        quest_desc: string;
+        unk_5: string;
+        start_time: Time;
+        unk_6: int;
+        unk_7: int;
+        group: int;
+        priority: int;
+        auto_distribution: bool;
+        script_exec_type: int;
+        unk_8: [int];
+        quest_begin_script: int;
+        quest_end_script: int;
+        quest_end_action_type: int;
+        action_arg_1: string;
+        action_arg_2: string;
+        action_arg_3: string;
+        action_arg_4: string;
+        unk_9: bool;
+        unk_10: bool;
+        npcs: [int];
+        areas: [int];
+        unk_11: [int];
+}
+
+table MainCityQuestTemplateTb {
+        data: [MainCityQuestTemplate];
+}

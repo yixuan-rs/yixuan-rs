@@ -1,0 +1,13 @@
+table SectionConfigTemplate {
+	section_id: uint;
+	section_photo: string;
+	name: string;
+	born_transform: string;
+	alternative_born_transform: string;
+	unk_3: int;
+	section_name: string;
+}
+
+table SectionConfigTemplateTb {
+        data: [SectionConfigTemplate];
+}

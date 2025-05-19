@@ -1,0 +1,24 @@
+table HollowEventTemplate {
+    id: uint;
+    unlock_condition: string;
+    unk_1: [string];
+    type: uint;
+    can_trigger_times: int;
+    pre_icon_res: string;
+    interact_icon_texture_sheet_id: int;
+    icon_texture_sheet_id: int;
+    target_id: uint;
+    param_1: string;
+    param_2: string;
+    param_3: string;
+    param_4: string;
+    param_5: string;
+    param_6: string;
+    param_exts: [string];
+    unk_3: int;
+    unk_4: int;
+}
+
+table HollowEventTemplateTb {
+    data: [HollowEventTemplate];
+}

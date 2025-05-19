@@ -1,0 +1,51 @@
+{
+    //主城气泡交互测试
+    "ID": 19900062,
+    "Specials": {
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionShowTip",
+                    "ID": 101,
+                    "TipID": 999200027,
+                    "ShowPage": 1,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByMainCharacter",
+                            "CompareType": "Equal",
+                            "AvatarID":2011
+                        }
+                    ]                              
+                },
+                {
+                    "$type": "Share.CActionShowTip",
+                    "ID": 103,
+                    "TipID": 999200127,
+                    "ShowPage": 1,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByMainCharacter",
+                            "CompareType": "Equal",
+                            "AvatarID":2021
+                        }
+                    ]                             
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 102
+                }
+            ]
+        }
+    }
+    // "Predicates": [
+    //     {
+    //         "$type": "Share.CConfigEventByCharacterType",
+    //         "Type": "1"
+    //     }
+    // ]     
+}

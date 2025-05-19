@@ -1,0 +1,31 @@
+table UnlockConfigTemplate {
+	id: int;
+	unk_1: string;
+	unk_2: [int];
+	unk_3: int;
+	unk_4: int;
+	unk_5: int;
+	unk_6: string;
+	unk_7: int;
+	unk_8: string;
+	icon_res: string;
+	unk_9: int;
+	name: string;
+	unk_10: string;
+	unk_11: int;
+	unk_12: int;
+	unk_13: bool;
+	unk_14: int;
+	unk_15: string;
+	unk_16: int;
+	unk_17: string;
+	unk_18: int;
+	unk_19: int;
+	unk_20: string;
+	unk_21: int;
+	unk_22: string;
+}
+
+table UnlockConfigTemplateTb {
+	data: [UnlockConfigTemplate];
+}

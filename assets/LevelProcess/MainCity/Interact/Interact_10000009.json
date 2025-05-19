@@ -1,0 +1,24 @@
+{
+    //主城打开空洞
+    "ID": 10000009,
+    "Specials": {
+        "Radius": 2000
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionOpenUI",
+                    "ID": 101,
+                    "UI": "UIYorozuyaPage",
+                    "StoreTemplateID": 1161
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 102
+                }
+            ]
+        }
+    }
+}

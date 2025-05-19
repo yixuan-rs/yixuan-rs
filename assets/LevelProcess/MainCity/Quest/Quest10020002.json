@@ -1,0 +1,212 @@
+{
+    "ID": 10020002,
+    "Sections": {
+        "2": {
+            "SectionProgress": {
+                "ID": 10020002,
+                "OnBeforeEnter": [
+                    // "Sec1_SetPlayerPosTrigger"
+                ],
+                "OnAdd": [
+                    "Sec1_DefaultTrigger"
+                ],
+                "Events": {
+                    "Sec1_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                             //工作室妹妹
+                             {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 101,
+                                "TagID": 2051,
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2011
+                                    }
+                                ]
+                            },
+                            //工作室哥哥
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 102,
+                                "TagID": 2052,
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2021
+                                    }
+                                ]
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 108,
+                                "TagID": 2000
+                            },                            
+                            //修改交互
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 103,
+                                "InteractID": 19900006,
+                                "TagIDs": [
+                                    3,
+                                    4
+                                ],
+                                "Participators": {
+                                    "0": ""
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },                          
+                            // {
+                            //     "$type": "Share.CActionChangeInteractCfg",
+                            //     "ID": 105,
+                            //     "InteractID": 19900061,
+                            //     "TagIDs": [
+                            //         1001
+                            //     ],
+                            //     "Participators": {
+                            //         "0": ""
+                            //     },
+                            //     "InteractShape": "Sphere",
+                            //     "InteractScale": {
+                            //         "X": 2,
+                            //         "Y": 0,
+                            //         "Z": 0
+                            //     }
+                            // },
+
+                            //妹妹头顶气泡
+
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 106,
+                                "InteractID": 19900037,
+                                "TagIDs": [
+                                    2000
+                                ],
+                                "Participators": {
+                                    "2000": "A",
+                                    "2051": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2011
+                                    }
+                                ]                                  
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 107,
+                                "InteractID": 19900037,
+                                "TagIDs": [
+                                    2000
+                                ],
+                                "Participators": {
+                                    "2000": "A",
+                                    "2052": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                },
+                                "Predicates": 
+                                [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID":2021
+                                    }
+                                ]                                  
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 109,
+                                "InteractID": 19900054,
+                                "TagIDs": [
+                                    2000                           
+                                ],
+                                "Participators": {
+                                    "2000": "A"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                } 
+                            } ,
+                           // {
+                           //     "$type": "Share.CActionForceRefreshCfg",
+                           //     "IsMask": false
+                           // }
+                            // {
+                            //     "$type": "Share.CActionCreateNPCCfg",
+                            //     "ID": 106,
+                            //     "TagID": 2000
+                            // },
+                            // {
+                            //     "$type": "Share.CActionChangeInteractCfg",
+                            //     "ID": 107,
+                            //     "InteractID": 19900009,
+                            //     "TagIDs": [
+                            //         2000
+                            //     ],
+                            //     "Participators": {
+                            //         "2000": "A"
+                            //     },
+                            //     "InteractShape": "Sphere",
+                            //     "InteractScale": {
+                            //         "X": 5,
+                            //         "Y": 0,
+                            //         "Z": 5
+                            //     }
+                            // }
+                            // {
+                            //     "$type": "Share.CActionEnterHollowQuest",
+                            //     "ID": 108,
+                            //     "HollowID": 10010001,
+                            //     "CloseBlackMask": true
+                            // }                        
+                        ]
+                    },
+                    "Sec1_SetPlayerPosTrigger": {
+                        "ID": 200,
+                        "Actions": [
+                           // {
+                           //     "$type": "Share.CActionChangeBackSceneInfoCfg",
+                           //     "ID": 201,
+                           //     "SectionID": 2,
+                           //     "OpenUI": "None",
+                           //     "Transform": "Workshop_PlayerPos_Quest10020001"
+                           // },
+                            {
+                                "$type": "Share.CActionResetEventCfg",
+                                "ID": 202
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

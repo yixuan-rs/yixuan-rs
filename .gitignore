@@ -1,0 +1,6 @@
+# Rust build directory
+target/
+/lib/proto/cs_proto/
+
+# Server configuration directory
+/config/

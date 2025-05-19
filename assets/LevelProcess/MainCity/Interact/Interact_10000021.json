@@ -1,0 +1,22 @@
+{
+    "ID": 10000021,
+    "Specials": {
+        "Radius": 2000
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionShowTeleportUI",
+                    "ID": 101,
+                    "BlackMask": true
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 102
+                }
+            ]
+        }
+    }
+}

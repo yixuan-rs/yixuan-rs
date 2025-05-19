@@ -1,0 +1,18 @@
+table HollowConfigTemplate {
+	id: uint;
+	hollow_group: uint;
+	name: string;
+	unlock_condition: string;
+	lock_hint: string;
+	pic_res: string;
+	model_res: string;
+	locked_color: string;
+	unlocked_color: string;
+	unk_1: bool;
+	unk_2: string;
+	unk_3: string;
+}
+
+table HollowConfigTemplateTb {
+        data: [HollowConfigTemplate];
+}

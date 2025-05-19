@@ -1,0 +1,152 @@
+{
+    "ID": 10020064,
+    "Sections": {
+        "2": {
+            "SectionProgress": {
+                "ID": 100200641,
+                "OnBeforeEnter": [
+                    "Sec1_PreloadTrigger"
+                ],
+                "OnEnter": [
+                ],
+                "OnExit": [
+                ],
+                "OnAdd": [
+                ],
+                "Events": {
+                    "Sec1_PreloadTrigger": {
+                        "ID": 300,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionChangeBackSceneInfoCfg",
+                                "ID": 301,
+                                "SectionID": 3,
+                                "OpenUI": "None",
+                                "Transform": "Garage_PlayerPos_Quest10020003"
+                            },
+                            {
+                                "$type": "Share.CActionResetEventCfg",
+                                "ID": 302
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "3": {
+            "SectionProgress": {
+                "ID": 100200642,
+                "OnBeforeEnter": [
+                ],
+                "OnEnter": [
+                    "Sec1_DefaultTrigger"
+                ],
+                "OnExit": [
+                ],
+                "OnAdd": [
+                ],
+                "Events": {
+                    "Sec1_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionSetBGM",
+                                "ID": 101,
+                                "MainCityMusicID": 1005
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 103,
+                                "TagID": 2001
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 104,
+                                "TagID": 2002
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 105,
+                                "TagID": 2003
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 108,
+                                "TagID": 5001
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 109,
+                                "InteractID": 19900044,
+                                "TagIDs": [
+                                    2001
+                                ],
+                                "Participators": {
+                                    "2001": "A"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 110,
+                                "InteractID": 19900049,
+                                "TagIDs": [
+                                    2002
+                                ],
+                                "Participators": {
+                                    "2002": "A",
+                                    "2003": "B"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }
+                            },
+                            {
+                                "$type": "Share.CActionForceRefreshCfg",
+                                "ID": 106,
+                                "IsMask": false
+                            },                             
+			                {
+                                "$type": "Share.CActionPerformCfg",
+                                "ID": 107,
+                                "PerformID": 1000005,
+                                "BlackMask": true
+                            },
+                            {
+                                "$type": "Share.CActionTriggerInteractCfg",
+                                "ID": 108,
+                                "TagID": 2001,
+                                "InteractID": 19900044
+                            },
+                           // {
+                           //     "$type": "Share.CActionChangeInteractCfg",
+                           //     "ID": 111,
+                           //     "InteractID": 19900055,
+                           //     "TagIDs": [
+                           //         2001
+                           //     ],
+                           //     "Participators": {
+                           //         "2001": "A"
+                           //     },
+                           //     "InteractShape": "Sphere",
+                           //     "InteractScale": {
+                           //         "X": 2,
+                           //         "Y": 0,
+                           //         "Z": 0
+                           //     }                                                                 
+                           // },
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

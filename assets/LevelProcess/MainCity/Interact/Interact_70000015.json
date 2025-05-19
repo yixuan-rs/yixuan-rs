@@ -1,0 +1,23 @@
+{
+    "ID": 70000015,
+    "Specials": {
+        "Radius": 2000,
+        "RandomState": 0
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionPerformCfg",
+                    "ID": 101,
+                    "PerformID": 3013163
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 102
+                }
+            ]
+        }
+    }
+}

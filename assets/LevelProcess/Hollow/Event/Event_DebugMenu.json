@@ -1,0 +1,958 @@
+{
+    "ID": 1010408,
+    "Events": {
+        "OnStart": {
+            "ID": 10104081,
+            "Actions": [
+                {
+                    "$type": "Share.CConfigOpenDialog",
+                    "ID": 1,
+                    "OpenEvent": true,
+                    "CameraMove": true,
+                    "UnkOpenDialog": true,
+                    "OpenParam": {
+                        "UnkOpenDialogFlag1": true,
+                        "StartTextureSheet": "30122",
+                        "UnkOpenDialogFlag2": false,
+                        "LoopTextureSheet": "30123",
+                        "EndTextureSheet": "30124",
+                        "UnkOpenDialogFlag3": true
+                    }
+                },
+                {
+                    "$type": "Share.CConfigLogText",
+                    "ID": 2,
+                    "Messages": [
+                        "Welcome to vivian-rs Debug Menu!"
+                    ],
+                    "LogTitle": "Debug Menu",
+                    "Voicelines": []
+                },
+                {
+                    "$type": "Share.CConfigBreakDialogAnim",
+                    "ID": 3
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 4,
+                    "Title": "Debug Menu",
+                    "Description": "Welcome to vivian-rs Debug Menu!",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Unlock a character...",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1
+                        },
+                        {
+                            "OptionText": "Return to the city",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 5555
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigFinishHollow",
+                    "ID": 5,
+                    "Predicates": 
+                    [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 5555
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 1000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Anby",
+                            "OptionID": "1011",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1011
+                        },
+                        {
+                            "OptionText": "Nekomata",
+                            "OptionID": "1021",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1021
+                        },
+                        {
+                            "OptionText": "Nicole",
+                            "OptionID": "1031",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1031
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 2000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Soldier 11",
+                            "OptionID": "1041",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1041
+                        },
+                        {
+                            "OptionText": "Corin",
+                            "OptionID": "1061",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1061
+                        },
+                        {
+                            "OptionText": "Caesar",
+                            "OptionID": "1071",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1071
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 3000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Billy",
+                            "OptionID": "1081",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1081
+                        },
+                        {
+                            "OptionText": "Miyabi",
+                            "OptionID": "1091",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1091
+                        },
+                        {
+                            "OptionText": "Koleda",
+                            "OptionID": "1101",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1101
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 4000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Anton",
+                            "OptionID": "1111",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1111
+                        },
+                        {
+                            "OptionText": "Ben",
+                            "OptionID": "1121",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1121
+                        },
+                        {
+                            "OptionText": "Soukaku",
+                            "OptionID": "1131",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1131
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 5000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Lycaon",
+                            "OptionID": "1141",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1141
+                        },
+                        {
+                            "OptionText": "Lucy",
+                            "OptionID": "1151",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1151
+                        },
+                        {
+                            "OptionText": "Lighter",
+                            "OptionID": "1161",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1161
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 6000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Burnice",
+                            "OptionID": "1171",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1171
+                        },
+                        {
+                            "OptionText": "Grace",
+                            "OptionID": "1181",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1181
+                        },
+                        {
+                            "OptionText": "Ellen",
+                            "OptionID": "1191",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1191
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 7000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Harumasa",
+                            "OptionID": "1201",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1201
+                        },
+                        {
+                            "OptionText": "Rina",
+                            "OptionID": "1211",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1211
+                        },
+                        {
+                            "OptionText": "Yanagi",
+                            "OptionID": "1221",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1221
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 8000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Zhu Yuan",
+                            "OptionID": "1241",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1241
+                        },
+                        {
+                            "OptionText": "Qingyi",
+                            "OptionID": "1251",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1251
+                        },
+                        {
+                            "OptionText": "Jane",
+                            "OptionID": "1261",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1261
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 9000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Seth",
+                            "OptionID": "1271",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1271
+                        },
+                        {
+                            "OptionText": "Piper",
+                            "OptionID": "1281",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1281
+                        },
+                        {
+                            "OptionText": "Astra Yao",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1311
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 10000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Evelyn",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1321
+                        },
+                        {
+                            "OptionText": "Vivian",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1331
+                        },
+                        {
+                            "OptionText": "Trigger",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1361
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 11000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Soldier 0 Anby",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1381
+                        },
+                        {
+                            "OptionText": "Pulchra",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1351
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1011,
+                    "ItemID": 1011,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1011
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1021,
+                    "ItemID": 1021,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1021
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1031,
+                    "ItemID": 1031,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1031
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1041,
+                    "ItemID": 1041,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1041
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1061,
+                    "ItemID": 1061,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1061
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1071,
+                    "ItemID": 1071,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1071
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1081,
+                    "ItemID": 1081,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1081
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1091,
+                    "ItemID": 1091,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1091
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1101,
+                    "ItemID": 1101,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1101
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1111,
+                    "ItemID": 1111,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1111
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1121,
+                    "ItemID": 1121,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1121
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1131,
+                    "ItemID": 1131,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1131
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1141,
+                    "ItemID": 1141,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1141
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1151,
+                    "ItemID": 1151,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1151
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1161,
+                    "ItemID": 1161,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1161
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1171,
+                    "ItemID": 1171,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1171
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1181,
+                    "ItemID": 1181,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1181
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1191,
+                    "ItemID": 1191,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1191
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1201,
+                    "ItemID": 1201,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1201
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1211,
+                    "ItemID": 1211,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1211
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1221,
+                    "ItemID": 1221,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1221
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1241,
+                    "ItemID": 1241,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1241
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1251,
+                    "ItemID": 1251,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1251
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1261,
+                    "ItemID": 1261,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1261
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1271,
+                    "ItemID": 1271,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1271
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1281,
+                    "ItemID": 1281,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1281
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1311,
+                    "ItemID": 1311,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1311
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1321,
+                    "ItemID": 1321,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1321
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1331,
+                    "ItemID": 1331,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1331
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1361,
+                    "ItemID": 1361,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1361
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1381,
+                    "ItemID": 1381,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1381
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1351,
+                    "ItemID": 1351,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1351
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigCloseDialog",
+                    "ID": 99998,
+                    "CameraMove": true,
+                    "NeedResetCenter": true
+                }
+            ]
+        }
+    }
+}

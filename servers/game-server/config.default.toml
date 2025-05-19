@@ -1,0 +1,7 @@
+[cluster]
+num_clusters = 1
+
+[resources]
+fileconfig_directory = "assets/Filecfg"
+level_process_directory = "assets/LevelProcess"
+usm_keys_path = "assets/usm_enc_keys.json"

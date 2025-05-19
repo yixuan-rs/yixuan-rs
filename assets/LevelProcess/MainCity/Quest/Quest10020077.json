@@ -1,0 +1,16 @@
+{
+    "ID": 10020077,
+    "Sections": {
+        "1": {
+            "SectionProgress": {
+                "ID": 100200771,
+                "OnAdd": [
+                ],
+                "OnExit": [
+                ],
+                "Events": {
+                }
+            }
+        }
+    }
+}

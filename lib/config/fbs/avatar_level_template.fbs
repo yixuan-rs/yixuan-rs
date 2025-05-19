@@ -1,0 +1,8 @@
+table AvatarLevelTemplate {
+    level: uint;
+    exp: uint;
+}
+
+table AvatarLevelTemplateTb {
+    data: [AvatarLevelTemplate];
+}

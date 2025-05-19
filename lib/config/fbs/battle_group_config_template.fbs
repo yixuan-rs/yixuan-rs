@@ -1,0 +1,18 @@
+table BattleGroupConfigTemplate {
+	id: uint;
+	quest_id: uint;
+	unk_1: int;
+	unk_2: string;
+	unk_3: int;
+	unk_4: string;
+	unk_5: string;
+	unk_6: [string];
+	battle_event_id: uint;
+	unk_8: bool;
+	unk_9: bool;
+	unk_10: [string];
+}
+
+table BattleGroupConfigTemplateTb {
+        data: [BattleGroupConfigTemplate];
+}

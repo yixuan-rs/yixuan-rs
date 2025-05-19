@@ -1,0 +1,52 @@
+{
+    "ID": 10020004,
+    "Sections": {
+        "2": {
+            "SectionProgress": {
+                "ID": 100200041,
+                "OnBeforeEnter": [],
+                "OnEnter": [],
+                "OnExit": [],
+                "OnAdd": [
+                    "Sec1_CreateTrigger"
+                ],
+                "Events": {
+                    "Sec1_CreateTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionSetMainCityTime",
+                                "ID": 201,
+                                "TimePeriod": "Afternoon"
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 202,
+                                "TagID": 200001,
+                                "Predicates": [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID": 2011
+                                    }
+                                ]
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 203,
+                                "TagID": 200002,
+                                "Predicates": [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID": 2021
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

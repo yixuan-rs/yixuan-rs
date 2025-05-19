@@ -1,0 +1,18 @@
+table TraningQuestTemplate {
+        id: uint;
+        training_type: int;
+        battle_event_id: uint;
+        special_training_name: string;
+        special_training_id: int;
+        unk_1: int;
+        unk_2: int;
+        unk_3: int;
+        unk_4: bool;
+        unk_5: bool;
+        unk_6: string;
+        unk_7: string;
+}
+
+table TraningQuestTemplateTb {
+        data: [TraningQuestTemplate];
+}

@@ -1,0 +1,100 @@
+{
+    "ID": 1000211,
+    "Specials": {
+        "PopWindowID": 20016
+    },
+    "Events": {
+        "OnStart": {
+            "ID": 0,
+            "Actions": [
+                {
+                    "$type": "Share.CConfigOpenDialog",
+                    "ID": 3,
+                    "OpenEvent": true,
+                    "CameraMove": true,
+                    "UnkOpenDialog": true,
+                    "OpenParam": {
+                        "UnkOpenDialogFlag1": true,
+                        "StartTextureSheet": "30122",
+                        "UnkOpenDialogFlag2": false,
+                        "LoopTextureSheet": "30123",
+                        "EndTextureSheet": "30124",
+                        "UnkOpenDialogFlag3": true
+                    }
+                },
+                {
+                    "$type": "Share.CConfigLogText",
+                    "ID": 4,
+                    "Messages": [
+                        "AutoEvent1000211_0",
+                        "AutoEvent1000211_1",
+                        "AutoEvent1000211_2"
+                    ],
+                    "LogTitle": "AutoEvent1000211_3",
+                    "Voicelines": [
+                        "VO_Chessboard/VO_AI/Chessboard_Chapter0_SRL1_AI_04",
+                        "VO_Chessboard/VO_AI/Chessboard_Chapter0_SRL1_AI_05",
+                        "VO_Chessboard/VO_AI/Chessboard_Chapter0_SRL1_AI_06"
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigCloseDialog",
+                    "ID": 5,
+                    "CameraMove": true,
+                    "NeedResetCenter": true
+                },
+                {
+                    "$type": "Share.CConfigCameraMoveV2",
+                    "ID": 6,
+                    "StretchKey": "TargetSlow",
+                    "Type": "CustomBound",
+                    "PositionOffsetType": "Relative",
+                    "PositionOffsetX": "",
+                    "PositionOffsetY": "",
+                    "RadiusX": "",
+                    "RadiusY": "",
+                    "BoundIndexX": { "X": 13, "Y": 4 },
+                    "BoundIndexY": { "X": 15, "Y": 6 },
+                    "FreezeZ": false,
+                    "Parallel": true
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 18,
+                    "WaitTime": 2.0
+                },
+                {
+                    "$type": "Share.CConfigShowTip",
+                    "ID": 9,
+                    "TipID": 100020032
+                },
+                {
+                    "$type": "Share.CConfigWaitSeconds",
+                    "ID": 26,
+                    "WaitTime": 2.0
+                },
+                {
+                    "$type": "Share.CConfigCameraMoveV2",
+                    "ID": 13,
+                    "StretchKey": "Back",
+                    "Type": "Back",
+                    "PositionOffsetType": "Relative",
+                    "PositionOffsetX": "",
+                    "PositionOffsetY": "",
+                    "RadiusX": "",
+                    "RadiusY": "",
+                    "BoundIndexX": { "X": -32768, "Y": -32768 },
+                    "BoundIndexY": { "X": -32768, "Y": -32768 },
+                    "FreezeZ": false,
+                    "Parallel": false
+                },
+                {
+                    "$type": "Share.CConfigShowPopWindow",
+                    "ID": 29,
+                    "PopID": 20004,
+                    "ShowDirectly": true
+                }
+            ]
+        }
+    }
+}

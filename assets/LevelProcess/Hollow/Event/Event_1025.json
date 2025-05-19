@@ -1,0 +1,36 @@
+{
+    "ID": 1025,
+    "Events": {
+        "OnStart": {
+            "ID": 10251,
+            "Actions": [
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1,
+                    "ItemID": 10,
+                    "Count": "specials(Diny)"
+                },
+                {
+                    "$type": "Share.CConfigPlayAnim",
+                    "ID": 2,
+                    "AnimID": 21050,
+                    "Indexes": [],
+                    "Looping": true
+                },
+                {
+                    "$type": "Share.CConfigEventModification",
+                    "ID": 3,
+                    "X": 0,
+                    "Y": 0,
+                    "Position": "Relative",
+                    "Radius": 1,
+                    "ModificationNum": 1,
+                    "ModificationType": 1,
+                    "EventID": [1000],
+                    "EventState": "Finished",
+                    "VisibleState": "Visible"
+                }
+            ]
+        }
+    }
+}

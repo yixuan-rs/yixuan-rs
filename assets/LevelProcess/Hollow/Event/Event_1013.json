@@ -1,0 +1,28 @@
+{
+    "ID": 1013,
+    "Specials": {
+        "HpPercentage": 10,
+        "HpRatio": 1000
+    },
+    "Events": {
+        "OnStart": {
+            "ID": 10131,
+            "Actions": [
+                // TODO: damage the squad. In chessboard 10002 this is useless though, since the squad is empty
+                // {
+                //     "$type": "Share.CConfigModifyProperty",
+                //     "ID": 1,
+                //     "Property": "Hp",
+                //     "Count": "-property(HpMax_Battle)*(specials(HpPercentage)+scenevar(TrapEnhance_1013))*0.01"
+                // },
+                {
+                    "$type": "Share.CConfigPlayAnim",
+                    "ID": 2,
+                    "AnimID": 20004,
+                    "Indexes": [],
+                    "Looping": true
+                }
+            ]
+        }
+    }
+}

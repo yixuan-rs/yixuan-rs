@@ -1,0 +1,26 @@
+{
+    //主城默认传送-Workshop2Garage
+    "ID": 10000004,
+    "Specials": {
+        "Radius": 2000
+    },
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionSwitchSection",
+                    "ID": 101,
+                    "SectionID": 3,
+                    "Transform": "Garage_PlayerPos_FromWorkshop",
+                    "CameraY": 6000,// must * 10000
+                    "CameraX": 0
+                },
+                {
+                    "$type": "Share.CActionResetEventCfg",
+                    "ID": 102
+                }
+            ]
+        }
+    }
+}

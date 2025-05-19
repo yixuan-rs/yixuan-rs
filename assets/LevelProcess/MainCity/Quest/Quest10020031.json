@@ -1,0 +1,77 @@
+{
+    "ID": 10020031,
+    "Sections": {
+        "1": {
+            "SectionProgress": {
+                "ID": 100200311,
+                "OnBeforeEnter": [],
+                "OnEnter": [
+                    "Sec1_EnterTrigger"
+                ],
+                "OnExit": [],
+                "OnAdd": [],
+                "Events": {
+                    "Sec1_EnterTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionSetBGM",
+                                "ID": 101,
+                                "MainCityMusicID": 0
+                            },
+                            {
+                                "$type": "Share.CActionSetQuestPhaseCfg",
+                                "ID": 102,
+                                "TargetPhase": "Finished",
+                                //Unlocked InProgress Finished
+                                "QuestID": 10020031
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "2": {
+            "SectionProgress": {
+                "ID": 100200312,
+                "OnBeforeEnter": [],
+                "OnEnter": [],
+                "OnExit": [],
+                "OnAdd": [
+                    "Sec2_CreateTrigger"
+                ],
+                "Events": {
+                    "Sec2_CreateTrigger": {
+                        "ID": 100,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 202,
+                                "TagID": 200001,
+                                "Predicates": [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID": 2011
+                                    }
+                                ]
+                            },
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 203,
+                                "TagID": 200002,
+                                "Predicates": [
+                                    {
+                                        "$type": "Share.CConfigEventByMainCharacter",
+                                        "CompareType": "Equal",
+                                        "AvatarID": 2021
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

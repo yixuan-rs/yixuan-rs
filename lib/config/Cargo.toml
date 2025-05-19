@@ -1,0 +1,21 @@
+[package]
+name = "config"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+flatbuffers.workspace = true
+serde.workspace = true
+serde_json5.workspace = true
+
+paste.workspace = true
+const_format.workspace = true
+xxhash-rust.workspace = true
+thiserror.workspace = true
+num_enum.workspace = true
+itertools.workspace = true
+
+vivian-codegen.workspace = true
+
+[build-dependencies]
+flatc-rust.workspace = true

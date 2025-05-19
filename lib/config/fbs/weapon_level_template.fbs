@@ -1,0 +1,10 @@
+table WeaponLevelTemplate {
+	rarity: uint;
+	level: uint;
+	rate: uint;
+	exp: uint;
+}
+
+table WeaponLevelTemplateTb {
+        data: [WeaponLevelTemplate];
+}
