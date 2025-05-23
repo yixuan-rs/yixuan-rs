@@ -37,21 +37,47 @@ impl ItemModel {
             .avatar_skin_base_template_tb()
             .for_each(|tmpl| self.item_count_map.insert(tmpl.id(), 1));
 
-        // Unlock all weapons as well
-        res.templates.weapon_template_tb().for_each(|tmpl| {
-            let uid = self.next_uid();
-            self.weapon_map.insert(
-                uid,
-                WeaponItem {
-                    id: tmpl.item_id(),
-                    level: 60,
-                    exp: 0,
-                    star: tmpl.star_limit() + 1,
-                    refine_level: tmpl.refine_limit(),
-                    lock: false,
-                },
-            );
-        });
+        let weapon_cfg = &res.gameplay.first_login.weapon;
+
+        if weapon_cfg.unlock_all {
+            res.templates.weapon_template_tb().for_each(|tmpl| {
+                let uid = self.next_uid();
+                self.weapon_map.insert(
+                    uid,
+                    WeaponItem {
+                        id: tmpl.item_id(),
+                        level: weapon_cfg.level,
+                        exp: 0,
+                        star: weapon_cfg.star,
+                        refine_level: weapon_cfg.refine_level,
+                        lock: false,
+                    },
+                );
+            });
+        } else {
+            weapon_cfg
+                .unlock_id_list
+                .iter()
+                .filter_map(|id| {
+                    res.templates
+                        .weapon_template_tb()
+                        .find(|tmpl| tmpl.item_id() == *id)
+                })
+                .for_each(|tmpl| {
+                    let uid = self.next_uid();
+                    self.weapon_map.insert(
+                        uid,
+                        WeaponItem {
+                            id: tmpl.item_id(),
+                            level: weapon_cfg.level,
+                            exp: 0,
+                            star: weapon_cfg.star,
+                            refine_level: weapon_cfg.refine_level,
+                            lock: false,
+                        },
+                    );
+                });
+        }
     }
 
     pub fn add_weapon(&mut self, template: &WeaponTemplate) -> u32 {

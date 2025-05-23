@@ -43,7 +43,7 @@ The configuration of each server is located under the `config` directory (create
 - To change gameplay-related settings, edit one of game-server configuration files, for example: gacha banner schedule is located in: `config/40-game-server/gacha_schedule.toml`
 
 ### Logging in
-Currently supported client version is `OSPRODWin1.7.0`, you can get it from 3rd party sources (e.g. game launcher). Next, you have to apply the necessary [client patch](https://git.xeondev.com/vivian-rs/vivian-patch). It allows you to connect to the local server and replaces encryption keys with custom ones.
+Currently supported client version is `CNBetaWin2.0.4`, you can get it from 3rd party sources (e.g. torrent). Next, you have to apply the necessary [client patch](https://git.xeondev.com/vivian-rs/vivian-patch/src/branch/2.0_beta). It allows you to connect to the local server and replaces encryption keys with custom ones.
 
 ### Obtaining characters without gacha
 While playing on the server, you may want to obtain the characters that are not available in current gacha schedule. In order to do so, you can use in-game debug menu: find the 'Vivian' NPC in the WorkShop location, and interact with it. It'll send you to a debug TV mode scene, where you can select the characters to obtain. (The NPC will spawn as soon as you progress in starting quests!)

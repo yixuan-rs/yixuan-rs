@@ -10,11 +10,10 @@ use vivian_logic::{
 use vivian_proto::server_only::{AvatarData, AvatarItemInfo};
 
 use crate::{
-    logic::{
+    config::FirstLoginAvatarConfig, logic::{
         property::{Property, PropertyHashMap},
         sync::{LoginDataSyncComponent, PlayerSyncComponent, SyncType},
-    },
-    resources::NapResources,
+    }, resources::NapResources
 };
 
 use super::{Model, Saveable};
@@ -28,16 +27,24 @@ pub struct AvatarModel {
 
 impl AvatarModel {
     pub fn on_first_login(&mut self, res: &NapResources) {
-        const STARTING_AVATARS: &[u32] = &[1011, 1081];
+        let cfg = &res.gameplay.first_login.avatar;
 
-        STARTING_AVATARS
-            .iter()
-            .filter_map(|id| {
-                res.templates
-                    .avatar_base_template_tb()
-                    .find(|tmpl| tmpl.id() == *id)
-            })
-            .for_each(|tmpl| self.unlock_avatar(&tmpl, None));
+        if cfg.unlock_all {
+            res
+                .templates
+                .avatar_base_template_tb()
+                .for_each(|tmpl| self.unlock_avatar(&tmpl, None, Some(cfg)));
+        } else {
+            cfg
+                .unlock_id_list
+                .iter()
+                .filter_map(|id| {
+                    res.templates
+                        .avatar_base_template_tb()
+                        .find(|tmpl| tmpl.id() == *id)
+                })
+                .for_each(|tmpl| self.unlock_avatar(&tmpl, None, Some(cfg)));
+        }
     }
 
     pub fn send_add_avatar_notify(&self, listener: &mut dyn NotifyListener) {
@@ -96,6 +103,7 @@ impl AvatarModel {
         &mut self,
         base_template: &AvatarBaseTemplate,
         perform_type: Option<vivian_proto::add_avatar_sc_notify::PerformType>,
+        first_login_cfg: Option<&FirstLoginAvatarConfig>,
     ) {
         const AVATAR_BLACKLIST: &[u32] = &[];
 
@@ -105,20 +113,28 @@ impl AvatarModel {
             && !self.avatar_map.contains_key(&avatar_id)
             && !AVATAR_BLACKLIST.contains(&avatar_id)
         {
+            let mut skill_level_map: HashMap<EAvatarSkillType, u32> = (0..EAvatarSkillType::EnumCount.into())
+                .map(|ty| EAvatarSkillType::try_from(ty).unwrap())
+                .zip([0].into_iter().cycle())
+                .collect();
+            if let Some(cfg) = first_login_cfg {
+                skill_level_map = (0..EAvatarSkillType::EnumCount.into())
+                    .map(|ty| EAvatarSkillType::try_from(ty).unwrap())
+                    .zip(cfg.skill_level_map.clone())
+                    .collect();
+            }
+
             self.avatar_map.insert(
                 avatar_id,
                 AvatarItem {
                     id: avatar_id,
-                    level: 1,
+                    level: first_login_cfg.map_or(1, |cfg| cfg.level),
                     exp: 0,
-                    rank: 1,
-                    unlocked_talent_num: 0,
-                    talent_switch: [false; 6],
-                    passive_skill_level: 0,
-                    skill_level_map: (0..EAvatarSkillType::EnumCount.into())
-                        .map(|ty| EAvatarSkillType::try_from(ty).unwrap())
-                        .zip([0].into_iter().cycle())
-                        .collect(),
+                    rank: first_login_cfg.map_or(1, |cfg| cfg.rank),
+                    unlocked_talent_num: first_login_cfg.map_or(0, |cfg| cfg.unlocked_talent_num),
+                    talent_switch: first_login_cfg.map_or([false; 6], |cfg| cfg.talent_switch.as_slice().try_into().unwrap()),
+                    passive_skill_level: first_login_cfg.map_or(0, |cfg| cfg.passive_skill_level),
+                    skill_level_map,
                     weapon_uid: 0,
                     dressed_equip_map: HashMap::new(),
                     first_get_time: time_util::unix_timestamp_seconds(),

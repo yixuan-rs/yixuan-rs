@@ -2,10 +2,10 @@ bound_sid = 1
 
 [[servers]]
 sid = 1
-bind_version = "OSPRODWin1.7.0"
+bind_version = "CNBetaWin2.0.4"
 name = "vivian_rs"
 title = "Vivian-RS"
 dispatch_url = "http://127.0.0.1:10100/query_gateway"
-dispatch_seed = "7544d714f53fa9c8"
+dispatch_seed = "13867d2f71ec816b"
 gateway_ip = "127.0.0.1"
 gateway_port = 20501

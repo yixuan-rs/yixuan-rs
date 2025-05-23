@@ -140,21 +140,28 @@ impl Player {
         // and it won't be needed to set avatar ids in basic module
         // (player will select them in beginner procedure)
 
+        let cfg = &self.resources.gameplay.first_login;
+
         self.avatar_model.on_first_login(self.resources);
 
-        self.basic_model.level.set(1);
-        self.basic_model.avatar_id.set(2011);
-        self.basic_model.control_avatar_id.set(2011);
-        self.basic_model.control_guise_avatar_id.set(2011);
+        self.basic_model.level.set(cfg.interknot_level);
+        self.basic_model.avatar_id.set(cfg.control_avatar_id);
+        self.basic_model.control_avatar_id.set(cfg.control_avatar_id);
+        self.basic_model.control_guise_avatar_id.set(cfg.control_guise_avatar_id);
 
-        self.main_city_model.day_of_week.set(5); // Friday
+        self.main_city_model.day_of_week.set(cfg.day_of_week);
 
         self.item_model.on_first_login(self.resources);
         self.misc_model.on_first_login(self.resources);
         self.gacha_model.on_first_login();
 
+        let mut main_city_quest_id = 10020001;
+        if !cfg.start_main_quest {
+            main_city_quest_id = 10020028;
+        }
+
         self.quest_model
-            .add_main_city_quest(10020001, self.resources);
+                .add_main_city_quest(main_city_quest_id, self.resources);
 
         // Initialize hall scene with WorkShop section
         let scene_uid = self.scene_model.next_scene_uid();
@@ -163,7 +170,7 @@ impl Player {
             scene::SceneSnapshot {
                 scene_id: 1,
                 ext: scene::SceneSnapshotExt::Hall(scene::HallSceneSnapshot {
-                    cur_section_id: 2,
+                    cur_section_id: cfg.default_section_id,
                     sections: HashMap::new(),
                     main_city_objects_state: HashMap::new(),
                 }),
@@ -234,7 +241,7 @@ impl Player {
                         AddItemSource::Mail => Some(PerformType::PerformAnimation),
                     };
 
-                    self.avatar_model.unlock_avatar(&template, perform_type);
+                    self.avatar_model.unlock_avatar(&template, perform_type, None);
                 }
                 None
             }

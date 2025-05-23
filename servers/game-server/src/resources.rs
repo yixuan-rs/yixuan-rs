@@ -5,7 +5,7 @@ use config::{
     LoadConditionsError, TemplateCollection, TemplateCollectionError,
 };
 
-use crate::config::{GachaScheduleConfig, ResourceConfig};
+use crate::config::{FirstLoginConfig, GachaScheduleConfig, ResourceConfig};
 
 #[derive(thiserror::Error, Debug)]
 pub enum LoadResourcesError {
@@ -40,6 +40,7 @@ pub struct NapResources {
 
 pub struct ServerGameplayConfig {
     pub gacha_schedule: GachaScheduleConfig,
+    pub first_login: FirstLoginConfig,
 }
 
 impl NapResources {

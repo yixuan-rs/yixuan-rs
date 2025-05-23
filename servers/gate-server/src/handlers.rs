@@ -107,7 +107,17 @@ async fn process_disconnect(service: Arc<ServiceContext>, entity_id: u64) {
     }
 }
 
+#[allow(dead_code)]
+pub fn bytes_as_hex(bytes: &[u8]) -> String {
+    use std::fmt::Write;
+    bytes.iter().fold(String::new(), |mut output, b| {
+        let _ = write!(output, "{b:02x}");
+        output
+    })
+}
+
 async fn handle_cmd(scope: &ServiceScope, packet: NetPacket) -> Result<(), GetProtoError> {
+    debug!("handle_cmd - cmd_id: {}, size: {}", packet.cmd_id, packet.body.len());
     match packet.cmd_id {
         PlayerGetTokenCsReq::CMD_ID => {
             handle_player_get_token(scope, packet.head, packet.get_proto()?).await
@@ -126,10 +136,19 @@ async fn handle_cmd(scope: &ServiceScope, packet: NetPacket) -> Result<(), GetPr
             {
                 if session.is_logged_in() {
                     session.enqueue(packet).await;
+                } else {
+                    warn!("unhandled [session not logged in]: {}", packet.cmd_id);
+                    debug!("{}", bytes_as_hex(packet.body.as_slice()));
                 }
+            } else {
+                warn!("unhandled [missing session]: {}", packet.cmd_id);
+                debug!("{}", bytes_as_hex(packet.body.as_slice()));
             }
         }
-        _ => warn!("unhandled: {}", packet.cmd_id),
+        _ => {
+            warn!("unhandled: {}", packet.cmd_id);
+            debug!("{}", bytes_as_hex(packet.body.as_slice()));
+        },
     }
 
     Ok(())
