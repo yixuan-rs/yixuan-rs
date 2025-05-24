@@ -13,6 +13,7 @@ pub struct AvatarItem {
     pub passive_skill_level: u32,
     pub skill_level_map: HashMap<EAvatarSkillType, u32>,
     pub weapon_uid: u32,
+    pub show_weapon_type: i32,
     pub dressed_equip_map: HashMap<u32, u32>,
     pub first_get_time: i64,
     pub taken_rank_up_reward_list: Vec<u32>,
@@ -48,7 +49,7 @@ impl AvatarItem {
             rank: self.rank,
             unlocked_talent_num: self.unlocked_talent_num,
             cur_weapon_uid: self.weapon_uid,
-            show_weapon_type: vivian_proto::AvatarShowWeaponType::ShowWeaponLock.into(),
+            show_weapon_type: self.show_weapon_type,
             passive_skill_level: self.passive_skill_level,
             skill_type_level: self
                 .skill_level_map

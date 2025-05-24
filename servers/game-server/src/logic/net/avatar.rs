@@ -1,11 +1,7 @@
 use vivian_codegen::{handlers, required_state};
 use vivian_logic::item::EItemType;
 use vivian_proto::{
-    AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp,
-    AvatarSkinDressCsReq, AvatarSkinDressScRsp, AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp,
-    GetAvatarDataCsReq, GetAvatarDataScRsp, GetAvatarRecommendEquipCsReq,
-    GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq, WeaponDressScRsp,
-    WeaponUnDressCsReq, WeaponUnDressScRsp,
+    AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp, AvatarShowWeaponCsReq, AvatarShowWeaponScRsp, AvatarSkinDressCsReq, AvatarSkinDressScRsp, AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp, GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq, WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp
 };
 
 use crate::logic::sync::SyncType;
@@ -153,14 +149,14 @@ impl AvatarHandler {
             return WeaponDressScRsp { retcode: 1 };
         }
 
-        if !context
+        let Some(weapon) = context
             .player
             .item_model
             .weapon_map
-            .contains_key(&request.weapon_uid)
-        {
+            .get(&request.weapon_uid)
+        else {
             return WeaponDressScRsp { retcode: 1 };
-        }
+        };
 
         context
             .player
@@ -180,13 +176,27 @@ impl AvatarHandler {
                     .weapon_uid = 0
             });
 
-        context
+        let avatar = context
             .player
             .avatar_model
             .avatar_map
             .get_mut(&request.avatar_id)
-            .unwrap()
-            .weapon_uid = request.weapon_uid;
+            .unwrap();
+
+        avatar.weapon_uid = request.weapon_uid;
+
+        if avatar.show_weapon_type == vivian_proto::AvatarShowWeaponType::ShowWeaponLock.into()
+            && context
+                .resources
+                .templates
+                .weapon_template_tb()
+                .find(|tmpl|
+                    tmpl.item_id() == weapon.id
+                    && tmpl.avatar_id() == request.avatar_id
+                ).is_some()
+        {
+            avatar.show_weapon_type = vivian_proto::AvatarShowWeaponType::ShowWeaponActive.into();
+        }
 
         WeaponDressScRsp { retcode: 0 }
     }
@@ -206,6 +216,28 @@ impl AvatarHandler {
         } else {
             WeaponUnDressScRsp { retcode: 1 }
         }
+    }
+
+    pub fn on_avatar_show_weapon_cs_req(
+        context: &mut NetContext<'_>,
+        request: AvatarShowWeaponCsReq,
+    ) -> AvatarShowWeaponScRsp {
+        let Some(avatar) = context
+            .player
+            .avatar_model
+            .avatar_map
+            .get_mut(&request.avatar_id)
+        else {
+            return AvatarShowWeaponScRsp { retcode: 1 };
+        };
+
+        if avatar.show_weapon_type == vivian_proto::AvatarShowWeaponType::ShowWeaponLock.into() {
+            return AvatarShowWeaponScRsp { retcode: 1 };
+        }
+
+        avatar.show_weapon_type = request.show_weapon_type;
+
+        AvatarShowWeaponScRsp { retcode: 0 }
     }
 
     pub fn on_avatar_favorite_cs_req(

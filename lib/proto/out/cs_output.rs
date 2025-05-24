@@ -1438,6 +1438,19 @@ pub struct WeaponUnDressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(8609)]
+pub struct AvatarShowWeaponCsReq {
+    #[prost(uint32, tag = "1", xor = "15296")]
+    pub avatar_id: u32,
+    #[prost(enumeration = "AvatarShowWeaponType", tag = "7")]
+    pub show_weapon_type: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct AvatarShowWeaponScRsp {
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(5048)]
 pub struct AvatarFavoriteCsReq {
     #[prost(uint32, tag = "10", xor = "8915")]
