@@ -79,6 +79,7 @@ impl AvatarModel {
                                 .map(|(ty, level)| (EAvatarSkillType::try_from(ty).unwrap(), level))
                                 .collect(),
                             weapon_uid: avatar.cur_weapon_uid,
+                            show_weapon_type: avatar.show_weapon_type,
                             dressed_equip_map: avatar.dressed_equip_map,
                             first_get_time: avatar.first_get_time,
                             taken_rank_up_reward_list: avatar.taken_rank_up_reward_list,
@@ -120,6 +121,7 @@ impl AvatarModel {
                         .zip([0].into_iter().cycle())
                         .collect(),
                     weapon_uid: 0,
+                    show_weapon_type: vivian_proto::AvatarShowWeaponType::ShowWeaponLock.into(),
                     dressed_equip_map: HashMap::new(),
                     first_get_time: time_util::unix_timestamp_seconds(),
                     taken_rank_up_reward_list: Vec::new(),
@@ -155,12 +157,12 @@ impl Saveable for AvatarModel {
                         .map(|(&ty, &level)| (ty.into(), level))
                         .collect(),
                     cur_weapon_uid: avatar.weapon_uid,
+                    show_weapon_type: avatar.show_weapon_type,
                     dressed_equip_map: avatar.dressed_equip_map.clone(),
                     first_get_time: avatar.first_get_time,
                     taken_rank_up_reward_list: avatar.taken_rank_up_reward_list.clone(),
                     avatar_skin_id: avatar.avatar_skin_id,
                     is_favorite: avatar.is_favorite,
-                    show_weapon_type: 0,
                 })
                 .collect(),
         });
