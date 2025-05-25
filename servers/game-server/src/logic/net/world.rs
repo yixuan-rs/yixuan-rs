@@ -1,6 +1,8 @@
 use tracing::{debug, error};
 use vivian_codegen::handlers;
-use vivian_logic::{GameState, listener::NotifyListenerExt, math::Transform};
+use vivian_logic::{
+    hall::HallEventGraphError, listener::NotifyListenerExt, math::Transform, GameState,
+};
 use vivian_proto::{
     EndBattleCsReq, EndBattleScRsp, EndNpcTalkCsReq, EndNpcTalkScRsp, EnterSectionCompleteCsReq,
     EnterSectionCompleteScRsp, EnterSectionCsReq, EnterSectionScRsp, EnterWorldCsReq,
@@ -136,11 +138,15 @@ impl WorldHandler {
 
         let owner_type = EventGraphOwnerType::try_from(request.owner_type).unwrap_or_default();
 
-        if !hall.run_event_graph(owner_type, request.event_id, context.player) {
-            return RunEventGraphScRsp {
-                retcode: 1,
-                finish_event: false,
-            };
+        match hall.run_event_graph(owner_type, request.event_id, context.player) {
+            Ok(_) | Err(HallEventGraphError::NotRunning(_, _)) => (),
+            Err(err) => {
+                error!("RunEventGraphCsReq failed: {err}");
+                return RunEventGraphScRsp {
+                    retcode: 1,
+                    finish_event: false,
+                };
+            }
         }
 
         if let Some(notify) = hall.remove_if_finished(owner_type, request.event_id) {
@@ -167,11 +173,15 @@ impl WorldHandler {
         if let Some(GameState::Hall(hall)) = context.game_state.as_mut() {
             let owner_type = EventGraphOwnerType::try_from(request.owner_type).unwrap_or_default();
 
-            if !hall.run_event_graph(owner_type, request.event_id, context.player) {
-                return RunEventActionScRsp {
-                    retcode: 1,
-                    finish_event: false,
-                };
+            match hall.run_event_graph(owner_type, request.event_id, context.player) {
+                Ok(_) | Err(HallEventGraphError::NotRunning(_, _)) => (),
+                Err(err) => {
+                    error!("RunEventActionCsReq failed: {err}");
+                    return RunEventActionScRsp {
+                        retcode: 1,
+                        finish_event: false,
+                    };
+                }
             }
 
             if let Some(notify) = hall.remove_if_finished(owner_type, request.event_id) {

@@ -90,7 +90,6 @@ impl Event {
             let uid = ((self.graph.id() as u64) << 32) | own_uid.event_id() as u64;
             if action_listener.should_execute_action(uid, action, logic_listener, &self.specials) {
                 action_listener.execute_action(uid, action, logic_listener, &self.specials);
-
                 if let Some(client_action_info) = action::action_to_proto(action) {
                     action_listener.enqueue_client_action((own_uid, self), client_action_info);
 
@@ -104,6 +103,10 @@ impl Event {
         }
 
         self.state = EventState::Finished;
+    }
+
+    pub fn is_persistent(&self) -> bool {
+        self.ty != SectionEvent::OnInteract
     }
 
     pub fn is_finished(&self) -> bool {

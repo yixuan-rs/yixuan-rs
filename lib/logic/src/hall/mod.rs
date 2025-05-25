@@ -6,16 +6,16 @@ use config::{
 use npc::{Interact, InteractTarget, SceneUnit};
 use tracing::{error, warn};
 use vivian_proto::{
-    EnterSceneScNotify, EventGraphOwnerType, FinishEventGraphScNotify, SectionEventScNotify,
-    common::TimePeriodType,
+    common::TimePeriodType, EnterSceneScNotify, EventGraphOwnerType, FinishEventGraphScNotify,
+    SectionEventScNotify,
 };
 
 use crate::{
-    LogicResources,
-    event::{ActionListener, Event, EventState, EventUID, event_util},
+    event::{event_util, ActionListener, Event, EventState, EventUID},
     listener::{LogicEventListener, NotifyListener},
     math::{Scale, Transform},
     scene::SceneType,
+    LogicResources,
 };
 
 pub mod npc;
@@ -44,6 +44,14 @@ pub struct GameHallState {
     has_sent_initial_scene_notify: bool,
     refresh_required: bool,
     enter_finished: bool,
+}
+
+#[derive(thiserror::Error, Debug)]
+pub enum HallEventGraphError {
+    #[error("event graph is not running (owner: {0:?}, id: {1})")]
+    NotRunning(EventGraphOwnerType, u32),
+    #[error("event graph cannot be resumed by client (owner: {0:?}, id: {1}, state: {2:?})")]
+    NotWaitingClient(EventGraphOwnerType, u32, EventState),
 }
 
 pub enum HallPosition {
@@ -368,9 +376,10 @@ impl GameHallState {
     ) {
         let event_uid = EventUID::new(owner_type, config.id);
 
-        if self
-            .already_executed_events
-            .insert(((graph.id() as u64) << 32) | config.id as u64)
+        if event_type == SectionEvent::OnInteract
+            || self
+                .already_executed_events
+                .insert(((graph.id() as u64) << 32) | config.id as u64)
         {
             let mut event = Event::new(event_type, tag, graph, config);
             event.wakeup(event_uid, self, listener);
@@ -499,26 +508,26 @@ impl GameHallState {
         owner_type: EventGraphOwnerType,
         event_id: u32,
         listener: &mut dyn LogicEventListener,
-    ) -> bool {
+    ) -> Result<(), HallEventGraphError> {
         let event_graph_uid = EventUID::new(owner_type, event_id);
 
-        let Some(mut event) = self.running_events.remove(&event_graph_uid) else {
-            error!("event {owner_type:?}:{event_id} is not running");
-            return false;
-        };
+        let mut event = self
+            .running_events
+            .remove(&event_graph_uid)
+            .ok_or(HallEventGraphError::NotRunning(owner_type, event_id))?;
 
-        if event.state != EventState::WaitingClient {
-            error!(
-                "event {owner_type:?}:{event_id} can't be resumed by client, current state: {:?}",
-                event.state
-            );
-            return false;
-        }
+        (event.state == EventState::WaitingClient)
+            .then_some(())
+            .ok_or(HallEventGraphError::NotWaitingClient(
+                owner_type,
+                event_id,
+                event.state,
+            ))?;
 
         event.wakeup(event_graph_uid, self, listener);
         self.running_events.insert(event_graph_uid, event);
 
-        true
+        Ok(())
     }
 
     pub fn remove_if_finished(

@@ -612,6 +612,7 @@ impl Player {
                         event_snapshots: hall
                             .running_events
                             .iter()
+                            .filter(|(_, event)| event.is_persistent()) 
                             .map(|(&uid, event)| EventSnapshot {
                                 graph: event.graph,
                                 ty: event.ty.clone(),
