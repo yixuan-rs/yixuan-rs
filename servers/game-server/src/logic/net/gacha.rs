@@ -4,7 +4,7 @@ use vivian_proto::{
     GachaSetNewbieAvatarCsReq, GachaSetNewbieAvatarScRsp, GetGachaDataCsReq, GetGachaDataScRsp,
 };
 
-use crate::logic::player::AddItemSource;
+use crate::{logic::player::AddItemSource, util::{gacha_util, item_util}};
 
 use super::NetContext;
 
@@ -29,7 +29,7 @@ impl GachaHandler {
             GetGachaDataScRsp {
                 retcode: 0,
                 gacha_type: request.gacha_type,
-                display: Some(context.player.gacha_model.display_data(schedule)),
+                display: Some(gacha_util::display_data(context.player, schedule)),
             }
         } else {
             GetGachaDataScRsp {
@@ -63,10 +63,7 @@ impl GachaHandler {
         };
 
         if !schedule.gacha_materials.iter().all(|material| {
-            context
-                .player
-                .item_model
-                .has_enough_items(material.id, material.count * request.times)
+            item_util::has_enough_items(context.player, material.id, material.count * request.times)
         }) {
             return DoGachaScRsp {
                 retcode: 1,
@@ -75,18 +72,12 @@ impl GachaHandler {
         }
 
         schedule.gacha_materials.iter().for_each(|material| {
-            context
-                .player
-                .item_model
-                .use_item(material.id, material.count * request.times);
+            item_util::use_item(context.player, material.id, material.count * request.times);
         });
 
         let rewards = (0..request.times)
             .map(|_| {
-                context
-                    .player
-                    .gacha_model
-                    .do_gacha(schedule, context.resources)
+                gacha_util::do_gacha(context.player, schedule, context.resources)
             })
             .collect::<Vec<_>>();
 
@@ -112,10 +103,7 @@ impl GachaHandler {
             times: request.times,
             drop_item_list,
             display: Some(
-                context
-                    .player
-                    .gacha_model
-                    .display_data(&context.resources.gameplay.gacha_schedule),
+                gacha_util::display_data(context.player, &context.resources.gameplay.gacha_schedule),
             ),
         }
     }
@@ -132,10 +120,8 @@ impl GachaHandler {
             return GachaBuyMaterialScRsp { retcode: 1 };
         }
 
-        let item_model = &mut context.player.item_model;
-
-        if item_model.use_item(PURCHASE_CURRENCY_ID, MATERIAL_PRICE * request.count) {
-            item_model.add_item(request.buy_material_id, request.count);
+        if item_util::use_item(context.player, PURCHASE_CURRENCY_ID, MATERIAL_PRICE * request.count) {
+            item_util::add_item(context.player, request.buy_material_id, request.count);
             GachaBuyMaterialScRsp { retcode: 0 }
         } else {
             GachaBuyMaterialScRsp { retcode: 1 }

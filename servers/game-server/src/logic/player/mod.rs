@@ -3,14 +3,11 @@ use std::{
     time::{Duration, UNIX_EPOCH},
 };
 
-use abyss::AbyssModel;
 use common::time_util;
 use config::{BoundConditions, Condition, EQuestState, GraphReference, HollowQuestType};
-use gacha::GachaModel;
-use main_city::MainCityModel;
+use rand::RngCore;
 use vivian_codegen::ModelManager;
 use vivian_logic::{
-    GameState, LogicResources,
     dungeon::{DungeonEquipment, EQuestType},
     event::Event,
     fight::GameFightState,
@@ -19,37 +16,17 @@ use vivian_logic::{
     listener::LogicEventListener,
     long_fight::GameLongFightState,
     scene::ELocalPlayType,
+    GameState, LogicResources,
 };
-use vivian_proto::{PlayerSyncScNotify, server_only::PlayerData};
+use vivian_proto::{server_only::PlayerData, PlayerSyncScNotify};
 
-mod abyss;
-mod archive;
-mod avatar;
-mod basic;
-mod buddy;
-mod gacha;
-mod hollow;
-mod item;
-mod main_city;
-mod misc;
-mod quest;
-mod scene;
-
-use archive::ArchiveModel;
-pub use avatar::AvatarModel;
-pub use basic::PlayerBasicModel;
-use buddy::BuddyModel;
-use hollow::HollowModel;
-pub use item::ItemModel;
-use misc::{MiscModel, QuickAccess};
-use quest::QuestModel;
-pub use scene::SceneSnapshotExt;
-use scene::{
-    EventSnapshot, HallSceneUnitSnapshot, HallSectionSnapshot, InteractSnapshot, SceneModel,
-};
 use tracing::{error, info, warn};
+use vivian_models::{property::GachaRandom, *};
 
-use crate::resources::NapResources;
+use crate::{
+    resources::NapResources,
+    util::{avatar_util, basic_util, item_util, misc_util, quest_util},
+};
 
 use super::sync::{DataSyncHelper, LoginDataSyncComponent, PlayerSyncComponent};
 
@@ -67,7 +44,7 @@ pub struct Player {
     pub uid: u32,
     pub loading_state: LoadingState,
     pub sync_helper: DataSyncHelper,
-    resources: &'static NapResources,
+    pub resources: &'static NapResources,
     is_back_scene_changed: bool,
     #[model]
     pub basic_model: PlayerBasicModel,
@@ -142,34 +119,37 @@ impl Player {
 
         let cfg = &self.resources.gameplay.first_login;
 
-        self.avatar_model.on_first_login(self.resources);
+        avatar_util::unlock_avatars_on_first_login(self);
 
         self.basic_model.level.set(cfg.interknot_level);
         self.basic_model.avatar_id.set(cfg.control_avatar_id);
-        self.basic_model.control_avatar_id.set(cfg.control_avatar_id);
-        self.basic_model.control_guise_avatar_id.set(cfg.control_guise_avatar_id);
+        self.basic_model
+            .control_avatar_id
+            .set(cfg.control_avatar_id);
+        self.basic_model
+            .control_guise_avatar_id
+            .set(cfg.control_guise_avatar_id);
 
         self.main_city_model.day_of_week.set(cfg.day_of_week);
 
-        self.item_model.on_first_login(self.resources);
-        self.misc_model.on_first_login(self.resources);
-        self.gacha_model.on_first_login();
+        item_util::add_items_on_first_login(self);
+        misc_util::init_misc_structs_on_first_login(self);
+        self.gacha_model.gacha_random = GachaRandom::new(rand::thread_rng().next_u32());
 
         let mut main_city_quest_id = 10020001;
         if !cfg.start_main_quest {
             main_city_quest_id = 10020028;
         }
 
-        self.quest_model
-                .add_main_city_quest(main_city_quest_id, self.resources);
+        quest_util::add_main_city_quest(self, main_city_quest_id);
 
         // Initialize hall scene with WorkShop section
         let scene_uid = self.scene_model.next_scene_uid();
         self.scene_model.scene_snapshots.insert(
             scene_uid,
-            scene::SceneSnapshot {
+            SceneSnapshot {
                 scene_id: 1,
-                ext: scene::SceneSnapshotExt::Hall(scene::HallSceneSnapshot {
+                ext: SceneSnapshotExt::Hall(HallSceneSnapshot {
                     cur_section_id: cfg.default_section_id,
                     sections: HashMap::new(),
                     main_city_objects_state: HashMap::new(),
@@ -222,7 +202,7 @@ impl Player {
 
         match item_template.class() {
             _ if id == EXP_ITEM_ID => {
-                self.basic_model.add_experience(count, self.resources);
+                basic_util::add_experience(self, count);
                 None
             }
             3 if !self.avatar_model.is_avatar_unlocked(id) => {
@@ -241,7 +221,7 @@ impl Player {
                         AddItemSource::Mail => Some(PerformType::PerformAnimation),
                     };
 
-                    self.avatar_model.unlock_avatar(&template, perform_type, None);
+                    avatar_util::unlock_avatar(self, &template, perform_type, None);
                 }
                 None
             }
@@ -252,14 +232,14 @@ impl Player {
                     .weapon_template_tb()
                     .find(|tmpl| tmpl.item_id() == id)
                 {
-                    Some(self.item_model.add_weapon(&template))
+                    Some(item_util::add_weapon(self, &template))
                 } else {
                     Some(0)
                 }
             }
             // TODO: equip (disc)
             _ => {
-                self.item_model.add_item(id, count);
+                item_util::add_item(self, id, count);
                 None
             }
         }
@@ -399,7 +379,7 @@ impl Player {
             .unwrap();
 
         match &snapshot.ext {
-            scene::SceneSnapshotExt::Hall(hall) => {
+            SceneSnapshotExt::Hall(hall) => {
                 let mut state = GameHallState::new(
                     resources,
                     hall.cur_section_id,
@@ -500,7 +480,7 @@ impl Player {
 
                 state.into()
             }
-            scene::SceneSnapshotExt::Hollow(_hollow) => {
+            SceneSnapshotExt::Hollow(_hollow) => {
                 let dungeon = self
                     .scene_model
                     .dungeons
@@ -522,7 +502,7 @@ impl Player {
 
                 state.into()
             }
-            scene::SceneSnapshotExt::Fight(_fight) => {
+            SceneSnapshotExt::Fight(_fight) => {
                 let dungeon = self
                     .scene_model
                     .dungeons
@@ -533,7 +513,7 @@ impl Player {
                 GameFightState::new(snapshot.scene_id, snapshot.play_type, resources, dungeon)
                     .into()
             }
-            scene::SceneSnapshotExt::LongFight(_fight) => {
+            SceneSnapshotExt::LongFight(_fight) => {
                 let dungeon = self
                     .scene_model
                     .dungeons
@@ -612,7 +592,7 @@ impl Player {
                         event_snapshots: hall
                             .running_events
                             .iter()
-                            .filter(|(_, event)| event.is_persistent()) 
+                            .filter(|(_, event)| event.is_persistent())
                             .map(|(&uid, event)| EventSnapshot {
                                 graph: event.graph,
                                 ty: event.ty.clone(),
@@ -666,18 +646,6 @@ impl Player {
             .prepare_responses(sync_helper, self.resources);
     }
 
-    pub fn build_player_sync_notify(&self) -> PlayerSyncScNotify {
-        let mut notify = PlayerSyncScNotify::default();
-
-        self.for_each_model(|model| {
-            if model.supports_player_sync() && model.is_any_field_changed() {
-                model.add_changes_to_player_sync_notify(&mut notify);
-            }
-        });
-
-        notify
-    }
-
     pub fn update(&mut self, state: &mut Option<GameState>) {
         if !self.loading_finished() {
             self.update_loading();
@@ -715,10 +683,7 @@ impl Player {
             );
 
             if self.check_conditions(finish_conditions) {
-                for quest_id in self
-                    .quest_model
-                    .finish_main_city_quest(quest_id, self.resources)
-                {
+                for quest_id in quest_util::finish_main_city_quest(self, quest_id) {
                     if let Some(GameState::Hall(hall)) = state.as_mut() {
                         hall.main_city_quests
                             .insert(quest_id, EQuestState::InProgress);
@@ -740,7 +705,7 @@ impl Player {
                     BoundConditions::parse(tmpl.finish_condition().unwrap_or_default());
 
                 if self.check_conditions(finish_conditions) {
-                    self.quest_model.finish_hollow_challenge(tmpl.quest_id());
+                    quest_util::finish_hollow_challenge(self, tmpl.quest_id());
 
                     let challenge_tmpl = self
                         .resources
@@ -934,16 +899,7 @@ impl Player {
 
 impl LogicEventListener for Player {
     fn main_city_quest_finished(&mut self, quest_id: u32) -> Vec<u32> {
-        let newly_added_quests = self
-            .quest_model
-            .finish_main_city_quest(quest_id, self.resources);
-
-        if let Some(hollow_quest_collection) =
-            self.quest_model.quest_collections.get(&EQuestType::Hollow)
-        {
-            self.hollow_model
-                .ensure_hollows(hollow_quest_collection, self.resources);
-        }
+        let newly_added_quests = quest_util::finish_main_city_quest(self, quest_id);
 
         if let Some(quest_config_template) = self
             .resources
@@ -960,7 +916,7 @@ impl LogicEventListener for Player {
     }
 
     fn hollow_quest_finished(&mut self, quest_id: u32) {
-        self.quest_model.finish_hollow_quest(quest_id);
+        quest_util::finish_hollow_quest(self, quest_id);
     }
 
     fn change_back_scene_info(&mut self, section_id: u32, transform: String) {
@@ -969,7 +925,7 @@ impl LogicEventListener for Player {
     }
 
     fn unlock_hollow_quest(&mut self, quest_id: u32) {
-        self.quest_model.add_hollow_quest(quest_id, self.resources);
+        quest_util::add_hollow_quest(self, quest_id);
     }
 
     fn give_once_reward(&mut self, once_reward_id: u32) {
@@ -987,19 +943,11 @@ impl LogicEventListener for Player {
     }
 }
 
-pub trait Model: Saveable + PlayerSyncComponent {
-    fn is_any_field_changed(&self) -> bool;
-    fn reset_changed_fields(&mut self);
-}
-
-pub trait Saveable {
-    fn save_to_pb(&self, root: &mut PlayerData);
-}
-
 pub trait ModelManager {
     fn is_any_model_modified(&self) -> bool;
     fn changes_acknowledged(&mut self);
     fn has_models_to_synchronize(&self) -> bool;
+    fn build_player_sync_notify(&self) -> PlayerSyncScNotify;
     fn for_each_model(&self, f: impl FnMut(&dyn Model));
     #[expect(dead_code)]
     fn for_each_model_mut(&mut self, f: impl FnMut(&mut dyn Model));

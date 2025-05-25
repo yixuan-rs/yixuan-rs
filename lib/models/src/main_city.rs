@@ -1,13 +1,6 @@
-use vivian_codegen::Model;
+use super::*;
+use property::{Property, PropertyTransform, PrimitiveProperty};
 use vivian_logic::{hall::HallPosition, math::Transform};
-use vivian_proto::server_only::MainCityData;
-
-use crate::logic::{
-    property::{PrimitiveProperty, Property, PropertyTransform},
-    sync::PlayerSyncComponent,
-};
-
-use super::{Model, Saveable};
 
 #[derive(Model)]
 pub struct MainCityModel {
@@ -79,17 +72,5 @@ impl Saveable for MainCityModel {
             day_of_week: self.day_of_week.get(),
             time_period: self.time_period.get(),
         });
-    }
-}
-
-impl PlayerSyncComponent for MainCityModel {
-    fn supports_player_sync(&self) -> bool {
-        false
-    }
-
-    fn add_changes_to_player_sync_notify(
-        &self,
-        _player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
-    ) {
     }
 }

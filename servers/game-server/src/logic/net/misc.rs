@@ -12,7 +12,7 @@ use vivian_proto::{
     SyncGlobalVariablesCsReq, SyncGlobalVariablesScRsp, VideoGetInfoCsReq, VideoGetInfoScRsp,
 };
 
-use crate::logic::sync::SyncType;
+use crate::{logic::sync::SyncType, util::item_util};
 
 use super::NetContext;
 
@@ -105,7 +105,7 @@ impl MiscHandler {
             .set(time_util::unix_timestamp_seconds());
 
         // TODO: hardcoded reward!
-        context.player.item_model.add_item(10, 8888);
+        item_util::add_item(context.player, 10, 8888);
 
         NewsStandSignScRsp {
             retcode: 0,

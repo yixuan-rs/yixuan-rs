@@ -53,5 +53,6 @@ config = { path = "lib/config" }
 vivian-codegen = { path = "lib/codegen" }
 vivian-proto = { path = "lib/proto" }
 vivian-logic = { path = "lib/logic" }
+vivian-models = { path = "lib/models" }
 vivian-encryption = { path = "lib/encryption" }
 vivian-service = { path = "lib/service" }

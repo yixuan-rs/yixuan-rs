@@ -1,0 +1,12 @@
+[package]
+name = "vivian-models"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+tracing.workspace = true
+
+config.workspace = true
+vivian-logic.workspace = true
+vivian-proto.workspace = true
+vivian-codegen.workspace = true

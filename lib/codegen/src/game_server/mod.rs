@@ -45,6 +45,18 @@ pub fn impl_model_manager(item: TokenStream) -> TokenStream {
             fn for_each_model_mut(&mut self, mut f: impl FnMut(&mut dyn Model)) {
                 #(f(&mut self.#model_field_names);)*
             }
+
+            fn build_player_sync_notify(&self) -> PlayerSyncScNotify {
+                let mut notify = PlayerSyncScNotify::default();
+
+                #(
+                    if self.#model_field_names.supports_player_sync() && self.#model_field_names.is_any_field_changed() {
+                        self.#model_field_names.add_changes_to_player_sync_notify(&mut notify);
+                    }
+                )*
+
+                notify
+            }
         }
     }
     .into()

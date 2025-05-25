@@ -19,6 +19,7 @@ scc.workspace = true
 common.workspace = true
 config.workspace = true
 vivian-logic.workspace = true
+vivian-models.workspace = true
 vivian-codegen.workspace = true
 vivian-proto.workspace = true
 vivian-service.workspace = true

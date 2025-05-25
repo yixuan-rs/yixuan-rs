@@ -4,18 +4,13 @@ use std::{
 };
 
 use tracing::{debug, error};
-use vivian_proto::{Message, NetCmd, NetResponse, PlayerSyncScNotify};
+use vivian_proto::{Message, NetCmd, NetResponse};
 
-use crate::resources::NapResources;
+mod login_sync;
+mod player_sync;
 
-pub trait PlayerSyncComponent {
-    fn supports_player_sync(&self) -> bool;
-    fn add_changes_to_player_sync_notify(&self, player_sync_sc_notify: &mut PlayerSyncScNotify);
-}
-
-pub trait LoginDataSyncComponent {
-    fn prepare_responses(&self, sync_helper: &mut DataSyncHelper, res: &NapResources);
-}
+pub use login_sync::LoginDataSyncComponent;
+pub use player_sync::PlayerSyncComponent;
 
 #[derive(Default)]
 pub struct DataSyncHelper {
@@ -68,3 +63,4 @@ impl DataSyncHelper {
             .any(|&(ty, _)| ty == SyncType::BasicData)
     }
 }
+

@@ -1,10 +1,14 @@
 use vivian_codegen::{handlers, required_state};
 use vivian_logic::item::EItemType;
 use vivian_proto::{
-    AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp, AvatarShowWeaponCsReq, AvatarShowWeaponScRsp, AvatarSkinDressCsReq, AvatarSkinDressScRsp, AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp, GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq, WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp
+    AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp,
+    AvatarShowWeaponCsReq, AvatarShowWeaponScRsp, AvatarSkinDressCsReq, AvatarSkinDressScRsp,
+    AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp,
+    GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq,
+    WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp,
 };
 
-use crate::logic::sync::SyncType;
+use crate::{logic::sync::SyncType, util::item_util};
 
 use super::NetContext;
 
@@ -38,12 +42,10 @@ impl AvatarHandler {
             };
         }
 
-        let item_model = &mut context.player.item_model;
-
         if !request
             .exp_materials
             .iter()
-            .all(|(&id, &count)| item_model.has_enough_items(id, count))
+            .all(|(&id, &count)| item_util::has_enough_items(context.player, id, count))
         {
             return AvatarLevelUpScRsp {
                 retcode: 1,
@@ -52,7 +54,7 @@ impl AvatarHandler {
         }
 
         request.exp_materials.iter().for_each(|(&id, &count)| {
-            item_model.use_item(id, count);
+            item_util::use_item(context.player, id, count);
         });
 
         let added_exp = request
@@ -129,7 +131,20 @@ impl AvatarHandler {
                     amount: avatar.exp / exp_amount,
                 });
 
-                item_model.add_item(return_material.id(), avatar.exp / exp_amount);
+                let cur = context
+                    .player
+                    .item_model
+                    .item_count_map
+                    .get(&return_material.id())
+                    .copied()
+                    .unwrap_or_default();
+
+                context
+                    .player
+                    .item_model
+                    .item_count_map
+                    .insert(return_material.id(), cur + (avatar.exp / exp_amount) as i32);
+
                 avatar.exp %= exp_amount;
             }
         }
@@ -190,10 +205,8 @@ impl AvatarHandler {
                 .resources
                 .templates
                 .weapon_template_tb()
-                .find(|tmpl|
-                    tmpl.item_id() == weapon.id
-                    && tmpl.avatar_id() == request.avatar_id
-                ).is_some()
+                .find(|tmpl| tmpl.item_id() == weapon.id && tmpl.avatar_id() == request.avatar_id)
+                .is_some()
         {
             avatar.show_weapon_type = vivian_proto::AvatarShowWeaponType::ShowWeaponActive.into();
         }

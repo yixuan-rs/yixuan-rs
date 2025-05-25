@@ -1,8 +1,12 @@
-use crate::logic::property::{PrimitiveProperty, Property};
+use super::{PrimitiveProperty, Property};
 
 pub struct GachaRandom(PrimitiveProperty<u32>);
 
 impl GachaRandom {
+    pub fn new(seed: u32) -> Self {
+        Self(seed.into())
+    }
+
     pub fn rand(&mut self, max: u32) -> u32 {
         let seed = self.0.get();
         let tmp = seed ^ (seed << 13);

@@ -1,30 +1,10 @@
-use std::{
-    collections::{HashMap, HashSet},
-    str::FromStr,
-};
+use std::{collections::{HashMap, HashSet}, str::FromStr};
 
+use super::*;
 use config::{GraphReference, SectionEvent};
+use property::{Property, PropertyHashMap, PrimitiveProperty};
 use tracing::warn;
-use vivian_codegen::Model;
-use vivian_logic::{
-    dungeon::{Dungeon, DungeonEquipment},
-    event::{EventState, EventUID},
-    hall::npc::InteractTarget,
-    math::Scale,
-    scene::ELocalPlayType,
-};
-use vivian_proto::server_only::{
-    AttachedGraphInfo, DungeonInfo, EventStateInfo, FightSceneInfo, GraphReferenceType,
-    HallSceneInfo, HallSceneUnit, HallSectionInfo, HollowSceneInfo, LongFightSceneInfo, SceneData,
-    SceneInfo, UnitInteract,
-};
-
-use crate::logic::{
-    property::{PrimitiveProperty, Property, PropertyHashMap},
-    sync::PlayerSyncComponent,
-};
-
-use super::{Model, Saveable};
+use vivian_logic::{dungeon::{Dungeon, DungeonEquipment}, event::{EventState, EventUID}, hall::npc::InteractTarget, math::Scale, scene::ELocalPlayType};
 
 #[derive(Model)]
 pub struct SceneModel {
@@ -327,18 +307,6 @@ impl Saveable for SceneModel {
                 })
                 .collect(),
         });
-    }
-}
-
-impl PlayerSyncComponent for SceneModel {
-    fn supports_player_sync(&self) -> bool {
-        false
-    }
-
-    fn add_changes_to_player_sync_notify(
-        &self,
-        _player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
-    ) {
     }
 }
 

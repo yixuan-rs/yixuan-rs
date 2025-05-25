@@ -2544,6 +2544,7 @@ dependencies = [
  "tracing",
  "vivian-codegen",
  "vivian-logic",
+ "vivian-models",
  "vivian-proto",
  "vivian-service",
 ]
@@ -2581,6 +2582,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "vivian-models"
+version = "0.0.1"
+dependencies = [
+ "config",
+ "tracing",
+ "vivian-codegen",
+ "vivian-logic",
+ "vivian-proto",
+]
+
+[[package]]
 name = "vivian-proto"
 version = "0.0.1"
 dependencies = [
@@ -2589,7 +2601,6 @@ dependencies = [
  "prost-build",
  "prost-types",
  "proto-derive",
- "serde",
  "syn",
 ]
 
