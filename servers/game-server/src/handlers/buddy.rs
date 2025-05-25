@@ -1,7 +1,7 @@
 use vivian_codegen::{handlers, required_state};
 use vivian_proto::{GetBuddyDataCsReq, GetBuddyDataScRsp};
 
-use crate::logic::sync::SyncType;
+use crate::sync::SyncType;
 
 use super::NetContext;
 

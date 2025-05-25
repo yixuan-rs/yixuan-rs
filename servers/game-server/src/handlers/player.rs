@@ -6,7 +6,7 @@ use vivian_proto::{
     ModAvatarCsReq, ModAvatarScRsp, ModNickNameCsReq, ModNickNameScRsp,
 };
 
-use crate::logic::sync::SyncType;
+use crate::sync::SyncType;
 
 use super::NetContext;
 use vivian_codegen::{handlers, required_state};

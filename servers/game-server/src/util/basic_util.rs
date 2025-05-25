@@ -1,4 +1,4 @@
-use crate::{logic::player::Player, resources::NapResources};
+use crate::{player::Player, resources::NapResources};
 
 const MAX_YOROZUYA_LEVEL: u32 = 60;
 

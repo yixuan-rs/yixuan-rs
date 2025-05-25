@@ -1,9 +1,9 @@
 use std::sync::OnceLock;
 
+use cluster::{LogicClusterConfig, PlayerLogicClusterManager};
 use common::logging::init_tracing;
 use config::ServerConfig;
 use const_format::concatcp;
-use logic::cluster::{LogicClusterConfig, PlayerLogicClusterManager};
 use resources::{LoadResourcesError, NapResources, ServerGameplayConfig};
 use session::PlayerSessionManager;
 use vivian_service::{
@@ -14,10 +14,12 @@ use vivian_service::{
 
 mod config;
 mod handlers;
-mod logic;
 mod resources;
 mod session;
 mod util;
+mod player;
+mod sync;
+mod cluster;
 
 const SERVICE_TYPE: ServiceType = ServiceType::Game;
 const CONFIG_DIR: &str = "config/40-game-server/";
@@ -56,7 +58,7 @@ async fn main() -> Result<(), StartupError> {
     let resources = NapResources::load(&config.resources, gameplay_cfg)?;
     let resources = RESOURCES.get_or_init(|| resources);
 
-    let (service_tx, listener) = handlers::start_handler_task();
+    let (service_tx, listener) = session::start_handler_task();
 
     let service = ServiceContext::new()
         .insert_module(NetworkEntityManager::new(listener, None))

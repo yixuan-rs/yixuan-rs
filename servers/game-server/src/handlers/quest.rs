@@ -1,4 +1,4 @@
-use crate::logic::sync::SyncType;
+use crate::sync::SyncType;
 
 use super::NetContext;
 use tracing::{debug, error};

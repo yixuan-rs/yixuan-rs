@@ -4,7 +4,7 @@ use vivian_proto::{
     GetWeaponDataScRsp, GetWishlistDataCsReq, GetWishlistDataScRsp,
 };
 
-use crate::logic::sync::SyncType;
+use crate::sync::SyncType;
 
 use super::NetContext;
 

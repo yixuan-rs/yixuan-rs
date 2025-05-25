@@ -1,7 +1,7 @@
 use config::WeaponTemplate;
 use vivian_logic::item::WeaponItem;
 
-use crate::logic::player::Player;
+use crate::player::Player;
 
 pub fn add_items_on_first_login(player: &mut Player) {
     player.item_model.item_count_map.insert(10, 10_000_000);

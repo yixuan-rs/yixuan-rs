@@ -3,7 +3,7 @@ use config::AvatarBaseTemplate;
 use std::collections::HashMap;
 use vivian_logic::item::{AvatarItem, EAvatarSkillType};
 
-use crate::{config::FirstLoginAvatarConfig, logic::player::Player};
+use crate::{config::FirstLoginAvatarConfig, player::Player};
 
 pub fn unlock_avatars_on_first_login(player: &mut Player) {
     let cfg = &player.resources.gameplay.first_login.avatar;

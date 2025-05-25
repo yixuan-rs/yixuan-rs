@@ -12,7 +12,7 @@ use vivian_proto::{
     SyncGlobalVariablesCsReq, SyncGlobalVariablesScRsp, VideoGetInfoCsReq, VideoGetInfoScRsp,
 };
 
-use crate::{logic::sync::SyncType, util::item_util};
+use crate::{sync::SyncType, util::item_util};
 
 use super::NetContext;
 

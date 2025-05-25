@@ -4,7 +4,7 @@ use vivian_proto::{
     GachaSetNewbieAvatarCsReq, GachaSetNewbieAvatarScRsp, GetGachaDataCsReq, GetGachaDataScRsp,
 };
 
-use crate::{logic::player::AddItemSource, util::{gacha_util, item_util}};
+use crate::{player::AddItemSource, util::{gacha_util, item_util}};
 
 use super::NetContext;
 

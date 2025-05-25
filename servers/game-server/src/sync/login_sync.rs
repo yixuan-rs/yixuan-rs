@@ -88,7 +88,7 @@ impl LoginDataSyncComponent for AvatarModel {
 impl LoginDataSyncComponent for QuestModel {
     fn prepare_responses(
         &self,
-        sync_helper: &mut crate::logic::sync::DataSyncHelper,
+        sync_helper: &mut DataSyncHelper,
         _: &NapResources,
     ) {
         sync_helper.add_response(
@@ -129,7 +129,7 @@ impl LoginDataSyncComponent for QuestModel {
 impl LoginDataSyncComponent for ArchiveModel {
     fn prepare_responses(
         &self,
-        sync_helper: &mut crate::logic::sync::DataSyncHelper,
+        sync_helper: &mut DataSyncHelper,
         _: &NapResources,
     ) {
         sync_helper.add_response(
@@ -159,7 +159,7 @@ impl LoginDataSyncComponent for ArchiveModel {
 impl LoginDataSyncComponent for HollowModel {
     fn prepare_responses(
         &self,
-        sync_helper: &mut crate::logic::sync::DataSyncHelper,
+        sync_helper: &mut DataSyncHelper,
         _res: &NapResources,
     ) {
         sync_helper.add_response(
@@ -189,7 +189,7 @@ impl LoginDataSyncComponent for HollowModel {
 impl LoginDataSyncComponent for AbyssModel {
     fn prepare_responses(
         &self,
-        sync_helper: &mut crate::logic::sync::DataSyncHelper,
+        sync_helper: &mut DataSyncHelper,
         _: &NapResources,
     ) {
         sync_helper.add_response(
@@ -212,7 +212,7 @@ impl LoginDataSyncComponent for AbyssModel {
 impl LoginDataSyncComponent for BuddyModel {
     fn prepare_responses(
         &self,
-        sync_helper: &mut crate::logic::sync::DataSyncHelper,
+        sync_helper: &mut DataSyncHelper,
         _res: &NapResources,
     ) {
         sync_helper.add_response(

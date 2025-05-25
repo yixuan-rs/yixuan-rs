@@ -1,7 +1,7 @@
 use common::time_util;
 use vivian_models::property::PropertyHashSet;
 
-use crate::logic::player::Player;
+use crate::player::Player;
 
 pub fn init_misc_structs_on_first_login(player: &mut Player) {
     // Unlock everything by default for now

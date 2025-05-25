@@ -1,6 +1,5 @@
-use crate::resources::NapResources;
+use crate::{player::Player, resources::NapResources};
 
-use super::player::Player;
 use std::{collections::HashMap, sync::LazyLock};
 
 use vivian_logic::{GameState, listener::NotifyListener};
@@ -84,7 +83,7 @@ macro_rules! handlers {
             if let Some(handler_fn) = HANDLER_MAP.get(&cmd_id) {
                 handler_fn(context, cmd_id, body);
             } else {
-                if context.player.loading_state == crate::logic::player::LoadingState::ExtendDataSync {
+                if context.player.loading_state == crate::player::LoadingState::ExtendDataSync {
                     ::tracing::debug!("ExtendDataSync request ({cmd_id}) is unhandled, sending dummy one in response!");
                     context.response = Some((0, Vec::new()));
                 }

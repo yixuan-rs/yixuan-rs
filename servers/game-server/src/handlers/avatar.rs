@@ -8,7 +8,7 @@ use vivian_proto::{
     WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp,
 };
 
-use crate::{logic::sync::SyncType, util::item_util};
+use crate::{sync::SyncType, util::item_util};
 
 use super::NetContext;
 

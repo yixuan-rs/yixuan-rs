@@ -20,11 +20,11 @@ use vivian_service::{
     network::client::NetworkClient,
 };
 
-use crate::{config::ClusterConfig, resources::NapResources};
-
-use super::{
-    net::NetContext,
+use crate::{
+    config::ClusterConfig,
+    handlers::NetContext,
     player::{ModelManager, Player},
+    resources::NapResources,
 };
 
 pub struct PlayerCommandResult {
@@ -299,7 +299,7 @@ impl PlayerLogicCluster {
                         let mut context =
                             NetContext::new(&mut slot.player, &mut slot.game_state, resources);
 
-                        super::net::handle_command(&mut context, cmd_id, body);
+                        super::handlers::handle_command(&mut context, cmd_id, body);
 
                         if context.player.loading_finished()
                             && context.player.has_models_to_synchronize()

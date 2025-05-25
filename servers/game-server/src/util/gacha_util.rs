@@ -4,7 +4,7 @@ use vivian_proto::GachaDisplayData;
 
 use crate::{
     config::{GachaSchedule, GachaScheduleConfig},
-    logic::player::Player,
+    player::Player,
     resources::NapResources,
 };
 

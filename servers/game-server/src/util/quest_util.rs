@@ -4,7 +4,7 @@ use common::time_util;
 use vivian_logic::dungeon::EQuestType;
 use vivian_models::{Hollow, HollowModel, MainCityQuestExt, Quest};
 
-use crate::{logic::player::Player, resources::NapResources};
+use crate::{player::Player, resources::NapResources};
 
 pub fn add_hollow_quest(player: &mut Player, id: u32) {
     let collection = player
