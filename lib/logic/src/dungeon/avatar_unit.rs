@@ -59,21 +59,30 @@ impl AvatarUnit {
             };
         }
 
+        self.add_property(
+            EPropertyType::SkipDefAtk,
+            self.get_property(EPropertyType::Atk) * 30 / 100
+        );
+
         assign!(
             HpMax,
             Atk,
-            Def,
             BreakStun,
+            SkipDefAtk,
+            Def,
             Crit,
             CritDmg,
             SpRecover,
             ElementMystery,
             ElementAbnormalPower,
+            AddedDamageRatio,
             AddedDamageRatioPhysics,
             AddedDamageRatioFire,
             AddedDamageRatioIce,
             AddedDamageRatioElec,
-            AddedDamageRatioEther
+            AddedDamageRatioEther,
+            RpRecover,
+            SkipDefDamageRatio
         );
 
         self.add_property(EPropertyType::Hp, self.get_property(EPropertyType::HpMax));
@@ -102,14 +111,24 @@ impl AvatarUnit {
         type PropertyBonusConfig = (EPropertyType, EPropertyType, [i32; 7]);
         static CORE_SKILL_SPECIALS: LazyLock<HashMap<u32, PropertyBonusConfig>> =
             LazyLock::new(|| {
-                HashMap::from([(
-                    1121,
+                HashMap::from([
                     (
-                        EPropertyType::Atk,
-                        EPropertyType::Def,
-                        [40, 46, 52, 60, 66, 72, 80],
+                        1121,
+                        (
+                            EPropertyType::Atk,
+                            EPropertyType::Def,
+                            [40, 46, 52, 60, 66, 72, 80],
+                        ),
                     ),
-                )])
+                    (
+                        1371,
+                        (
+                            EPropertyType::SkipDefAtk,
+                            EPropertyType::HpMax,
+                            [10, 10, 10, 10, 10, 10, 10],
+                        )
+                    )
+                ])
             });
 
         if let Some((bonus_property, scale_property, percentage_per_level)) =
@@ -129,15 +148,17 @@ impl AvatarUnit {
         use EPropertyType::*;
 
         self.set_dynamic_property(HpMax, HpMaxBase, HpMaxRatio, HpMaxDelta);
+        self.set_dynamic_property(SpMax, SpMaxBase, None, SpMaxDelta);
         self.set_dynamic_property(Atk, AtkBase, AtkRatio, AtkDelta);
-        self.set_dynamic_property(Def, DefBase, DefRatio, DefDelta);
         self.set_dynamic_property(BreakStun, BreakStunBase, BreakStunRatio, BreakStunDelta);
+        self.set_dynamic_property(SkipDefAtk, SkipDefAtkBase, None, SkipDefAtkDelta);
         self.set_dynamic_property(Def, DefBase, DefRatio, DefDelta);
         self.set_dynamic_property(Crit, CritBase, None, CritDelta);
         self.set_dynamic_property(CritDmg, CritDmgBase, None, CritDmgDelta);
         self.set_dynamic_property(Pen, PenBase, None, PenDelta);
         self.set_dynamic_property(PenValue, PenValueBase, None, PenValueDelta);
         self.set_dynamic_property(SpRecover, SpRecoverBase, SpRecoverRatio, SpRecoverDelta);
+        self.set_dynamic_property(RpRecover, RpRecoverBase, RpRecoverRatio, RpRecoverDelta);
         self.set_dynamic_property(
             ElementMystery,
             ElementMysteryBase,
@@ -149,6 +170,12 @@ impl AvatarUnit {
             ElementAbnormalPowerBase,
             ElementAbnormalPowerRatio,
             ElementAbnormalPowerDelta,
+        );
+        self.set_dynamic_property(
+            AddedDamageRatio,
+            AddedDamageRatio1,
+            None,
+            AddedDamageRatio3,
         );
         self.set_dynamic_property(
             AddedDamageRatioPhysics,
@@ -179,6 +206,12 @@ impl AvatarUnit {
             AddedDamageRatioEther1,
             None,
             AddedDamageRatioEther3,
+        );
+        self.set_dynamic_property(
+            SkipDefDamageRatio,
+            SkipDefDamageRatio1,
+            None,
+            SkipDefDamageRatio3,
         );
     }
 
@@ -423,9 +456,12 @@ impl AvatarUnit {
             CritDmgBase: crit_damage,
             PenBase: pen_rate,
             PenValueBase: pen_delta,
+            SpMaxBase: sp_bar_point,
             SpRecoverBase: sp_recover,
             ElementMysteryBase: element_mystery,
-            ElementAbnormalPowerBase: element_abnormal_power
+            ElementAbnormalPowerBase: element_abnormal_power,
+            RpMax: rp_max,
+            RpRecoverBase: rp_recover
         );
     }
 
