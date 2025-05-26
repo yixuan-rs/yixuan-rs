@@ -1,9 +1,11 @@
 use std::{collections::HashMap, net::SocketAddr, sync::OnceLock};
 
 use axum::{Router, routing::get};
+use common::logging::init_tracing;
 use config::{ResVersionConfig, ServerConfig, ServerListConfig};
 use const_format::concatcp;
 use tokio::net::TcpListener;
+use tracing::debug;
 
 mod config;
 mod handlers;
@@ -26,6 +28,8 @@ const CONFIG_DIR: &str = "config/10-dispatch-server/";
 #[tokio::main]
 async fn main() -> Result<(), StartupError> {
     static STATE: OnceLock<SharedState> = OnceLock::new();
+
+    init_tracing(tracing::Level::DEBUG);
 
     let state = STATE.get_or_init(|| SharedState {
         config: common::config_util::load_or_create(
@@ -50,6 +54,20 @@ async fn main() -> Result<(), StartupError> {
     let listener = TcpListener::bind(state.config.bind_addr)
         .await
         .map_err(|_| StartupError::BindFailed(state.config.bind_addr))?;
+
+    debug!("server is listening at {}", state.config.bind_addr);
+    debug!("known server list:");
+    state.server_list.servers.iter().for_each(|s| {
+        debug!(
+            "{}: {} ({}) with seed {} @ {}:{}",
+            s.sid,
+            s.name,
+            s.bind_version,
+            s.dispatch_seed,
+            s.gateway_ip,
+            s.gateway_port,
+        )
+    });
 
     axum::serve(listener, app).await.unwrap();
     Ok(())

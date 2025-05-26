@@ -5,6 +5,7 @@ use axum::{
     extract::{Query, State},
 };
 use serde::{Deserialize, Serialize};
+use tracing::{debug, error};
 use vivian_encryption::config::RsaVersion;
 
 use crate::{
@@ -31,13 +32,24 @@ pub async fn query_dispatch(
     State(state): State<&'static SharedState>,
     Query(param): Query<QueryDispatchParam>,
 ) -> Json<QueryDispatchRsp<'static>> {
+    debug!(
+        "query_dispatch - version: {}",
+        param.version,
+    );
+    let server_list : Vec<_> = state
+        .server_list
+        .servers
+        .iter()
+        .filter(|item| item.bind_version == param.version)
+        .collect();
+    if server_list.len() == 0 {
+        error!("No servers for specified version found");
+    }
+
     Json(QueryDispatchRsp {
         retcode: 0,
-        region_list: state
-            .server_list
-            .servers
-            .iter()
-            .filter(|item| item.bind_version == param.version)
+        region_list: server_list
+            .into_iter()
             .map(|item| ServerListInfo {
                 retcode: 0,
                 name: Cow::Borrowed(&item.name),
@@ -76,17 +88,26 @@ pub async fn query_gateway(
     State(state): State<&'static SharedState>,
     Query(param): Query<QueryGatewayParam>,
 ) -> Json<QueryGatewayRsp> {
+    debug!(
+        "query_dispatch - rsa_ver: {}, seed: {}, version: {}",
+        param.rsa_ver,
+        param.seed,
+        param.version,
+    );
     let Some(rsa_version) = state.config.rsa_versions.get(&param.rsa_ver) else {
+        error!("Unknown RSA version");
         return Json(QueryGatewayRsp::ErrorCode(74));
     };
 
     let server_config = state.server_list.bound_server();
     if server_config.dispatch_seed != param.seed {
+        error!("Unknown dispatch seed");
         return Json(QueryGatewayRsp::ErrorCode(75));
     }
 
     let cdn_conf_ext = build_cdn_conf_ext(state, &param.version);
     if cdn_conf_ext.is_none() {
+        error!("Unknown version");
         return Json(QueryGatewayRsp::ErrorCode(75));
     }
 
