@@ -1,5 +1,5 @@
-use vivian_proto::*;
 use vivian_models::*;
+use vivian_proto::*;
 
 use vivian_models::property::Property;
 
@@ -183,7 +183,6 @@ impl PlayerSyncComponent for BuddyModel {
     }
 }
 
-
 impl PlayerSyncComponent for MiscModel {
     fn supports_player_sync(&self) -> bool {
         true
@@ -233,6 +232,14 @@ impl PlayerSyncComponent for MiscModel {
 }
 
 impl PlayerSyncComponent for GachaModel {
+    fn supports_player_sync(&self) -> bool {
+        false
+    }
+
+    fn add_changes_to_player_sync_notify(&self, _: &mut vivian_proto::PlayerSyncScNotify) {}
+}
+
+impl PlayerSyncComponent for MapModel {
     fn supports_player_sync(&self) -> bool {
         false
     }

@@ -1,5 +1,5 @@
 use super::*;
-use property::{PropertyHashMap, PropertyHashSet, Property};
+use property::{Property, PropertyHashMap, PropertyHashSet};
 
 #[derive(Model)]
 pub struct HollowModel {

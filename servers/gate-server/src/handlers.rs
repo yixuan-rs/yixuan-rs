@@ -117,7 +117,11 @@ pub fn bytes_as_hex(bytes: &[u8]) -> String {
 }
 
 async fn handle_cmd(scope: &ServiceScope, packet: NetPacket) -> Result<(), GetProtoError> {
-    debug!("handle_cmd - cmd_id: {}, size: {}", packet.cmd_id, packet.body.len());
+    debug!(
+        "handle_cmd - cmd_id: {}, size: {}",
+        packet.cmd_id,
+        packet.body.len()
+    );
     match packet.cmd_id {
         PlayerGetTokenCsReq::CMD_ID => {
             handle_player_get_token(scope, packet.head, packet.get_proto()?).await
@@ -148,7 +152,7 @@ async fn handle_cmd(scope: &ServiceScope, packet: NetPacket) -> Result<(), GetPr
         _ => {
             warn!("unhandled: {}", packet.cmd_id);
             debug!("{}", bytes_as_hex(packet.body.as_slice()));
-        },
+        }
     }
 
     Ok(())

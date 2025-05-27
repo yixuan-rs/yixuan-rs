@@ -61,7 +61,7 @@ impl AvatarUnit {
 
         self.add_property(
             EPropertyType::SkipDefAtk,
-            self.get_property(EPropertyType::Atk) * 30 / 100
+            self.get_property(EPropertyType::Atk) * 30 / 100,
         );
 
         assign!(
@@ -126,8 +126,8 @@ impl AvatarUnit {
                             EPropertyType::SkipDefAtk,
                             EPropertyType::HpMax,
                             [10, 10, 10, 10, 10, 10, 10],
-                        )
-                    )
+                        ),
+                    ),
                 ])
             });
 
@@ -171,12 +171,7 @@ impl AvatarUnit {
             ElementAbnormalPowerRatio,
             ElementAbnormalPowerDelta,
         );
-        self.set_dynamic_property(
-            AddedDamageRatio,
-            AddedDamageRatio1,
-            None,
-            AddedDamageRatio3,
-        );
+        self.set_dynamic_property(AddedDamageRatio, AddedDamageRatio1, None, AddedDamageRatio3);
         self.set_dynamic_property(
             AddedDamageRatioPhysics,
             AddedDamageRatioPhysics1,

@@ -29,4 +29,12 @@ pub fn init_misc_structs_on_first_login(player: &mut Player) {
     model.news_stand.advertisement_id = PropertyHashSet::from_iter([9, 14]);
     model.news_stand.head_lines_id = PropertyHashSet::from_iter([1000004, 2000001]);
     model.news_stand.normal_news_id = PropertyHashSet::from_iter([37, 12, 7]);
+
+    player
+        .resources
+        .templates
+        .teleport_config_template_tb()
+        .for_each(|tmpl| {
+            model.teleport.unlocked_id.insert(tmpl.teleport_id());
+        });
 }

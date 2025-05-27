@@ -32,11 +32,8 @@ pub async fn query_dispatch(
     State(state): State<&'static SharedState>,
     Query(param): Query<QueryDispatchParam>,
 ) -> Json<QueryDispatchRsp<'static>> {
-    debug!(
-        "query_dispatch - version: {}",
-        param.version,
-    );
-    let server_list : Vec<_> = state
+    debug!("query_dispatch - version: {}", param.version,);
+    let server_list: Vec<_> = state
         .server_list
         .servers
         .iter()
@@ -90,9 +87,7 @@ pub async fn query_gateway(
 ) -> Json<QueryGatewayRsp> {
     debug!(
         "query_dispatch - rsa_ver: {}, seed: {}, version: {}",
-        param.rsa_ver,
-        param.seed,
-        param.version,
+        param.rsa_ver, param.seed, param.version,
     );
     let Some(rsa_version) = state.config.rsa_versions.get(&param.rsa_ver) else {
         error!("Unknown RSA version");

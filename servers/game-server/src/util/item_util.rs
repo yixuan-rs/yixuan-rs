@@ -9,33 +9,41 @@ pub fn add_items_on_first_login(player: &mut Player) {
     player.item_model.item_count_map.insert(501, 240);
 
     // Unlock all skins by default for now
-    player.resources.templates
+    player
+        .resources
+        .templates
         .avatar_skin_base_template_tb()
         .for_each(|tmpl| player.item_model.item_count_map.insert(tmpl.id(), 1));
 
     let weapon_cfg = &player.resources.gameplay.first_login.weapon;
 
     if weapon_cfg.unlock_all {
-        player.resources.templates.weapon_template_tb().for_each(|tmpl| {
-            let uid = player.item_model.next_uid();
-            player.item_model.weapon_map.insert(
-                uid,
-                WeaponItem {
-                    id: tmpl.item_id(),
-                    level: weapon_cfg.level,
-                    exp: 0,
-                    star: weapon_cfg.star,
-                    refine_level: weapon_cfg.refine_level,
-                    lock: false,
-                },
-            );
-        });
+        player
+            .resources
+            .templates
+            .weapon_template_tb()
+            .for_each(|tmpl| {
+                let uid = player.item_model.next_uid();
+                player.item_model.weapon_map.insert(
+                    uid,
+                    WeaponItem {
+                        id: tmpl.item_id(),
+                        level: weapon_cfg.level,
+                        exp: 0,
+                        star: weapon_cfg.star,
+                        refine_level: weapon_cfg.refine_level,
+                        lock: false,
+                    },
+                );
+            });
     } else {
         weapon_cfg
             .unlock_id_list
             .iter()
             .filter_map(|id| {
-                player.resources.templates
+                player
+                    .resources
+                    .templates
                     .weapon_template_tb()
                     .find(|tmpl| tmpl.item_id() == *id)
             })

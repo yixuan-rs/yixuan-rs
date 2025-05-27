@@ -63,4 +63,3 @@ impl DataSyncHelper {
             .any(|&(ty, _)| ty == SyncType::BasicData)
     }
 }
-

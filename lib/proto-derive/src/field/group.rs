@@ -1,9 +1,9 @@
-use anyhow::{bail, Error};
+use anyhow::{Error, bail};
 use proc_macro2::TokenStream;
-use quote::{quote, ToTokens};
+use quote::{ToTokens, quote};
 use syn::Meta;
 
-use crate::field::{set_bool, set_option, tag_attr, word_attr, Label};
+use crate::field::{Label, set_bool, set_option, tag_attr, word_attr};
 
 #[derive(Clone)]
 pub struct Field {

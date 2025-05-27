@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use vivian_service::{CreatableServiceModule, ServiceModule};
 
-use crate::cluster::{PlayerLogicClusterManager, PlayerLogicCluster};
+use crate::cluster::{PlayerLogicCluster, PlayerLogicClusterManager};
 
 use tokio::sync::{mpsc, oneshot};
 use tracing::{error, info, warn};

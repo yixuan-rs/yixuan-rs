@@ -29,6 +29,7 @@ handlers! {
     Training;
     PhotoWall;
     MonthReward;
+    Map;
 }
 
 #[derive(Default)]

@@ -135,7 +135,10 @@ fn next_special_rare_item(
             .up_item_state = true;
 
         if model.gacha_random.rand(100_000) > 25_000 {
-            GachaModel::COMMON_AVATAR_ID[model.gacha_random.rand(GachaModel::COMMON_AVATAR_ID.len() as u32) as usize]
+            GachaModel::COMMON_AVATAR_ID[model
+                .gacha_random
+                .rand(GachaModel::COMMON_AVATAR_ID.len() as u32)
+                as usize]
         } else {
             let candidates = res
                 .templates

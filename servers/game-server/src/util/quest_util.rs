@@ -69,7 +69,9 @@ fn add_hollow_challenges(player: &mut Player, hollow_quest_id: u32) {
         .quest_model
         .get_or_insert_collection(EQuestType::HollowChallenge);
 
-    player.resources.templates
+    player
+        .resources
+        .templates
         .hollow_challenge_template_tb()
         .filter(|c| c.hollow_quest_id() == hollow_quest_id)
         .for_each(|c| {
@@ -89,7 +91,8 @@ fn add_hollow_challenges(player: &mut Player, hollow_quest_id: u32) {
 }
 
 pub fn add_main_city_quest(player: &mut Player, id: u32) {
-    let main_city_quest_template = player.resources
+    let main_city_quest_template = player
+        .resources
         .templates
         .main_city_quest_template_tb()
         .find(|tmpl| tmpl.id() == id)
@@ -151,7 +154,8 @@ pub fn finish_main_city_quest(player: &mut Player, id: u32) -> Vec<u32> {
     collection.finished_quests.insert(id);
 
     let mut newly_added_quests = Vec::new();
-    for next_quest_template in player.resources
+    for next_quest_template in player
+        .resources
         .templates
         .quest_config_template_tb()
         .filter(|quest| {
@@ -170,7 +174,8 @@ pub fn finish_main_city_quest(player: &mut Player, id: u32) -> Vec<u32> {
         add_main_city_quest(player, next_quest_template.quest_id());
     }
 
-    let main_city_quest_template = player.resources
+    let main_city_quest_template = player
+        .resources
         .templates
         .main_city_quest_template_tb()
         .find(|tmpl| tmpl.id() == id)

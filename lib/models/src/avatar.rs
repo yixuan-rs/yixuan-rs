@@ -1,4 +1,7 @@
-use vivian_logic::{item::{AvatarItem, EAvatarSkillType}, listener::{NotifyListener, NotifyListenerExt}};
+use vivian_logic::{
+    item::{AvatarItem, EAvatarSkillType},
+    listener::{NotifyListener, NotifyListenerExt},
+};
 
 use super::*;
 
@@ -12,8 +15,6 @@ pub struct AvatarModel {
 }
 
 impl AvatarModel {
-    
-
     pub fn send_add_avatar_notify(&self, listener: &mut dyn NotifyListener) {
         self.add_avatar_perform_map
             .iter_changed_items()
@@ -66,8 +67,6 @@ impl AvatarModel {
             add_avatar_perform_map: PropertyHashMap::default(),
         }
     }
-
-   
 }
 
 impl Saveable for AvatarModel {

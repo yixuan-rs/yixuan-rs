@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use super::*;
-use property::{Property, PropertyHashMap, PrimitiveProperty};
+use property::{PrimitiveProperty, Property, PropertyHashMap};
 use vivian_logic::item::{EquipItem, WeaponItem};
 
 #[derive(Model)]

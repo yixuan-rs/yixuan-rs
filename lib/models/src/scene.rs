@@ -1,10 +1,19 @@
-use std::{collections::{HashMap, HashSet}, str::FromStr};
+use std::{
+    collections::{HashMap, HashSet},
+    str::FromStr,
+};
 
 use super::*;
 use config::{GraphReference, SectionEvent};
-use property::{Property, PropertyHashMap, PrimitiveProperty};
+use property::{PrimitiveProperty, Property, PropertyHashMap};
 use tracing::warn;
-use vivian_logic::{dungeon::{Dungeon, DungeonEquipment}, event::{EventState, EventUID}, hall::npc::InteractTarget, math::Scale, scene::ELocalPlayType};
+use vivian_logic::{
+    dungeon::{Dungeon, DungeonEquipment},
+    event::{EventState, EventUID},
+    hall::npc::InteractTarget,
+    math::Scale,
+    scene::ELocalPlayType,
+};
 
 #[derive(Model)]
 pub struct SceneModel {

@@ -60,12 +60,7 @@ async fn main() -> Result<(), StartupError> {
     state.server_list.servers.iter().for_each(|s| {
         debug!(
             "{}: {} ({}) with seed {} @ {}:{}",
-            s.sid,
-            s.name,
-            s.bind_version,
-            s.dispatch_seed,
-            s.gateway_ip,
-            s.gateway_port,
+            s.sid, s.name, s.bind_version, s.dispatch_seed, s.gateway_ip, s.gateway_port,
         )
     });
 

@@ -12,14 +12,14 @@ use vivian_service::{
     network::{NetworkEntityManager, NetworkServer, client::NetworkClient},
 };
 
+mod cluster;
 mod config;
 mod handlers;
+mod player;
 mod resources;
 mod session;
-mod util;
-mod player;
 mod sync;
-mod cluster;
+mod util;
 
 const SERVICE_TYPE: ServiceType = ServiceType::Game;
 const CONFIG_DIR: &str = "config/40-game-server/";

@@ -152,5 +152,3 @@ impl Saveable for QuestModel {
         });
     }
 }
-
-

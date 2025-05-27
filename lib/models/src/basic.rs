@@ -1,5 +1,5 @@
 use super::*;
-use property::{Property, PrimitiveProperty};
+use property::{PrimitiveProperty, Property};
 
 #[derive(Model)]
 pub struct PlayerBasicModel {

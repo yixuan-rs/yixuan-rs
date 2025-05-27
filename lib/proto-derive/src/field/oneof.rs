@@ -1,7 +1,7 @@
-use anyhow::{bail, Error};
+use anyhow::{Error, bail};
 use proc_macro2::TokenStream;
 use quote::quote;
-use syn::{parse_str, Expr, ExprLit, Ident, Lit, Meta, MetaNameValue, Path};
+use syn::{Expr, ExprLit, Ident, Lit, Meta, MetaNameValue, Path, parse_str};
 
 use crate::field::{set_option, tags_attr};
 

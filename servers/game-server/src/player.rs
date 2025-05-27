@@ -8,6 +8,7 @@ use config::{BoundConditions, Condition, EQuestState, GraphReference, HollowQues
 use rand::RngCore;
 use vivian_codegen::ModelManager;
 use vivian_logic::{
+    GameState, LogicResources,
     dungeon::{DungeonEquipment, EQuestType},
     event::Event,
     fight::GameFightState,
@@ -16,16 +17,15 @@ use vivian_logic::{
     listener::LogicEventListener,
     long_fight::GameLongFightState,
     scene::ELocalPlayType,
-    GameState, LogicResources,
 };
-use vivian_proto::{server_only::PlayerData, PlayerSyncScNotify};
+use vivian_proto::{PlayerSyncScNotify, server_only::PlayerData};
 
 use tracing::{error, info, warn};
 use vivian_models::{property::GachaRandom, *};
 
 use crate::{
     resources::NapResources,
-    util::{avatar_util, basic_util, item_util, misc_util, quest_util},
+    util::{avatar_util, basic_util, item_util, map_util, misc_util, quest_util},
 };
 
 use super::sync::{DataSyncHelper, LoginDataSyncComponent, PlayerSyncComponent};
@@ -70,6 +70,8 @@ pub struct Player {
     pub scene_model: SceneModel,
     #[model]
     pub gacha_model: GachaModel,
+    #[model]
+    pub map_model: MapModel,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -101,6 +103,7 @@ impl Player {
             main_city_model: MainCityModel::load_from_pb(pb.main_city.unwrap()),
             scene_model: SceneModel::load_from_pb(pb.scene.unwrap()),
             gacha_model: GachaModel::load_from_pb(pb.gacha.unwrap()),
+            map_model: MapModel::load_from_pb(pb.map.unwrap()),
         }
     }
 
@@ -134,6 +137,7 @@ impl Player {
 
         item_util::add_items_on_first_login(self);
         misc_util::init_misc_structs_on_first_login(self);
+        map_util::init_map_structs_on_first_login(self);
         self.gacha_model.gacha_random = GachaRandom::new(rand::thread_rng().next_u32());
 
         let mut main_city_quest_id = 10020001;

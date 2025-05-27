@@ -1,7 +1,7 @@
 use super::*;
 use vivian_codegen::Property;
 
-use property::{PropertyHashMap, PropertyHashSet, Property, PrimitiveProperty};
+use property::{PrimitiveProperty, Property, PropertyHashMap, PropertyHashSet};
 
 #[derive(Property, Default)]
 pub struct PropertyUnlockData {
@@ -13,6 +13,11 @@ pub struct PropertyUnlockData {
 pub struct QuickAccess {
     pub index: u32,
     pub quick_access_type: i32,
+}
+
+#[derive(Property, Default)]
+pub struct PropertyTeleportUnlockData {
+    pub unlocked_id: PropertyHashSet<i32>,
 }
 
 #[derive(Property, Default)]
@@ -51,6 +56,7 @@ pub struct PropertySwitchData {
 pub struct MiscModel {
     pub switch: PropertySwitchData,
     pub unlock: PropertyUnlockData,
+    pub teleport: PropertyTeleportUnlockData,
     pub newbie: PropertyNewbieData,
     pub news_stand: PropertyNewsStandData,
     pub post_girl: PropertyPostGirlData,
@@ -104,6 +110,12 @@ impl MiscModel {
                     random_toggle: data.post_girl_random_toggle.into(),
                 })
                 .unwrap_or_default(),
+            teleport: pb
+                .teleport
+                .map(|data| PropertyTeleportUnlockData {
+                    unlocked_id: data.unlocked_id_list.into_iter().collect(),
+                })
+                .unwrap_or_default(),
         }
     }
 }
@@ -140,6 +152,9 @@ impl Saveable for MiscModel {
                     .collect(),
                 selected_id_list: self.post_girl.selected_id.iter().copied().collect(),
                 post_girl_random_toggle: self.post_girl.random_toggle.get(),
+            }),
+            teleport: Some(TeleportUnlockData {
+                unlocked_id_list: self.teleport.unlocked_id.iter().copied().collect(),
             }),
         });
     }
@@ -191,4 +206,3 @@ impl PropertyNewsStandData {
         }
     }
 }
-

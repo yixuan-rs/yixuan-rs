@@ -36,6 +36,9 @@ file_cfg! {
     PostGirlConfigTemplate;
     HollowEventTemplate;
     HollowChallengeTemplate;
+    TeleportConfigTemplate;
+    UrbanAreaMapGroupTemplate;
+    UrbanAreaMapTemplate;
 }
 
 macro_rules! file_cfg {

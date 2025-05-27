@@ -6,16 +6,16 @@ use config::{
 use npc::{Interact, InteractTarget, SceneUnit};
 use tracing::{error, warn};
 use vivian_proto::{
-    common::TimePeriodType, EnterSceneScNotify, EventGraphOwnerType, FinishEventGraphScNotify,
-    SectionEventScNotify,
+    EnterSceneScNotify, EventGraphOwnerType, FinishEventGraphScNotify, SectionEventScNotify,
+    common::TimePeriodType,
 };
 
 use crate::{
-    event::{event_util, ActionListener, Event, EventState, EventUID},
+    LogicResources,
+    event::{ActionListener, Event, EventState, EventUID, event_util},
     listener::{LogicEventListener, NotifyListener},
     math::{Scale, Transform},
     scene::SceneType,
-    LogicResources,
 };
 
 pub mod npc;

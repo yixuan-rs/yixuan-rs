@@ -2,8 +2,8 @@ use std::collections::HashMap;
 
 use vivian_proto::server_only::{
     AbyssData, ArchiveData, AvatarData, BuddyData, GachaData, HollowData, ItemData, MainCityData,
-    MiscData, NewbieData, NewsStandData, PostGirlData, QuestData, SceneData, SwitchData,
-    UnlockData,
+    MapData, MiscData, NewbieData, NewsStandData, PostGirlData, QuestData, SceneData, SwitchData,
+    TeleportUnlockData, UnlockData,
 };
 
 pub trait ModelData {
@@ -99,6 +99,7 @@ impl ModelData for MiscData {
             newbie: Some(NewbieData::default()),
             news_stand: Some(NewsStandData::default()),
             post_girl: Some(PostGirlData::default()),
+            teleport: Some(TeleportUnlockData::default()),
         }
     }
 }
@@ -137,6 +138,17 @@ impl ModelData for GachaData {
         GachaData {
             gacha_statistics_list: Vec::new(),
             gacha_random: 0,
+        }
+    }
+}
+
+impl ModelData for MapData {
+    const TABLE: &str = "t_map_data";
+
+    fn create_default(_uid: i32) -> Self {
+        MapData {
+            area_group_list: Vec::new(),
+            area_street_list: Vec::new(),
         }
     }
 }

@@ -1,5 +1,5 @@
 use super::*;
-use property::{Property, PropertyTransform, PrimitiveProperty};
+use property::{PrimitiveProperty, Property, PropertyTransform};
 use vivian_logic::{hall::HallPosition, math::Transform};
 
 #[derive(Model)]
