@@ -221,6 +221,41 @@ impl LoginDataSyncComponent for MiscModel {
 
         sync_helper.add_response(
             SyncType::ExtendData,
+            vivian_proto::GetSwitchDataScRsp {
+                retcode: 0,
+                r#type: 1,
+                setting_switch_map: self.switch.setting_switch_map.base.clone(),
+                switch_data: Some(vivian_proto::SwitchData {
+                    open_system_id_list: self.switch.open_system_id.iter().copied().collect(),
+                    system_switch_state_list: self
+                        .switch
+                        .system_switch_state_map
+                        .iter()
+                        .map(|(&ty, &state)| vivian_proto::SystemSwitchStateInfo {
+                            r#type: ty,
+                            switch_state: state,
+                        })
+                        .collect(),
+                    input_setting_map: self
+                        .switch
+                        .input_setting_map
+                        .iter()
+                        .map(|(&ty, setting)| {
+                            (
+                                ty,
+                                vivian_proto::InputSettingInfo {
+                                    input_type_map: setting.input_type_map.clone(),
+                                },
+                            )
+                        })
+                        .collect(),
+                    ..Default::default()
+                }),
+            },
+        );
+
+        sync_helper.add_response(
+            SyncType::ExtendData,
             vivian_proto::GetMiscDataScRsp {
                 retcode: 0,
                 data: Some(vivian_proto::MiscData {

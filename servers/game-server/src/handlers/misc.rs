@@ -2,14 +2,16 @@ use common::time_util;
 use tracing::{debug, warn};
 use vivian_codegen::{handlers, required_state};
 use vivian_logic::system::{ClientSystemType, EOperator};
+use vivian_models::InputSetting;
 use vivian_proto::{
     BattleReportCsReq, BattleReportScRsp, EndNewbieCsReq, EndNewbieScRsp, GameLogReportCsReq,
     GameLogReportScRsp, GetMiscDataCsReq, GetMiscDataScRsp, GetNewsStandDataCsReq,
-    GetNewsStandDataScRsp, ItemRewardInfo, NewsStandSignCsReq, NewsStandSignScRsp,
-    PlayerOperationCsReq, PlayerOperationScRsp, ReadNewsCsReq, ReadNewsScRsp,
-    ReportUiLayoutPlatformCsReq, ReportUiLayoutPlatformScRsp, SavePlayerSystemSettingCsReq,
-    SavePlayerSystemSettingScRsp, SelectPostGirlCsReq, SelectPostGirlScRsp,
-    SyncGlobalVariablesCsReq, SyncGlobalVariablesScRsp, VideoGetInfoCsReq, VideoGetInfoScRsp,
+    GetNewsStandDataScRsp, GetSwitchDataCsReq, GetSwitchDataScRsp, ItemRewardInfo,
+    NewsStandSignCsReq, NewsStandSignScRsp, PlayerOperationCsReq, PlayerOperationScRsp,
+    ReadNewsCsReq, ReadNewsScRsp, ReportUiLayoutPlatformCsReq, ReportUiLayoutPlatformScRsp,
+    SavePlayerSystemSettingCsReq, SavePlayerSystemSettingScRsp, SelectPostGirlCsReq,
+    SelectPostGirlScRsp, SyncGlobalVariablesCsReq, SyncGlobalVariablesScRsp, VideoGetInfoCsReq,
+    VideoGetInfoScRsp,
 };
 
 use crate::{sync::SyncType, util::item_util};
@@ -32,12 +34,57 @@ impl MiscHandler {
     }
 
     pub fn on_save_player_system_setting_cs_req(
-        _context: &mut NetContext<'_>,
+        context: &mut NetContext<'_>,
         request: SavePlayerSystemSettingCsReq,
     ) -> SavePlayerSystemSettingScRsp {
         debug!("{request:?}");
 
+        let switch_data = &mut context.player.misc_model.switch;
+
+        if request.params != 0 {
+            switch_data
+                .setting_switch_map
+                .insert(request.r#type, request.params);
+        }
+
+        if let Some(info) = request.system_switch_state {
+            if info.r#type != 0 {
+                switch_data
+                    .system_switch_state_map
+                    .insert(info.r#type, info.switch_state);
+            }
+        }
+
+        if let Some(info) = request.input_setting {
+            if !info.input_type_map.is_empty() {
+                switch_data.input_setting_map.insert(
+                    request.r#type,
+                    InputSetting {
+                        input_type_map: info.input_type_map,
+                    },
+                );
+            }
+        }
+
+        request
+            .setting_content_map
+            .into_iter()
+            .for_each(|(ty, value)| {
+                switch_data.setting_switch_map.insert(ty, value);
+            });
+
         SavePlayerSystemSettingScRsp { retcode: 0 }
+    }
+
+    #[required_state(ExtendDataSync)]
+    pub fn on_get_switch_data_cs_req(
+        context: &mut NetContext<'_>,
+        _request: GetSwitchDataCsReq,
+    ) -> GetSwitchDataScRsp {
+        context
+            .player
+            .sync_helper
+            .remove_sync_response(SyncType::ExtendData)
     }
 
     #[required_state(ExtendDataSync)]

@@ -25,8 +25,8 @@ pub use item::ItemModel;
 pub use main_city::MainCityModel;
 pub use map::{AreaGroupInfo, AreaStreetInfo, MapModel};
 pub use misc::{
-    MiscModel, PropertyNewbieData, PropertyNewsStandData, PropertyPostGirlData, PropertySwitchData,
-    PropertyUnlockData, QuickAccess,
+    InputSetting, MiscModel, PropertyNewbieData, PropertyNewsStandData, PropertyPostGirlData,
+    PropertySwitchData, PropertyUnlockData, QuickAccess,
 };
 pub use quest::{MainCityQuestExt, Quest, QuestCollection, QuestModel};
 pub use scene::*;

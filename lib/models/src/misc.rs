@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use super::*;
 use vivian_codegen::Property;
 
@@ -47,9 +49,17 @@ pub struct PropertyNewsStandData {
     pub last_sign_time: PrimitiveProperty<i64>,
 }
 
+#[derive(Default)]
+pub struct InputSetting {
+    pub input_type_map: HashMap<u32, i32>,
+}
+
 #[derive(Property, Default)]
 pub struct PropertySwitchData {
     pub open_system_id: PropertyHashSet<u32>,
+    pub setting_switch_map: PropertyHashMap<u32, u32>,
+    pub system_switch_state_map: PropertyHashMap<u32, bool>,
+    pub input_setting_map: PropertyHashMap<u32, InputSetting>,
 }
 
 #[derive(Model)]
@@ -69,6 +79,20 @@ impl MiscModel {
                 .switch
                 .map(|data| PropertySwitchData {
                     open_system_id: data.open_system_id_list.into_iter().collect(),
+                    setting_switch_map: data.setting_switch_map.into_iter().collect(),
+                    system_switch_state_map: data.system_switch_state_map.into_iter().collect(),
+                    input_setting_map: data
+                        .input_setting_map
+                        .into_iter()
+                        .map(|(ty, setting)| {
+                            (
+                                ty,
+                                InputSetting {
+                                    input_type_map: setting.input_type_map,
+                                },
+                            )
+                        })
+                        .collect(),
                 })
                 .unwrap_or_default(),
             unlock: pb
@@ -125,6 +149,31 @@ impl Saveable for MiscModel {
         root.misc = Some(MiscData {
             switch: Some(SwitchData {
                 open_system_id_list: self.switch.open_system_id.iter().copied().collect(),
+                setting_switch_map: self
+                    .switch
+                    .setting_switch_map
+                    .iter()
+                    .map(|(&k, &v)| (k, v))
+                    .collect(),
+                system_switch_state_map: self
+                    .switch
+                    .system_switch_state_map
+                    .iter()
+                    .map(|(&ty, &state)| (ty, state))
+                    .collect(),
+                input_setting_map: self
+                    .switch
+                    .input_setting_map
+                    .iter()
+                    .map(|(&ty, setting)| {
+                        (
+                            ty,
+                            vivian_proto::server_only::InputSettingInfo {
+                                input_type_map: setting.input_type_map.clone(),
+                            },
+                        )
+                    })
+                    .collect(),
             }),
             unlock: Some(UnlockData {
                 unlocked_id_list: self.unlock.unlocked_id.iter().copied().collect(),
