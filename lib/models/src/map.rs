@@ -14,6 +14,7 @@ pub struct AreaStreetInfo {
     pub area_progress: u32,
     pub location_pop_showed: bool,
     pub new_area_showed: bool,
+    pub new_area_portals_showed: bool,
 }
 
 #[derive(Model)]
@@ -32,8 +33,8 @@ impl MapModel {
                     (
                         group.group_id,
                         AreaGroupInfo {
-                            is_unlocked: group.is_unlocked.into(),
-                            area_progress: group.area_progress.into(),
+                            is_unlocked: group.is_unlocked,
+                            area_progress: group.area_progress,
                         },
                     )
                 })
@@ -45,10 +46,11 @@ impl MapModel {
                     (
                         street.area_id,
                         AreaStreetInfo {
-                            is_unlocked: street.is_unlocked.into(),
-                            area_progress: street.area_progress.into(),
-                            location_pop_showed: street.location_pop_showed.into(),
-                            new_area_showed: street.new_area_showed.into(),
+                            is_unlocked: street.is_unlocked,
+                            area_progress: street.area_progress,
+                            location_pop_showed: street.location_pop_showed,
+                            new_area_showed: street.new_area_showed,
+                            new_area_portals_showed: street.new_area_portals_showed,
                         },
                     )
                 })
@@ -78,6 +80,7 @@ impl Saveable for MapModel {
                     area_progress: street.area_progress,
                     location_pop_showed: street.location_pop_showed,
                     new_area_showed: street.new_area_showed,
+                    new_area_portals_showed: street.new_area_portals_showed,
                 })
                 .collect(),
         });

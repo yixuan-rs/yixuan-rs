@@ -549,6 +549,8 @@ pub struct MapAreaStreetInfo {
     pub location_pop_showed: bool,
     #[prost(bool, tag = "5")]
     pub new_area_showed: bool,
+    #[prost(bool, tag = "6")]
+    pub new_area_portals_showed: bool,
 }
 #[derive(::proto_derive::NetCmd, Clone, PartialEq, ::prost::Message)]
 pub struct MapData {

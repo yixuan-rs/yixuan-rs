@@ -2104,6 +2104,8 @@ pub struct AreaStreetInfo {
     pub location_pop_showed: bool,
     #[prost(bool, tag = "7")]
     pub new_area_showed: bool,
+    #[prost(bool, tag = "8")]
+    pub new_area_portals_showed: bool,
 }
 #[derive(
     Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd, ::proto_derive::NetResponse,
@@ -2124,12 +2126,30 @@ pub struct AreaMapModStateCsReq {
     pub location_pop_showed: bool,
     #[prost(bool, tag = "7")]
     pub new_area_showed: bool,
+    #[prost(bool, tag = "10")]
+    pub new_area_portals_showed: bool,
 }
 #[derive(
     Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd, ::proto_derive::NetResponse,
 )]
 pub struct AreaMapModStateScRsp {
     pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(6980)]
+pub struct GetAreaPortalDataCsReq {
+    #[prost(uint32, repeated, tag = "11")]
+    pub area_portal_id_list: ::prost::alloc::vec::Vec<u32>,
+}
+#[derive(
+    Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd, ::proto_derive::NetResponse,
+)]
+#[cmd_id(5117)]
+pub struct GetAreaPortalDataScRsp {
+    #[prost(int32, tag = "15", xor = "14153")]
+    pub retcode: i32,
+    #[prost(uint32, repeated, tag = "5")]
+    pub area_portal_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]

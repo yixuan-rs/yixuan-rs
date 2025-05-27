@@ -14,9 +14,8 @@ pub fn init_map_structs_on_first_login(player: &mut Player) {
             model.area_group_map.insert(
                 tmpl.area_group_id(),
                 AreaGroupInfo {
-                    is_unlocked: true.into(),
-                    area_progress: ((rand::RngCore::next_u32(&mut rand::thread_rng()) % 100) * 100)
-                        .into(),
+                    is_unlocked: true,
+                    area_progress: (rand::RngCore::next_u32(&mut rand::thread_rng()) % 100) * 100,
                 },
             );
         });
@@ -29,11 +28,11 @@ pub fn init_map_structs_on_first_login(player: &mut Player) {
             model.area_street_map.insert(
                 tmpl.area_id(),
                 AreaStreetInfo {
-                    is_unlocked: true.into(),
-                    area_progress: ((rand::RngCore::next_u32(&mut rand::thread_rng()) % 100) * 100)
-                        .into(),
-                    location_pop_showed: false.into(),
-                    new_area_showed: false.into(),
+                    is_unlocked: true,
+                    area_progress: (rand::RngCore::next_u32(&mut rand::thread_rng()) % 100) * 100,
+                    location_pop_showed: false,
+                    new_area_showed: false,
+                    new_area_portals_showed: false,
                 },
             );
         });

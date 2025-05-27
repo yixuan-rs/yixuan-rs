@@ -1,6 +1,6 @@
 use vivian_codegen::handlers;
 use vivian_proto::{
-    AreaGroupInfo, AreaMapData, AreaMapModStateCsReq, AreaMapModStateScRsp, AreaStreetInfo, GetAreaMapDataCsReq, GetAreaMapDataScRsp
+    AreaGroupInfo, AreaMapData, AreaMapModStateCsReq, AreaMapModStateScRsp, AreaStreetInfo, GetAreaMapDataCsReq, GetAreaMapDataScRsp, GetAreaPortalDataCsReq, GetAreaPortalDataScRsp
 };
 
 use super::NetContext;
@@ -37,6 +37,7 @@ impl MapHandler {
 				is_unlocked: street.is_unlocked,
 				location_pop_showed: street.location_pop_showed,
 				new_area_showed: street.new_area_showed,
+				new_area_portals_showed: street.new_area_portals_showed,
 			})
 			.collect();
 		sorted_streets.sort_by_key(|s| s.area_id);
@@ -67,9 +68,21 @@ impl MapHandler {
 
 		area.location_pop_showed |= request.location_pop_showed;
 		area.new_area_showed |= request.new_area_showed;
+		area.new_area_portals_showed |= request.new_area_portals_showed;
 
 		AreaMapModStateScRsp {
 			retcode: 0,
+		}
+	}
+
+	pub fn on_get_area_portal_data_cs_req(
+		_context: &mut NetContext<'_>,
+		_request: GetAreaPortalDataCsReq,
+	) -> GetAreaPortalDataScRsp {
+		// TODO: Send back IDs of portals that are NEW
+		GetAreaPortalDataScRsp {
+			retcode: 0,
+			area_portal_id_list: Vec::new(),
 		}
 	}
 }
