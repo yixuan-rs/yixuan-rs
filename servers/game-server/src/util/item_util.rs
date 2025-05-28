@@ -1,4 +1,7 @@
+use std::collections::HashMap;
+
 use config::WeaponTemplate;
+use rand::{RngCore, seq::IteratorRandom};
 use vivian_logic::item::WeaponItem;
 
 use crate::player::Player;
@@ -45,6 +48,80 @@ pub fn add_items_on_first_login(player: &mut Player) {
                 },
             );
         });
+
+    // Generate some Drive Discs for now
+    let rng = &mut rand::thread_rng();
+    let properties_map: [(u32, Vec<u32>, u32, Vec<u32>, u32); 19] = [
+        (11103, vec![1], 550, vec![1, 2, 3, 4, 5, 6], 112),
+        (11102, vec![4, 5, 6], 750, vec![1, 2, 3, 4, 5, 6], 300),
+        (12103, vec![2], 79, vec![1, 2, 3, 4, 5, 6], 19),
+        (12102, vec![4, 5, 6], 750, vec![1, 2, 3, 4, 5, 6], 300),
+        (13103, vec![3], 46, vec![1, 2, 3, 4, 5, 6], 15),
+        (13102, vec![4, 5, 6], 1200, vec![1, 2, 3, 4, 5, 6], 480),
+        (23203, vec![], 0, vec![1, 2, 3, 4, 5, 6], 9),
+        (23103, vec![5], 600, vec![], 0),
+        (31402, vec![6], 750, vec![], 0),
+        (31203, vec![4], 23, vec![1, 2, 3, 4, 5, 6], 9),
+        (21103, vec![4], 1200, vec![1, 2, 3, 4, 5, 6], 480),
+        (20103, vec![4], 600, vec![1, 2, 3, 4, 5, 6], 240),
+        (30502, vec![6], 1500, vec![], 0),
+        (12202, vec![6], 450, vec![], 0),
+        (31803, vec![5], 750, vec![], 0),
+        (31903, vec![5], 750, vec![], 0),
+        (31603, vec![5], 750, vec![], 0),
+        (31703, vec![5], 750, vec![], 0),
+        (31503, vec![5], 750, vec![], 0),
+    ];
+    for _ in 0..100 {
+        let uid = player.item_model.next_uid();
+
+        let id = player
+            .resources
+            .templates
+            .equipment_suit_template_tb()
+            .choose(rng)
+            .unwrap()
+            .id();
+        let id = id + 40; // S-rank
+        let slot = 1 + rng.next_u32() % 6;
+        let id = id + slot;
+
+        let main_property = properties_map
+            .iter()
+            .filter(|p| p.1.contains(&slot))
+            .choose(rng)
+            .map(|p| (p.0, (p.2, 1)))
+            .unwrap();
+
+        let mut sub_properties = HashMap::new();
+        let mut add_value_mod = 6;
+        for _ in 0..4 {
+            let sub_property = properties_map
+                .iter()
+                .filter(|p| p.3.contains(&slot) && !sub_properties.contains_key(&p.0))
+                .choose(rng)
+                .map(|p| {
+                    let add_value = rng.next_u32() % add_value_mod;
+                    add_value_mod = add_value_mod - add_value;
+                    (p.0, (p.4, 1 + add_value))
+                })
+                .unwrap();
+            sub_properties.insert(sub_property.0, sub_property.1);
+        }
+
+        player.item_model.equip_map.insert(
+            uid,
+            vivian_logic::item::EquipItem {
+                id,
+                level: 15,
+                exp: 0,
+                star: 1,
+                lock: false,
+                properties: [main_property].into_iter().collect(),
+                sub_properties,
+            },
+        );
+    }
 }
 
 pub fn add_weapon(player: &mut Player, template: &WeaponTemplate) -> u32 {

@@ -39,7 +39,7 @@ pub enum GMCmd {
     Jump {
         section_id: u32,
         transform_id: String,
-    }
+    },
 }
 
 #[derive(thiserror::Error, Debug)]

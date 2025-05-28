@@ -62,7 +62,7 @@ impl AvatarItem {
             dressed_equip_list: self
                 .dressed_equip_map
                 .iter()
-                .map(|(&index, &equip_uid)| vivian_proto::DressedEquip { index, equip_uid })
+                .map(|(&equip_uid, &index)| vivian_proto::DressedEquip { equip_uid, index })
                 .collect(),
             avatar_skin_id: self.avatar_skin_id,
             first_get_time: self.first_get_time,

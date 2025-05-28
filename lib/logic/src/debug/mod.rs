@@ -1,3 +1,3 @@
 mod gm_cmd;
 
-pub use gm_cmd::{GMInput, GMCmd, GMInputParseError};
+pub use gm_cmd::{GMCmd, GMInput, GMInputParseError};

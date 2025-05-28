@@ -68,3 +68,35 @@ pub fn unlock_avatar(
         }
     }
 }
+
+pub fn dress_equip(player: &mut Player, avatar_id: u32, (equip_uid, dress_index): (u32, u32)) {
+    player
+        .avatar_model
+        .avatar_map
+        .iter()
+        .filter_map(|(&id, avatar)| {
+            avatar
+                .dressed_equip_map
+                .contains_key(&equip_uid)
+                .then_some((id, equip_uid))
+        })
+        .collect::<Vec<_>>()
+        .into_iter()
+        .for_each(|(id, equip_uid)| {
+            player
+                .avatar_model
+                .avatar_map
+                .get_mut(&id)
+                .unwrap()
+                .dressed_equip_map
+                .remove(&equip_uid);
+        });
+
+    let avatar = player.avatar_model.avatar_map.get_mut(&avatar_id).unwrap();
+
+    avatar
+        .dressed_equip_map
+        .retain(|_, dressed_equip_index| *dressed_equip_index != dress_index);
+
+    avatar.dressed_equip_map.insert(equip_uid, dress_index);
+}

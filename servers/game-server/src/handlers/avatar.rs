@@ -1,14 +1,10 @@
 use vivian_codegen::{handlers, required_state};
 use vivian_logic::item::EItemType;
 use vivian_proto::{
-    AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp,
-    AvatarShowWeaponCsReq, AvatarShowWeaponScRsp, AvatarSkinDressCsReq, AvatarSkinDressScRsp,
-    AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp,
-    GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq,
-    WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp,
+    AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp, AvatarShowWeaponCsReq, AvatarShowWeaponScRsp, AvatarSkinDressCsReq, AvatarSkinDressScRsp, AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp, EquipmentDressCsReq, EquipmentDressScRsp, EquipmentSuitDressCsReq, EquipmentSuitDressScRsp, EquipmentUnDressCsReq, EquipmentUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp, GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq, WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp
 };
 
-use crate::{sync::SyncType, util::item_util};
+use crate::{sync::SyncType, util::{avatar_util, item_util}};
 
 use super::NetContext;
 
@@ -329,5 +325,106 @@ impl AvatarHandler {
         _request: GetAvatarRecommendEquipCsReq,
     ) -> GetAvatarRecommendEquipScRsp {
         GetAvatarRecommendEquipScRsp { retcode: 0 }
+    }
+
+    pub fn on_equipment_dress_cs_req(
+        context: &mut NetContext<'_>,
+        request: EquipmentDressCsReq,
+    ) -> EquipmentDressScRsp {
+        if !context
+            .player
+            .avatar_model
+            .is_avatar_unlocked(request.avatar_id)
+        {
+            return EquipmentDressScRsp { retcode: 1 };
+        }
+
+        if !context
+            .player
+            .item_model
+            .equip_map
+            .contains_key(&request.equip_uid)
+        {
+            return EquipmentDressScRsp { retcode: 1 };
+        };
+
+        avatar_util::dress_equip(
+            context.player,
+            request.avatar_id,
+            (
+                request.equip_uid,
+                request.dress_index,
+            ),
+        );
+
+        EquipmentDressScRsp { retcode: 0 }
+    }
+
+    pub fn on_equipment_un_dress_cs_req(
+        context: &mut NetContext<'_>,
+        request: EquipmentUnDressCsReq,
+    ) -> EquipmentUnDressScRsp {
+        if let Some(avatar) = context
+            .player
+            .avatar_model
+            .avatar_map
+            .get_mut(&request.avatar_id)
+        {
+            request
+                .undress_index_list
+                .iter()
+                .for_each(|undress_index| {
+                    avatar
+                        .dressed_equip_map
+                        .retain(|_, index| index != undress_index);
+                });
+
+            EquipmentUnDressScRsp { retcode: 0 }
+        } else {
+            EquipmentUnDressScRsp { retcode: 1 }
+        }
+    }
+
+    pub fn on_equipment_suit_dress_cs_req(
+        context: &mut NetContext<'_>,
+        request: EquipmentSuitDressCsReq,
+    ) -> EquipmentSuitDressScRsp {
+        if !context
+            .player
+            .avatar_model
+            .is_avatar_unlocked(request.avatar_id)
+        {
+            return EquipmentSuitDressScRsp { retcode: 1 };
+        }
+
+        if !request
+            .param_list
+            .iter()
+            .fold(true, |v, param|
+                v && context
+                .player
+                .item_model
+                .equip_map
+                .contains_key(&param.equip_uid)
+            )
+        {
+            return EquipmentSuitDressScRsp { retcode: 1 };
+        }
+
+        request
+            .param_list
+            .iter()
+            .for_each(|param| {
+                avatar_util::dress_equip(
+                    context.player,
+                    request.avatar_id,
+                    (
+                        param.equip_uid,
+                        param.dress_index,
+                    ),
+                );
+            });
+
+        EquipmentSuitDressScRsp { retcode: 0 }
     }
 }
