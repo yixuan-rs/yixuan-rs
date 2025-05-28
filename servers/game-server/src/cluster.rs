@@ -10,7 +10,7 @@ use std::{
 
 use tokio::sync::oneshot;
 use tracing::info;
-use vivian_logic::GameState;
+use vivian_logic::{GameState, debug::GMCmd};
 use vivian_proto::{
     head::PacketHead,
     server_only::{PlayerData, PlayerDataChangedNotify},
@@ -25,6 +25,7 @@ use crate::{
     handlers::NetContext,
     player::{ModelManager, Player},
     resources::NapResources,
+    util::gm_util,
 };
 
 pub struct PlayerCommandResult {
@@ -44,6 +45,11 @@ enum ClusterCommand {
         cmd_id: u16,
         body: Vec<u8>,
         result_awaiter_tx: oneshot::Sender<PlayerCommandResult>,
+    },
+    #[expect(dead_code)]
+    PushGmCommand {
+        player_uid: u32,
+        cmd: GMCmd,
     },
     RemovePlayer {
         player_uid: u32,
@@ -335,6 +341,11 @@ impl PlayerLogicCluster {
                                 slot.player.changes_acknowledged();
                             }
                         }
+                    }
+                }
+                ClusterCommand::PushGmCommand { player_uid, cmd } => {
+                    if let Some(slot) = slots.get_mut(&player_uid) {
+                        gm_util::execute_gm_cmd(&mut slot.player, cmd);
                     }
                 }
             }

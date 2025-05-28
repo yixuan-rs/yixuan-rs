@@ -27,53 +27,24 @@ pub fn add_items_on_first_login(player: &mut Player) {
                 .insert(tmpl.accessory_id(), 1)
         });
 
-    let weapon_cfg = &player.resources.gameplay.first_login.weapon;
-
-    if weapon_cfg.unlock_all {
-        player
-            .resources
-            .templates
-            .weapon_template_tb()
-            .for_each(|tmpl| {
-                let uid = player.item_model.next_uid();
-                player.item_model.weapon_map.insert(
-                    uid,
-                    WeaponItem {
-                        id: tmpl.item_id(),
-                        level: weapon_cfg.level,
-                        exp: 0,
-                        star: weapon_cfg.star,
-                        refine_level: weapon_cfg.refine_level,
-                        lock: false,
-                    },
-                );
-            });
-    } else {
-        weapon_cfg
-            .unlock_id_list
-            .iter()
-            .filter_map(|id| {
-                player
-                    .resources
-                    .templates
-                    .weapon_template_tb()
-                    .find(|tmpl| tmpl.item_id() == *id)
-            })
-            .for_each(|tmpl| {
-                let uid = player.item_model.next_uid();
-                player.item_model.weapon_map.insert(
-                    uid,
-                    WeaponItem {
-                        id: tmpl.item_id(),
-                        level: weapon_cfg.level,
-                        exp: 0,
-                        star: weapon_cfg.star,
-                        refine_level: weapon_cfg.refine_level,
-                        lock: false,
-                    },
-                );
-            });
-    }
+    player
+        .resources
+        .templates
+        .weapon_template_tb()
+        .for_each(|tmpl| {
+            let uid = player.item_model.next_uid();
+            player.item_model.weapon_map.insert(
+                uid,
+                WeaponItem {
+                    id: tmpl.item_id(),
+                    level: 60,
+                    exp: 0,
+                    star: tmpl.star_limit() + 1,
+                    refine_level: tmpl.refine_limit(),
+                    lock: false,
+                },
+            );
+        });
 }
 
 pub fn add_weapon(player: &mut Player, template: &WeaponTemplate) -> u32 {

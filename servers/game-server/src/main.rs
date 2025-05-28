@@ -49,10 +49,6 @@ async fn main() -> Result<(), StartupError> {
             concatcp!(CONFIG_DIR, "gacha_schedule.toml"),
             include_str!("../gacha_schedule.default.toml"),
         ),
-        first_login: common::config_util::load_or_create(
-            concatcp!(CONFIG_DIR, "first_login.toml"),
-            include_str!("../first_login.default.toml"),
-        ),
     };
 
     let resources = NapResources::load(&config.resources, gameplay_cfg)?;

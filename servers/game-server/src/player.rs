@@ -25,7 +25,7 @@ use vivian_models::{property::GachaRandom, *};
 
 use crate::{
     resources::NapResources,
-    util::{avatar_util, basic_util, item_util, map_util, misc_util, quest_util},
+    util::{avatar_util, basic_util, gm_util, item_util, map_util, misc_util, quest_util},
 };
 
 use super::sync::{DataSyncHelper, LoginDataSyncComponent, PlayerSyncComponent};
@@ -120,32 +120,18 @@ impl Player {
         // and it won't be needed to set avatar ids in basic module
         // (player will select them in beginner procedure)
 
-        let cfg = &self.resources.gameplay.first_login;
+        self.basic_model.level.set(1);
+        self.basic_model.avatar_id.set(2011);
+        self.basic_model.control_avatar_id.set(2011);
+
+        self.main_city_model.day_of_week.set(5);
+        self.gacha_model.gacha_random = GachaRandom::new(rand::thread_rng().next_u32());
 
         avatar_util::unlock_avatars_on_first_login(self);
-
-        self.basic_model.level.set(cfg.interknot_level);
-        self.basic_model.avatar_id.set(cfg.control_avatar_id);
-        self.basic_model
-            .control_avatar_id
-            .set(cfg.control_avatar_id);
-        self.basic_model
-            .control_guise_avatar_id
-            .set(cfg.control_guise_avatar_id);
-
-        self.main_city_model.day_of_week.set(cfg.day_of_week);
-
         item_util::add_items_on_first_login(self);
         misc_util::init_misc_structs_on_first_login(self);
         map_util::init_map_structs_on_first_login(self);
-        self.gacha_model.gacha_random = GachaRandom::new(rand::thread_rng().next_u32());
-
-        let mut main_city_quest_id = 10020001;
-        if !cfg.start_main_quest {
-            main_city_quest_id = 10020028;
-        }
-
-        quest_util::add_main_city_quest(self, main_city_quest_id);
+        quest_util::add_main_city_quest(self, 10020001);
 
         // Initialize hall scene with WorkShop section
         let scene_uid = self.scene_model.next_scene_uid();
@@ -154,7 +140,7 @@ impl Player {
             SceneSnapshot {
                 scene_id: 1,
                 ext: SceneSnapshotExt::Hall(HallSceneSnapshot {
-                    cur_section_id: cfg.default_section_id,
+                    cur_section_id: 2,
                     sections: HashMap::new(),
                     main_city_objects_state: HashMap::new(),
                 }),
@@ -167,6 +153,16 @@ impl Player {
 
         self.scene_model.cur_scene_uid.set(scene_uid);
         self.scene_model.default_scene_uid.set(scene_uid);
+
+        self.resources
+            .first_login_gm_groups
+            .iter()
+            .for_each(|gm_group| {
+                gm_group
+                    .commands
+                    .iter()
+                    .for_each(|cmd| gm_util::execute_gm_cmd(self, cmd.clone()));
+            });
     }
 
     pub fn claim_reward(&mut self, once_reward_id: u32) {
@@ -225,7 +221,7 @@ impl Player {
                         AddItemSource::Mail => Some(PerformType::PerformAnimation),
                     };
 
-                    avatar_util::unlock_avatar(self, &template, perform_type, None);
+                    avatar_util::unlock_avatar(self, &template, perform_type);
                 }
                 None
             }

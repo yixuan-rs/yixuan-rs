@@ -6,6 +6,7 @@ use listener::NotifyListener;
 use long_fight::GameLongFightState;
 use scene::SceneType;
 
+pub mod debug;
 pub mod dungeon;
 pub mod event;
 pub mod fight;
@@ -19,7 +20,6 @@ mod predicate_util;
 pub mod scene;
 pub mod system;
 
-// NOTE: box them if needed.
 macro_rules! game_state {
     ($($state:ident;)*) => {
         ::paste::paste!(pub enum GameState {

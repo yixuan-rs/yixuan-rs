@@ -205,8 +205,7 @@ impl AvatarHandler {
                 .resources
                 .templates
                 .weapon_template_tb()
-                .find(|tmpl| tmpl.item_id() == weapon.id && tmpl.avatar_id() == request.avatar_id)
-                .is_some()
+                .any(|tmpl| tmpl.item_id() == weapon.id && tmpl.avatar_id() == request.avatar_id)
         {
             avatar.show_weapon_type = vivian_proto::AvatarShowWeaponType::ShowWeaponActive.into();
         }

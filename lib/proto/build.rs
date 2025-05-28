@@ -167,8 +167,8 @@ fn update_attributes(internal: &Path, current: &Path, output: &Path) -> io::Resu
                         println!(
                             "cargo:warning=cs_current.proto is missing [{}] \"{}::{}\"",
                             missing_counter,
-                            old_item.ident.to_string(),
-                            old_field.ident.as_ref().unwrap().to_string(),
+                            old_item.ident,
+                            old_field.ident.as_ref().unwrap(),
                         );
                     }
                 })
@@ -176,8 +176,7 @@ fn update_attributes(internal: &Path, current: &Path, output: &Path) -> io::Resu
                 missing_counter += 1;
                 println!(
                     "cargo:warning=cs_current.proto is missing [{}] \"{}\"",
-                    missing_counter,
-                    old_item.ident.to_string(),
+                    missing_counter, old_item.ident,
                 );
             }
         }

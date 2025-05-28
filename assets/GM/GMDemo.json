@@ -1,0 +1,18 @@
+{
+    "Commands": [
+        "SetYorozuyaLv 60",
+        "AddAllAvatar",
+        "AvatarLvUp 0 60",
+        "AvatarSkillUp 0 0 12",
+        "AvatarSkillUp 0 1 12",
+        "AvatarSkillUp 0 2 12",
+        "AvatarSkillUp 0 3 12",
+        "AvatarSkillUp 0 4 7",
+        "AvatarSkillUp 0 5 7",
+        "AvatarSkillUp 0 6 12",
+        "AvatarTalentUp 0 6",
+        "SetAvatarSkin 1371 3113711",
+        "SetControlGuiseAvatar 1371",
+        "Jump 1 Street_PlayerPos_FromWorkshop"
+    ]
+}

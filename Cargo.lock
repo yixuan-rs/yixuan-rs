@@ -2574,11 +2574,12 @@ version = "0.0.1"
 dependencies = [
  "common",
  "config",
- "hex",
  "num_enum",
  "paste",
+ "serde",
  "thiserror",
  "tracing",
+ "vivian-codegen",
  "vivian-proto",
 ]
 
