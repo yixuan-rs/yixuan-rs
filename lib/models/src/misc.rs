@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 use super::*;
 use vivian_codegen::Property;
@@ -62,6 +62,28 @@ pub struct PropertySwitchData {
     pub input_setting_map: PropertyHashMap<u32, InputSetting>,
 }
 
+#[derive(Property, Default)]
+pub struct PropertyBusinessCardData {
+    pub unlocked_items: PropertyHashSet<u32>,
+    pub selected_id: PrimitiveProperty<u32>,
+}
+
+#[derive(Default)]
+pub struct PlayerSkin {
+    pub equipped_accessory_id_list: HashSet<u32>,
+}
+
+#[derive(Default)]
+pub struct PlayerAccessory {
+    pub avatar_skin_id: u32,
+    pub player_skin_map: HashMap<u32, PlayerSkin>,
+}
+
+#[derive(Property, Default)]
+pub struct PropertyPlayerAccessoryData {
+    pub player_accessory_map: PropertyHashMap<u32, PlayerAccessory>,
+}
+
 #[derive(Model)]
 pub struct MiscModel {
     pub switch: PropertySwitchData,
@@ -70,6 +92,8 @@ pub struct MiscModel {
     pub newbie: PropertyNewbieData,
     pub news_stand: PropertyNewsStandData,
     pub post_girl: PropertyPostGirlData,
+    pub business_card: PropertyBusinessCardData,
+    pub player_accessory: PropertyPlayerAccessoryData,
 }
 
 impl MiscModel {
@@ -140,6 +164,45 @@ impl MiscModel {
                     unlocked_id: data.unlocked_id_list.into_iter().collect(),
                 })
                 .unwrap_or_default(),
+            business_card: pb
+                .business_card
+                .map(|data| PropertyBusinessCardData {
+                    unlocked_items: data.unlocked_id_list.into_iter().collect(),
+                    selected_id: data.selected_id.into(),
+                })
+                .unwrap_or_default(),
+            player_accessory: pb
+                .player_accessory
+                .map(|data| PropertyPlayerAccessoryData {
+                    player_accessory_map: data
+                        .player_accessory_list
+                        .into_iter()
+                        .map(|player_accessory| {
+                            (
+                                player_accessory.avatar_id,
+                                PlayerAccessory {
+                                    avatar_skin_id: player_accessory.avatar_skin_id,
+                                    player_skin_map: player_accessory
+                                        .player_skin_list
+                                        .into_iter()
+                                        .map(|player_skin| {
+                                            (
+                                                player_skin.player_skin_id,
+                                                PlayerSkin {
+                                                    equipped_accessory_id_list: player_skin
+                                                        .equipped_accessory_id_list
+                                                        .into_iter()
+                                                        .collect(),
+                                                },
+                                            )
+                                        })
+                                        .collect(),
+                                },
+                            )
+                        })
+                        .collect(),
+                })
+                .unwrap_or_default(),
         }
     }
 }
@@ -204,6 +267,33 @@ impl Saveable for MiscModel {
             }),
             teleport: Some(TeleportUnlockData {
                 unlocked_id_list: self.teleport.unlocked_id.iter().copied().collect(),
+            }),
+            business_card: Some(BusinessCardData {
+                unlocked_id_list: self.business_card.unlocked_items.iter().copied().collect(),
+                selected_id: self.business_card.selected_id.get(),
+            }),
+            player_accessory: Some(PlayerAccessoryData {
+                player_accessory_list: self
+                    .player_accessory
+                    .player_accessory_map
+                    .iter()
+                    .map(|(&avatar_id, player_accessory)| PlayerAccessoryInfo {
+                        avatar_id,
+                        avatar_skin_id: player_accessory.avatar_skin_id,
+                        player_skin_list: player_accessory
+                            .player_skin_map
+                            .iter()
+                            .map(|(&player_skin_id, player_skin)| PlayerSkinInfo {
+                                player_skin_id,
+                                equipped_accessory_id_list: player_skin
+                                    .equipped_accessory_id_list
+                                    .iter()
+                                    .copied()
+                                    .collect(),
+                            })
+                            .collect(),
+                    })
+                    .collect(),
             }),
         });
     }

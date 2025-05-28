@@ -4,14 +4,7 @@ use vivian_codegen::{handlers, required_state};
 use vivian_logic::system::{ClientSystemType, EOperator};
 use vivian_models::InputSetting;
 use vivian_proto::{
-    BattleReportCsReq, BattleReportScRsp, EndNewbieCsReq, EndNewbieScRsp, FinishNewbieGroupCsReq,
-    FinishNewbieGroupScRsp, GameLogReportCsReq, GameLogReportScRsp, GetMiscDataCsReq,
-    GetMiscDataScRsp, GetNewsStandDataCsReq, GetNewsStandDataScRsp, GetSwitchDataCsReq,
-    GetSwitchDataScRsp, ItemRewardInfo, NewsStandSignCsReq, NewsStandSignScRsp,
-    PlayerOperationCsReq, PlayerOperationScRsp, ReadNewsCsReq, ReadNewsScRsp,
-    ReportUiLayoutPlatformCsReq, ReportUiLayoutPlatformScRsp, SavePlayerSystemSettingCsReq,
-    SavePlayerSystemSettingScRsp, SelectPostGirlCsReq, SelectPostGirlScRsp,
-    SyncGlobalVariablesCsReq, SyncGlobalVariablesScRsp, VideoGetInfoCsReq, VideoGetInfoScRsp,
+    BattleReportCsReq, BattleReportScRsp, EndNewbieCsReq, EndNewbieScRsp, FinishNewbieGroupCsReq, FinishNewbieGroupScRsp, GameLogReportCsReq, GameLogReportScRsp, GetMiscDataCsReq, GetMiscDataScRsp, GetNewsStandDataCsReq, GetNewsStandDataScRsp, GetSwitchDataCsReq, GetSwitchDataScRsp, ItemRewardInfo, NewsStandSignCsReq, NewsStandSignScRsp, PlayerOperationCsReq, PlayerOperationScRsp, ReadNewsCsReq, ReadNewsScRsp, ReportUiLayoutPlatformCsReq, ReportUiLayoutPlatformScRsp, SavePlayerAccessoryCsReq, SavePlayerAccessoryScRsp, SavePlayerSystemSettingCsReq, SavePlayerSystemSettingScRsp, SelectPostGirlCsReq, SelectPostGirlScRsp, SyncGlobalVariablesCsReq, SyncGlobalVariablesScRsp, VideoGetInfoCsReq, VideoGetInfoScRsp
 };
 
 use crate::{sync::SyncType, util::item_util};
@@ -280,5 +273,42 @@ impl MiscHandler {
         _request: SyncGlobalVariablesCsReq,
     ) -> SyncGlobalVariablesScRsp {
         SyncGlobalVariablesScRsp { retcode: 0 }
+    }
+
+    pub fn on_save_player_accessory_cs_req(
+        context: &mut NetContext<'_>,
+        request: SavePlayerAccessoryCsReq,
+    ) -> SavePlayerAccessoryScRsp {
+        debug!("{request:?}");
+
+        let player_accessory_data = &mut context.player.misc_model.player_accessory;
+
+        if let Some(info) = request.player_accessory {
+            let Some(player_accessory) = player_accessory_data
+                .player_accessory_map
+                .get_mut(&info.avatar_id)
+                else {
+                    return SavePlayerAccessoryScRsp { retcode: 1 }
+                };
+
+            player_accessory.avatar_skin_id = info.avatar_skin_id;
+
+            info
+                .player_skin_list
+                .into_iter()
+                .for_each(|skin_info| {
+                    let player_skin = player_accessory
+                        .player_skin_map
+                        .entry(skin_info.player_skin_id)
+                        .or_default();
+
+                    player_skin.equipped_accessory_id_list = skin_info
+                        .equipped_accessory_id_list
+                        .into_iter()
+                        .collect();
+                });
+        }
+
+        SavePlayerAccessoryScRsp { retcode: 0 }
     }
 }

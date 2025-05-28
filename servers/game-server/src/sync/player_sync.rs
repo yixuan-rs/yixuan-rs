@@ -228,6 +228,48 @@ impl PlayerSyncComponent for MiscModel {
                 post_girl_random_toggle: self.post_girl.random_toggle.get(),
             });
         }
+
+        if self.business_card.is_changed() {
+            sync.business_card = Some(vivian_proto::BusinessCardSync {
+                unlocked_business_card_id_list: self
+                    .business_card
+                    .unlocked_items
+                    .iter()
+                    .copied()
+                    .collect(),
+                selected_id: self.business_card.selected_id.get(),
+            });
+        }
+
+        if self.player_accessory.is_changed() {
+            sync.player_accessory = Some(vivian_proto::PlayerAccessorySync {
+                player_accessory_list: self
+                    .player_accessory
+                    .player_accessory_map
+                    .iter()
+                    .map(
+                        |(&avatar_id, player_accessory)| vivian_proto::PlayerAccessoryInfo {
+                            avatar_id,
+                            avatar_skin_id: player_accessory.avatar_skin_id,
+                            player_skin_list: player_accessory
+                                .player_skin_map
+                                .iter()
+                                .map(|(&player_skin_id, player_skin)| {
+                                    vivian_proto::PlayerSkinInfo {
+                                        player_skin_id,
+                                        equipped_accessory_id_list: player_skin
+                                            .equipped_accessory_id_list
+                                            .iter()
+                                            .copied()
+                                            .collect(),
+                                    }
+                                })
+                                .collect(),
+                        },
+                    )
+                    .collect(),
+            });
+        }
     }
 }
 

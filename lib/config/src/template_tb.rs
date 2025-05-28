@@ -39,6 +39,9 @@ file_cfg! {
     TeleportConfigTemplate;
     UrbanAreaMapGroupTemplate;
     UrbanAreaMapTemplate;
+    CallingCardConfigTemplate;
+    PlayerSkinConfigTemplate;
+    PlayerSkinAccessoriesConfigTemplate;
 }
 
 macro_rules! file_cfg {

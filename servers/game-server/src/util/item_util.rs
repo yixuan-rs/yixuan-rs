@@ -15,6 +15,18 @@ pub fn add_items_on_first_login(player: &mut Player) {
         .avatar_skin_base_template_tb()
         .for_each(|tmpl| player.item_model.item_count_map.insert(tmpl.id(), 1));
 
+    // Unlock all player skin accessories by default for now
+    player
+        .resources
+        .templates
+        .player_skin_accessories_config_template_tb()
+        .for_each(|tmpl| {
+            player
+                .item_model
+                .item_count_map
+                .insert(tmpl.accessory_id(), 1)
+        });
+
     let weapon_cfg = &player.resources.gameplay.first_login.weapon;
 
     if weapon_cfg.unlock_all {
