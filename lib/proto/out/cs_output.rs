@@ -658,7 +658,7 @@ pub struct HallSceneData {
     pub transform_id: ::prost::alloc::string::String,
     #[prost(uint32, tag = "222", xor = "2933")]
     pub control_guise_avatar_id: u32,
-    #[prost(uint32, repeated, tag = "472")]
+    #[prost(uint32, repeated, tag = "601")]
     pub main_city_quest_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -963,7 +963,7 @@ pub struct HallRefreshScNotify {
     pub transform_id: ::prost::alloc::string::String,
     #[prost(uint32, tag = "13", xor = "614")]
     pub control_guise_avatar_id: u32,
-    #[prost(uint32, repeated, tag = "860")]
+    #[prost(uint32, repeated, tag = "554")]
     pub main_city_quest_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1865,7 +1865,7 @@ pub struct PostGirlSync {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct MiscSync {
-    #[prost(int32, repeated, tag = "11")]
+    #[prost(int32, repeated, tag = "3")]
     pub trigger_newbie_group_list: ::prost::alloc::vec::Vec<i32>,
     #[prost(message, repeated, tag = "10")]
     pub quick_access_list: ::prost::alloc::vec::Vec<QuickAccessInfo>,
@@ -1921,6 +1921,17 @@ pub struct EndNewbieCsReq {
 pub struct EndNewbieScRsp {
     pub retcode: i32,
     pub group_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(6255)]
+pub struct FinishNewbieGroupCsReq {
+    #[prost(uint32, tag = "8", xor = "15102")]
+    pub group_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct FinishNewbieGroupScRsp {
+    pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(6344)]
@@ -2094,7 +2105,12 @@ pub struct AreaGroupInfo {
     pub area_progress: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-pub struct AreaCollectInfo {}
+pub struct AreaCollectInfo {
+    #[prost(uint32, tag = "5", xor = "12051")]
+    pub r#type: u32,
+    #[prost(uint32, tag = "2", xor = "14886")]
+    pub owner_type: u32,
+}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AreaStreetInfo {
     #[prost(uint32, tag = "3", xor = "8348")]

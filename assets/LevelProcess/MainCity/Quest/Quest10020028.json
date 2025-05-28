@@ -12,6 +12,11 @@
                         "ID": 100,
                         "Actions": [
                             {
+                                "$type": "Share.CActionSetMainCityTime",
+                                "ID": 101,
+                                "TimePeriod": "Evening"
+                            },
+                            {
                                 "$type": "Share.CActionCreateNPCCfg",
                                 "ID": 103,
                                 "TagID": 90330301

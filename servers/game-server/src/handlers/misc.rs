@@ -4,14 +4,14 @@ use vivian_codegen::{handlers, required_state};
 use vivian_logic::system::{ClientSystemType, EOperator};
 use vivian_models::InputSetting;
 use vivian_proto::{
-    BattleReportCsReq, BattleReportScRsp, EndNewbieCsReq, EndNewbieScRsp, GameLogReportCsReq,
-    GameLogReportScRsp, GetMiscDataCsReq, GetMiscDataScRsp, GetNewsStandDataCsReq,
-    GetNewsStandDataScRsp, GetSwitchDataCsReq, GetSwitchDataScRsp, ItemRewardInfo,
-    NewsStandSignCsReq, NewsStandSignScRsp, PlayerOperationCsReq, PlayerOperationScRsp,
-    ReadNewsCsReq, ReadNewsScRsp, ReportUiLayoutPlatformCsReq, ReportUiLayoutPlatformScRsp,
-    SavePlayerSystemSettingCsReq, SavePlayerSystemSettingScRsp, SelectPostGirlCsReq,
-    SelectPostGirlScRsp, SyncGlobalVariablesCsReq, SyncGlobalVariablesScRsp, VideoGetInfoCsReq,
-    VideoGetInfoScRsp,
+    BattleReportCsReq, BattleReportScRsp, EndNewbieCsReq, EndNewbieScRsp, FinishNewbieGroupCsReq,
+    FinishNewbieGroupScRsp, GameLogReportCsReq, GameLogReportScRsp, GetMiscDataCsReq,
+    GetMiscDataScRsp, GetNewsStandDataCsReq, GetNewsStandDataScRsp, GetSwitchDataCsReq,
+    GetSwitchDataScRsp, ItemRewardInfo, NewsStandSignCsReq, NewsStandSignScRsp,
+    PlayerOperationCsReq, PlayerOperationScRsp, ReadNewsCsReq, ReadNewsScRsp,
+    ReportUiLayoutPlatformCsReq, ReportUiLayoutPlatformScRsp, SavePlayerSystemSettingCsReq,
+    SavePlayerSystemSettingScRsp, SelectPostGirlCsReq, SelectPostGirlScRsp,
+    SyncGlobalVariablesCsReq, SyncGlobalVariablesScRsp, VideoGetInfoCsReq, VideoGetInfoScRsp,
 };
 
 use crate::{sync::SyncType, util::item_util};
@@ -205,6 +205,20 @@ impl MiscHandler {
             retcode: 0,
             group_id: 0,
         }
+    }
+
+    pub fn on_finish_newbie_group_cs_req(
+        context: &mut NetContext<'_>,
+        request: FinishNewbieGroupCsReq,
+    ) -> FinishNewbieGroupScRsp {
+        context
+            .player
+            .misc_model
+            .newbie
+            .finished_groups
+            .insert(request.group_id as i32);
+
+        FinishNewbieGroupScRsp { retcode: 0 }
     }
 
     pub fn on_player_operation_cs_req(
