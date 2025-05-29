@@ -30,6 +30,7 @@ cargo run --bin vivian-dispatch-server
 cargo run --bin vivian-gate-server
 cargo run --bin vivian-dbgate-server
 cargo run --bin vivian-game-server
+cargo run --bin vivian-muip-server
 ```
 #### b) using pre-built binaries
 Navigate to the [Releases](https://git.xeondev.com/vivian-rs/vivian-rs/releases) page and download the latest release for your platform.
