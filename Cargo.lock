@@ -2573,6 +2573,7 @@ dependencies = [
  "common",
  "config",
  "const_format",
+ "itertools",
  "paste",
  "rand",
  "scc",

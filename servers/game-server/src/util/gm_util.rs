@@ -1,7 +1,11 @@
 use std::cmp;
 
+use itertools::Itertools;
 use tracing::{error, instrument};
-use vivian_logic::{debug::GMCmd, item::EAvatarSkillType};
+use vivian_logic::{
+    debug::GMCmd,
+    item::{EAvatarSkillType, EquipItem},
+};
 use vivian_models::SceneSnapshotExt;
 
 use crate::{
@@ -116,6 +120,39 @@ pub fn execute_gm_cmd(player: &mut Player, cmd: GMCmd) {
             weapon.level = level;
             weapon.star = star;
             weapon.refine_level = refine_level;
+        }
+        AddEquip {
+            equip_id,
+            level,
+            star,
+            property_params,
+        } => {
+            let mut property_params = property_params.into_iter().tuples();
+
+            let properties = property_params
+                .next()
+                .into_iter()
+                .map(|(key, base_value, add_value)| (key, (base_value, add_value)))
+                .collect();
+
+            let sub_properties = property_params
+                .map(|(key, base_value, add_value)| (key, (base_value, add_value)))
+                .collect();
+
+            let uid = player.item_model.next_uid();
+
+            player.item_model.equip_map.insert(
+                uid,
+                EquipItem {
+                    id: equip_id,
+                    level,
+                    star,
+                    exp: 0,
+                    lock: false,
+                    properties,
+                    sub_properties,
+                },
+            );
         }
         SetAvatarSkin {
             avatar_id,

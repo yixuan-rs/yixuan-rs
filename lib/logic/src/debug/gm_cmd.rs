@@ -29,6 +29,12 @@ pub enum GMCmd {
         star: u32,
         refine_level: u32,
     },
+    AddEquip {
+        equip_id: u32,
+        level: u32,
+        star: u32,
+        property_params: Vec<u32>,
+    },
     SetAvatarSkin {
         avatar_id: u32,
         avatar_skin_id: u32,
