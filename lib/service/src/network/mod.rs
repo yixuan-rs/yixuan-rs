@@ -18,6 +18,7 @@ use crate::{ConfigurableServiceModule, ServiceContext, ServiceModule, Startable}
 pub mod client;
 pub mod entity;
 pub mod packet;
+pub mod net_util;
 
 pub trait NetworkEventListener: Send + Sync + 'static {
     fn on_receive(&self, entity_id: u64, packet: NetPacket);
@@ -91,12 +92,9 @@ impl Startable for NetworkEntityManager {
 
 impl ServiceModule for NetworkServer {
     fn run(self: Arc<Self>, service: Arc<crate::ServiceContext>) -> Result<(), Box<dyn Error>> {
-        let listener = std::net::TcpListener::bind(self.bind_addr)?;
-        listener.set_nonblocking(true).unwrap();
-
         tokio::spawn(Self::accept_loop(
             service,
-            TcpListener::from_std(listener).unwrap(),
+            net_util::tcp_bind_sync(self.bind_addr)?,
         ));
 
         debug!("server is listening at {}", self.bind_addr);

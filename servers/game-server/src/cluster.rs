@@ -46,7 +46,6 @@ enum ClusterCommand {
         body: Vec<u8>,
         result_awaiter_tx: oneshot::Sender<PlayerCommandResult>,
     },
-    #[expect(dead_code)]
     PushGmCommand {
         player_uid: u32,
         cmd: GMCmd,
@@ -219,6 +218,12 @@ impl PlayerLogicCluster {
             .unwrap();
 
         rx.await.unwrap()
+    }
+
+    pub fn push_gm_command(&self, player_uid: u32, cmd: GMCmd) {
+        self.command_tx
+            .send(ClusterCommand::PushGmCommand { player_uid, cmd })
+            .unwrap();
     }
 
     fn set_report_listener(&self, tx: tokio::sync::mpsc::Sender<ClusterPerformanceReport>) {

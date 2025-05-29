@@ -755,3 +755,19 @@ pub struct StopPlayerLogicRsp {
     #[prost(int32, tag = "1")]
     pub retcode: i32,
 }
+#[derive(::proto_derive::NetCmd)]
+#[cmd_id(10008)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GmTalkByMuipReq {
+    #[prost(string, tag = "1")]
+    pub msg: ::prost::alloc::string::String,
+}
+#[derive(::proto_derive::NetCmd)]
+#[cmd_id(10009)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GmTalkByMuipRsp {
+    #[prost(int32, tag = "1")]
+    pub retcode: i32,
+    #[prost(string, tag = "2")]
+    pub retmsg: ::prost::alloc::string::String,
+}

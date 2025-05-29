@@ -2595,6 +2595,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "vivian-muip-server"
+version = "0.0.1"
+dependencies = [
+ "axum",
+ "common",
+ "const_format",
+ "serde",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "vivian-proto",
+ "vivian-service",
+]
+
+[[package]]
 name = "vivian-proto"
 version = "0.0.1"
 dependencies = [

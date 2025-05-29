@@ -1,0 +1,17 @@
+[package]
+name = "vivian-muip-server"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+tokio.workspace = true
+axum.workspace = true
+
+serde.workspace = true
+const_format.workspace = true
+tracing.workspace = true
+thiserror.workspace = true
+
+common.workspace = true
+vivian-proto.workspace = true
+vivian-service.workspace = true

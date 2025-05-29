@@ -1,5 +1,6 @@
 use std::sync::Arc;
 
+use vivian_logic::debug::{GMCmd, GMInput};
 use vivian_service::{CreatableServiceModule, ServiceModule};
 
 use crate::cluster::{PlayerLogicCluster, PlayerLogicClusterManager};
@@ -10,8 +11,8 @@ use vivian_proto::{
     PlayerLoginCsReq, PlayerLoginScRsp,
     head::PacketHead,
     server_only::{
-        ExecuteClientCommandReq, ExecuteClientCommandRsp, NetCommand, PlayerGetDataReq,
-        PlayerGetDataRsp, StopPlayerLogicReq, StopPlayerLogicRsp,
+        ExecuteClientCommandReq, ExecuteClientCommandRsp, GmTalkByMuipReq, GmTalkByMuipRsp,
+        NetCommand, PlayerGetDataReq, PlayerGetDataRsp, StopPlayerLogicReq, StopPlayerLogicRsp,
     },
 };
 use vivian_service::{
@@ -97,6 +98,7 @@ handlers! {
     PlayerLoginCsReq;
     ExecuteClientCommandReq;
     StopPlayerLogicReq;
+    GmTalkByMuipReq;
 }
 
 async fn handle_player_login_cs_req(
@@ -209,6 +211,41 @@ async fn handle_stop_player_logic_req(
         StopPlayerLogicRsp { retcode: 0 }
     } else {
         StopPlayerLogicRsp { retcode: 1 }
+    }
+}
+
+async fn handle_gm_talk_by_muip_req(
+    scope: &ServiceScope,
+    head: PacketHead,
+    request: GmTalkByMuipReq,
+) -> GmTalkByMuipRsp {
+    let session_manager = scope.resolve::<PlayerSessionManager>();
+
+    if let Some(session) = session_manager
+        .session_map
+        .read(&head.player_uid, |_, session| Arc::clone(session))
+    {
+        let cmd = match GMCmd::from_str(&request.msg) {
+            Ok(cmd) => cmd,
+            Err(err) => {
+                return GmTalkByMuipRsp {
+                    retcode: 2,
+                    retmsg: format!("failed to parse GM Command: {err}"),
+                };
+            }
+        };
+
+        session.cluster.push_gm_command(session.player_uid, cmd);
+
+        GmTalkByMuipRsp {
+            retcode: 0,
+            retmsg: String::from("OK"),
+        }
+    } else {
+        GmTalkByMuipRsp {
+            retcode: 1,
+            retmsg: String::from("GMTalk failed: player is offline"),
+        }
     }
 }
 
