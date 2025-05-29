@@ -1,10 +1,19 @@
 use vivian_codegen::{handlers, required_state};
 use vivian_logic::item::EItemType;
 use vivian_proto::{
-    AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp, AvatarShowWeaponCsReq, AvatarShowWeaponScRsp, AvatarSkinDressCsReq, AvatarSkinDressScRsp, AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp, EquipmentDressCsReq, EquipmentDressScRsp, EquipmentSuitDressCsReq, EquipmentSuitDressScRsp, EquipmentUnDressCsReq, EquipmentUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp, GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq, WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp
+    AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp,
+    AvatarShowWeaponCsReq, AvatarShowWeaponScRsp, AvatarSkinDressCsReq, AvatarSkinDressScRsp,
+    AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp, EquipmentDressCsReq, EquipmentDressScRsp,
+    EquipmentSuitDressCsReq, EquipmentSuitDressScRsp, EquipmentUnDressCsReq, EquipmentUnDressScRsp,
+    GetAvatarDataCsReq, GetAvatarDataScRsp, GetAvatarRecommendEquipCsReq,
+    GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq, WeaponDressScRsp,
+    WeaponUnDressCsReq, WeaponUnDressScRsp,
 };
 
-use crate::{sync::SyncType, util::{avatar_util, item_util}};
+use crate::{
+    sync::SyncType,
+    util::{avatar_util, item_util},
+};
 
 use super::NetContext;
 
@@ -351,10 +360,7 @@ impl AvatarHandler {
         avatar_util::dress_equip(
             context.player,
             request.avatar_id,
-            (
-                request.equip_uid,
-                request.dress_index,
-            ),
+            (request.equip_uid, request.dress_index),
         );
 
         EquipmentDressScRsp { retcode: 0 }
@@ -370,14 +376,11 @@ impl AvatarHandler {
             .avatar_map
             .get_mut(&request.avatar_id)
         {
-            request
-                .undress_index_list
-                .iter()
-                .for_each(|undress_index| {
-                    avatar
-                        .dressed_equip_map
-                        .retain(|_, index| index != undress_index);
-                });
+            request.undress_index_list.iter().for_each(|undress_index| {
+                avatar
+                    .dressed_equip_map
+                    .retain(|_, index| index != undress_index);
+            });
 
             EquipmentUnDressScRsp { retcode: 0 }
         } else {
@@ -397,33 +400,23 @@ impl AvatarHandler {
             return EquipmentSuitDressScRsp { retcode: 1 };
         }
 
-        if !request
-            .param_list
-            .iter()
-            .fold(true, |v, param|
-                v && context
+        if !request.param_list.iter().all(|param| {
+            context
                 .player
                 .item_model
                 .equip_map
                 .contains_key(&param.equip_uid)
-            )
-        {
+        }) {
             return EquipmentSuitDressScRsp { retcode: 1 };
         }
 
-        request
-            .param_list
-            .iter()
-            .for_each(|param| {
-                avatar_util::dress_equip(
-                    context.player,
-                    request.avatar_id,
-                    (
-                        param.equip_uid,
-                        param.dress_index,
-                    ),
-                );
-            });
+        request.param_list.iter().for_each(|param| {
+            avatar_util::dress_equip(
+                context.player,
+                request.avatar_id,
+                (param.equip_uid, param.dress_index),
+            );
+        });
 
         EquipmentSuitDressScRsp { retcode: 0 }
     }

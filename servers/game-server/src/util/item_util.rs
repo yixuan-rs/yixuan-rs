@@ -51,7 +51,9 @@ pub fn add_items_on_first_login(player: &mut Player) {
 
     // Generate some Drive Discs for now
     let rng = &mut rand::thread_rng();
-    let properties_map: [(u32, Vec<u32>, u32, Vec<u32>, u32); 19] = [
+
+    type IntVec = Vec<u32>;
+    let properties_map: [(u32, IntVec, u32, IntVec, u32); 19] = [
         (11103, vec![1], 550, vec![1, 2, 3, 4, 5, 6], 112),
         (11102, vec![4, 5, 6], 750, vec![1, 2, 3, 4, 5, 6], 300),
         (12103, vec![2], 79, vec![1, 2, 3, 4, 5, 6], 19),
@@ -72,7 +74,8 @@ pub fn add_items_on_first_login(player: &mut Player) {
         (31703, vec![5], 750, vec![], 0),
         (31503, vec![5], 750, vec![], 0),
     ];
-    for _ in 0..100 {
+
+    for _ in 0..500 {
         let uid = player.item_model.next_uid();
 
         let id = player
@@ -98,11 +101,15 @@ pub fn add_items_on_first_login(player: &mut Player) {
         for _ in 0..4 {
             let sub_property = properties_map
                 .iter()
-                .filter(|p| p.3.contains(&slot) && !sub_properties.contains_key(&p.0))
+                .filter(|p| {
+                    p.3.contains(&slot)
+                        && p.0 != main_property.0
+                        && !sub_properties.contains_key(&p.0)
+                })
                 .choose(rng)
                 .map(|p| {
                     let add_value = rng.next_u32() % add_value_mod;
-                    add_value_mod = add_value_mod - add_value;
+                    add_value_mod -= add_value;
                     (p.0, (p.4, 1 + add_value))
                 })
                 .unwrap();

@@ -96,6 +96,8 @@ impl NetworkEntity {
         listener: Arc<dyn NetworkEventListener>,
         encryption_state: Arc<EncryptionState>,
     ) {
+        const MAX_PACKET_SIZE: usize = 0x100000;
+
         let mut receive_buffer = vec![0u8; 16384];
         let mut recv_index = 0;
 
@@ -117,7 +119,18 @@ impl NetworkEntity {
                                 encryption_state.xor(&mut packet.body);
                                 listener.on_receive(id, packet);
                             }
-                            Err(DecodeError::Incomplete(_, _)) => break Ok(()),
+                            Err(DecodeError::Incomplete(required, _)) => {
+                                if required > receive_buffer.len() {
+                                    if required > MAX_PACKET_SIZE {
+                                        error!("too big packet received, size: {required}");
+                                        break Err(());
+                                    }
+
+                                    receive_buffer.resize(required, 0);
+                                }
+
+                                break Ok(());
+                            },
                             Err(err) => {
                                 error!("failed to decode incoming packet: {err}");
                                 break Err(());
