@@ -6,6 +6,7 @@ version.workspace = true
 [dependencies]
 tokio.workspace = true
 axum.workspace = true
+axum-extra.workspace = true
 
 serde.workspace = true
 const_format.workspace = true

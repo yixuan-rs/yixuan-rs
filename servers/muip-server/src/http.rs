@@ -2,9 +2,11 @@ use std::{borrow::Cow, collections::HashSet, net::SocketAddr, sync::Arc};
 
 use axum::{
     Json, Router,
-    extract::{Query, State},
+    extract::State,
+    response::{Html, IntoResponse},
     routing,
 };
+use axum_extra::extract::OptionalQuery;
 use serde::{Deserialize, Serialize};
 use tracing::{error, info};
 use vivian_proto::{
@@ -39,19 +41,29 @@ struct GMResponse {
     pub message: Cow<'static, str>,
 }
 
+enum Response {
+    HtmlForm,
+    GMRsp(Json<GMResponse>),
+}
+
 async fn on_api_gm_request(
-    Query(query): Query<GMQuery>,
+    mut query: OptionalQuery<GMQuery>,
     State(state): State<Arc<ServiceContext>>,
-) -> Json<GMResponse> {
+) -> Response {
+    let Some(query) = query.take() else {
+        return Response::HtmlForm;
+    };
+
     if !state
         .resolve::<HttpServer>()
         .allowed_tokens
         .contains(&query.token)
     {
-        return Json(GMResponse {
+        return GMResponse {
             retcode: 100,
             message: Cow::Borrowed("GM Token mismatch"),
-        });
+        }
+        .into();
     }
 
     match state
@@ -66,17 +78,34 @@ async fn on_api_gm_request(
         )
         .await
     {
-        Ok(rsp) => Json(GMResponse {
+        Ok(rsp) => GMResponse {
             retcode: rsp.retcode,
             message: Cow::Owned(rsp.retmsg),
-        }),
+        }
+        .into(),
         Err(err) => {
             error!("GM Talk request failed: {err}");
 
-            Json(GMResponse {
+            GMResponse {
                 retcode: -1,
                 message: Cow::Borrowed("Internal Server Error"),
-            })
+            }
+            .into()
+        }
+    }
+}
+
+impl From<GMResponse> for Response {
+    fn from(value: GMResponse) -> Self {
+        Self::GMRsp(Json(value))
+    }
+}
+
+impl IntoResponse for Response {
+    fn into_response(self) -> axum::response::Response {
+        match self {
+            Self::GMRsp(rsp) => rsp.into_response(),
+            Self::HtmlForm => Html(include_str!("../res/gm_form.html")).into_response(),
         }
     }
 }
