@@ -17,8 +17,8 @@ use crate::{ConfigurableServiceModule, ServiceContext, ServiceModule, Startable}
 
 pub mod client;
 pub mod entity;
-pub mod packet;
 pub mod net_util;
+pub mod packet;
 
 pub trait NetworkEventListener: Send + Sync + 'static {
     fn on_receive(&self, entity_id: u64, packet: NetPacket);

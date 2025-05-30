@@ -1,4 +1,7 @@
-use std::{collections::HashMap, net::SocketAddr};
+use std::{
+    collections::{HashMap, HashSet},
+    net::SocketAddr,
+};
 
 use serde::{Deserialize, Deserializer};
 use vivian_encryption::config::{RsaVersion, ScrambledKey};
@@ -13,24 +16,24 @@ pub struct ServerConfig {
 
 #[derive(Deserialize)]
 pub struct ServerListConfig {
-    pub bound_sid: i32,
+    pub bound_sid: Option<i32>,
     pub servers: Vec<ServerListItem>,
 }
 
 #[derive(Deserialize)]
 pub struct ServerListItem {
     pub sid: i32,
-    pub bind_version: String,
+    pub bind_versions: HashSet<String>,
     pub name: String,
     pub title: String,
     pub dispatch_url: String,
-    pub dispatch_seed: String,
     pub gateway_ip: String,
     pub gateway_port: u16,
 }
 
 #[derive(Deserialize)]
 pub struct ResVersionConfig {
+    pub dispatch_seed: String,
     pub design_data_url: String,
     pub design_data_revision: String,
     pub design_data_files: String,
@@ -45,11 +48,9 @@ pub struct ResVersionConfig {
 }
 
 impl ServerListConfig {
-    pub fn bound_server(&self) -> &ServerListItem {
-        self.servers
-            .iter()
-            .find(|config| config.sid == self.bound_sid)
-            .unwrap()
+    pub fn bound_server(&self) -> Option<&ServerListItem> {
+        self.bound_sid
+            .and_then(|bound_sid| self.servers.iter().find(|config| config.sid == bound_sid))
     }
 }
 
