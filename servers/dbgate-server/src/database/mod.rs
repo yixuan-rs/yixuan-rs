@@ -7,11 +7,12 @@ use vivian_proto::{
 };
 use vivian_service::ServiceModule;
 
-use crate::config::ConnectionString;
+use crate::config::{ConnectionString, DbType};
 
 mod player_util;
 
-pub struct DbConnection(sqlx::PgPool);
+#[expect(dead_code)]
+pub struct DbConnection(sqlx::AnyPool, DbType);
 
 impl ServiceModule for DbConnection {
     fn run(
@@ -47,10 +48,16 @@ pub enum BinaryDataFetchError {
 
 impl DbConnection {
     pub async fn connect(connection_string: &ConnectionString) -> sqlx::Result<Self> {
-        let pool = sqlx::PgPool::connect(&connection_string.to_string()).await?;
-        sqlx::migrate!("./migrations").run(&pool).await?;
+        sqlx::any::install_default_drivers();
+        let pool = sqlx::AnyPool::connect(&connection_string.to_string()).await?;
 
-        Ok(Self(pool))
+        match connection_string.db_type {
+            DbType::Postgres => sqlx::migrate!("./migrations/postgres").run(&pool).await?,
+            DbType::Mysql => sqlx::migrate!("./migrations/mysql").run(&pool).await?,
+            DbType::Sqlite => sqlx::migrate!("./migrations/sqlite").run(&pool).await?,
+        }
+
+        Ok(Self(pool, connection_string.db_type))
     }
 
     pub async fn fetch_uid_for_account(&self, account_uid: &str) -> sqlx::Result<i32> {

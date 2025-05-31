@@ -11,7 +11,7 @@ tokio-util = "0.7.15"
 axum = "0.8.3"
 axum-extra = { version = "0.10.1", features = ["query"] }
 ureq = { version = "3.0.11", features = ["json"] }
-sqlx = { version = "0.8.5", features = ["postgres", "runtime-tokio-rustls"] }
+sqlx = { version = "0.8.5", features = ["any", "postgres", "mysql", "sqlite", "runtime-tokio-rustls"] }
 
 const_format = "0.2.34"
 thiserror = "2.0"

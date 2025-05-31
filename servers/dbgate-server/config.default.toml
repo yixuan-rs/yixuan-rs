@@ -4,6 +4,7 @@ sdk_token_verification_url = "http://127.0.0.1:20100/nap_global/combo/granter/lo
 permit_login_on_http_error = false
 
 [database]
+db_type = "postgres"
 addr = "127.0.0.1:5432"
 username = "root"
 password = "root"
