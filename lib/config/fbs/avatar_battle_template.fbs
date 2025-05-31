@@ -59,9 +59,9 @@ table AvatarBattleTemplate {
 	unk_57: int;
 	unk_58: int;
 	unk_59: int;
-	unk_60: int;
-	unk_61: int;
-	unk_62: int;
+	unk_60: uint;
+	unk_61: uint;
+	unk_62: uint;
 	unk_63: int;
 	unk_64: int;
 	unk_65: int;
@@ -69,7 +69,7 @@ table AvatarBattleTemplate {
 	tags: [string];
 	unk_68: [int];
 	unk_69: [int];
-	unk_70: int;
+	unk_70: [int];
 	weapon_type: int;
 	element: [int];
 	hit_type: [int];
@@ -82,10 +82,11 @@ table AvatarBattleTemplate {
 	unk_80: int;
 	rp_max: int;
 	rp_recover: int;
-	unk_83: int;
-	unk_84: [int];
+	unk_83: [int];
+	unk_84: [uint];
+	awake_ids: [uint];
 }
 
 table AvatarBattleTemplateTb {
-        data: [AvatarBattleTemplate];
+	data: [AvatarBattleTemplate];
 }

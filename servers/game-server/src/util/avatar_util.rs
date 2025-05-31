@@ -57,6 +57,14 @@ pub fn unlock_avatar(
                 taken_rank_up_reward_list: Vec::new(),
                 avatar_skin_id: 0,
                 is_favorite: false,
+                is_awake_available: player
+                    .resources
+                    .templates
+                    .avatar_battle_template_tb()
+                    .find(|tmpl| tmpl.id() == avatar_id)
+                    .and_then(|tmpl| tmpl.awake_ids())
+                    .is_some(),
+                awake_id: 0,
             },
         );
 

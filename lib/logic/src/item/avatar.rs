@@ -19,6 +19,8 @@ pub struct AvatarItem {
     pub taken_rank_up_reward_list: Vec<u32>,
     pub avatar_skin_id: u32,
     pub is_favorite: bool,
+    pub is_awake_available: bool,
+    pub awake_id: u32,
 }
 
 #[derive(
@@ -69,6 +71,8 @@ impl AvatarItem {
             talent_switch_list: self.talent_switch.to_vec(),
             taken_rank_up_reward_list: self.taken_rank_up_reward_list.clone(),
             is_favorite: self.is_favorite,
+            is_awake_available: self.is_awake_available,
+            awake_id: self.awake_id,
         }
     }
 }

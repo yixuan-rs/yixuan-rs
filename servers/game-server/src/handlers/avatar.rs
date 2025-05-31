@@ -2,12 +2,12 @@ use vivian_codegen::{handlers, required_state};
 use vivian_logic::item::EItemType;
 use vivian_proto::{
     AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp,
-    AvatarShowWeaponCsReq, AvatarShowWeaponScRsp, AvatarSkinDressCsReq, AvatarSkinDressScRsp,
-    AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp, EquipmentDressCsReq, EquipmentDressScRsp,
-    EquipmentSuitDressCsReq, EquipmentSuitDressScRsp, EquipmentUnDressCsReq, EquipmentUnDressScRsp,
-    GetAvatarDataCsReq, GetAvatarDataScRsp, GetAvatarRecommendEquipCsReq,
-    GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq, WeaponDressScRsp,
-    WeaponUnDressCsReq, WeaponUnDressScRsp,
+    AvatarSetAwakeCsReq, AvatarSetAwakeScRsp, AvatarShowWeaponCsReq, AvatarShowWeaponScRsp,
+    AvatarSkinDressCsReq, AvatarSkinDressScRsp, AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp,
+    EquipmentDressCsReq, EquipmentDressScRsp, EquipmentSuitDressCsReq, EquipmentSuitDressScRsp,
+    EquipmentUnDressCsReq, EquipmentUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp,
+    GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq,
+    WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp,
 };
 
 use crate::{
@@ -272,6 +272,40 @@ impl AvatarHandler {
             AvatarFavoriteScRsp { retcode: 0 }
         } else {
             AvatarFavoriteScRsp { retcode: 1 }
+        }
+    }
+
+    pub fn on_avatar_set_awake_cs_req(
+        context: &mut NetContext<'_>,
+        request: AvatarSetAwakeCsReq,
+    ) -> AvatarSetAwakeScRsp {
+        if let Some(avatar) = context
+            .player
+            .avatar_model
+            .avatar_map
+            .get_mut(&request.avatar_id)
+        {
+            match avatar.awake_id {
+                0 => {
+                    avatar.awake_id = match context
+                        .resources
+                        .templates
+                        .avatar_battle_template_tb()
+                        .find(|tmpl| tmpl.id() == avatar.id)
+                        .and_then(|tmpl| tmpl.awake_ids())
+                    {
+                        Some(awake_ids) => awake_ids.iter().next().unwrap(),
+                        None => 0,
+                    };
+                }
+                _ => {
+                    avatar.awake_id = 0;
+                }
+            }
+
+            AvatarSetAwakeScRsp { retcode: 0 }
+        } else {
+            AvatarSetAwakeScRsp { retcode: 1 }
         }
     }
 

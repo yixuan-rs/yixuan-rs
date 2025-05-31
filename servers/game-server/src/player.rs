@@ -85,6 +85,10 @@ pub enum AddItemSource {
 
 impl Player {
     pub fn load_from_pb(uid: u32, pb: PlayerData, res: &'static NapResources) -> Self {
+        let logic_resources = LogicResources {
+            template_collection: &res.templates,
+            event_graphs: &res.event_graphs,
+        };
         Self {
             uid,
             loading_state: LoadingState::Login,
@@ -92,7 +96,7 @@ impl Player {
             is_back_scene_changed: false,
             sync_helper: DataSyncHelper::default(),
             basic_model: PlayerBasicModel::load_from_pb(pb.basic.unwrap()),
-            avatar_model: AvatarModel::load_from_pb(pb.avatar.unwrap()),
+            avatar_model: AvatarModel::load_from_pb(pb.avatar.unwrap(), &logic_resources),
             item_model: ItemModel::load_from_pb(pb.item.unwrap()),
             quest_model: QuestModel::load_from_pb(pb.quest.unwrap()),
             archive_model: ArchiveModel::load_from_pb(pb.archive.unwrap()),

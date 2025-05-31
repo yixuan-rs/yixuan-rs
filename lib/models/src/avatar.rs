@@ -1,4 +1,5 @@
 use vivian_logic::{
+    LogicResources,
     item::{AvatarItem, EAvatarSkillType},
     listener::{NotifyListener, NotifyListenerExt},
 };
@@ -32,7 +33,7 @@ impl AvatarModel {
         self.avatar_map.contains_key(&id)
     }
 
-    pub fn load_from_pb(pb: AvatarData) -> Self {
+    pub fn load_from_pb(pb: AvatarData, res: &LogicResources) -> Self {
         Self {
             avatar_map: pb
                 .avatar_list
@@ -60,6 +61,13 @@ impl AvatarModel {
                             taken_rank_up_reward_list: avatar.taken_rank_up_reward_list,
                             avatar_skin_id: avatar.avatar_skin_id,
                             is_favorite: avatar.is_favorite,
+                            is_awake_available: res
+                                .template_collection
+                                .avatar_battle_template_tb()
+                                .find(|tmpl| tmpl.id() == avatar.id)
+                                .and_then(|tmpl| tmpl.awake_ids())
+                                .is_some(),
+                            awake_id: avatar.awake_id,
                         },
                     )
                 })
@@ -95,6 +103,7 @@ impl Saveable for AvatarModel {
                     taken_rank_up_reward_list: avatar.taken_rank_up_reward_list.clone(),
                     avatar_skin_id: avatar.avatar_skin_id,
                     is_favorite: avatar.is_favorite,
+                    awake_id: avatar.awake_id,
                 })
                 .collect(),
         });

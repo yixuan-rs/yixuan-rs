@@ -354,6 +354,10 @@ pub struct AvatarInfo {
     pub is_favorite: bool,
     #[prost(uint32, tag = "2018", xor = "3995")]
     pub avatar_skin_id: u32,
+    #[prost(bool, tag = "962")]
+    pub is_awake_available: bool,
+    #[prost(uint32, tag = "479", xor = "4005")]
+    pub awake_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(7970)]
@@ -1486,6 +1490,19 @@ pub struct WeaponUnDressCsReq {
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
 pub struct WeaponUnDressScRsp {
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(3797)]
+pub struct AvatarSetAwakeCsReq {
+    #[prost(uint32, tag = "4", xor = "10948")]
+    pub avatar_id: u32,
+    #[prost(uint32, tag = "3", xor = "4591")]
+    pub awake_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct AvatarSetAwakeScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]

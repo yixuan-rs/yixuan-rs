@@ -90,6 +90,8 @@ pub struct AvatarItemInfo {
     pub show_weapon_type: i32,
     #[prost(bool, tag = "15")]
     pub is_favorite: bool,
+    #[prost(uint32, tag = "16")]
+    pub awake_id: u32,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
