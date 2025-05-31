@@ -42,6 +42,9 @@ pub enum GMCmd {
     SetControlGuiseAvatar {
         avatar_id: u32,
     },
+    UnlockHollowQuest {
+        quest_id: u32,
+    },
     Jump {
         section_id: u32,
         transform_id: String,

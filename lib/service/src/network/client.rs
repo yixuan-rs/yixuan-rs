@@ -155,6 +155,7 @@ impl NetworkClient {
                 stream,
                 Arc::clone(self.listener.get().unwrap()),
                 None,
+                None,
             ));
 
             let _ = self

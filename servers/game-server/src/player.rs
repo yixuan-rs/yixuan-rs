@@ -161,7 +161,7 @@ impl Player {
                 gm_group
                     .commands
                     .iter()
-                    .for_each(|cmd| gm_util::execute_gm_cmd(self, cmd.clone()));
+                    .for_each(|cmd| gm_util::execute_gm_cmd(self, None, cmd.clone()));
             });
     }
 
@@ -402,23 +402,25 @@ impl Player {
                         section_snapshot.already_executed_events.clone();
 
                     for snapshot in section_snapshot.event_snapshots.iter() {
-                        if let Some(config) = self
-                            .resources
-                            .event_graphs
-                            .get(snapshot.graph, section_snapshot.section_id)
-                        {
-                            if let Some(event) = config.events.get(&snapshot.ty) {
-                                let mut event = Event::new(
-                                    snapshot.ty.clone(),
-                                    snapshot.tag,
-                                    snapshot.graph,
-                                    event,
-                                );
+                        if let Some(reference) = snapshot.graph_reference() {
+                            if let Some(config) = self
+                                .resources
+                                .event_graphs
+                                .get(reference, section_snapshot.section_id)
+                            {
+                                if let Some(event) = config.events.get(&snapshot.ty) {
+                                    let mut event = Event::new(
+                                        snapshot.ty.clone(),
+                                        snapshot.tag,
+                                        reference,
+                                        event,
+                                    );
 
-                                event.state = snapshot.state;
-                                event.cur_action_index = snapshot.cur_action_idx;
+                                    event.state = snapshot.state;
+                                    event.cur_action_index = snapshot.cur_action_idx;
 
-                                state.running_events.insert(snapshot.uid, event);
+                                    state.running_events.insert(snapshot.uid, event);
+                                }
                             }
                         }
                     }
@@ -594,7 +596,8 @@ impl Player {
                             .iter()
                             .filter(|(_, event)| event.is_persistent())
                             .map(|(&uid, event)| EventSnapshot {
-                                graph: event.graph,
+                                graph_id: event.graph_id.0,
+                                graph_type: event.graph_id.1,
                                 ty: event.ty.clone(),
                                 uid,
                                 state: event.state,

@@ -1,4 +1,4 @@
-use std::sync::Arc;
+use std::{net::SocketAddr, sync::Arc};
 
 use tokio::sync::{mpsc, oneshot};
 use tracing::{debug, error, warn};
@@ -6,7 +6,7 @@ use vivian_proto::{
     KeepAliveNotify, NetCmd, PlayerGetTokenCsReq, PlayerGetTokenScRsp, PlayerLoginCsReq,
     PlayerLoginScRsp, PlayerLogoutCsReq,
     head::PacketHead,
-    server_only::{StopPlayerLogicReq, StopPlayerLogicRsp},
+    server_only::{ClientPerformNotify, StopPlayerLogicReq, StopPlayerLogicRsp},
 };
 use vivian_service::{
     ServiceContext, ServiceScope,
@@ -28,6 +28,8 @@ enum NetworkEvent {
     Disconnect(u64),
 }
 
+struct InternalAddr(SocketAddr);
+
 impl NetworkEventListener for NetworkListener {
     fn on_receive(&self, entity_id: u64, packet: NetPacket) {
         self.0
@@ -41,19 +43,22 @@ impl NetworkEventListener for NetworkListener {
     }
 }
 
-pub fn start_handler_task() -> (
+pub fn start_handler_task(
+    internal_addr: SocketAddr,
+) -> (
     oneshot::Sender<Arc<ServiceContext>>,
     impl NetworkEventListener,
 ) {
     let (sv_tx, sv_rx) = oneshot::channel();
     let (tx, rx) = mpsc::unbounded_channel();
 
-    tokio::spawn(handler_loop(sv_rx, rx));
+    tokio::spawn(handler_loop(sv_rx, internal_addr, rx));
     (sv_tx, NetworkListener(tx))
 }
 
 async fn handler_loop(
     lazy_service: oneshot::Receiver<Arc<ServiceContext>>,
+    internal_addr: SocketAddr,
     mut rx: mpsc::UnboundedReceiver<NetworkEvent>,
 ) {
     let service = lazy_service.await.unwrap();
@@ -61,7 +66,7 @@ async fn handler_loop(
     while let Some(event) = rx.recv().await {
         match event {
             NetworkEvent::Receive(id, packet) => {
-                tokio::spawn(process_cmd(Arc::clone(&service), id, packet));
+                tokio::spawn(process_cmd(Arc::clone(&service), id, internal_addr, packet));
             }
             NetworkEvent::Disconnect(id) => {
                 tokio::spawn(process_disconnect(Arc::clone(&service), id));
@@ -70,10 +75,20 @@ async fn handler_loop(
     }
 }
 
-async fn process_cmd(service: Arc<ServiceContext>, entity_id: u64, mut packet: NetPacket) {
+async fn process_cmd(
+    service: Arc<ServiceContext>,
+    entity_id: u64,
+    internal_addr: SocketAddr,
+    mut packet: NetPacket,
+) {
     if let Some(entity) = service.resolve::<NetworkEntityManager>().get(entity_id) {
         packet.head.session_id = entity_id;
-        let scope = service.new_scope().with_variable(entity).build();
+        let scope = service
+            .new_scope()
+            .with_variable(InternalAddr(internal_addr))
+            .with_variable(entity)
+            .build();
+
         if let Err(err) = handle_cmd(scope.as_ref(), packet).await {
             error!("failed to decode client cmd: {err}");
         }
@@ -93,10 +108,9 @@ async fn process_disconnect(service: Arc<ServiceContext>, entity_id: u64) {
                 .send_request::<_, StopPlayerLogicRsp>(
                     ServiceType::Game,
                     PacketHead {
-                        packet_id: 0,
                         player_uid: session.uid(),
                         session_id: entity_id,
-                        ack_packet_id: 0,
+                        ..Default::default()
                     },
                     StopPlayerLogicReq {
                         player_uid: session.uid(),
@@ -133,6 +147,9 @@ async fn handle_cmd(scope: &ServiceScope, packet: NetPacket) -> Result<(), GetPr
             handle_player_logout(scope, packet.head, packet.get_proto()?).await
         }
         KeepAliveNotify::CMD_ID => (),
+        ClientPerformNotify::CMD_ID => {
+            handle_client_perform(scope, packet.head, packet.get_proto()?).await
+        }
         cmd_id if cmd_id < 10000 => {
             if let Some(session) = scope
                 .resolve::<PlayerSessionManager>()
@@ -249,6 +266,7 @@ async fn handle_player_login(scope: &ServiceScope, head: PacketHead, request: Pl
             PacketHead {
                 player_uid: session.uid(),
                 session_id: head.session_id,
+                gate_session_id: head.session_id,
                 ..Default::default()
             },
             request,
@@ -275,6 +293,7 @@ async fn handle_player_login(scope: &ServiceScope, head: PacketHead, request: Pl
                 player_uid: session.uid(),
                 session_id: head.session_id,
                 ack_packet_id: head.packet_id,
+                ..Default::default()
             },
             rsp,
         ));
@@ -290,10 +309,9 @@ async fn handle_player_logout(scope: &ServiceScope, head: PacketHead, _request: 
                 .send_request::<_, StopPlayerLogicRsp>(
                     ServiceType::Game,
                     PacketHead {
-                        packet_id: 0,
                         player_uid: session.uid(),
-                        session_id: head.session_id,
-                        ack_packet_id: 0,
+                        gate_session_id: head.session_id,
+                        ..Default::default()
                     },
                     StopPlayerLogicReq {
                         player_uid: session.uid(),
@@ -303,5 +321,35 @@ async fn handle_player_logout(scope: &ServiceScope, head: PacketHead, _request: 
 
             scope.fetch::<Arc<NetworkEntity>>().unwrap().disconnect();
         }
+    }
+}
+
+async fn handle_client_perform(
+    scope: &ServiceScope,
+    head: PacketHead,
+    notify: ClientPerformNotify,
+) {
+    let InternalAddr(internal_addr) = scope.fetch().unwrap();
+    let entity = scope.fetch::<Arc<NetworkEntity>>().unwrap();
+
+    if Some(internal_addr) != entity.local_addr.as_ref() {
+        warn!("received server-only packet from client!");
+        return;
+    }
+
+    if let Some(session) = scope.resolve::<PlayerSessionManager>().get(head.gate_session_id) {
+        debug!("pushing notifies: {:?}", notify.notify_list);
+
+        session
+            .push_notifies(
+                notify
+                    .notify_list
+                    .into_iter()
+                    .map(|notify| (notify.cmd_id as u16, notify.body))
+                    .collect(),
+            )
+            .await;
+    } else {
+        debug!("no session with id {}", head.session_id);
     }
 }

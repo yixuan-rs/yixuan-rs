@@ -7,12 +7,12 @@ use npc::{Interact, InteractTarget, SceneUnit};
 use tracing::{error, warn};
 use vivian_proto::{
     EnterSceneScNotify, EventGraphOwnerType, FinishEventGraphScNotify, SectionEventScNotify,
-    common::TimePeriodType,
+    common::TimePeriodType, server_only::GraphReferenceType,
 };
 
 use crate::{
     LogicResources,
-    event::{ActionListener, Event, EventState, EventUID, event_util},
+    event::{ActionListener, Event, EventState, EventUID, GraphID, event_util},
     listener::{LogicEventListener, NotifyListener},
     math::{Scale, Transform},
     scene::SceneType,
@@ -363,6 +363,21 @@ impl GameHallState {
 
     pub fn reset_refresh_state(&mut self) {
         self.refresh_required = false;
+    }
+
+    pub fn execute_gm_event(&mut self, config: ConfigEvent, listener: &mut dyn LogicEventListener) {
+        let event_uid = EventUID::new(EventGraphOwnerType::Scene, config.id);
+        let mut event = Event::new(
+            SectionEvent::GM,
+            0,
+            GraphID(0, GraphReferenceType::None),
+            config,
+        );
+        event.wakeup(event_uid, self, listener);
+
+        if !event.is_finished() {
+            self.running_events.insert(event_uid, event);
+        }
     }
 
     fn initiate_event(

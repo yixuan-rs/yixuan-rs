@@ -11,8 +11,9 @@ use vivian_proto::{
     PlayerLoginCsReq, PlayerLoginScRsp,
     head::PacketHead,
     server_only::{
-        ExecuteClientCommandReq, ExecuteClientCommandRsp, GmTalkByMuipReq, GmTalkByMuipRsp,
-        NetCommand, PlayerGetDataReq, PlayerGetDataRsp, StopPlayerLogicReq, StopPlayerLogicRsp,
+        ClientPerformNotify, ExecuteClientCommandReq, ExecuteClientCommandRsp, GmTalkByMuipReq,
+        GmTalkByMuipRsp, NetCommand, PlayerGetDataReq, PlayerGetDataRsp, StopPlayerLogicReq,
+        StopPlayerLogicRsp,
     },
 };
 use vivian_service::{
@@ -28,6 +29,7 @@ use vivian_service::{
 
 pub struct PlayerSession {
     pub player_uid: u32,
+    pub gate_session_id: u64,
     pub cluster: PlayerLogicCluster,
 }
 
@@ -86,6 +88,7 @@ async fn handler_loop(
 async fn process_cmd(service: Arc<ServiceContext>, entity_id: u64, packet: NetPacket) {
     if let Some(entity) = service.resolve::<NetworkEntityManager>().get(entity_id) {
         let scope = service.new_scope().with_variable(entity).build();
+
         if let Err(err) = handle_cmd(scope.as_ref(), packet).await {
             error!("failed to decode client cmd: {err}");
         }
@@ -150,6 +153,7 @@ async fn handle_player_login_cs_req(
         head.player_uid,
         Arc::new(PlayerSession {
             player_uid: head.player_uid,
+            gate_session_id: head.gate_session_id,
             cluster,
         }),
     );
@@ -235,7 +239,32 @@ async fn handle_gm_talk_by_muip_req(
             }
         };
 
-        session.cluster.push_gm_command(session.player_uid, cmd);
+        let mut notifies = session
+            .cluster
+            .push_gm_command(session.player_uid, cmd)
+            .await;
+
+        scope
+            .resolve::<NetworkClient>()
+            .send_notify(
+                ServiceType::Gate,
+                PacketHead {
+                    gate_session_id: session.gate_session_id,
+                    player_uid: session.player_uid,
+                    ..Default::default()
+                },
+                ClientPerformNotify {
+                    notify_list: notifies
+                        .drain()
+                        .into_iter()
+                        .map(|(cmd_id, body)| NetCommand {
+                            cmd_id: cmd_id as u32,
+                            body,
+                        })
+                        .collect(),
+                },
+            )
+            .await;
 
         GmTalkByMuipRsp {
             retcode: 0,
@@ -263,10 +292,10 @@ macro_rules! handlers {
                         let entity = scope.fetch::<Arc<NetworkEntity>>().unwrap();
                         entity.send(NetPacket::new(
                             PacketHead {
-                                packet_id: 0,
                                 player_uid: packet.head.player_uid,
                                 session_id: packet.head.session_id,
                                 ack_packet_id: packet.head.packet_id,
+                                ..Default::default()
                             },
                             response,
                         ));

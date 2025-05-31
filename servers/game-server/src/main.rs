@@ -1,4 +1,4 @@
-use std::sync::OnceLock;
+use std::{collections::HashMap, sync::OnceLock};
 
 use cluster::{LogicClusterConfig, PlayerLogicClusterManager};
 use common::logging::init_tracing;
@@ -57,8 +57,8 @@ async fn main() -> Result<(), StartupError> {
     let (service_tx, listener) = session::start_handler_task();
 
     let service = ServiceContext::new()
-        .insert_module(NetworkEntityManager::new(listener, None))
-        .configure_module::<NetworkServer>(env_cfg.services.get(&SERVICE_TYPE).unwrap().addr)
+        .insert_module(NetworkEntityManager::new(listener, HashMap::new()))
+        .configure_module::<NetworkServer>(vec![env_cfg.services.get(&SERVICE_TYPE).unwrap().addr])
         .configure_module::<NetworkClient>(env_cfg.services)
         .configure_module::<PlayerLogicClusterManager>(LogicClusterConfig {
             cluster: config.cluster,

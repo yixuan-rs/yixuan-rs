@@ -1,8 +1,10 @@
 use std::cmp;
 
+use config::{ActionSwitchSection, ConfigEvent, ConfigEventAction};
 use itertools::Itertools;
 use tracing::{error, instrument};
 use vivian_logic::{
+    GameState,
     debug::GMCmd,
     item::{EAvatarSkillType, EquipItem},
 };
@@ -10,11 +12,11 @@ use vivian_models::SceneSnapshotExt;
 
 use crate::{
     player::{AddItemSource, Player},
-    util::{avatar_util, item_util},
+    util::{avatar_util, item_util, quest_util},
 };
 
-#[instrument(skip(player))]
-pub fn execute_gm_cmd(player: &mut Player, cmd: GMCmd) {
+#[instrument(skip(player, state))]
+pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: GMCmd) {
     use GMCmd::*;
 
     match cmd {
@@ -164,6 +166,21 @@ pub fn execute_gm_cmd(player: &mut Player, cmd: GMCmd) {
         }
         SetControlGuiseAvatar { avatar_id } => {
             player.basic_model.control_guise_avatar_id.set(avatar_id);
+
+            if let Some(GameState::Hall(hall)) = state {
+                hall.control_guise_avatar_id = avatar_id;
+                hall.force_refresh();
+            }
+        }
+        UnlockHollowQuest { quest_id } => {
+            if player
+                .resources
+                .templates
+                .hollow_quest_template_tb()
+                .any(|q| q.id() == quest_id)
+            {
+                quest_util::add_hollow_quest(player, quest_id);
+            }
         }
         Jump {
             section_id,
@@ -177,6 +194,25 @@ pub fn execute_gm_cmd(player: &mut Player, cmd: GMCmd) {
                 if let SceneSnapshotExt::Hall(hall) = &mut default_scene.ext {
                     hall.cur_section_id = section_id;
                     player.main_city_model.transform_id.set(&transform_id);
+
+                    if let Some(GameState::Hall(hall)) = state {
+                        hall.execute_gm_event(
+                            ConfigEvent {
+                                id: 1337,
+                                actions: vec![ConfigEventAction::ActionSwitchSection(
+                                    ActionSwitchSection {
+                                        id: 100,
+                                        section_id,
+                                        transform: transform_id,
+                                        camera_x: 6000,
+                                        camera_y: 0,
+                                        predicates: Vec::new(),
+                                    },
+                                )],
+                            },
+                            player,
+                        );
+                    }
                 }
             }
         }

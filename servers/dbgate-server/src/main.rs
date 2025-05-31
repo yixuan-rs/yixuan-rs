@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use config::ServerConfig;
 use const_format::concatcp;
 use database::DbConnection;
@@ -40,9 +42,9 @@ async fn main() -> Result<(), StartupError> {
 
     let service = ServiceContext::new()
         .insert_module(db_connection)
-        .insert_module(NetworkEntityManager::new(listener, None))
+        .insert_module(NetworkEntityManager::new(listener, HashMap::new()))
         .configure_module::<TokenVerificationModule>(config.auth)
-        .configure_module::<NetworkServer>(env.services.get(&SERVICE_TYPE).unwrap().addr)
+        .configure_module::<NetworkServer>(vec![env.services.get(&SERVICE_TYPE).unwrap().addr])
         .start()?;
 
     let _ = service_tx.send(service);

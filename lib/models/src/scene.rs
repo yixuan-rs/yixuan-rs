@@ -6,10 +6,9 @@ use std::{
 use super::*;
 use config::{GraphReference, SectionEvent};
 use property::{PrimitiveProperty, Property, PropertyHashMap};
-use tracing::warn;
 use vivian_logic::{
     dungeon::{Dungeon, DungeonEquipment},
-    event::{EventState, EventUID},
+    event::{EventState, EventUID, GraphID},
     hall::npc::InteractTarget,
     math::Scale,
     scene::ELocalPlayType,
@@ -54,7 +53,8 @@ pub struct HallSectionSnapshot {
 }
 
 pub struct EventSnapshot {
-    pub graph: GraphReference,
+    pub graph_id: u32,
+    pub graph_type: GraphReferenceType,
     pub ty: SectionEvent,
     pub uid: EventUID,
     pub tag: u32,
@@ -371,18 +371,29 @@ impl HallSceneSnapshot {
                                 .attached_graph_list
                                 .into_iter()
                                 .filter_map(|info| {
-                                    load_graph_reference(info.reference_type(), info.reference_id)
+                                    Some(match info.reference_type() {
+                                        GraphReferenceType::Interact => {
+                                            GraphReference::Interact(info.reference_id)
+                                        }
+                                        GraphReferenceType::HollowEvent => {
+                                            GraphReference::HollowEvent(info.reference_id)
+                                        }
+                                        GraphReferenceType::Quest => {
+                                            GraphReference::Quest(info.reference_id)
+                                        }
+                                        GraphReferenceType::MainCitySection => {
+                                            GraphReference::MainCitySection(info.reference_id)
+                                        }
+                                        GraphReferenceType::None => return None,
+                                    })
                                 })
                                 .collect(),
                             event_snapshots: section
                                 .event_state_list
                                 .into_iter()
                                 .map(|info| EventSnapshot {
-                                    graph: load_graph_reference(
-                                        info.graph_reference_type(),
-                                        info.graph_reference_id,
-                                    )
-                                    .unwrap(),
+                                    graph_id: info.graph_reference_id,
+                                    graph_type: info.graph_reference_type(),
                                     ty: SectionEvent::from_str(&info.name).unwrap(),
                                     uid: info.event_uid.into(),
                                     state: EventState::try_from(info.event_state).unwrap(),
@@ -446,7 +457,7 @@ impl HallSceneSnapshot {
                         .attached_graphs
                         .iter()
                         .map(|graph_ref| {
-                            let (ty, id) = save_graph_reference(graph_ref);
+                            let GraphID(id, ty) = GraphID::from(*graph_ref);
                             AttachedGraphInfo {
                                 reference_id: id,
                                 reference_type: ty.into(),
@@ -456,18 +467,14 @@ impl HallSceneSnapshot {
                     event_state_list: section
                         .event_snapshots
                         .iter()
-                        .map(|event| {
-                            let (ty, id) = save_graph_reference(&event.graph);
-
-                            EventStateInfo {
-                                graph_reference_id: id,
-                                graph_reference_type: ty.into(),
-                                name: event.ty.to_string(),
-                                event_uid: *event.uid,
-                                event_state: event.state.into(),
-                                cur_action_idx: event.cur_action_idx as i32,
-                                tag: event.tag,
-                            }
+                        .map(|event| EventStateInfo {
+                            graph_reference_id: event.graph_id,
+                            graph_reference_type: event.graph_type.into(),
+                            name: event.ty.to_string(),
+                            event_uid: *event.uid,
+                            event_state: event.state.into(),
+                            cur_action_idx: event.cur_action_idx as i32,
+                            tag: event.tag,
                         })
                         .collect(),
                     already_executed_event_uid_list: section
@@ -524,24 +531,14 @@ impl LongFightSceneSnapshot {
     }
 }
 
-fn load_graph_reference(ty: GraphReferenceType, id: u32) -> Option<GraphReference> {
-    match ty {
-        GraphReferenceType::MainCitySection => Some(GraphReference::MainCitySection(id)),
-        GraphReferenceType::Interact => Some(GraphReference::Interact(id)),
-        GraphReferenceType::Quest => Some(GraphReference::Quest(id)),
-        GraphReferenceType::HollowEvent => Some(GraphReference::HollowEvent(id)),
-        invalid => {
-            warn!("invalid graph reference type in snapshot: {invalid:?}");
-            None
-        }
-    }
-}
-
-fn save_graph_reference(graph_ref: &GraphReference) -> (GraphReferenceType, u32) {
-    match graph_ref {
-        GraphReference::MainCitySection(id) => (GraphReferenceType::MainCitySection, *id),
-        GraphReference::Interact(id) => (GraphReferenceType::Interact, *id),
-        GraphReference::Quest(id) => (GraphReferenceType::Quest, *id),
-        GraphReference::HollowEvent(id) => (GraphReferenceType::HollowEvent, *id),
+impl EventSnapshot {
+    pub fn graph_reference(&self) -> Option<GraphReference> {
+        Some(match self.graph_type {
+            GraphReferenceType::Interact => GraphReference::Interact(self.graph_id),
+            GraphReferenceType::HollowEvent => GraphReference::HollowEvent(self.graph_id),
+            GraphReferenceType::Quest => GraphReference::Quest(self.graph_id),
+            GraphReferenceType::MainCitySection => GraphReference::MainCitySection(self.graph_id),
+            GraphReferenceType::None => return None,
+        })
     }
 }

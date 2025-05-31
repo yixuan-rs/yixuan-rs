@@ -5,12 +5,13 @@ mod uid;
 use std::collections::HashMap;
 
 pub use action::ActionBase;
+use common::ref_util::Ref;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use tracing::error;
 pub use uid::EventUID;
 
 use config::{ConfigEvent, ConfigEventAction, GraphReference, SectionEvent};
-use vivian_proto::ActionInfo;
+use vivian_proto::{ActionInfo, server_only::GraphReferenceType};
 
 use crate::listener::LogicEventListener;
 
@@ -28,26 +29,39 @@ pub enum EventState {
 
 pub struct Event {
     pub ty: SectionEvent,
-    pub graph: GraphReference,
     pub tag: u32,
-    pub config: &'static ConfigEvent,
+    pub graph_id: GraphID,
+    pub config: Ref<ConfigEvent>,
     pub cur_action_index: isize,
     pub state: EventState,
     pub specials: HashMap<String, i32>,
+}
+
+pub struct GraphID(pub u32, pub GraphReferenceType);
+
+impl From<GraphReference> for GraphID {
+    fn from(value: GraphReference) -> Self {
+        match value {
+            GraphReference::MainCitySection(id) => Self(id, GraphReferenceType::MainCitySection),
+            GraphReference::Interact(id) => Self(id, GraphReferenceType::Interact),
+            GraphReference::Quest(id) => Self(id, GraphReferenceType::Quest),
+            GraphReference::HollowEvent(id) => Self(id, GraphReferenceType::HollowEvent),
+        }
+    }
 }
 
 impl Event {
     pub fn new(
         ty: SectionEvent,
         tag: u32,
-        graph: GraphReference,
-        config: &'static ConfigEvent,
+        graph_id: impl Into<GraphID>,
+        config: impl Into<Ref<ConfigEvent>>,
     ) -> Self {
         Self {
             ty,
-            graph,
+            graph_id: graph_id.into(),
             tag,
-            config,
+            config: config.into(),
             cur_action_index: -1,
             state: EventState::Initing,
             specials: HashMap::new(), // TODO: take initial ones from graph config
@@ -87,7 +101,7 @@ impl Event {
         {
             self.cur_action_index = index as isize;
 
-            let uid = ((self.graph.id() as u64) << 32) | own_uid.event_id() as u64;
+            let uid = ((self.graph_id.0 as u64) << 32) | own_uid.event_id() as u64;
             if action_listener.should_execute_action(uid, action, logic_listener, &self.specials) {
                 action_listener.execute_action(uid, action, logic_listener, &self.specials);
                 if let Some(client_action_info) = action::action_to_proto(action) {
@@ -106,7 +120,7 @@ impl Event {
     }
 
     pub fn is_persistent(&self) -> bool {
-        self.ty != SectionEvent::OnInteract
+        !matches!(self.ty, SectionEvent::OnInteract | SectionEvent::GM)
     }
 
     pub fn is_finished(&self) -> bool {

@@ -24,7 +24,12 @@ pub struct PlayerSession {
     login_failed_status: OnceLock<i32>,
     is_logged_in: OnceLock<()>,
     is_logged_out: OnceLock<()>,
-    packet_tx: OnceLock<mpsc::Sender<NetPacket>>,
+    packet_tx: OnceLock<mpsc::Sender<QueueItem>>,
+}
+
+enum QueueItem {
+    FromClient(NetPacket),
+    FromServer(Vec<(u16, Vec<u8>)>),
 }
 
 impl PlayerSessionManager {
@@ -59,12 +64,18 @@ impl PlayerSession {
 
     pub async fn enqueue(&self, packet: NetPacket) {
         if let Some(tx) = self.packet_tx.get() {
-            let _ = tx.send(packet).await;
+            let _ = tx.send(QueueItem::FromClient(packet)).await;
+        }
+    }
+
+    pub async fn push_notifies(&self, notifies: Vec<(u16, Vec<u8>)>) {
+        if let Some(tx) = self.packet_tx.get() {
+            let _ = tx.send(QueueItem::FromServer(notifies)).await;
         }
     }
 
     async fn packet_handler_loop(
-        mut rx: mpsc::Receiver<NetPacket>,
+        mut rx: mpsc::Receiver<QueueItem>,
         uid: u32,
         ctx: Arc<ServiceContext>,
         network_entity: Arc<NetworkEntity>,
@@ -77,6 +88,26 @@ impl PlayerSession {
         let mut buffered_requests = HashMap::with_capacity(BUFFERED_REQUESTS_LIMIT);
 
         while let Some(packet) = rx.recv().await {
+            let packet = match packet {
+                QueueItem::FromClient(packet) => packet,
+                QueueItem::FromServer(packets) => {
+                    packets.into_iter().for_each(|(cmd_id, body)| {
+                        last_server_packet_id += 1;
+
+                        network_entity.send(NetPacket {
+                            cmd_id,
+                            body,
+                            head: PacketHead {
+                                packet_id: last_server_packet_id,
+                                player_uid: uid,
+                                ..Default::default()
+                            },
+                        });
+                    });
+                    continue;
+                }
+            };
+
             let packet_id = packet.head.packet_id;
 
             if packet_id != 0 && packet_id != (last_client_packet_id + 1) {
@@ -130,10 +161,9 @@ impl PlayerSession {
             .send_request::<_, ExecuteClientCommandRsp>(
                 ServiceType::Game,
                 PacketHead {
-                    packet_id: 0,
                     player_uid: uid,
                     session_id: packet.head.session_id,
-                    ack_packet_id: 0,
+                    ..Default::default()
                 },
                 ExecuteClientCommandReq {
                     command: Some(NetCommand {

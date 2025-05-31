@@ -771,3 +771,10 @@ pub struct GmTalkByMuipRsp {
     #[prost(string, tag = "2")]
     pub retmsg: ::prost::alloc::string::String,
 }
+#[derive(::proto_derive::NetCmd)]
+#[cmd_id(10010)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ClientPerformNotify {
+    #[prost(message, repeated, tag = "1")]
+    pub notify_list: ::prost::alloc::vec::Vec<NetCommand>,
+}

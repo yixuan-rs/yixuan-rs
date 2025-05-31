@@ -1,4 +1,7 @@
-use std::sync::{Arc, OnceLock};
+use std::{
+    net::SocketAddr,
+    sync::{Arc, OnceLock},
+};
 
 use tokio::{
     io::{AsyncReadExt, AsyncWriteExt},
@@ -17,6 +20,7 @@ use super::{
 };
 
 pub struct NetworkEntity {
+    pub local_addr: Option<SocketAddr>,
     sender: mpsc::UnboundedSender<NetPacket>,
     encryption_state: Arc<EncryptionState>,
     cancellation: CancellationToken,
@@ -47,6 +51,7 @@ impl NetworkEntity {
         id: u64,
         stream: TcpStream,
         listener: Arc<dyn NetworkEventListener>,
+        local_addr: Option<SocketAddr>,
         xorpad: Option<&'static [u8; 4096]>,
     ) -> Self {
         let (tx, rx) = mpsc::unbounded_channel();
@@ -70,6 +75,7 @@ impl NetworkEntity {
         tokio::spawn(Self::send_loop(w, rx));
 
         Self {
+            local_addr,
             sender: tx,
             encryption_state,
             cancellation,
