@@ -28,13 +28,13 @@ pub struct AvatarItem {
 )]
 #[repr(u32)]
 pub enum EAvatarSkillType {
-    SpecialAttack = 1,
-    UniqueSkill = 4,
     CommonAttack = 0,
-    CooperateSkill = 3,
-    AssistSkill = 6,
+    SpecialAttack = 1,
     Evade = 2,
+    CooperateSkill = 3,
+    UniqueSkill = 4,
     CoreSkill = 5,
+    AssistSkill = 6,
     EnumCount = 7,
 }
 

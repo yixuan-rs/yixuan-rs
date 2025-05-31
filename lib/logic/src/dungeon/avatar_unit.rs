@@ -365,8 +365,7 @@ impl AvatarUnit {
                 .iter()
                 .for_each(|prop| {
                     let ty = EPropertyType::try_from(prop.property()).unwrap();
-                    self.properties
-                        .insert(ty, self.properties.get(&ty).copied().unwrap_or_default());
+                    self.add_property(ty, prop.value());
                 });
         }
     }

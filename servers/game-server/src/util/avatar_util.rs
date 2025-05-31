@@ -36,7 +36,7 @@ pub fn unlock_avatar(
         let skill_level_map: HashMap<EAvatarSkillType, u32> = (0..EAvatarSkillType::EnumCount
             .into())
             .map(|ty| EAvatarSkillType::try_from(ty).unwrap())
-            .zip([0].into_iter().cycle())
+            .zip([1].into_iter().cycle())
             .collect();
 
         player.avatar_model.avatar_map.insert(

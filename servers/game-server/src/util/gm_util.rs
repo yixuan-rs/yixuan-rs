@@ -76,10 +76,16 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
 
             target_avatar_ids.into_iter().for_each(|avatar_id| {
                 let avatar = player.avatar_model.avatar_map.get_mut(&avatar_id).unwrap();
-                avatar.skill_level_map.insert(skill_type, level);
+                avatar
+                    .skill_level_map
+                    .insert(skill_type, cmp::max(1, cmp::min(level, 12)));
 
                 if skill_type == EAvatarSkillType::CoreSkill {
-                    avatar.passive_skill_level = level;
+                    let passive_skill_level = cmp::min(level, 6);
+                    avatar.passive_skill_level = passive_skill_level;
+                    avatar
+                        .skill_level_map
+                        .insert(skill_type, passive_skill_level + 1);
                 }
             });
         }
