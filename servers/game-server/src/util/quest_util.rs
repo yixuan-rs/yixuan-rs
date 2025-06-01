@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use common::time_util;
+use tracing::warn;
 use vivian_logic::dungeon::EQuestType;
 use vivian_models::{Hollow, HollowModel, MainCityQuestExt, Quest};
 
@@ -31,11 +32,14 @@ pub fn add_hollow_quest(player: &mut Player, id: u32) {
 
 fn add_hollow_to_model(model: &mut HollowModel, id: u32, res: &NapResources) {
     if !model.hollows.contains_key(&id) {
-        let template = res
+        let Some(template) = res
             .templates
             .hollow_quest_template_tb()
             .find(|tmpl| tmpl.id() == id)
-            .unwrap();
+        else {
+            warn!("add_hollow_to_model: quest with id {id} doesn't exist!");
+            return;
+        };
 
         let hollow_id = template.hollow_id();
 
@@ -43,14 +47,14 @@ fn add_hollow_to_model(model: &mut HollowModel, id: u32, res: &NapResources) {
             model.unlocked_hollows.insert(hollow_id);
             model.new_unlocked_hollows.insert(hollow_id);
 
-            let template = res
+            if let Some(template) = res
                 .templates
                 .hollow_config_template_tb()
                 .find(|tmpl| tmpl.id() == hollow_id)
-                .unwrap();
-
-            model.hollow_groups.insert(template.hollow_group());
-            model.new_hollow_groups.insert(template.hollow_group());
+            {
+                model.hollow_groups.insert(template.hollow_group());
+                model.new_hollow_groups.insert(template.hollow_group());
+            }
         }
 
         model.hollows.insert(

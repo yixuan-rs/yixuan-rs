@@ -101,15 +101,7 @@ pub fn logic_loop(
                     });
 
                     if let Some(player_update_tx) = state.player_update_tx.as_ref() {
-                        if slot.player.is_any_model_modified() {
-                            let data = slot.player.build_partial_update();
-                            let _ = player_update_tx.blocking_send(PlayerUpdate {
-                                uid: slot.player.uid,
-                                data,
-                            });
-
-                            slot.player.changes_acknowledged();
-                        }
+                        flush_changes_to_dbgate(&mut slot.player, player_update_tx);
                     }
                 }
             }
@@ -125,6 +117,10 @@ pub fn logic_loop(
                     enqueue_player_notifies(&slot.player, slot.game_state.as_mut(), &mut queue);
 
                     let _ = result_awaiter_tx.send(queue);
+
+                    if let Some(player_update_tx) = state.player_update_tx.as_ref() {
+                        flush_changes_to_dbgate(&mut slot.player, player_update_tx);
+                    }
                 }
             }
         }
@@ -145,6 +141,18 @@ fn enqueue_player_notifies(
 
     if let Some(state) = state {
         state.flush_notifies(queue);
+    }
+}
+
+fn flush_changes_to_dbgate(player: &mut Player, player_update_tx: &mpsc::Sender<PlayerUpdate>) {
+    if player.is_any_model_modified() {
+        let data = player.build_partial_update();
+        let _ = player_update_tx.blocking_send(PlayerUpdate {
+            uid: player.uid,
+            data,
+        });
+
+        player.changes_acknowledged();
     }
 }
 

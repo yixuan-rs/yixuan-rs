@@ -78,7 +78,7 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
                 let avatar = player.avatar_model.avatar_map.get_mut(&avatar_id).unwrap();
                 avatar
                     .skill_level_map
-                    .insert(skill_type, cmp::max(1, cmp::min(level, 12)));
+                    .insert(skill_type, level.clamp(1, 12));
 
                 if skill_type == EAvatarSkillType::CoreSkill {
                     let passive_skill_level = cmp::min(level, 6);
@@ -178,16 +178,14 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
                 hall.force_refresh();
             }
         }
-        UnlockHollowQuest { quest_id } => {
-            if player
-                .resources
-                .templates
-                .hollow_quest_template_tb()
-                .any(|q| q.id() == quest_id)
-            {
+        UnlockHollowQuest { quest_id } => player
+            .resources
+            .templates
+            .hollow_quest_template_tb()
+            .filter_map(|q| (quest_id == 0 || q.id() == quest_id).then_some(q.id()))
+            .for_each(|quest_id| {
                 quest_util::add_hollow_quest(player, quest_id);
-            }
-        }
+            }),
         Jump {
             section_id,
             transform_id,
