@@ -12,6 +12,7 @@
         "AvatarSkillUp 0 6 12",
         "AvatarTalentUp 0 6",
         "UnlockHollowQuest 0",
+        "ClearMainCityQuestCollection",
         "SetAvatarSkin 1371 3113711",
         "SetControlGuiseAvatar 1371",
         "Jump 1 Street_PlayerPos_FromWorkshop"

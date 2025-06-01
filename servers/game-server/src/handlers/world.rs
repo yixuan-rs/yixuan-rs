@@ -1,7 +1,8 @@
-use tracing::{debug, error};
+use config::ETimePeriodType;
+use tracing::{debug, error, warn};
 use vivian_codegen::handlers;
 use vivian_logic::{
-    hall::HallEventGraphError, listener::NotifyListenerExt, math::Transform, GameState,
+    GameState, hall::HallEventGraphError, listener::NotifyListenerExt, math::Transform,
 };
 use vivian_proto::{
     EndBattleCsReq, EndBattleScRsp, EndNpcTalkCsReq, EndNpcTalkScRsp, EnterSectionCompleteCsReq,
@@ -9,11 +10,11 @@ use vivian_proto::{
     EnterWorldScRsp, EventGraphOwnerType, FightSettle, HollowEventReportCsReq,
     HollowEventReportScRsp, HollowMoveCsReq, HollowMoveScRsp, HollowTickCsReq, HollowTickScRsp,
     InteractWithUnitCsReq, InteractWithUnitScRsp, LeaveCurSceneCsReq, LeaveCurSceneScRsp,
-    RunEventActionCsReq, RunEventActionScRsp, RunEventGraphCsReq, RunEventGraphScRsp,
-    SavePosInMainCityCsReq, SavePosInMainCityScRsp, SceneTransitionCsReq, SceneTransitionScRsp,
-    SectionRefreshCsReq, SectionRefreshScRsp, SyncLongFightProgressCsReq,
-    SyncLongFightProgressScRsp, TriggerHollowEventCsReq, TriggerHollowEventScRsp,
-    TriggerInteractCsReq, TriggerInteractScRsp,
+    ModMainCityTimeCsReq, ModMainCityTimeScRsp, RunEventActionCsReq, RunEventActionScRsp,
+    RunEventGraphCsReq, RunEventGraphScRsp, SavePosInMainCityCsReq, SavePosInMainCityScRsp,
+    SceneTransitionCsReq, SceneTransitionScRsp, SectionRefreshCsReq, SectionRefreshScRsp,
+    SyncLongFightProgressCsReq, SyncLongFightProgressScRsp, TriggerHollowEventCsReq,
+    TriggerHollowEventScRsp, TriggerInteractCsReq, TriggerInteractScRsp,
 };
 
 use super::NetContext;
@@ -319,6 +320,38 @@ impl WorldHandler {
             retcode: 0,
             refresh_status: 1,
         }
+    }
+
+    pub fn on_mod_main_city_time_cs_req(
+        context: &mut NetContext,
+        request: ModMainCityTimeCsReq,
+    ) -> ModMainCityTimeScRsp {
+        let Some(GameState::Hall(hall)) = context.game_state.as_mut() else {
+            warn!("ModMainCityTimeCsReq received in wrong state");
+            return ModMainCityTimeScRsp {
+                retcode: -1,
+            };
+        };
+
+        let Ok(time_period) = ETimePeriodType::try_from(request.time_period) else {
+            warn!("ModMainCityTimeCsReq: invalid time period type: {}", request.time_period);
+            return ModMainCityTimeScRsp {
+                retcode: -1,
+            };
+        };
+
+        if hall.is_time_locked() {
+            warn!("received ModMainCityTimeCsReq when MainCityTime is locked");
+            return ModMainCityTimeScRsp {
+                retcode: -1,
+            };
+        }
+
+        hall.set_time_period(time_period);
+        hall.set_time_period(ETimePeriodType::Now);
+        hall.force_refresh();
+
+        ModMainCityTimeScRsp { retcode: 0 }
     }
 
     pub fn on_hollow_tick_cs_req(

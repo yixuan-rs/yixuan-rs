@@ -45,6 +45,7 @@ pub enum GMCmd {
     UnlockHollowQuest {
         quest_id: u32,
     },
+    ClearMainCityQuestCollection,
     Jump {
         section_id: u32,
         transform_id: String,

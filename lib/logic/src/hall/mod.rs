@@ -117,6 +117,13 @@ impl GameHallState {
         self.enter_finished = true;
     }
 
+    pub fn clear_main_city_quests(&mut self) {
+        self.main_city_quests.clear();
+        self.clear_attached_graphs(&[]);
+
+        self.set_time_period(ETimePeriodType::Now);
+    }
+
     pub fn attach_graph(
         &mut self,
         graph_ref: GraphReference,
@@ -320,7 +327,13 @@ impl GameHallState {
             }
 
             self.time_of_day = time_of_day;
+        } else {
+            self.time_period = TimePeriodType::None; // Unlock time for client
         }
+    }
+
+    pub fn is_time_locked(&self) -> bool {
+        self.time_period != TimePeriodType::None
     }
 
     fn remove_pending_refresh(&mut self) -> Option<vivian_proto::HallRefreshScNotify> {

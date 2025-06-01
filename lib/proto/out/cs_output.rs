@@ -943,7 +943,7 @@ pub struct EnterSectionCompleteScRsp {
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(2682)]
 pub struct HallRefreshScNotify {
-    #[prost(bool, tag = "14")]
+    #[prost(bool, tag = "7")]
     pub force_refresh: bool,
     #[prost(uint32, tag = "12", xor = "15924")]
     pub section_id: u32,
@@ -972,6 +972,17 @@ pub struct HallRefreshScNotify {
     pub control_guise_avatar_id: u32,
     #[prost(uint32, repeated, tag = "554")]
     pub main_city_quest_id_list: ::prost::alloc::vec::Vec<u32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(9915)]
+pub struct ModMainCityTimeCsReq {
+    #[prost(uint32, tag = "6", xor = "9317")]
+    pub time_period: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct ModMainCityTimeScRsp {
+    pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(1749)]

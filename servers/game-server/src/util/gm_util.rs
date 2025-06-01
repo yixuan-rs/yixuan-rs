@@ -6,6 +6,7 @@ use tracing::{error, instrument};
 use vivian_logic::{
     GameState,
     debug::GMCmd,
+    dungeon::EQuestType,
     item::{EAvatarSkillType, EquipItem},
 };
 use vivian_models::SceneSnapshotExt;
@@ -186,6 +187,18 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
             .for_each(|quest_id| {
                 quest_util::add_hollow_quest(player, quest_id);
             }),
+        ClearMainCityQuestCollection => {
+            player
+                .quest_model
+                .get_or_insert_collection(EQuestType::MainCity)
+                .quests
+                .clear();
+
+            if let Some(GameState::Hall(hall)) = state {
+                hall.clear_main_city_quests();
+                hall.force_refresh();
+            }
+        }
         Jump {
             section_id,
             transform_id,
