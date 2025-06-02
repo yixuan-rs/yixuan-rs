@@ -6,9 +6,11 @@ use vivian_codegen::{handlers, required_state};
 use vivian_logic::GameState;
 use vivian_proto::{
     AbyssArpeggioGetDataCsReq, AbyssArpeggioGetDataScRsp, AbyssGetDataCsReq, AbyssGetDataScRsp,
-    GetArchiveDataCsReq, GetArchiveDataScRsp, GetHollowDataCsReq, GetHollowDataScRsp,
-    GetQuestDataCsReq, GetQuestDataScRsp, HollowQuestProgressCsReq, HollowQuestProgressScRsp,
-    StartHollowQuestCsReq, StartHollowQuestScRsp, StartTrainingQuestCsReq, StartTrainingQuestScRsp,
+    BeginMonsterCardBattleCsReq, BeginMonsterCardBattleScRsp, GetArchiveDataCsReq,
+    GetArchiveDataScRsp, GetHollowDataCsReq, GetHollowDataScRsp, GetQuestDataCsReq,
+    GetQuestDataScRsp, HollowQuestProgressCsReq, HollowQuestProgressScRsp,
+    RestartBigBossBattleCsReq, RestartBigBossBattleScRsp, StartHollowQuestCsReq,
+    StartHollowQuestScRsp, StartTrainingQuestCsReq, StartTrainingQuestScRsp,
 };
 
 pub struct QuestHandler;
@@ -135,6 +137,79 @@ impl QuestHandler {
         HollowQuestProgressScRsp {
             retcode: 0,
             new_progress: 1,
+        }
+    }
+
+    pub fn on_begin_monster_card_battle_cs_req(
+        context: &mut NetContext<'_>,
+        request: BeginMonsterCardBattleCsReq,
+    ) -> BeginMonsterCardBattleScRsp {
+        if let Some(state) = context.game_state.as_mut() {
+            if let GameState::Hall(hall) = state {
+                hall.on_exit(context.player);
+            }
+
+            context.player.save_scene_snapshot(state);
+        }
+
+        let Some(scene_uid) = context.player.start_monster_card_battle(
+            request.quest_id,
+            &request.avatar_id_list,
+            request.level,
+        ) else {
+            error!("failed to start quest {}", request.quest_id);
+            return BeginMonsterCardBattleScRsp { retcode: 1 };
+        };
+
+        *context.game_state = Some(context.player.load_state_from_snapshot(scene_uid));
+
+        context
+            .player
+            .quest_model
+            .battle_data
+            .activity
+            .monster_card
+            .selected_level
+            .set(request.level);
+
+        BeginMonsterCardBattleScRsp { retcode: 0 }
+    }
+
+    pub fn on_restart_big_boss_battle_cs_req(
+        context: &mut NetContext<'_>,
+        _request: RestartBigBossBattleCsReq,
+    ) -> RestartBigBossBattleScRsp {
+        let Some(state) = context.game_state.as_mut() else {
+            return RestartBigBossBattleScRsp { retcode: 1 };
+        };
+
+        context.player.save_scene_snapshot(state);
+
+        let GameState::Fight(fight) = state else {
+            return RestartBigBossBattleScRsp { retcode: 1 };
+        };
+
+        if let Some(big_boss_info) = &fight.dungeon.big_boss_info {
+            let avatar_ids: Vec<u32> = fight
+                .dungeon
+                .avatar_units
+                .iter()
+                .map(|avatar_unit| avatar_unit.avatar_id)
+                .collect();
+            let Some(scene_uid) = context.player.start_monster_card_battle(
+                fight.dungeon.quest_id,
+                avatar_ids.as_slice(),
+                big_boss_info.difficulty,
+            ) else {
+                error!("failed to restart quest {}", fight.dungeon.quest_id);
+                return RestartBigBossBattleScRsp { retcode: 1 };
+            };
+
+            *context.game_state = Some(context.player.load_state_from_snapshot(scene_uid));
+
+            RestartBigBossBattleScRsp { retcode: 0 }
+        } else {
+            RestartBigBossBattleScRsp { retcode: 1 }
         }
     }
 }

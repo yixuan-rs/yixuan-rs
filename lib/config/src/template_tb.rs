@@ -42,10 +42,13 @@ file_cfg! {
     CallingCardConfigTemplate;
     PlayerSkinConfigTemplate;
     PlayerSkinAccessoriesConfigTemplate;
+    BossBattleQuestTemplate;
+    DoubleEliteQuestTemplate;
+    MonsterCardDifficultyTemplate = 12809700518214419243;
 }
 
 macro_rules! file_cfg {
-    ($($name:ident;)*) => {
+    ($($name:ident$( = $hash:expr)?;)*) => {
         ::paste::paste!($(
             #[allow(dead_code, unused_imports, unsafe_op_in_unsafe_fn, non_snake_case)]
             mod [<$name:snake>] {
@@ -74,7 +77,10 @@ macro_rules! file_cfg {
                     Ok(Self {
                         $(
                             [<$name:snake _data>]: {
-                                let filename_hash = ::xxhash_rust::const_xxh64::xxh64(stringify!([<$name:lower tb>]).as_bytes(), 0);
+                                let filename_hash = match stringify!($([<$hash>])?) {
+                                    "" => ::xxhash_rust::const_xxh64::xxh64(stringify!([<$name:lower tb>]).as_bytes(), 0).to_string(),
+                                    hash => hash.to_string()
+                                };
                                 let file_path = format!("{filecfg_path}/{filename_hash}");
 
                                 let data = match std::fs::read(&file_path) {

@@ -283,6 +283,18 @@ pub struct AvatarSync {
     pub avatar_list: ::prost::alloc::vec::Vec<AvatarInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct MonsterCardSync {
+    #[prost(uint32, repeated, tag = "14")]
+    pub new_unlocked_levels: ::prost::alloc::vec::Vec<u32>,
+    #[prost(uint32, tag = "15", xor = "10254")]
+    pub selected_level: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct ActivityBattleSync {
+    #[prost(message, optional, tag = "10")]
+    pub monster_card: ::core::option::Option<MonsterCardSync>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(3876)]
 pub struct PlayerSyncScNotify {
     #[prost(message, optional, tag = "13")]
@@ -297,6 +309,8 @@ pub struct PlayerSyncScNotify {
     pub quest: ::core::option::Option<QuestSync>,
     #[prost(message, optional, tag = "2")]
     pub hollow: ::core::option::Option<HollowSync>,
+    #[prost(message, optional, tag = "1835")]
+    pub activity_battle: ::core::option::Option<ActivityBattleSync>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(3896)]
@@ -563,6 +577,33 @@ pub struct StartHollowQuestScRsp {
     pub retcode: i32,
     #[prost(uint32, tag = "4", xor = "16021")]
     pub quest_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(8743)]
+pub struct RestartBigBossBattleCsReq {}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(9473)]
+pub struct RestartBigBossBattleScRsp {
+    #[prost(int32, tag = "12", xor = "16233")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(5971)]
+pub struct BeginMonsterCardBattleCsReq {
+    #[prost(uint32, tag = "2", xor = "9025")]
+    pub quest_id: u32,
+    #[prost(uint32, repeated, tag = "8")]
+    pub avatar_id_list: ::prost::alloc::vec::Vec<u32>,
+    #[prost(uint32, tag = "4", xor = "4256")]
+    pub level: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(8745)]
+pub struct BeginMonsterCardBattleScRsp {
+    #[prost(int32, tag = "8", xor = "4732")]
+    pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AvatarContributionInfo {
@@ -906,6 +947,11 @@ pub struct AvatarUnitInfo {
     pub properties: ::std::collections::HashMap<u32, i32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct BigBossInfo {
+    #[prost(uint32, tag = "9", xor = "12717")]
+    pub difficulty: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DungeonInfo {
     #[prost(uint32, tag = "4", xor = "15339")]
     pub quest_id: u32,
@@ -921,6 +967,8 @@ pub struct DungeonInfo {
     pub begin_time: i64,
     #[prost(message, optional, tag = "708")]
     pub dungeon_quest_info: ::core::option::Option<DungeonQuestInfo>,
+    #[prost(message, optional, tag = "158")]
+    pub big_boss_info: ::core::option::Option<BigBossInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(8216)]
@@ -989,7 +1037,9 @@ pub struct ModMainCityTimeScRsp {
 pub struct SceneTransitionCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
+#[cmd_id(5575)]
 pub struct SceneTransitionScRsp {
+    #[prost(int32, tag = "6", xor = "14784")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1002,7 +1052,9 @@ pub struct SavePosInMainCityCsReq {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
+#[cmd_id(4159)]
 pub struct SavePosInMainCityScRsp {
+    #[prost(int32, tag = "13", xor = "12618")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1013,7 +1065,9 @@ pub struct TriggerInteractCsReq {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
+#[cmd_id(2225)]
 pub struct TriggerInteractScRsp {
+    #[prost(int32, tag = "2", xor = "7374")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1028,7 +1082,9 @@ pub struct InteractWithUnitCsReq {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
+#[cmd_id(8692)]
 pub struct InteractWithUnitScRsp {
+    #[prost(int32, tag = "11", xor = "8435")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1036,7 +1092,9 @@ pub struct InteractWithUnitScRsp {
 pub struct EndNpcTalkCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
+#[cmd_id(5295)]
 pub struct EndNpcTalkScRsp {
+    #[prost(int32, tag = "10", xor = "1008")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2047,7 +2105,9 @@ pub struct PlayerOperationCsReq {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
+#[cmd_id(6620)]
 pub struct PlayerOperationScRsp {
+    #[prost(int32, tag = "4", xor = "9442")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2072,6 +2132,35 @@ pub struct FinishNewbieGroupCsReq {
 #[derive(::proto_derive::NetResponse)]
 pub struct FinishNewbieGroupScRsp {
     pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(614)]
+pub struct GetBattleDataCsReq {}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(6013)]
+pub struct GetBattleDataScRsp {
+    #[prost(int32, tag = "13", xor = "9116")]
+    pub retcode: i32,
+    #[prost(message, optional, tag = "15")]
+    pub battle_data: ::core::option::Option<BattleData>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct BattleData {
+    #[prost(message, optional, tag = "7")]
+    pub battle_data: ::core::option::Option<ActivityBattleData>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct ActivityBattleData {
+    #[prost(message, optional, tag = "7")]
+    pub monster_card: ::core::option::Option<MonsterCardData>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct MonsterCardData {
+    #[prost(uint32, repeated, tag = "13")]
+    pub unlocked_levels: ::prost::alloc::vec::Vec<u32>,
+    #[prost(uint32, tag = "2", xor = "5903")]
+    pub selected_level: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(6344)]

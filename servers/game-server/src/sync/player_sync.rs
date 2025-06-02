@@ -117,7 +117,23 @@ impl PlayerSyncComponent for QuestModel {
                 .flat_map(|(_, qc)| qc.finished_quests.iter().copied())
                 .collect(),
             new_hollow_quest_id_list: self.new_hollow_quests.iter_added_keys().copied().collect(),
-        })
+        });
+
+        if self.battle_data.activity.is_changed() {
+            player_sync_sc_notify.activity_battle = Some(ActivityBattleSync {
+                monster_card: Some(MonsterCardSync {
+                    new_unlocked_levels: self
+                        .battle_data
+                        .activity
+                        .monster_card
+                        .unlocked_levels
+                        .iter_added_keys()
+                        .copied()
+                        .collect(),
+                    selected_level: self.battle_data.activity.monster_card.selected_level.get(),
+                }),
+            });
+        }
     }
 }
 

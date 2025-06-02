@@ -1,9 +1,10 @@
 use std::collections::HashMap;
 
 use vivian_proto::server_only::{
-    AbyssData, ArchiveData, AvatarData, BuddyData, BusinessCardData, GachaData, HollowData,
-    ItemData, MainCityData, MapData, MiscData, NewbieData, NewsStandData, PlayerAccessoryData,
-    PostGirlData, QuestData, SceneData, SwitchData, TeleportUnlockData, UnlockData,
+    AbyssData, ArchiveData, AvatarData, BattleData, BuddyData, BusinessCardData, GachaData,
+    HollowData, ItemData, MainCityData, MapData, MiscData, NewbieData, NewsStandData,
+    PlayerAccessoryData, PostGirlData, QuestData, SceneData, SwitchData, TeleportUnlockData,
+    UnlockData,
 };
 
 pub trait ModelData {
@@ -41,6 +42,7 @@ impl ModelData for QuestData {
     fn create_default(_uid: i32) -> Self {
         Self {
             quest_collection_list: Vec::new(),
+            battle_data: Some(BattleData::default()),
         }
     }
 }

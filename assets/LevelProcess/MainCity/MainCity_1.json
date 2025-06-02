@@ -227,6 +227,58 @@
                     }
                 }
             }
+        },
+        "151": {
+            "UnityScenePath": "Maincity_Zero",
+            "BornTransform": "Zero_PlayerPos_Default",
+            "SectionProgress": {
+                "ID": 15100,
+                "OnAdd": [
+                    "Sec151_DefaultTrigger",
+                    "Sec151_DefaultTrigger2"
+                ],
+                "OnEnter": [
+                    "Sec151_EnterTrigger1"
+                ],
+                "Events": {
+                    "Sec151_DefaultTrigger": {
+                        "ID": 100,
+                        "Actions": []
+                    },
+                    "Sec151_DefaultTrigger2": {
+                        "ID": 200,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 202,
+                                "TagID": 102102
+                            }
+                        ]
+                    },
+                    "Sec151_EnterTrigger1": {
+                        "ID": 300,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 302,
+                                "InteractID": 15001109,
+                                "TagIDs": [
+                                    102102
+                                ],
+                                "Participators": {
+                                    "102102": "A"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2.0,
+                                    "Y": 0.0,
+                                    "Z": 0.0
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
         }
     }
 }

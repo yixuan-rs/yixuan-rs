@@ -1,16 +1,34 @@
 use std::collections::{HashMap, HashSet};
 
 use config::EQuestState;
+use vivian_codegen::Property;
 use vivian_logic::dungeon::EQuestType;
 
-use crate::property::{Property, PropertyHashMap, PropertyHashSet};
+use crate::property::{PrimitiveProperty, Property, PropertyHashMap, PropertyHashSet};
 
 use super::*;
+
+#[derive(Property, Default)]
+pub struct PropertyMonsterCardData {
+    pub selected_level: PrimitiveProperty<u32>,
+    pub unlocked_levels: PropertyHashSet<u32>,
+}
+
+#[derive(Property, Default)]
+pub struct PropertyActivityBattleData {
+    pub monster_card: PropertyMonsterCardData,
+}
+
+#[derive(Property, Default)]
+pub struct PropertyBattleData {
+    pub activity: PropertyActivityBattleData,
+}
 
 #[derive(Model)]
 pub struct QuestModel {
     pub quest_collections: PropertyHashMap<EQuestType, QuestCollection>,
     pub new_hollow_quests: PropertyHashSet<u32>,
+    pub battle_data: PropertyBattleData,
 }
 
 #[derive(Default)]
@@ -99,6 +117,26 @@ impl QuestModel {
                 })
                 .collect(),
             new_hollow_quests: PropertyHashSet::default(),
+            battle_data: pb
+                .battle_data
+                .map(|data| PropertyBattleData {
+                    activity: data
+                        .activity
+                        .map(|activity_battle_data| PropertyActivityBattleData {
+                            monster_card: activity_battle_data
+                                .monster_card
+                                .map(|monster_card_data| PropertyMonsterCardData {
+                                    unlocked_levels: monster_card_data
+                                        .unlocked_levels
+                                        .into_iter()
+                                        .collect(),
+                                    selected_level: monster_card_data.selected_level.into(),
+                                })
+                                .unwrap_or_default(),
+                        })
+                        .unwrap_or_default(),
+                })
+                .unwrap_or_default(),
         }
     }
 }
@@ -149,6 +187,21 @@ impl Saveable for QuestModel {
                         .collect(),
                 })
                 .collect(),
+            battle_data: Some(BattleData {
+                activity: Some(ActivityBattleData {
+                    monster_card: Some(MonsterCardData {
+                        unlocked_levels: self
+                            .battle_data
+                            .activity
+                            .monster_card
+                            .unlocked_levels
+                            .iter()
+                            .copied()
+                            .collect(),
+                        selected_level: self.battle_data.activity.monster_card.selected_level.get(),
+                    }),
+                }),
+            }),
         });
     }
 }

@@ -1,0 +1,17 @@
+{
+    "ID": 15001109,
+    "Events": {
+        "OnInteract": {
+            "ID": 100,
+            "Actions": [
+                {
+                    "$type": "Share.CActionOpenUI",
+                    "ID": 10,
+                    "UI": "",
+                    "Args": 0,
+                    "StoreTemplateID": 2012
+                }
+            ]
+        }
+    }
+}

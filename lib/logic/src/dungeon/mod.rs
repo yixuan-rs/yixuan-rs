@@ -13,9 +13,9 @@ pub use avatar_unit::AvatarUnit;
 use common::time_util;
 use config::TemplateCollection;
 pub use enums::*;
-use vivian_proto::{DungeonQuestFinishedScNotify, common::LogBattleStatistics};
+use vivian_proto::{BigBossInfo, DungeonQuestFinishedScNotify, common::LogBattleStatistics};
 
-#[derive(Clone)]
+#[derive(Default, Clone)]
 pub struct Dungeon {
     pub quest_id: u32,
     pub quest_type: u32,
@@ -26,6 +26,7 @@ pub struct Dungeon {
     pub avatar_contribution: HashMap<u32, u32>,
     pub battle_statistic: LogBattleStatistics,
     pub pending_quest_finish_notifies: HashMap<u32, DungeonQuestFinishedScNotify>,
+    pub big_boss_info: Option<BigBossInfo>,
 }
 
 #[derive(Default, Clone)]
@@ -47,6 +48,7 @@ impl Dungeon {
             avatar_contribution: HashMap::new(),
             battle_statistic: LogBattleStatistics::default(),
             pending_quest_finish_notifies: HashMap::new(),
+            big_boss_info: None,
         }
     }
 
@@ -141,6 +143,7 @@ impl Dungeon {
             }),
             dungeon_statistics: Some(vivian_proto::DungeonStatistics::default()),
             begin_time: self.begin_time,
+            big_boss_info: self.big_boss_info.clone(),
         }
     }
 }

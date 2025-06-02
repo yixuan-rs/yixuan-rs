@@ -1,6 +1,8 @@
 {
     "Commands": [
         "SetYorozuyaLv 60",
+        "UnlockBigBossQuest 0",
+        "UnlockMonsterCardLevel 0",
         "AddAllAvatar",
         "AvatarLvUp 0 60",
         "AvatarSkillUp 0 0 12",

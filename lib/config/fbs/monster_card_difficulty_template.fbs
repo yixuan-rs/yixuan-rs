@@ -1,0 +1,11 @@
+table MonsterCardDifficultyTemplate {
+        difficulty: uint;
+        card_type: uint;
+        unk_2: uint;
+        unk_3: uint;
+        unk_4: uint;
+}
+
+table MonsterCardDifficultyTemplateTb {
+        data: [MonsterCardDifficultyTemplate];
+}

@@ -176,6 +176,28 @@ pub struct AutoRecoveryItemInfo {
 pub struct QuestData {
     #[prost(message, repeated, tag = "1")]
     pub quest_collection_list: ::prost::alloc::vec::Vec<QuestCollectionInfo>,
+    #[prost(message, optional, tag = "2")]
+    pub battle_data: ::core::option::Option<BattleData>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MonsterCardData {
+    #[prost(uint32, repeated, tag = "1")]
+    pub unlocked_levels: ::prost::alloc::vec::Vec<u32>,
+    #[prost(uint32, tag = "2")]
+    pub selected_level: u32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ActivityBattleData {
+    #[prost(message, optional, tag = "1")]
+    pub monster_card: ::core::option::Option<MonsterCardData>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BattleData {
+    #[prost(message, optional, tag = "1")]
+    pub activity: ::core::option::Option<ActivityBattleData>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]

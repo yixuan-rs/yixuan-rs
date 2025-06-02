@@ -1,0 +1,37 @@
+table DoubleEliteQuestTemplate {
+	quest_id: uint;
+	unk_1: int;
+	unk_2: int;
+	unk_3: int;
+	unk_4: int;
+	unk_5: int;
+	unk_6: int;
+	unk_7: int;
+	unk_8: int;
+	unk_9: int;
+	unk_10: int;
+	unk_11: int;
+	unk_12: int;
+	unk_13: int;
+	unk_14: int;
+	unk_15: ubyte;
+	unk_16: ubyte;
+	battle_event_id: uint;
+	unk_18: int;
+	unk_19: int;
+	unk_20: int;
+	unk_21: int;
+	unk_22: ubyte;
+	unk_23: int;
+	unk_24: int;
+	unk_25: int;
+	unk_26: int;
+	unk_27: int;
+	unk_28: int;
+	unk_29: int;
+	unk_30: int;
+}
+
+table DoubleEliteQuestTemplateTb {
+	data: [DoubleEliteQuestTemplate];
+}

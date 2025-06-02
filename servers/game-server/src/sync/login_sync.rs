@@ -93,29 +93,49 @@ impl LoginDataSyncComponent for QuestModel {
                 retcode: 0,
                 quest_type: 0,
                 quest_data: Some(vivian_proto::QuestData {
-                    quest_collection_list: (1..10u32)
-                        .map(|ty| (ty, self.quest_collections.get(&ty.try_into().unwrap())))
-                        .map(|(quest_type, collection)| {
-                            collection
-                                .map(|collection| vivian_proto::QuestCollection {
-                                    quest_type,
-                                    finished_quest_id_list: collection
-                                        .finished_quests
-                                        .iter()
-                                        .copied()
-                                        .collect(),
-                                    quest_list: collection
-                                        .quests
-                                        .values()
-                                        .map(vivian_models::Quest::to_client_proto)
-                                        .collect(),
-                                })
-                                .unwrap_or_else(|| vivian_proto::QuestCollection {
-                                    quest_type,
-                                    ..Default::default()
-                                })
+                    quest_collection_list: self
+                        .quest_collections
+                        .iter()
+                        .map(|(quest_type, collection)| vivian_proto::QuestCollection {
+                            quest_type: (*quest_type).into(),
+                            finished_quest_id_list: collection
+                                .finished_quests
+                                .iter()
+                                .copied()
+                                .collect(),
+                            quest_list: collection
+                                .quests
+                                .values()
+                                .map(vivian_models::Quest::to_client_proto)
+                                .collect(),
                         })
                         .collect(),
+                }),
+            },
+        );
+        sync_helper.add_response(
+            SyncType::ExtendData,
+            vivian_proto::GetBattleDataScRsp {
+                retcode: 0,
+                battle_data: Some(BattleData {
+                    battle_data: Some(ActivityBattleData {
+                        monster_card: Some(MonsterCardData {
+                            unlocked_levels: self
+                                .battle_data
+                                .activity
+                                .monster_card
+                                .unlocked_levels
+                                .iter()
+                                .copied()
+                                .collect(),
+                            selected_level: self
+                                .battle_data
+                                .activity
+                                .monster_card
+                                .selected_level
+                                .get(),
+                        }),
+                    }),
                 }),
             },
         );

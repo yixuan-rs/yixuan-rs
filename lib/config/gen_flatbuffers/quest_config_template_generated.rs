@@ -103,11 +103,11 @@ impl<'a> QuestConfigTemplate<'a> {
     unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(QuestConfigTemplate::VT_QUEST_NAME, None)}
   }
   #[inline]
-  pub fn quest_type(&self) -> i32 {
+  pub fn quest_type(&self) -> u32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(QuestConfigTemplate::VT_QUEST_TYPE, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u32>(QuestConfigTemplate::VT_QUEST_TYPE, Some(0)).unwrap()}
   }
   #[inline]
   pub fn desc(&self) -> Option<&'a str> {
@@ -267,7 +267,7 @@ impl flatbuffers::Verifiable for QuestConfigTemplate<'_> {
     v.visit_table(pos)?
      .visit_field::<u32>("quest_id", Self::VT_QUEST_ID, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("quest_name", Self::VT_QUEST_NAME, false)?
-     .visit_field::<i32>("quest_type", Self::VT_QUEST_TYPE, false)?
+     .visit_field::<u32>("quest_type", Self::VT_QUEST_TYPE, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("desc", Self::VT_DESC, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("target_desc", Self::VT_TARGET_DESC, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("quest_desc", Self::VT_QUEST_DESC, false)?
@@ -296,7 +296,7 @@ impl flatbuffers::Verifiable for QuestConfigTemplate<'_> {
 pub struct QuestConfigTemplateArgs<'a> {
     pub quest_id: u32,
     pub quest_name: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub quest_type: i32,
+    pub quest_type: u32,
     pub desc: Option<flatbuffers::WIPOffset<&'a str>>,
     pub target_desc: Option<flatbuffers::WIPOffset<&'a str>>,
     pub quest_desc: Option<flatbuffers::WIPOffset<&'a str>>,
@@ -365,8 +365,8 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> QuestConfigTemplateBuilder<'a, 
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(QuestConfigTemplate::VT_QUEST_NAME, quest_name);
   }
   #[inline]
-  pub fn add_quest_type(&mut self, quest_type: i32) {
-    self.fbb_.push_slot::<i32>(QuestConfigTemplate::VT_QUEST_TYPE, quest_type, 0);
+  pub fn add_quest_type(&mut self, quest_type: u32) {
+    self.fbb_.push_slot::<u32>(QuestConfigTemplate::VT_QUEST_TYPE, quest_type, 0);
   }
   #[inline]
   pub fn add_desc(&mut self, desc: flatbuffers::WIPOffset<&'b  str>) {

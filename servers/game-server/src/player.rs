@@ -18,7 +18,7 @@ use vivian_logic::{
     long_fight::GameLongFightState,
     scene::ELocalPlayType,
 };
-use vivian_proto::{PlayerSyncScNotify, server_only::PlayerData};
+use vivian_proto::{BigBossInfo, PlayerSyncScNotify, server_only::PlayerData};
 
 use tracing::{error, info, warn};
 use vivian_models::{property::GachaRandom, *};
@@ -325,6 +325,68 @@ impl Player {
         );
 
         let dungeon = self.scene_model.dungeons.get_mut(&dungeon_uid).unwrap();
+
+        for &id in avatars {
+            dungeon.add_avatar(id, &self.resources.templates);
+        }
+
+        Some(scene_uid)
+    }
+
+    pub fn start_monster_card_battle(
+        &mut self,
+        quest_id: u32,
+        avatars: &[u32],
+        level: u32,
+    ) -> Option<u64> {
+        let quest_config = self
+            .resources
+            .templates
+            .quest_config_template_tb()
+            .find(|tmpl| tmpl.quest_id() == quest_id)?;
+
+        let (dungeon_uid, scene_uid) =
+            match EQuestType::try_from(quest_config.quest_type()).unwrap() {
+                EQuestType::DoubleElite => {
+                    let double_elite_template = self
+                        .resources
+                        .templates
+                        .double_elite_quest_template_tb()
+                        .find(|tmpl| tmpl.quest_id() == quest_id)
+                        .unwrap();
+                    self.scene_model.create_pure_fight_dungeon(
+                        quest_id,
+                        EQuestType::DoubleElite.into(),
+                        double_elite_template.battle_event_id(),
+                        ELocalPlayType::DualElite,
+                        self.build_dungeon_equipment(avatars),
+                    )
+                }
+                EQuestType::BigBoss => {
+                    let double_elite_template = self
+                        .resources
+                        .templates
+                        .boss_battle_quest_template_tb()
+                        .find(|tmpl| tmpl.quest_id() == quest_id)
+                        .unwrap();
+                    self.scene_model.create_pure_fight_dungeon(
+                        quest_id,
+                        EQuestType::BigBoss.into(),
+                        double_elite_template.battle_event_id(),
+                        ELocalPlayType::BigBossBattle,
+                        self.build_dungeon_equipment(avatars),
+                    )
+                }
+                other => {
+                    error!("start_monster_card_battle: {other:?} is not implemented");
+                    return None;
+                }
+            };
+
+        let dungeon = self.scene_model.dungeons.get_mut(&dungeon_uid).unwrap();
+        if quest_config.quest_type() == EQuestType::BigBoss.into() {
+            dungeon.big_boss_info = Some(BigBossInfo { difficulty: level });
+        }
 
         for &id in avatars {
             dungeon.add_avatar(id, &self.resources.templates);
@@ -706,7 +768,7 @@ impl Player {
         self.resources
             .templates
             .quest_config_template_tb()
-            .filter(|tmpl| tmpl.quest_type() == 6)
+            .filter(|tmpl| tmpl.quest_type() == EQuestType::HollowChallenge.into())
             .for_each(|tmpl| {
                 let finish_conditions =
                     BoundConditions::parse(tmpl.finish_condition().unwrap_or_default());

@@ -1,9 +1,10 @@
 use common::time_util;
 use tracing::debug;
 use vivian_proto::{
-    GetAuthkeyCsReq, GetAuthkeyScRsp, GetPlayerTransactionCsReq, GetPlayerTransactionScRsp,
-    GetSelfBasicInfoCsReq, GetSelfBasicInfoScRsp, GetServerTimestampCsReq, GetServerTimestampScRsp,
-    ModAvatarCsReq, ModAvatarScRsp, ModNickNameCsReq, ModNickNameScRsp,
+    GetAuthkeyCsReq, GetAuthkeyScRsp, GetBattleDataCsReq, GetBattleDataScRsp,
+    GetPlayerTransactionCsReq, GetPlayerTransactionScRsp, GetSelfBasicInfoCsReq,
+    GetSelfBasicInfoScRsp, GetServerTimestampCsReq, GetServerTimestampScRsp, ModAvatarCsReq,
+    ModAvatarScRsp, ModNickNameCsReq, ModNickNameScRsp,
 };
 
 use crate::sync::SyncType;
@@ -100,5 +101,16 @@ impl PlayerHandler {
             retcode: 0,
             transaction: format!("{}-{}", context.player.uid, 1),
         }
+    }
+
+    #[required_state(ExtendDataSync)]
+    pub fn on_get_battle_data_cs_req(
+        context: &mut NetContext<'_>,
+        _request: GetBattleDataCsReq,
+    ) -> GetBattleDataScRsp {
+        context
+            .player
+            .sync_helper
+            .remove_sync_response(SyncType::ExtendData)
     }
 }

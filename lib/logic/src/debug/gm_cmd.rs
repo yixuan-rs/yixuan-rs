@@ -46,6 +46,12 @@ pub enum GMCmd {
         quest_id: u32,
     },
     ClearMainCityQuestCollection,
+    UnlockBigBossQuest {
+        quest_id: u32,
+    },
+    UnlockMonsterCardLevel {
+        level: u32,
+    },
     Jump {
         section_id: u32,
         transform_id: String,

@@ -127,6 +127,25 @@ pub fn add_main_city_quest(player: &mut Player, id: u32) {
     );
 }
 
+pub fn add_big_boss_quest(player: &mut Player, id: u32) {
+    let collection = player
+        .quest_model
+        .get_or_insert_collection(EQuestType::BigBoss);
+
+    collection.quests.insert(
+        id,
+        Quest {
+            id,
+            state: 0,
+            unlock_time: time_util::unix_timestamp_seconds(),
+            progress: 0,
+            in_progress_time: 0,
+            finish_condition_progress: HashMap::new(),
+            main_city_ext: None,
+        },
+    );
+}
+
 pub fn finish_hollow_challenge(player: &mut Player, id: u32) {
     if let Some(collection) = player
         .quest_model
@@ -163,7 +182,7 @@ pub fn finish_main_city_quest(player: &mut Player, id: u32) -> Vec<u32> {
         .templates
         .quest_config_template_tb()
         .filter(|quest| {
-            quest.quest_type() == 5
+            quest.quest_type() == EQuestType::MainCity.into()
                 && !collection.finished_quests.contains(&quest.quest_id())
                 && !quest.preorder_quest_ids().unwrap_or_default().is_empty()
                 && quest

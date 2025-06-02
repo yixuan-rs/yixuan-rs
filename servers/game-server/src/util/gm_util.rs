@@ -199,6 +199,36 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
                 hall.force_refresh();
             }
         }
+        UnlockBigBossQuest { quest_id } => {
+            player
+                .resources
+                .templates
+                .quest_config_template_tb()
+                .filter(|q| q.quest_type() == EQuestType::BigBoss.into())
+                .filter_map(|q| (quest_id == 0 || q.quest_id() == quest_id).then_some(q.quest_id()))
+                .for_each(|quest_id| {
+                    quest_util::add_big_boss_quest(player, quest_id);
+                });
+        }
+        UnlockMonsterCardLevel { level } => {
+            player
+                .resources
+                .templates
+                .monster_card_difficulty_template_tb()
+                .filter(|tmpl| tmpl.card_type() == 1)
+                .filter_map(|tmpl| {
+                    (level == 0 || tmpl.difficulty() == level).then_some(tmpl.difficulty())
+                })
+                .for_each(|level| {
+                    player
+                        .quest_model
+                        .battle_data
+                        .activity
+                        .monster_card
+                        .unlocked_levels
+                        .insert(level);
+                });
+        }
         Jump {
             section_id,
             transform_id,
