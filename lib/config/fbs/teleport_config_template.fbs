@@ -1,0 +1,23 @@
+table TeleportConfigTemplate {
+	teleport_id: int;
+	unk_1: int;
+	client_visible: int;
+	unlock_condition: string;
+	teleport_name: string;
+	teleport_icon: string;
+	unk_2: int;
+	section_id: int;
+	transform_id: int;
+	unk_3: string;
+	unk_4: [int];
+	unk_5: [int];
+	unk_6: [int];
+	unk_7: int;
+	unk_8: int;
+	unk_9: [int];
+	unk_10: int;
+}
+
+table TeleportConfigTemplateTb {
+	data: [TeleportConfigTemplate];
+}

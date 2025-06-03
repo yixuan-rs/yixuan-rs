@@ -6,13 +6,13 @@ pub struct EntityPriorityComponent {
     pub secondary_priority: i32,
 }
 
-impl SerializableComponent<vivian_proto::EntityPriorityComponent> for EntityPriorityComponent {
-    fn component_type(&self) -> vivian_proto::HollowComponentType {
-        vivian_proto::HollowComponentType::EntityPriorityComponent
+impl SerializableComponent<yixuan_proto::EntityPriorityComponent> for EntityPriorityComponent {
+    fn component_type(&self) -> yixuan_proto::HollowComponentType {
+        yixuan_proto::HollowComponentType::EntityPriorityComponent
     }
 
-    fn component_info(&self) -> vivian_proto::EntityPriorityComponent {
-        vivian_proto::EntityPriorityComponent {
+    fn component_info(&self) -> yixuan_proto::EntityPriorityComponent {
+        yixuan_proto::EntityPriorityComponent {
             priority: self.priority,
             secondary_priority: self.secondary_priority,
         }

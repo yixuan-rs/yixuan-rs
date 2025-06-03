@@ -108,6 +108,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "axum-extra"
+version = "0.10.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "45bf463831f5131b7d3c756525b305d40f1185b688565648a92e1392ca35713d"
+dependencies = [
+ "axum",
+ "axum-core",
+ "bytes",
+ "form_urlencoded",
+ "futures-util",
+ "http",
+ "http-body",
+ "http-body-util",
+ "mime",
+ "pin-project-lite",
+ "rustversion",
+ "serde",
+ "serde_html_form",
+ "serde_path_to_error",
+ "tower",
+ "tower-layer",
+ "tower-service",
+]
+
+[[package]]
 name = "backtrace"
 version = "0.3.74"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -221,8 +246,8 @@ dependencies = [
  "serde",
  "serde_json5",
  "thiserror",
- "vivian-codegen",
  "xxhash-rust",
+ "yixuan-codegen",
 ]
 
 [[package]]
@@ -958,6 +983,7 @@ version = "0.30.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2e99fb7a497b1e3339bc746195567ed8d3e24945ecd636e3619d20b9de9e9149"
 dependencies = [
+ "cc",
  "pkg-config",
  "vcpkg",
 ]
@@ -1670,6 +1696,19 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "serde_html_form"
+version = "0.2.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9d2de91cf02bbc07cde38891769ccd5d4f073d22a40683aa4bc7a95781aaa2c4"
+dependencies = [
+ "form_urlencoded",
+ "indexmap",
+ "itoa",
+ "ryu",
+ "serde",
 ]
 
 [[package]]
@@ -2475,139 +2514,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
 
 [[package]]
-name = "vivian-codegen"
-version = "0.0.1"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "vivian-dbgate-server"
-version = "0.0.1"
-dependencies = [
- "common",
- "const_format",
- "rand",
- "serde",
- "serde_json5",
- "sqlx",
- "thiserror",
- "tokio",
- "tracing",
- "ureq",
- "vivian-proto",
- "vivian-service",
-]
-
-[[package]]
-name = "vivian-dispatch-server"
-version = "0.1.0"
-dependencies = [
- "axum",
- "common",
- "const_format",
- "serde",
- "serde_json5",
- "thiserror",
- "tokio",
- "vivian-encryption",
-]
-
-[[package]]
-name = "vivian-encryption"
-version = "0.0.1"
-dependencies = [
- "base64-simd",
- "rand",
- "rand_mt",
- "rsa",
- "serde",
- "thiserror",
-]
-
-[[package]]
-name = "vivian-game-server"
-version = "0.0.1"
-dependencies = [
- "common",
- "config",
- "const_format",
- "paste",
- "rand",
- "scc",
- "serde",
- "serde_json5",
- "thiserror",
- "tokio",
- "tracing",
- "vivian-codegen",
- "vivian-logic",
- "vivian-proto",
- "vivian-service",
-]
-
-[[package]]
-name = "vivian-gate-server"
-version = "0.0.1"
-dependencies = [
- "common",
- "const_format",
- "paste",
- "rand",
- "scc",
- "serde",
- "thiserror",
- "tokio",
- "tracing",
- "vivian-encryption",
- "vivian-proto",
- "vivian-service",
-]
-
-[[package]]
-name = "vivian-logic"
-version = "0.0.1"
-dependencies = [
- "common",
- "config",
- "hex",
- "num_enum",
- "paste",
- "thiserror",
- "tracing",
- "vivian-proto",
-]
-
-[[package]]
-name = "vivian-proto"
-version = "0.0.1"
-dependencies = [
- "prettyplease",
- "prost",
- "prost-build",
- "prost-types",
- "proto-derive",
- "serde",
- "syn",
-]
-
-[[package]]
-name = "vivian-service"
-version = "0.0.1"
-dependencies = [
- "common",
- "scc",
- "serde",
- "thiserror",
- "tokio",
- "tokio-util",
- "tracing",
- "vivian-proto",
-]
-
-[[package]]
 name = "vsimd"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2858,6 +2764,169 @@ name = "xxhash-rust"
 version = "0.8.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fdd20c5420375476fbd4394763288da7eb0cc0b8c11deed431a91562af7335d3"
+
+[[package]]
+name = "yixuan-codegen"
+version = "0.0.1"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "yixuan-dbgate-server"
+version = "0.0.1"
+dependencies = [
+ "common",
+ "const_format",
+ "rand",
+ "serde",
+ "serde_json5",
+ "sqlx",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "ureq",
+ "yixuan-proto",
+ "yixuan-service",
+]
+
+[[package]]
+name = "yixuan-dispatch-server"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "common",
+ "const_format",
+ "serde",
+ "serde_json5",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "yixuan-encryption",
+]
+
+[[package]]
+name = "yixuan-encryption"
+version = "0.0.1"
+dependencies = [
+ "base64-simd",
+ "rand",
+ "rand_mt",
+ "rsa",
+ "serde",
+ "thiserror",
+]
+
+[[package]]
+name = "yixuan-game-server"
+version = "0.0.1"
+dependencies = [
+ "common",
+ "config",
+ "const_format",
+ "itertools",
+ "paste",
+ "rand",
+ "scc",
+ "serde",
+ "serde_json5",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "yixuan-codegen",
+ "yixuan-logic",
+ "yixuan-models",
+ "yixuan-proto",
+ "yixuan-service",
+]
+
+[[package]]
+name = "yixuan-gate-server"
+version = "0.0.1"
+dependencies = [
+ "common",
+ "const_format",
+ "paste",
+ "rand",
+ "scc",
+ "serde",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "yixuan-encryption",
+ "yixuan-proto",
+ "yixuan-service",
+]
+
+[[package]]
+name = "yixuan-logic"
+version = "0.0.1"
+dependencies = [
+ "common",
+ "config",
+ "num_enum",
+ "paste",
+ "serde",
+ "thiserror",
+ "tracing",
+ "yixuan-codegen",
+ "yixuan-proto",
+]
+
+[[package]]
+name = "yixuan-models"
+version = "0.0.1"
+dependencies = [
+ "config",
+ "tracing",
+ "yixuan-codegen",
+ "yixuan-logic",
+ "yixuan-proto",
+]
+
+[[package]]
+name = "yixuan-muip-server"
+version = "0.0.1"
+dependencies = [
+ "axum",
+ "axum-extra",
+ "common",
+ "const_format",
+ "serde",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "yixuan-proto",
+ "yixuan-service",
+]
+
+[[package]]
+name = "yixuan-proto"
+version = "0.0.1"
+dependencies = [
+ "prettyplease",
+ "prost",
+ "prost-build",
+ "prost-types",
+ "proto-derive",
+ "syn",
+]
+
+[[package]]
+name = "yixuan-service"
+version = "0.0.1"
+dependencies = [
+ "common",
+ "scc",
+ "serde",
+ "thiserror",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "yixuan-proto",
+]
 
 [[package]]
 name = "yoke"

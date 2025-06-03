@@ -1,7 +1,7 @@
 table QuestConfigTemplate {
         quest_id: uint;
         quest_name: string;
-        quest_type: int;
+        quest_type: uint;
         desc: string;
         target_desc: string;
         quest_desc: string;

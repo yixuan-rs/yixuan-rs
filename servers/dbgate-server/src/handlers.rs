@@ -2,12 +2,12 @@ use std::sync::Arc;
 
 use tokio::sync::{mpsc, oneshot};
 use tracing::{debug, error, warn};
-use vivian_proto::{
+use yixuan_proto::{
     NetCmd, PlayerGetTokenCsReq, PlayerGetTokenScRsp,
     head::PacketHead,
     server_only::{PlayerData, PlayerDataChangedNotify, PlayerGetDataReq, PlayerGetDataRsp},
 };
-use vivian_service::{
+use yixuan_service::{
     ServiceContext, ServiceScope,
     network::{
         NetworkEntityManager, NetworkEventListener,
@@ -120,10 +120,10 @@ async fn handle_player_get_token(
     let entity = scope.fetch::<Arc<NetworkEntity>>().unwrap();
     entity.send(NetPacket::new(
         PacketHead {
-            packet_id: 0,
             session_id: head.session_id,
             player_uid: head.player_uid,
             ack_packet_id: head.packet_id,
+            ..Default::default()
         },
         response,
     ));
@@ -145,10 +145,10 @@ async fn handle_player_get_data(scope: &ServiceScope, head: PacketHead, request:
 
     entity.send(NetPacket::new(
         PacketHead {
-            packet_id: 0,
             player_uid: head.player_uid,
             session_id: head.session_id,
             ack_packet_id: head.packet_id,
+            ..Default::default()
         },
         PlayerGetDataRsp {
             retcode: 0,
@@ -190,5 +190,6 @@ async fn fetch_player_data(
         main_city: Some(db.fetch_model_data(uid).await?),
         scene: Some(db.fetch_model_data(uid).await?),
         gacha: Some(db.fetch_model_data(uid).await?),
+        map: Some(db.fetch_model_data(uid).await?),
     })
 }

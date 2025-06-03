@@ -15,7 +15,7 @@ thiserror.workspace = true
 num_enum.workspace = true
 itertools.workspace = true
 
-vivian-codegen.workspace = true
+yixuan-codegen.workspace = true
 
 [build-dependencies]
 flatc-rust.workspace = true

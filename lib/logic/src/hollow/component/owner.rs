@@ -5,13 +5,13 @@ use super::SerializableComponent;
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct OwnerComponent(pub HollowEntity);
 
-impl SerializableComponent<vivian_proto::OwnerComponent> for OwnerComponent {
-    fn component_type(&self) -> vivian_proto::HollowComponentType {
-        vivian_proto::HollowComponentType::OwnerComponent
+impl SerializableComponent<yixuan_proto::OwnerComponent> for OwnerComponent {
+    fn component_type(&self) -> yixuan_proto::HollowComponentType {
+        yixuan_proto::HollowComponentType::OwnerComponent
     }
 
-    fn component_info(&self) -> vivian_proto::OwnerComponent {
-        vivian_proto::OwnerComponent {
+    fn component_info(&self) -> yixuan_proto::OwnerComponent {
+        yixuan_proto::OwnerComponent {
             owner_entity_uid: self.0.as_raw_u32(),
         }
     }

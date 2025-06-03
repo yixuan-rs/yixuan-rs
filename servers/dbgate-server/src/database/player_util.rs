@@ -1,8 +1,9 @@
 use std::collections::HashMap;
 
-use vivian_proto::server_only::{
-    AbyssData, ArchiveData, AvatarData, BuddyData, GachaData, HollowData, ItemData, MainCityData,
-    MiscData, NewbieData, NewsStandData, PostGirlData, QuestData, SceneData, SwitchData,
+use yixuan_proto::server_only::{
+    AbyssData, ArchiveData, AvatarData, BattleData, BuddyData, BusinessCardData, GachaData,
+    HollowData, ItemData, MainCityData, MapData, MiscData, NewbieData, NewsStandData,
+    PlayerAccessoryData, PostGirlData, QuestData, SceneData, SwitchData, TeleportUnlockData,
     UnlockData,
 };
 
@@ -41,6 +42,7 @@ impl ModelData for QuestData {
     fn create_default(_uid: i32) -> Self {
         Self {
             quest_collection_list: Vec::new(),
+            battle_data: Some(BattleData::default()),
         }
     }
 }
@@ -99,6 +101,9 @@ impl ModelData for MiscData {
             newbie: Some(NewbieData::default()),
             news_stand: Some(NewsStandData::default()),
             post_girl: Some(PostGirlData::default()),
+            teleport: Some(TeleportUnlockData::default()),
+            business_card: Some(BusinessCardData::default()),
+            player_accessory: Some(PlayerAccessoryData::default()),
         }
     }
 }
@@ -137,6 +142,17 @@ impl ModelData for GachaData {
         GachaData {
             gacha_statistics_list: Vec::new(),
             gacha_random: 0,
+        }
+    }
+}
+
+impl ModelData for MapData {
+    const TABLE: &str = "t_map_data";
+
+    fn create_default(_uid: i32) -> Self {
+        MapData {
+            area_group_list: Vec::new(),
+            area_street_list: Vec::new(),
         }
     }
 }

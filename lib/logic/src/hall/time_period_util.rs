@@ -1,5 +1,5 @@
 use config::ETimePeriodType;
-use vivian_proto::common::TimePeriodType;
+use yixuan_proto::common::TimePeriodType;
 
 pub fn logic_to_proto(value: ETimePeriodType) -> TimePeriodType {
     match value {
@@ -28,7 +28,7 @@ pub fn get_time_of_day(period: ETimePeriodType) -> Option<u32> {
         ETimePeriodType::Morning => 6 * 60,
         ETimePeriodType::Afternoon => 12 * 60,
         ETimePeriodType::Evening => 18 * 60,
-        ETimePeriodType::Night => 21 * 60,
+        ETimePeriodType::Night => 0,
         ETimePeriodType::Now => return None,
     })
 }

@@ -1,0 +1,18 @@
+[package]
+name = "yixuan-muip-server"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+tokio.workspace = true
+axum.workspace = true
+axum-extra.workspace = true
+
+serde.workspace = true
+const_format.workspace = true
+tracing.workspace = true
+thiserror.workspace = true
+
+common.workspace = true
+yixuan-proto.workspace = true
+yixuan-service.workspace = true

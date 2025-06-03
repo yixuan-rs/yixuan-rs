@@ -5,18 +5,18 @@ use config::{
     ConfigEventAction, ConfigLogText, ConfigMakeDialogChoice, ConfigOpenDialog, ConfigPlayAnim,
     ConfigShowPopWindow, ConfigShowTip, ConfigStopAnim, ConfigWaitSeconds, ConfigWaitTipsEnd,
 };
-use vivian_proto::{ActionType, Message};
+use yixuan_proto::{ActionType, Message};
 
 pub trait ActionBase {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo>;
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo>;
 }
 
 impl ActionBase for ActionOpenUI {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::OpenUi.into(),
-            body: vivian_proto::action::ActionOpenUi {
+            body: yixuan_proto::action::ActionOpenUi {
                 ui: self.ui.clone(),
                 args: self.args,
                 store_template_id: self.store_template_id,
@@ -28,11 +28,11 @@ impl ActionBase for ActionOpenUI {
 }
 
 impl ActionBase for ActionSwitchSection {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::SwitchSection.into(),
-            body: vivian_proto::action::ActionSwitchSection {
+            body: yixuan_proto::action::ActionSwitchSection {
                 section: self.section_id,
                 transform_id: self.transform.clone(),
                 camera_x: self.camera_x,
@@ -44,12 +44,12 @@ impl ActionBase for ActionSwitchSection {
 }
 
 impl ActionBase for ActionPerform {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::Perform.into(),
             body:
-                vivian_proto::action::ActionPerform {
+                yixuan_proto::action::ActionPerform {
                     perform_id: self.perform_id,
                     perform_id_2: self.perform_id_2,
                     perform_id_3: self.perform_id_3,
@@ -59,7 +59,7 @@ impl ActionBase for ActionPerform {
                     avatar_id: self.avatar_id,
                     npc_id: self.npc_id,
                     unk_perform_field: Some(
-                        vivian_proto::action::action_perform::UnkPerform::default(),
+                        yixuan_proto::action::action_perform::UnkPerform::default(),
                     ),
                     participators: self.participators.clone(),
                     ..Default::default()
@@ -70,11 +70,11 @@ impl ActionBase for ActionPerform {
 }
 
 impl ActionBase for ActionShowTip {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::ShowTip.into(),
-            body: vivian_proto::action::ActionShowTip {
+            body: yixuan_proto::action::ActionShowTip {
                 tip_id: self.tip_id,
             }
             .encode_to_vec(),
@@ -83,11 +83,11 @@ impl ActionBase for ActionShowTip {
 }
 
 impl ActionBase for ActionTriggerInteract {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::TriggerInteract.into(),
-            body: vivian_proto::action::ActionTriggerInteract {
+            body: yixuan_proto::action::ActionTriggerInteract {
                 tag_id: self.tag_id,
                 interact_id: self.interact_id,
             }
@@ -97,21 +97,21 @@ impl ActionBase for ActionTriggerInteract {
 }
 
 impl ActionBase for ActionDownloadFullResource {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::DownloadFullResource.into(),
-            body: vivian_proto::action::ActionDownloadFullResource {}.encode_to_vec(),
+            body: yixuan_proto::action::ActionDownloadFullResource {}.encode_to_vec(),
         })
     }
 }
 
 impl ActionBase for ActionShowTeleportUi {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::ShowTeleportUi.into(),
-            body: vivian_proto::action::ActionShowTeleportUi {
+            body: yixuan_proto::action::ActionShowTeleportUi {
                 black_mask: self.black_mask,
             }
             .encode_to_vec(),
@@ -120,15 +120,15 @@ impl ActionBase for ActionShowTeleportUi {
 }
 
 impl ActionBase for ConfigOpenDialog {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::OpenDialogHollow.into(),
-            body: vivian_proto::action::ConfigOpenDialog {
+            body: yixuan_proto::action::ConfigOpenDialog {
                 open_event: self.open_event,
                 camera_move: self.camera_move,
                 unk_open_dialog: self.unk_open_dialog,
-                open_param: Some(vivian_proto::action::OpenDialogParam {
+                open_param: Some(yixuan_proto::action::OpenDialogParam {
                     unk_open_dialog_flag_1: self.open_param.unk_open_dialog_flag_1,
                     unk_open_dialog_flag_2: self.open_param.unk_open_dialog_flag_2,
                     unk_open_dialog_flag_3: self.open_param.unk_open_dialog_flag_3,
@@ -143,11 +143,11 @@ impl ActionBase for ConfigOpenDialog {
 }
 
 impl ActionBase for ConfigLogText {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::LogText.into(),
-            body: vivian_proto::action::ConfigLogText {
+            body: yixuan_proto::action::ConfigLogText {
                 messages: self.messages.clone(),
                 log_title: self.log_title.clone(),
                 voicelines: self.voicelines.clone(),
@@ -158,11 +158,11 @@ impl ActionBase for ConfigLogText {
 }
 
 impl ActionBase for ConfigCloseDialog {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::CloseDialogHollow.into(),
-            body: vivian_proto::action::ConfigCloseDialog {
+            body: yixuan_proto::action::ConfigCloseDialog {
                 camera_move: self.camera_move,
                 need_reset_center: self.need_reset_center,
             }
@@ -172,11 +172,11 @@ impl ActionBase for ConfigCloseDialog {
 }
 
 impl ActionBase for ConfigCameraMoveV2 {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::CameraMoveV2.into(),
-            body: vivian_proto::action::ConfigCameraMoveV2 {
+            body: yixuan_proto::action::ConfigCameraMoveV2 {
                 stretch_key: self.stretch_key.clone(),
                 r#type: self.r#type.into(),
                 position_offset_type: self.position_offset_type.into(),
@@ -187,11 +187,11 @@ impl ActionBase for ConfigCameraMoveV2 {
                 bound_index_x: self
                     .bound_index_x
                     .as_ref()
-                    .map(|v| vivian_proto::action::ConfigVector2Int { x: v.x, y: v.y }),
+                    .map(|v| yixuan_proto::action::ConfigVector2Int { x: v.x, y: v.y }),
                 bound_index_y: self
                     .bound_index_y
                     .as_ref()
-                    .map(|v| vivian_proto::action::ConfigVector2Int { x: v.x, y: v.y }),
+                    .map(|v| yixuan_proto::action::ConfigVector2Int { x: v.x, y: v.y }),
                 freeze_z: self.freeze_z,
                 parallel: self.parallel,
             }
@@ -201,11 +201,11 @@ impl ActionBase for ConfigCameraMoveV2 {
 }
 
 impl ActionBase for ConfigWaitSeconds {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::WaitSeconds.into(),
-            body: vivian_proto::action::ConfigWaitSeconds {
+            body: yixuan_proto::action::ConfigWaitSeconds {
                 wait_time: self.wait_time,
             }
             .encode_to_vec(),
@@ -214,11 +214,11 @@ impl ActionBase for ConfigWaitSeconds {
 }
 
 impl ActionBase for ConfigShowTip {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::ShowTipHollow.into(),
-            body: vivian_proto::action::ConfigShowTip {
+            body: yixuan_proto::action::ConfigShowTip {
                 tip_id: self.tip_id,
             }
             .encode_to_vec(),
@@ -227,11 +227,11 @@ impl ActionBase for ConfigShowTip {
 }
 
 impl ActionBase for ConfigShowPopWindow {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::ShowPopWindowHollow.into(),
-            body: vivian_proto::action::ConfigShowPopWindow {
+            body: yixuan_proto::action::ConfigShowPopWindow {
                 pop_id: self.pop_id,
                 show_directly: self.show_directly,
             }
@@ -241,11 +241,11 @@ impl ActionBase for ConfigShowPopWindow {
 }
 
 impl ActionBase for ConfigCameraStretch {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::CameraStretch.into(),
-            body: vivian_proto::action::ConfigCameraStretch {
+            body: yixuan_proto::action::ConfigCameraStretch {
                 stretch_key: self.stretch_key.clone(),
                 shake_key: self.shake_key.clone(),
                 r#type: self.r#type.into(),
@@ -257,16 +257,16 @@ impl ActionBase for ConfigCameraStretch {
 }
 
 impl ActionBase for ConfigPlayAnim {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::PlayAnimHollow.into(),
-            body: vivian_proto::action::ConfigPlayAnim {
+            body: yixuan_proto::action::ConfigPlayAnim {
                 anim_id: self.anim_id,
                 indexes: self
                     .indexes
                     .iter()
-                    .map(|i| vivian_proto::action::ConfigVector2Int { x: i.x, y: i.y })
+                    .map(|i| yixuan_proto::action::ConfigVector2Int { x: i.x, y: i.y })
                     .collect(),
                 looping: self.looping,
             }
@@ -276,15 +276,15 @@ impl ActionBase for ConfigPlayAnim {
 }
 
 impl ActionBase for ConfigStopAnim {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::StopAnim.into(),
-            body: vivian_proto::action::ConfigStopAnim {
+            body: yixuan_proto::action::ConfigStopAnim {
                 indexes: self
                     .indexes
                     .iter()
-                    .map(|i| vivian_proto::action::ConfigVector2Int { x: i.x, y: i.y })
+                    .map(|i| yixuan_proto::action::ConfigVector2Int { x: i.x, y: i.y })
                     .collect(),
             }
             .encode_to_vec(),
@@ -293,11 +293,11 @@ impl ActionBase for ConfigStopAnim {
 }
 
 impl ActionBase for ConfigWaitTipsEnd {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::WaitTipsEnd.into(),
-            body: vivian_proto::action::ConfigWaitTipsEnd {
+            body: yixuan_proto::action::ConfigWaitTipsEnd {
                 tips_id: self.tips_id.clone(),
             }
             .encode_to_vec(),
@@ -306,28 +306,28 @@ impl ActionBase for ConfigWaitTipsEnd {
 }
 
 impl ActionBase for ConfigBreakDialogAnim {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::BreakDialogAnim.into(),
-            body: vivian_proto::action::ConfigBreakDialogAnim {}.encode_to_vec(),
+            body: yixuan_proto::action::ConfigBreakDialogAnim {}.encode_to_vec(),
         })
     }
 }
 
 impl ActionBase for ConfigMakeDialogChoice {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::MakeDialogChoice.into(),
-            body: vivian_proto::action::ConfigMakeDialogChoice {
+            body: yixuan_proto::action::ConfigMakeDialogChoice {
                 title: self.title.clone(),
                 description: self.description.clone(),
                 question_description: self.question_description.clone(),
                 choices: self
                     .choice_details
                     .iter()
-                    .map(|detail| vivian_proto::action::ConfigDialogChoiceDetail {
+                    .map(|detail| yixuan_proto::action::ConfigDialogChoiceDetail {
                         option_text: detail.option_text.clone(),
                         option_id: detail.option_id.clone(),
                         option_text_2: detail.option_text_2.clone(),
@@ -342,11 +342,11 @@ impl ActionBase for ConfigMakeDialogChoice {
 }
 
 impl ActionBase for ActionEnterHollowQuest {
-    fn to_proto(&self) -> Option<vivian_proto::ActionInfo> {
-        Some(vivian_proto::ActionInfo {
+    fn to_proto(&self) -> Option<yixuan_proto::ActionInfo> {
+        Some(yixuan_proto::ActionInfo {
             action_id: self.id,
             action_type: ActionType::EnterHollowQuest.into(),
-            body: vivian_proto::action::ActionEnterHollowQuest {
+            body: yixuan_proto::action::ActionEnterHollowQuest {
                 hollow_id: self.hollow_id as i32,
                 r#type: 1,
                 close_black_mask: true,
@@ -358,7 +358,7 @@ impl ActionBase for ActionEnterHollowQuest {
 
 macro_rules! client_actions {
     ($($name:ident),*) => {
-        pub fn action_to_proto(config: &ConfigEventAction) -> Option<vivian_proto::ActionInfo> {
+        pub fn action_to_proto(config: &ConfigEventAction) -> Option<yixuan_proto::ActionInfo> {
             match config {
                 $(ConfigEventAction::$name(cfg) => cfg.to_proto(),)*
                 _ => None,

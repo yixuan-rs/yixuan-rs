@@ -9,9 +9,19 @@ gacha_materials = [ { id = 110, count = 1 } ]
 [[schedule]]
 gacha_id = 2001
 gacha_type = 2
-gacha_schedule_id = 2001019
-up_item_id_list = [1331]
-optional_up_item_id_list = [1281, 1271]
+gacha_schedule_id = 2001023
+up_item_id_list = [1371]
+optional_up_item_id_list = [1421, 1351]
+begin_time = 1717604747
+end_time = 4102441199
+gacha_materials = [ { id = 111, count = 1 } ]
+
+[[schedule]]
+gacha_id = 2011
+gacha_type = 2
+gacha_schedule_id = 2001025
+up_item_id_list = [1391]
+optional_up_item_id_list = [1061, 1121]
 begin_time = 1717604747
 end_time = 4102441199
 gacha_materials = [ { id = 111, count = 1 } ]

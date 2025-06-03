@@ -1,6 +1,6 @@
 use super::entity::HollowEntity;
 use std::collections::{HashMap, HashSet};
-use vivian_proto::{HollowComponentType, HollowPosComponent, Message, common::Vector2Int};
+use yixuan_proto::{HollowComponentType, HollowPosComponent, Message, common::Vector2Int};
 
 mod behavior;
 mod category;
@@ -50,11 +50,11 @@ macro_rules! component_mgr {
                     self.[<$name:snake _map>].get(&entity).cloned()
                 }
             )*
-                pub fn serialize_components(&self, entity: HollowEntity) -> Vec<vivian_proto::HollowEntityComponentInfo> {
+                pub fn serialize_components(&self, entity: HollowEntity) -> Vec<yixuan_proto::HollowEntityComponentInfo> {
                     let mut components = Vec::new();
 
                     $(if let Some(component) = self.[<$name:snake _map>].get(&entity) {
-                        components.push(vivian_proto::HollowEntityComponentInfo {
+                        components.push(yixuan_proto::HollowEntityComponentInfo {
                             r#type: i32::from(component.component_type()) as u32,
                             component_info: component.component_info().encode_to_vec(),
                         });

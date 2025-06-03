@@ -7,6 +7,8 @@ pub struct PacketHead {
     pub player_uid: u32,
     #[prost(uint64, tag = "3")]
     pub session_id: u64,
+    #[prost(uint64, tag = "4")]
+    pub gate_session_id: u64,
     #[prost(uint32, tag = "11")]
     pub ack_packet_id: u32,
 }

@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use vivian_proto::EventGraphOwnerType;
+use yixuan_proto::EventGraphOwnerType;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct EventUID(u64);

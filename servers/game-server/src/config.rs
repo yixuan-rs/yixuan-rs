@@ -1,4 +1,5 @@
 use serde::Deserialize;
+use yixuan_logic::debug::GMCmd;
 
 #[derive(Deserialize)]
 pub struct ServerConfig {
@@ -16,6 +17,7 @@ pub struct ResourceConfig {
     pub fileconfig_directory: String,
     pub level_process_directory: String,
     pub usm_keys_path: String,
+    pub first_login_gm_group_list: Vec<String>,
 }
 
 #[derive(Deserialize)]
@@ -42,4 +44,10 @@ pub struct GachaSchedule {
 pub struct GachaMaterialConfig {
     pub id: u32,
     pub count: u32,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct GMGroupConfig {
+    pub commands: Vec<GMCmd>,
 }

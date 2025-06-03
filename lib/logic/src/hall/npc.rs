@@ -28,8 +28,8 @@ pub enum InteractTarget {
 }
 
 impl SceneUnit {
-    pub fn to_client_proto(&self) -> vivian_proto::SceneUnitProtocolInfo {
-        vivian_proto::SceneUnitProtocolInfo {
+    pub fn to_client_proto(&self) -> yixuan_proto::SceneUnitProtocolInfo {
+        yixuan_proto::SceneUnitProtocolInfo {
             npc_id: self.npc_id,
             is_interactable: true,
             interacts_info: self
@@ -38,7 +38,7 @@ impl SceneUnit {
                 .map(|(&id, interact)| {
                     (
                         id,
-                        vivian_proto::InteractInfo {
+                        yixuan_proto::InteractInfo {
                             tag_id: interact.tag_id,
                             name: interact.name.clone(),
                             scale_x: interact.scale.0,
@@ -50,9 +50,9 @@ impl SceneUnit {
                                 .targets
                                 .iter()
                                 .map(|target| match target {
-                                    InteractTarget::Npc => vivian_proto::InteractTarget::Npc.into(),
+                                    InteractTarget::Npc => yixuan_proto::InteractTarget::Npc.into(),
                                     InteractTarget::TriggerBox => {
-                                        vivian_proto::InteractTarget::TriggerBox.into()
+                                        yixuan_proto::InteractTarget::TriggerBox.into()
                                     }
                                 })
                                 .collect(),

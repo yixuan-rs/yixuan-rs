@@ -122,6 +122,7 @@ fn update_attributes(internal: &Path, current: &Path, output: &Path) -> io::Resu
 
     let net_response_attribute: Attribute = parse_quote!(#[derive(::proto_derive::NetResponse)]);
 
+    let mut missing_counter = 0;
     internal.items.iter_mut().for_each(|old_item| {
         if let Item::Struct(old_item) = old_item {
             old_item.attrs = vec![message_derive_attribute.clone()];
@@ -161,8 +162,22 @@ fn update_attributes(internal: &Path, current: &Path, output: &Path) -> io::Resu
                         .find(|new_field| new_field.ident == old_field.ident)
                     {
                         old_field.attrs = new_field.attrs.clone();
+                    } else {
+                        missing_counter += 1;
+                        println!(
+                            "cargo:warning=cs_current.proto is missing [{}] \"{}::{}\"",
+                            missing_counter,
+                            old_item.ident,
+                            old_field.ident.as_ref().unwrap(),
+                        );
                     }
                 })
+            } else {
+                missing_counter += 1;
+                println!(
+                    "cargo:warning=cs_current.proto is missing [{}] \"{}\"",
+                    missing_counter, old_item.ident,
+                );
             }
         }
     });

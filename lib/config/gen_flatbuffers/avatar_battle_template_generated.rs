@@ -96,12 +96,21 @@ impl<'a> AvatarBattleTemplate<'a> {
   pub const VT_UNK_68: flatbuffers::VOffsetT = 140;
   pub const VT_UNK_69: flatbuffers::VOffsetT = 142;
   pub const VT_UNK_70: flatbuffers::VOffsetT = 144;
-  pub const VT_UNK_71: flatbuffers::VOffsetT = 146;
+  pub const VT_WEAPON_TYPE: flatbuffers::VOffsetT = 146;
   pub const VT_ELEMENT: flatbuffers::VOffsetT = 148;
   pub const VT_HIT_TYPE: flatbuffers::VOffsetT = 150;
   pub const VT_UNK_ELEMENT_CAMP: flatbuffers::VOffsetT = 152;
   pub const VT_UNK_75: flatbuffers::VOffsetT = 154;
   pub const VT_UNK_76: flatbuffers::VOffsetT = 156;
+  pub const VT_UNK_77: flatbuffers::VOffsetT = 158;
+  pub const VT_UNK_78: flatbuffers::VOffsetT = 160;
+  pub const VT_BASE_AVATAR_ID: flatbuffers::VOffsetT = 162;
+  pub const VT_UNK_80: flatbuffers::VOffsetT = 164;
+  pub const VT_RP_MAX: flatbuffers::VOffsetT = 166;
+  pub const VT_RP_RECOVER: flatbuffers::VOffsetT = 168;
+  pub const VT_UNK_83: flatbuffers::VOffsetT = 170;
+  pub const VT_UNK_84: flatbuffers::VOffsetT = 172;
+  pub const VT_AWAKE_IDS: flatbuffers::VOffsetT = 174;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -113,12 +122,21 @@ impl<'a> AvatarBattleTemplate<'a> {
     args: &'args AvatarBattleTemplateArgs<'args>
   ) -> flatbuffers::WIPOffset<AvatarBattleTemplate<'bldr>> {
     let mut builder = AvatarBattleTemplateBuilder::new(_fbb);
+    if let Some(x) = args.awake_ids { builder.add_awake_ids(x); }
+    if let Some(x) = args.unk_84 { builder.add_unk_84(x); }
+    if let Some(x) = args.unk_83 { builder.add_unk_83(x); }
+    builder.add_rp_recover(args.rp_recover);
+    builder.add_rp_max(args.rp_max);
+    builder.add_unk_80(args.unk_80);
+    builder.add_base_avatar_id(args.base_avatar_id);
+    builder.add_unk_78(args.unk_78);
+    builder.add_unk_77(args.unk_77);
     builder.add_unk_75(args.unk_75);
     if let Some(x) = args.unk_element_camp { builder.add_unk_element_camp(x); }
     if let Some(x) = args.hit_type { builder.add_hit_type(x); }
     if let Some(x) = args.element { builder.add_element(x); }
-    builder.add_unk_71(args.unk_71);
-    builder.add_unk_70(args.unk_70);
+    builder.add_weapon_type(args.weapon_type);
+    if let Some(x) = args.unk_70 { builder.add_unk_70(x); }
     if let Some(x) = args.unk_69 { builder.add_unk_69(x); }
     if let Some(x) = args.unk_68 { builder.add_unk_68(x); }
     if let Some(x) = args.tags { builder.add_tags(x); }
@@ -615,25 +633,25 @@ impl<'a> AvatarBattleTemplate<'a> {
     unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_UNK_59, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn unk_60(&self) -> i32 {
+  pub fn unk_60(&self) -> u32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_UNK_60, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u32>(AvatarBattleTemplate::VT_UNK_60, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn unk_61(&self) -> i32 {
+  pub fn unk_61(&self) -> u32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_UNK_61, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u32>(AvatarBattleTemplate::VT_UNK_61, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn unk_62(&self) -> i32 {
+  pub fn unk_62(&self) -> u32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_UNK_62, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u32>(AvatarBattleTemplate::VT_UNK_62, Some(0)).unwrap()}
   }
   #[inline]
   pub fn unk_63(&self) -> i32 {
@@ -685,18 +703,18 @@ impl<'a> AvatarBattleTemplate<'a> {
     unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, i32>>>(AvatarBattleTemplate::VT_UNK_69, None)}
   }
   #[inline]
-  pub fn unk_70(&self) -> i32 {
+  pub fn unk_70(&self) -> Option<flatbuffers::Vector<'a, i32>> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_UNK_70, Some(0)).unwrap()}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, i32>>>(AvatarBattleTemplate::VT_UNK_70, None)}
   }
   #[inline]
-  pub fn unk_71(&self) -> i32 {
+  pub fn weapon_type(&self) -> i32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_UNK_71, Some(0)).unwrap()}
+    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_WEAPON_TYPE, Some(0)).unwrap()}
   }
   #[inline]
   pub fn element(&self) -> Option<flatbuffers::Vector<'a, i32>> {
@@ -732,6 +750,69 @@ impl<'a> AvatarBattleTemplate<'a> {
     // Created from valid Table for this object
     // which contains a valid value in this slot
     unsafe { self._tab.get::<i16>(AvatarBattleTemplate::VT_UNK_76, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_77(&self) -> i32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_UNK_77, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_78(&self) -> i32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_UNK_78, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn base_avatar_id(&self) -> i32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_BASE_AVATAR_ID, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_80(&self) -> i32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_UNK_80, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn rp_max(&self) -> i32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_RP_MAX, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn rp_recover(&self) -> i32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<i32>(AvatarBattleTemplate::VT_RP_RECOVER, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_83(&self) -> Option<flatbuffers::Vector<'a, i32>> {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, i32>>>(AvatarBattleTemplate::VT_UNK_83, None)}
+  }
+  #[inline]
+  pub fn unk_84(&self) -> Option<flatbuffers::Vector<'a, u32>> {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, u32>>>(AvatarBattleTemplate::VT_UNK_84, None)}
+  }
+  #[inline]
+  pub fn awake_ids(&self) -> Option<flatbuffers::Vector<'a, u32>> {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, u32>>>(AvatarBattleTemplate::VT_AWAKE_IDS, None)}
   }
 }
 
@@ -802,9 +883,9 @@ impl flatbuffers::Verifiable for AvatarBattleTemplate<'_> {
      .visit_field::<i32>("unk_57", Self::VT_UNK_57, false)?
      .visit_field::<i32>("unk_58", Self::VT_UNK_58, false)?
      .visit_field::<i32>("unk_59", Self::VT_UNK_59, false)?
-     .visit_field::<i32>("unk_60", Self::VT_UNK_60, false)?
-     .visit_field::<i32>("unk_61", Self::VT_UNK_61, false)?
-     .visit_field::<i32>("unk_62", Self::VT_UNK_62, false)?
+     .visit_field::<u32>("unk_60", Self::VT_UNK_60, false)?
+     .visit_field::<u32>("unk_61", Self::VT_UNK_61, false)?
+     .visit_field::<u32>("unk_62", Self::VT_UNK_62, false)?
      .visit_field::<i32>("unk_63", Self::VT_UNK_63, false)?
      .visit_field::<i32>("unk_64", Self::VT_UNK_64, false)?
      .visit_field::<i32>("unk_65", Self::VT_UNK_65, false)?
@@ -812,13 +893,22 @@ impl flatbuffers::Verifiable for AvatarBattleTemplate<'_> {
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>>>("tags", Self::VT_TAGS, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("unk_68", Self::VT_UNK_68, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("unk_69", Self::VT_UNK_69, false)?
-     .visit_field::<i32>("unk_70", Self::VT_UNK_70, false)?
-     .visit_field::<i32>("unk_71", Self::VT_UNK_71, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("unk_70", Self::VT_UNK_70, false)?
+     .visit_field::<i32>("weapon_type", Self::VT_WEAPON_TYPE, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("element", Self::VT_ELEMENT, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("hit_type", Self::VT_HIT_TYPE, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>>>("unk_element_camp", Self::VT_UNK_ELEMENT_CAMP, false)?
      .visit_field::<i32>("unk_75", Self::VT_UNK_75, false)?
      .visit_field::<i16>("unk_76", Self::VT_UNK_76, false)?
+     .visit_field::<i32>("unk_77", Self::VT_UNK_77, false)?
+     .visit_field::<i32>("unk_78", Self::VT_UNK_78, false)?
+     .visit_field::<i32>("base_avatar_id", Self::VT_BASE_AVATAR_ID, false)?
+     .visit_field::<i32>("unk_80", Self::VT_UNK_80, false)?
+     .visit_field::<i32>("rp_max", Self::VT_RP_MAX, false)?
+     .visit_field::<i32>("rp_recover", Self::VT_RP_RECOVER, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("unk_83", Self::VT_UNK_83, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u32>>>("unk_84", Self::VT_UNK_84, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u32>>>("awake_ids", Self::VT_AWAKE_IDS, false)?
      .finish();
     Ok(())
   }
@@ -884,9 +974,9 @@ pub struct AvatarBattleTemplateArgs<'a> {
     pub unk_57: i32,
     pub unk_58: i32,
     pub unk_59: i32,
-    pub unk_60: i32,
-    pub unk_61: i32,
-    pub unk_62: i32,
+    pub unk_60: u32,
+    pub unk_61: u32,
+    pub unk_62: u32,
     pub unk_63: i32,
     pub unk_64: i32,
     pub unk_65: i32,
@@ -894,13 +984,22 @@ pub struct AvatarBattleTemplateArgs<'a> {
     pub tags: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>>>,
     pub unk_68: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
     pub unk_69: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
-    pub unk_70: i32,
-    pub unk_71: i32,
+    pub unk_70: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
+    pub weapon_type: i32,
     pub element: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
     pub hit_type: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
     pub unk_element_camp: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>>>,
     pub unk_75: i32,
     pub unk_76: i16,
+    pub unk_77: i32,
+    pub unk_78: i32,
+    pub base_avatar_id: i32,
+    pub unk_80: i32,
+    pub rp_max: i32,
+    pub rp_recover: i32,
+    pub unk_83: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
+    pub unk_84: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u32>>>,
+    pub awake_ids: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u32>>>,
 }
 impl<'a> Default for AvatarBattleTemplateArgs<'a> {
   #[inline]
@@ -976,13 +1075,22 @@ impl<'a> Default for AvatarBattleTemplateArgs<'a> {
       tags: None,
       unk_68: None,
       unk_69: None,
-      unk_70: 0,
-      unk_71: 0,
+      unk_70: None,
+      weapon_type: 0,
       element: None,
       hit_type: None,
       unk_element_camp: None,
       unk_75: 0,
       unk_76: 0,
+      unk_77: 0,
+      unk_78: 0,
+      base_avatar_id: 0,
+      unk_80: 0,
+      rp_max: 0,
+      rp_recover: 0,
+      unk_83: None,
+      unk_84: None,
+      awake_ids: None,
     }
   }
 }
@@ -1233,16 +1341,16 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> AvatarBattleTemplateBuilder<'a,
     self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_UNK_59, unk_59, 0);
   }
   #[inline]
-  pub fn add_unk_60(&mut self, unk_60: i32) {
-    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_UNK_60, unk_60, 0);
+  pub fn add_unk_60(&mut self, unk_60: u32) {
+    self.fbb_.push_slot::<u32>(AvatarBattleTemplate::VT_UNK_60, unk_60, 0);
   }
   #[inline]
-  pub fn add_unk_61(&mut self, unk_61: i32) {
-    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_UNK_61, unk_61, 0);
+  pub fn add_unk_61(&mut self, unk_61: u32) {
+    self.fbb_.push_slot::<u32>(AvatarBattleTemplate::VT_UNK_61, unk_61, 0);
   }
   #[inline]
-  pub fn add_unk_62(&mut self, unk_62: i32) {
-    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_UNK_62, unk_62, 0);
+  pub fn add_unk_62(&mut self, unk_62: u32) {
+    self.fbb_.push_slot::<u32>(AvatarBattleTemplate::VT_UNK_62, unk_62, 0);
   }
   #[inline]
   pub fn add_unk_63(&mut self, unk_63: i32) {
@@ -1273,12 +1381,12 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> AvatarBattleTemplateBuilder<'a,
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(AvatarBattleTemplate::VT_UNK_69, unk_69);
   }
   #[inline]
-  pub fn add_unk_70(&mut self, unk_70: i32) {
-    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_UNK_70, unk_70, 0);
+  pub fn add_unk_70(&mut self, unk_70: flatbuffers::WIPOffset<flatbuffers::Vector<'b , i32>>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(AvatarBattleTemplate::VT_UNK_70, unk_70);
   }
   #[inline]
-  pub fn add_unk_71(&mut self, unk_71: i32) {
-    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_UNK_71, unk_71, 0);
+  pub fn add_weapon_type(&mut self, weapon_type: i32) {
+    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_WEAPON_TYPE, weapon_type, 0);
   }
   #[inline]
   pub fn add_element(&mut self, element: flatbuffers::WIPOffset<flatbuffers::Vector<'b , i32>>) {
@@ -1299,6 +1407,42 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> AvatarBattleTemplateBuilder<'a,
   #[inline]
   pub fn add_unk_76(&mut self, unk_76: i16) {
     self.fbb_.push_slot::<i16>(AvatarBattleTemplate::VT_UNK_76, unk_76, 0);
+  }
+  #[inline]
+  pub fn add_unk_77(&mut self, unk_77: i32) {
+    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_UNK_77, unk_77, 0);
+  }
+  #[inline]
+  pub fn add_unk_78(&mut self, unk_78: i32) {
+    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_UNK_78, unk_78, 0);
+  }
+  #[inline]
+  pub fn add_base_avatar_id(&mut self, base_avatar_id: i32) {
+    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_BASE_AVATAR_ID, base_avatar_id, 0);
+  }
+  #[inline]
+  pub fn add_unk_80(&mut self, unk_80: i32) {
+    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_UNK_80, unk_80, 0);
+  }
+  #[inline]
+  pub fn add_rp_max(&mut self, rp_max: i32) {
+    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_RP_MAX, rp_max, 0);
+  }
+  #[inline]
+  pub fn add_rp_recover(&mut self, rp_recover: i32) {
+    self.fbb_.push_slot::<i32>(AvatarBattleTemplate::VT_RP_RECOVER, rp_recover, 0);
+  }
+  #[inline]
+  pub fn add_unk_83(&mut self, unk_83: flatbuffers::WIPOffset<flatbuffers::Vector<'b , i32>>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(AvatarBattleTemplate::VT_UNK_83, unk_83);
+  }
+  #[inline]
+  pub fn add_unk_84(&mut self, unk_84: flatbuffers::WIPOffset<flatbuffers::Vector<'b , u32>>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(AvatarBattleTemplate::VT_UNK_84, unk_84);
+  }
+  #[inline]
+  pub fn add_awake_ids(&mut self, awake_ids: flatbuffers::WIPOffset<flatbuffers::Vector<'b , u32>>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(AvatarBattleTemplate::VT_AWAKE_IDS, awake_ids);
   }
   #[inline]
   pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> AvatarBattleTemplateBuilder<'a, 'b, A> {
@@ -1389,12 +1533,21 @@ impl core::fmt::Debug for AvatarBattleTemplate<'_> {
       ds.field("unk_68", &self.unk_68());
       ds.field("unk_69", &self.unk_69());
       ds.field("unk_70", &self.unk_70());
-      ds.field("unk_71", &self.unk_71());
+      ds.field("weapon_type", &self.weapon_type());
       ds.field("element", &self.element());
       ds.field("hit_type", &self.hit_type());
       ds.field("unk_element_camp", &self.unk_element_camp());
       ds.field("unk_75", &self.unk_75());
       ds.field("unk_76", &self.unk_76());
+      ds.field("unk_77", &self.unk_77());
+      ds.field("unk_78", &self.unk_78());
+      ds.field("base_avatar_id", &self.base_avatar_id());
+      ds.field("unk_80", &self.unk_80());
+      ds.field("rp_max", &self.rp_max());
+      ds.field("rp_recover", &self.rp_recover());
+      ds.field("unk_83", &self.unk_83());
+      ds.field("unk_84", &self.unk_84());
+      ds.field("awake_ids", &self.awake_ids());
       ds.finish()
   }
 }

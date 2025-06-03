@@ -6,7 +6,7 @@ use std::{
 };
 use tokio::sync::oneshot;
 use ureq::Agent;
-use vivian_service::{ConfigurableServiceModule, ServiceModule};
+use yixuan_service::{ConfigurableServiceModule, ServiceModule};
 
 use crate::config::AuthConfig;
 
@@ -93,7 +93,7 @@ impl TokenVerificationModule {
 impl ConfigurableServiceModule for TokenVerificationModule {
     type Config = AuthConfig;
 
-    fn new(_context: &vivian_service::ServiceContext, config: Self::Config) -> Self {
+    fn new(_context: &yixuan_service::ServiceContext, config: Self::Config) -> Self {
         Self {
             config,
             worker_tx: OnceLock::new(),
@@ -104,7 +104,7 @@ impl ConfigurableServiceModule for TokenVerificationModule {
 impl ServiceModule for TokenVerificationModule {
     fn run(
         self: std::sync::Arc<Self>,
-        _service: std::sync::Arc<vivian_service::ServiceContext>,
+        _service: std::sync::Arc<yixuan_service::ServiceContext>,
     ) -> Result<(), Box<dyn std::error::Error>> {
         if let AuthConfig::Enforced {
             sdk_token_verification_url,

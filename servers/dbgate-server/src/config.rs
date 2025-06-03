@@ -20,8 +20,19 @@ pub enum AuthConfig {
     },
 }
 
+#[derive(Deserialize, Debug, Clone, Copy)]
+pub enum DbType {
+    #[serde(rename = "postgres")]
+    Postgres,
+    #[serde(rename = "mysql")]
+    Mysql,
+    #[serde(rename = "sqlite")]
+    Sqlite,
+}
+
 #[derive(Deserialize, Debug)]
 pub struct ConnectionString {
+    pub db_type: DbType,
     pub addr: String,
     pub username: String,
     pub password: String,
@@ -30,10 +41,18 @@ pub struct ConnectionString {
 
 impl fmt::Display for ConnectionString {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "postgres://{}:{}@{}/{}",
-            self.username, self.password, self.addr, self.database
-        )
+        match self.db_type {
+            DbType::Postgres => write!(
+                f,
+                "postgres://{}:{}@{}/{}",
+                self.username, self.password, self.addr, self.database
+            ),
+            DbType::Mysql => write!(
+                f,
+                "mysql://{}:{}@{}/{}",
+                self.username, self.password, self.addr, self.database
+            ),
+            DbType::Sqlite => write!(f, "sqlite://{}.db?mode=rwc", self.database),
+        }
     }
 }

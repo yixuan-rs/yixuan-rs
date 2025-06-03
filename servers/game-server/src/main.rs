@@ -1,22 +1,24 @@
-use std::sync::OnceLock;
+use std::{collections::HashMap, sync::OnceLock};
 
+use cluster::{LogicClusterConfig, PlayerLogicClusterManager};
 use common::logging::init_tracing;
 use config::ServerConfig;
 use const_format::concatcp;
-use logic::cluster::{LogicClusterConfig, PlayerLogicClusterManager};
 use resources::{LoadResourcesError, NapResources, ServerGameplayConfig};
 use session::PlayerSessionManager;
-use vivian_service::{
+use yixuan_service::{
     ServiceContext, ServiceError,
     config::{ServiceType, load_environment_config},
     network::{NetworkEntityManager, NetworkServer, client::NetworkClient},
 };
 
+mod cluster;
 mod config;
 mod handlers;
-mod logic;
+mod player;
 mod resources;
 mod session;
+mod sync;
 mod util;
 
 const SERVICE_TYPE: ServiceType = ServiceType::Game;
@@ -52,11 +54,11 @@ async fn main() -> Result<(), StartupError> {
     let resources = NapResources::load(&config.resources, gameplay_cfg)?;
     let resources = RESOURCES.get_or_init(|| resources);
 
-    let (service_tx, listener) = handlers::start_handler_task();
+    let (service_tx, listener) = session::start_handler_task();
 
     let service = ServiceContext::new()
-        .insert_module(NetworkEntityManager::new(listener, None))
-        .configure_module::<NetworkServer>(env_cfg.services.get(&SERVICE_TYPE).unwrap().addr)
+        .insert_module(NetworkEntityManager::new(listener, HashMap::new()))
+        .configure_module::<NetworkServer>(vec![env_cfg.services.get(&SERVICE_TYPE).unwrap().addr])
         .configure_module::<NetworkClient>(env_cfg.services)
         .configure_module::<PlayerLogicClusterManager>(LogicClusterConfig {
             cluster: config.cluster,

@@ -169,4 +169,4 @@ use config::{
     HollowPositionOffsetType,
 };
 use tracing::warn;
-use vivian_proto::common::{NodeState, NodeVisible, Vector2Int};
+use yixuan_proto::common::{NodeState, NodeVisible, Vector2Int};

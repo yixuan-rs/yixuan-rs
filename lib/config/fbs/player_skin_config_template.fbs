@@ -1,0 +1,16 @@
+table PlayerSkinConfigTemplate {
+    player_skin_id: uint;
+    gender: uint;
+    needs_unlock: bool;
+    unk_3: int;
+    unk_4: string;
+    unk_5: uint;
+    unk_6: int;
+    unk_7: int;
+    unk_8: string;
+    unk_9: string;
+}
+
+table PlayerSkinConfigTemplateTb {
+    data: [PlayerSkinConfigTemplate];
+}

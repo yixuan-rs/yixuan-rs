@@ -17,6 +17,7 @@ pub enum SectionEvent {
     OnEnter,
     OnInteract,
     OnStart,
+    GM,
     #[serde(untagged)]
     Custom(String),
 }

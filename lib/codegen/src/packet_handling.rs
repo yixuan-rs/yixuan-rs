@@ -62,7 +62,7 @@ pub fn impl_handlers(_attr: TokenStream, input: TokenStream) -> TokenStream {
     quote! {
         impl #impl_name {
             pub fn register_handlers(handler_map: &mut ::std::collections::HashMap<u16, super::PacketHandler>) {
-                use vivian_proto::*;
+                use yixuan_proto::*;
 
                 #registrations
             }
@@ -91,7 +91,7 @@ pub fn impl_required_state(attr: TokenStream, input: TokenStream) -> TokenStream
     if let ReturnType::Type(_, return_message) = &func.sig.output {
         quote! {
             #vis #sig {
-                if !#context_arg_pat.player.ensure_state(crate::logic::player::LoadingState::#attr) {
+                if !#context_arg_pat.player.ensure_state(crate::player::LoadingState::#attr) {
                     ::tracing::error!("{}: ensure_state({:?}) failed", stringify!(#func_name), stringify!(#attr));
 
                     #[allow(clippy::needless_update)]
@@ -107,7 +107,7 @@ pub fn impl_required_state(attr: TokenStream, input: TokenStream) -> TokenStream
     } else {
         quote! {
             #vis #sig {
-                if #context_arg_pat.player.ensure_state(crate::logic::player::PlayerState::#attr) {
+                if #context_arg_pat.player.ensure_state(crate::player::PlayerState::#attr) {
                     ::tracing::error!("{}: ensure_state({:?}) failed", stringify!(#func_name), stringify!(#attr));
                     return;
                 }

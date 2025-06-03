@@ -1,0 +1,25 @@
+table PlayerSkinAccessoriesConfigTemplate {
+    accessory_id: uint;
+    name: string;
+    unk_2: string;
+    unk_3: int;
+    unk_4: int;
+    unk_5: string;
+    unk_6: string;
+    unk_7: int;
+    player_skin_id: uint;
+    unk_9: int;
+    unk_10: [int];
+    unk_11: string;
+    unk_12: string;
+    unk_13: string;
+    bone_name: string;
+    unk_15: string;
+    unk_16: int;
+    unk_17: string;
+    source: string;
+}
+
+table PlayerSkinAccessoriesConfigTemplateTb {
+    data: [PlayerSkinAccessoriesConfigTemplate];
+}

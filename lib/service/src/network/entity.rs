@@ -1,4 +1,7 @@
-use std::sync::{Arc, OnceLock};
+use std::{
+    net::SocketAddr,
+    sync::{Arc, OnceLock},
+};
 
 use tokio::{
     io::{AsyncReadExt, AsyncWriteExt},
@@ -17,6 +20,7 @@ use super::{
 };
 
 pub struct NetworkEntity {
+    pub local_addr: Option<SocketAddr>,
     sender: mpsc::UnboundedSender<NetPacket>,
     encryption_state: Arc<EncryptionState>,
     cancellation: CancellationToken,
@@ -47,6 +51,7 @@ impl NetworkEntity {
         id: u64,
         stream: TcpStream,
         listener: Arc<dyn NetworkEventListener>,
+        local_addr: Option<SocketAddr>,
         xorpad: Option<&'static [u8; 4096]>,
     ) -> Self {
         let (tx, rx) = mpsc::unbounded_channel();
@@ -70,6 +75,7 @@ impl NetworkEntity {
         tokio::spawn(Self::send_loop(w, rx));
 
         Self {
+            local_addr,
             sender: tx,
             encryption_state,
             cancellation,
@@ -96,6 +102,8 @@ impl NetworkEntity {
         listener: Arc<dyn NetworkEventListener>,
         encryption_state: Arc<EncryptionState>,
     ) {
+        const MAX_PACKET_SIZE: usize = 0x100000;
+
         let mut receive_buffer = vec![0u8; 16384];
         let mut recv_index = 0;
 
@@ -117,7 +125,18 @@ impl NetworkEntity {
                                 encryption_state.xor(&mut packet.body);
                                 listener.on_receive(id, packet);
                             }
-                            Err(DecodeError::Incomplete(_, _)) => break Ok(()),
+                            Err(DecodeError::Incomplete(required, _)) => {
+                                if required > receive_buffer.len() {
+                                    if required > MAX_PACKET_SIZE {
+                                        error!("too big packet received, size: {required}");
+                                        break Err(());
+                                    }
+
+                                    receive_buffer.resize(required, 0);
+                                }
+
+                                break Ok(());
+                            },
                             Err(err) => {
                                 error!("failed to decode incoming packet: {err}");
                                 break Err(());

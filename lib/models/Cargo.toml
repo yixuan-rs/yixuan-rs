@@ -1,0 +1,12 @@
+[package]
+name = "yixuan-models"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+tracing.workspace = true
+
+config.workspace = true
+yixuan-logic.workspace = true
+yixuan-proto.workspace = true
+yixuan-codegen.workspace = true

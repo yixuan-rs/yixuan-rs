@@ -5,7 +5,7 @@ use config::{
     LoadConditionsError, TemplateCollection, TemplateCollectionError,
 };
 
-use crate::config::{GachaScheduleConfig, ResourceConfig};
+use crate::config::{GMGroupConfig, GachaScheduleConfig, ResourceConfig};
 
 #[derive(thiserror::Error, Debug)]
 pub enum LoadResourcesError {
@@ -19,6 +19,8 @@ pub enum LoadResourcesError {
     HollowChessboard(DataLoadError),
     #[error("failed to load USM encryption keys, cause: {0}")]
     VideoKeyMap(DataLoadError),
+    #[error("failed to load GMGroup, cause: {0}")]
+    GMGroup(DataLoadError),
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -36,6 +38,7 @@ pub struct NapResources {
     pub conditions: HashMap<i32, Condition>,
     pub video_key_map: HashMap<u32, u64>,
     pub gameplay: ServerGameplayConfig,
+    pub first_login_gm_groups: Vec<GMGroupConfig>,
 }
 
 pub struct ServerGameplayConfig {
@@ -61,6 +64,11 @@ impl NapResources {
             video_key_map: Self::load_video_key_map(&config.usm_keys_path)
                 .map_err(LoadResourcesError::VideoKeyMap)?,
             gameplay,
+            first_login_gm_groups: config
+                .first_login_gm_group_list
+                .iter()
+                .map(|path| Self::load_gm_group(path))
+                .collect::<Result<Vec<_>, _>>()?,
         })
     }
 
@@ -80,6 +88,10 @@ impl NapResources {
         }
 
         Ok(map)
+    }
+
+    fn load_gm_group(path: &str) -> Result<GMGroupConfig, LoadResourcesError> {
+        Self::load_json_data(path).map_err(LoadResourcesError::GMGroup)
     }
 
     fn load_video_key_map(path: &str) -> Result<HashMap<u32, u64>, DataLoadError> {

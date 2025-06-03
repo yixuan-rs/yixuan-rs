@@ -26,6 +26,8 @@ pub struct PlayerData {
     pub scene: ::core::option::Option<SceneData>,
     #[prost(message, optional, tag = "12")]
     pub gacha: ::core::option::Option<GachaData>,
+    #[prost(message, optional, tag = "13")]
+    pub map: ::core::option::Option<MapData>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -88,6 +90,8 @@ pub struct AvatarItemInfo {
     pub show_weapon_type: i32,
     #[prost(bool, tag = "15")]
     pub is_favorite: bool,
+    #[prost(uint32, tag = "16")]
+    pub awake_id: u32,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -172,6 +176,28 @@ pub struct AutoRecoveryItemInfo {
 pub struct QuestData {
     #[prost(message, repeated, tag = "1")]
     pub quest_collection_list: ::prost::alloc::vec::Vec<QuestCollectionInfo>,
+    #[prost(message, optional, tag = "2")]
+    pub battle_data: ::core::option::Option<BattleData>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MonsterCardData {
+    #[prost(uint32, repeated, tag = "1")]
+    pub unlocked_levels: ::prost::alloc::vec::Vec<u32>,
+    #[prost(uint32, tag = "2")]
+    pub selected_level: u32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ActivityBattleData {
+    #[prost(message, optional, tag = "1")]
+    pub monster_card: ::core::option::Option<MonsterCardData>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BattleData {
+    #[prost(message, optional, tag = "1")]
+    pub activity: ::core::option::Option<ActivityBattleData>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -291,12 +317,62 @@ pub struct MiscData {
     pub news_stand: ::core::option::Option<NewsStandData>,
     #[prost(message, optional, tag = "5")]
     pub post_girl: ::core::option::Option<PostGirlData>,
+    #[prost(message, optional, tag = "6")]
+    pub teleport: ::core::option::Option<TeleportUnlockData>,
+    #[prost(message, optional, tag = "7")]
+    pub business_card: ::core::option::Option<BusinessCardData>,
+    #[prost(message, optional, tag = "8")]
+    pub player_accessory: ::core::option::Option<PlayerAccessoryData>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PlayerSkinInfo {
+    #[prost(uint32, tag = "1")]
+    pub player_skin_id: u32,
+    #[prost(uint32, repeated, tag = "2")]
+    pub equipped_accessory_id_list: ::prost::alloc::vec::Vec<u32>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PlayerAccessoryInfo {
+    #[prost(uint32, tag = "1")]
+    pub avatar_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub avatar_skin_id: u32,
+    #[prost(message, repeated, tag = "3")]
+    pub player_skin_list: ::prost::alloc::vec::Vec<PlayerSkinInfo>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PlayerAccessoryData {
+    #[prost(message, repeated, tag = "1")]
+    pub player_accessory_list: ::prost::alloc::vec::Vec<PlayerAccessoryInfo>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BusinessCardData {
+    #[prost(uint32, repeated, tag = "1")]
+    pub unlocked_id_list: ::prost::alloc::vec::Vec<u32>,
+    #[prost(uint32, tag = "2")]
+    pub selected_id: u32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InputSettingInfo {
+    #[prost(map = "uint32, int32", tag = "1")]
+    pub input_type_map: ::std::collections::HashMap<u32, i32>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SwitchData {
     #[prost(uint32, repeated, tag = "1")]
     pub open_system_id_list: ::prost::alloc::vec::Vec<u32>,
+    #[prost(map = "uint32, uint32", tag = "2")]
+    pub setting_switch_map: ::std::collections::HashMap<u32, u32>,
+    #[prost(map = "uint32, bool", tag = "3")]
+    pub system_switch_state_map: ::std::collections::HashMap<u32, bool>,
+    #[prost(map = "uint32, message", tag = "4")]
+    pub input_setting_map: ::std::collections::HashMap<u32, InputSettingInfo>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
@@ -363,6 +439,12 @@ pub struct PostGirlData {
     pub selected_id_list: ::prost::alloc::vec::Vec<u32>,
     #[prost(bool, tag = "3")]
     pub post_girl_random_toggle: bool,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TeleportUnlockData {
+    #[prost(int32, repeated, tag = "1")]
+    pub unlocked_id_list: ::prost::alloc::vec::Vec<i32>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -563,6 +645,40 @@ pub struct GachaData {
     #[prost(uint32, tag = "2")]
     pub gacha_random: u32,
 }
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct MapAreaGroupInfo {
+    #[prost(uint32, tag = "1")]
+    pub group_id: u32,
+    #[prost(bool, tag = "2")]
+    pub is_unlocked: bool,
+    #[prost(uint32, tag = "3")]
+    pub area_progress: u32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct MapAreaStreetInfo {
+    #[prost(uint32, tag = "1")]
+    pub area_id: u32,
+    #[prost(bool, tag = "2")]
+    pub is_unlocked: bool,
+    #[prost(uint32, tag = "3")]
+    pub area_progress: u32,
+    #[prost(bool, tag = "4")]
+    pub location_pop_showed: bool,
+    #[prost(bool, tag = "5")]
+    pub new_area_showed: bool,
+    #[prost(bool, tag = "6")]
+    pub new_area_portals_showed: bool,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MapData {
+    #[prost(message, repeated, tag = "1")]
+    pub area_group_list: ::prost::alloc::vec::Vec<MapAreaGroupInfo>,
+    #[prost(message, repeated, tag = "2")]
+    pub area_street_list: ::prost::alloc::vec::Vec<MapAreaStreetInfo>,
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum GraphReferenceType {
@@ -662,4 +778,27 @@ pub struct StopPlayerLogicReq {
 pub struct StopPlayerLogicRsp {
     #[prost(int32, tag = "1")]
     pub retcode: i32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[cmd_id(10008)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GmTalkByMuipReq {
+    #[prost(string, tag = "1")]
+    pub msg: ::prost::alloc::string::String,
+}
+#[derive(::proto_derive::NetCmd)]
+#[cmd_id(10009)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GmTalkByMuipRsp {
+    #[prost(int32, tag = "1")]
+    pub retcode: i32,
+    #[prost(string, tag = "2")]
+    pub retmsg: ::prost::alloc::string::String,
+}
+#[derive(::proto_derive::NetCmd)]
+#[cmd_id(10010)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ClientPerformNotify {
+    #[prost(message, repeated, tag = "1")]
+    pub notify_list: ::prost::alloc::vec::Vec<NetCommand>,
 }

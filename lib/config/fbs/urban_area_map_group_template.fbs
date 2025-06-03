@@ -1,0 +1,14 @@
+table UrbanAreaMapGroupTemplate {
+	area_group_id: uint;
+	unk_1: [bool];
+	unk_2: int;
+	unk_3: int;
+	unk_4: [int];
+	group_name: string;
+	unk_6: bool;
+	is_map_visible: bool;
+}
+
+table UrbanAreaMapGroupTemplateTb {
+	data: [UrbanAreaMapGroupTemplate];
+}

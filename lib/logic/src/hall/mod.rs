@@ -5,14 +5,14 @@ use config::{
 };
 use npc::{Interact, InteractTarget, SceneUnit};
 use tracing::{error, warn};
-use vivian_proto::{
+use yixuan_proto::{
     EnterSceneScNotify, EventGraphOwnerType, FinishEventGraphScNotify, SectionEventScNotify,
-    common::TimePeriodType,
+    common::TimePeriodType, server_only::GraphReferenceType,
 };
 
 use crate::{
     LogicResources,
-    event::{ActionListener, Event, EventState, EventUID, event_util},
+    event::{ActionListener, Event, EventState, EventUID, GraphID, event_util},
     listener::{LogicEventListener, NotifyListener},
     math::{Scale, Transform},
     scene::SceneType,
@@ -44,6 +44,14 @@ pub struct GameHallState {
     has_sent_initial_scene_notify: bool,
     refresh_required: bool,
     enter_finished: bool,
+}
+
+#[derive(thiserror::Error, Debug)]
+pub enum HallEventGraphError {
+    #[error("event graph is not running (owner: {0:?}, id: {1})")]
+    NotRunning(EventGraphOwnerType, u32),
+    #[error("event graph cannot be resumed by client (owner: {0:?}, id: {1}, state: {2:?})")]
+    NotWaitingClient(EventGraphOwnerType, u32, EventState),
 }
 
 pub enum HallPosition {
@@ -107,6 +115,13 @@ impl GameHallState {
 
     pub fn enter_section_finished(&mut self) {
         self.enter_finished = true;
+    }
+
+    pub fn clear_main_city_quests(&mut self) {
+        self.main_city_quests.clear();
+        self.clear_attached_graphs(&[]);
+
+        self.set_time_period(ETimePeriodType::Now);
     }
 
     pub fn attach_graph(
@@ -312,14 +327,20 @@ impl GameHallState {
             }
 
             self.time_of_day = time_of_day;
+        } else {
+            self.time_period = TimePeriodType::None; // Unlock time for client
         }
     }
 
-    fn remove_pending_refresh(&mut self) -> Option<vivian_proto::HallRefreshScNotify> {
+    pub fn is_time_locked(&self) -> bool {
+        self.time_period != TimePeriodType::None
+    }
+
+    fn remove_pending_refresh(&mut self) -> Option<yixuan_proto::HallRefreshScNotify> {
         self.refresh_required.then(|| {
             self.refresh_required = false;
 
-            vivian_proto::HallRefreshScNotify {
+            yixuan_proto::HallRefreshScNotify {
                 force_refresh: true,
                 section_id: self.section_id,
                 bgm_id: self.bgm_id,
@@ -357,6 +378,21 @@ impl GameHallState {
         self.refresh_required = false;
     }
 
+    pub fn execute_gm_event(&mut self, config: ConfigEvent, listener: &mut dyn LogicEventListener) {
+        let event_uid = EventUID::new(EventGraphOwnerType::Scene, config.id);
+        let mut event = Event::new(
+            SectionEvent::GM,
+            0,
+            GraphID(0, GraphReferenceType::None),
+            config,
+        );
+        event.wakeup(event_uid, self, listener);
+
+        if !event.is_finished() {
+            self.running_events.insert(event_uid, event);
+        }
+    }
+
     fn initiate_event(
         &mut self,
         graph: GraphReference,
@@ -368,9 +404,10 @@ impl GameHallState {
     ) {
         let event_uid = EventUID::new(owner_type, config.id);
 
-        if self
-            .already_executed_events
-            .insert(((graph.id() as u64) << 32) | config.id as u64)
+        if event_type == SectionEvent::OnInteract
+            || self
+                .already_executed_events
+                .insert(((graph.id() as u64) << 32) | config.id as u64)
         {
             let mut event = Event::new(event_type, tag, graph, config);
             event.wakeup(event_uid, self, listener);
@@ -499,26 +536,26 @@ impl GameHallState {
         owner_type: EventGraphOwnerType,
         event_id: u32,
         listener: &mut dyn LogicEventListener,
-    ) -> bool {
+    ) -> Result<(), HallEventGraphError> {
         let event_graph_uid = EventUID::new(owner_type, event_id);
 
-        let Some(mut event) = self.running_events.remove(&event_graph_uid) else {
-            error!("event {owner_type:?}:{event_id} is not running");
-            return false;
-        };
+        let mut event = self
+            .running_events
+            .remove(&event_graph_uid)
+            .ok_or(HallEventGraphError::NotRunning(owner_type, event_id))?;
 
-        if event.state != EventState::WaitingClient {
-            error!(
-                "event {owner_type:?}:{event_id} can't be resumed by client, current state: {:?}",
-                event.state
-            );
-            return false;
-        }
+        (event.state == EventState::WaitingClient)
+            .then_some(())
+            .ok_or(HallEventGraphError::NotWaitingClient(
+                owner_type,
+                event_id,
+                event.state,
+            ))?;
 
         event.wakeup(event_graph_uid, self, listener);
         self.running_events.insert(event_graph_uid, event);
 
-        true
+        Ok(())
     }
 
     pub fn remove_if_finished(
@@ -576,10 +613,10 @@ impl GameHallState {
         }
     }
 
-    pub fn client_scene_data_proto(&self) -> vivian_proto::SceneData {
-        vivian_proto::SceneData {
+    pub fn client_scene_data_proto(&self) -> yixuan_proto::SceneData {
+        yixuan_proto::SceneData {
             scene_type: self.scene_type().into(),
-            hall_scene_data: Some(vivian_proto::HallSceneData {
+            hall_scene_data: Some(yixuan_proto::HallSceneData {
                 section_id: self.section_id,
                 bgm_id: self.bgm_id,
                 day_of_week: self.day_of_week,
@@ -653,7 +690,7 @@ impl ActionListener for GameHallState {
     fn enqueue_client_action(
         &mut self,
         (event_uid, event): (EventUID, &Event),
-        info: vivian_proto::ActionInfo,
+        info: yixuan_proto::ActionInfo,
     ) {
         self.pending_event_notifies.push(SectionEventScNotify {
             event_id: event_uid.event_id(),

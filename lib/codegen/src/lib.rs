@@ -2,6 +2,7 @@ use proc_macro::TokenStream;
 
 mod config;
 mod game_server;
+mod gm_input;
 mod packet_handling;
 
 #[proc_macro_attribute]
@@ -32,4 +33,9 @@ pub fn derive_property(item: TokenStream) -> TokenStream {
 #[proc_macro_attribute]
 pub fn action(_: TokenStream, item: TokenStream) -> TokenStream {
     config::impl_action(item)
+}
+
+#[proc_macro_derive(GMInput)]
+pub fn derive_gm_input(item: TokenStream) -> TokenStream {
+    gm_input::impl_gm_input(item)
 }

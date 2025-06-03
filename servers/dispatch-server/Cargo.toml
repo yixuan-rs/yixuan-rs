@@ -1,5 +1,5 @@
 [package]
-name = "vivian-dispatch-server"
+name = "yixuan-dispatch-server"
 version = "0.1.0"
 edition = "2024"
 
@@ -9,8 +9,9 @@ axum.workspace = true
 
 const_format.workspace = true
 thiserror.workspace = true
+tracing.workspace = true
 serde.workspace = true
 serde_json5.workspace = true
 
 common.workspace = true
-vivian-encryption.workspace = true
+yixuan-encryption.workspace = true

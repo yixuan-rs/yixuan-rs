@@ -19,6 +19,8 @@ pub struct AvatarItem {
     pub taken_rank_up_reward_list: Vec<u32>,
     pub avatar_skin_id: u32,
     pub is_favorite: bool,
+    pub is_awake_available: bool,
+    pub awake_id: u32,
 }
 
 #[derive(
@@ -26,23 +28,25 @@ pub struct AvatarItem {
 )]
 #[repr(u32)]
 pub enum EAvatarSkillType {
-    SpecialAttack = 1,
-    UniqueSkill = 4,
     CommonAttack = 0,
-    CooperateSkill = 3,
-    AssistSkill = 6,
+    SpecialAttack = 1,
     Evade = 2,
+    CooperateSkill = 3,
+    UniqueSkill = 4,
     CoreSkill = 5,
+    AssistSkill = 6,
     EnumCount = 7,
 }
 
 impl AvatarItem {
+    pub const MAX_TALENT_NUM: usize = 6;
+
     pub fn get_skill_level(&self, ty: EAvatarSkillType) -> u32 {
         self.skill_level_map.get(&ty).copied().unwrap_or(0)
     }
 
-    pub fn as_client_proto(&self) -> vivian_proto::AvatarInfo {
-        vivian_proto::AvatarInfo {
+    pub fn as_client_proto(&self) -> yixuan_proto::AvatarInfo {
+        yixuan_proto::AvatarInfo {
             id: self.id,
             level: self.level,
             exp: self.exp,
@@ -54,7 +58,7 @@ impl AvatarItem {
             skill_type_level: self
                 .skill_level_map
                 .iter()
-                .map(|(&skill_type, &level)| vivian_proto::AvatarSkillLevel {
+                .map(|(&skill_type, &level)| yixuan_proto::AvatarSkillLevel {
                     skill_type: skill_type.into(),
                     level,
                 })
@@ -62,13 +66,15 @@ impl AvatarItem {
             dressed_equip_list: self
                 .dressed_equip_map
                 .iter()
-                .map(|(&index, &equip_uid)| vivian_proto::DressedEquip { index, equip_uid })
+                .map(|(&equip_uid, &index)| yixuan_proto::DressedEquip { equip_uid, index })
                 .collect(),
             avatar_skin_id: self.avatar_skin_id,
             first_get_time: self.first_get_time,
             talent_switch_list: self.talent_switch.to_vec(),
             taken_rank_up_reward_list: self.taken_rank_up_reward_list.clone(),
             is_favorite: self.is_favorite,
+            is_awake_available: self.is_awake_available,
+            awake_id: self.awake_id,
         }
     }
 }

@@ -19,6 +19,7 @@ pub enum ServiceType {
     Gate,
     Dbgate,
     Game,
+    Muip,
 }
 
 pub fn load_environment_config() -> EnvironmentConfig {

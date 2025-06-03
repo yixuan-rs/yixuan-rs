@@ -1,6 +1,6 @@
 use std::fmt;
 
-use vivian_proto::{GridLink, GridType, GridUnkEnum};
+use yixuan_proto::{GridLink, GridType, GridUnkEnum};
 
 use super::*;
 
@@ -30,13 +30,13 @@ impl HollowGridComponent {
     }
 }
 
-impl SerializableComponent<vivian_proto::HollowGridComponent> for HollowGridComponent {
+impl SerializableComponent<yixuan_proto::HollowGridComponent> for HollowGridComponent {
     fn component_type(&self) -> HollowComponentType {
         HollowComponentType::HollowGridComponent
     }
 
-    fn component_info(&self) -> vivian_proto::HollowGridComponent {
-        vivian_proto::HollowGridComponent {
+    fn component_info(&self) -> yixuan_proto::HollowGridComponent {
+        yixuan_proto::HollowGridComponent {
             grid_type: self.grid_type.into(),
             grid_link: self.grid_link,
             grid_unk_enum: GridUnkEnum::Unk1.into(),

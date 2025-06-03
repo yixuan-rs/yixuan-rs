@@ -12,8 +12,8 @@ pub struct EquipItem {
 }
 
 impl EquipItem {
-    pub fn as_client_proto(&self, uid: u32) -> vivian_proto::EquipInfo {
-        vivian_proto::EquipInfo {
+    pub fn as_client_proto(&self, uid: u32) -> yixuan_proto::EquipInfo {
+        yixuan_proto::EquipInfo {
             uid,
             id: self.id,
             level: self.level,
@@ -24,7 +24,7 @@ impl EquipItem {
                 .properties
                 .iter()
                 .map(
-                    |(&key, &(base_value, add_value))| vivian_proto::EquipProperty {
+                    |(&key, &(base_value, add_value))| yixuan_proto::EquipProperty {
                         key,
                         base_value,
                         add_value,
@@ -35,7 +35,7 @@ impl EquipItem {
                 .sub_properties
                 .iter()
                 .map(
-                    |(&key, &(base_value, add_value))| vivian_proto::EquipProperty {
+                    |(&key, &(base_value, add_value))| yixuan_proto::EquipProperty {
                         key,
                         base_value,
                         add_value,

@@ -1,4 +1,4 @@
-use vivian_proto::{EnterSceneScNotify, HollowPerformScNotify, Message, NetCmd, ServerPerformMsg};
+use yixuan_proto::{EnterSceneScNotify, HollowPerformScNotify, Message, NetCmd, ServerPerformMsg};
 
 use crate::listener::{NotifyListener, NotifyListenerExt};
 

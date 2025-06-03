@@ -1,0 +1,31 @@
+table UrbanAreaMapTemplate {
+	area_id: uint;
+	unk_1: int;
+	unk_2: int;
+	unk_3: int;
+	unk_4: string;
+	unk_5: int;
+	unk_6: bool;
+	unk_7: int;
+	unk_8: int;
+	unk_9: int;
+	unk_10: int;
+	unk_11: int;
+	icon: string;
+	group_name: string;
+	unk_14: int;
+	unk_15: bool;
+	unk_16: int;
+	unk_17: int;
+	unk_18: int;
+	unk_19: int;
+	unk_20: int;
+	unk_21: int;
+	unk_22: int;
+	unk_23: int;
+	unk_24: string;
+}
+
+table UrbanAreaMapTemplateTb {
+	data: [UrbanAreaMapTemplate];
+}

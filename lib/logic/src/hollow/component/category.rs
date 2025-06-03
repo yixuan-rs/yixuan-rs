@@ -7,13 +7,13 @@ pub struct CategoryComponent {
     pub category_list: HashSet<String>,
 }
 
-impl SerializableComponent<vivian_proto::CategoryComponent> for CategoryComponent {
-    fn component_type(&self) -> vivian_proto::HollowComponentType {
-        vivian_proto::HollowComponentType::CategoryComponent
+impl SerializableComponent<yixuan_proto::CategoryComponent> for CategoryComponent {
+    fn component_type(&self) -> yixuan_proto::HollowComponentType {
+        yixuan_proto::HollowComponentType::CategoryComponent
     }
 
-    fn component_info(&self) -> vivian_proto::CategoryComponent {
-        vivian_proto::CategoryComponent {
+    fn component_info(&self) -> yixuan_proto::CategoryComponent {
+        yixuan_proto::CategoryComponent {
             category_list: self.category_list.iter().cloned().collect(),
         }
     }

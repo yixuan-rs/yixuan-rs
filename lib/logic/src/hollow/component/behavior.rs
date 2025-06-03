@@ -8,13 +8,13 @@ pub struct BehaviorComponent {
     pub str_specials: HashMap<String, String>,
 }
 
-impl SerializableComponent<vivian_proto::BehaviorComponent> for BehaviorComponent {
-    fn component_type(&self) -> vivian_proto::HollowComponentType {
-        vivian_proto::HollowComponentType::BehaviorComponent
+impl SerializableComponent<yixuan_proto::BehaviorComponent> for BehaviorComponent {
+    fn component_type(&self) -> yixuan_proto::HollowComponentType {
+        yixuan_proto::HollowComponentType::BehaviorComponent
     }
 
-    fn component_info(&self) -> vivian_proto::BehaviorComponent {
-        vivian_proto::BehaviorComponent {
+    fn component_info(&self) -> yixuan_proto::BehaviorComponent {
+        yixuan_proto::BehaviorComponent {
             unk_behavior_state: false,
             int_specials: self.int_specials.clone(),
             str_specials: self.str_specials.clone(),

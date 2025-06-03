@@ -17,6 +17,7 @@ use crate::{ConfigurableServiceModule, ServiceContext, ServiceModule, Startable}
 
 pub mod client;
 pub mod entity;
+pub mod net_util;
 pub mod packet;
 
 pub trait NetworkEventListener: Send + Sync + 'static {
@@ -25,33 +26,38 @@ pub trait NetworkEventListener: Send + Sync + 'static {
 }
 
 pub struct NetworkServer {
-    bind_addr: SocketAddr,
+    bind_addresses: Vec<SocketAddr>,
 }
 
 pub struct NetworkEntityManager {
     entity_id_counter: AtomicU64,
     entity_map: HashMap<u64, Arc<NetworkEntity>>,
     event_listener: Arc<dyn NetworkEventListener>,
-    xorpad: Option<&'static [u8; 4096]>,
+    xorpad_map: std::collections::HashMap<SocketAddr, &'static [u8; 4096]>,
 }
 
 impl NetworkEntityManager {
     pub fn new(
         event_listener: impl NetworkEventListener,
-        xorpad: Option<&'static [u8; 4096]>,
+        xorpad_map: std::collections::HashMap<SocketAddr, &'static [u8; 4096]>,
     ) -> Self {
         Self {
             entity_id_counter: AtomicU64::new(1),
             entity_map: HashMap::new(),
             event_listener: Arc::new(event_listener),
-            xorpad,
+            xorpad_map,
         }
     }
 
-    pub(crate) fn on_connect(&self, stream: TcpStream) {
+    pub(crate) fn on_connect(&self, stream: TcpStream, local_addr: SocketAddr) {
         let id = self.entity_id_counter.fetch_add(1, Ordering::SeqCst);
-        let entity =
-            NetworkEntity::start(id, stream, Arc::clone(&self.event_listener), self.xorpad);
+        let entity = NetworkEntity::start(
+            id,
+            stream,
+            Arc::clone(&self.event_listener),
+            Some(local_addr),
+            self.xorpad_map.get(&local_addr).copied(),
+        );
 
         let _ = self.entity_map.insert(id, Arc::new(entity));
     }
@@ -66,20 +72,28 @@ impl NetworkEntityManager {
 }
 
 impl NetworkServer {
-    async fn accept_loop(service: Arc<ServiceContext>, listener: TcpListener) {
+    async fn accept_loop(
+        service: Arc<ServiceContext>,
+        local_addr: SocketAddr,
+        listener: TcpListener,
+    ) {
         loop {
             if let Ok((stream, _addr)) = listener.accept().await {
-                service.resolve::<NetworkEntityManager>().on_connect(stream);
+                service
+                    .resolve::<NetworkEntityManager>()
+                    .on_connect(stream, local_addr);
             }
         }
     }
 }
 
 impl ConfigurableServiceModule for NetworkServer {
-    type Config = SocketAddr;
+    type Config = Vec<SocketAddr>;
 
     fn new(_context: &crate::ServiceContext, config: Self::Config) -> Self {
-        Self { bind_addr: config }
+        Self {
+            bind_addresses: config,
+        }
     }
 }
 
@@ -91,15 +105,15 @@ impl Startable for NetworkEntityManager {
 
 impl ServiceModule for NetworkServer {
     fn run(self: Arc<Self>, service: Arc<crate::ServiceContext>) -> Result<(), Box<dyn Error>> {
-        let listener = std::net::TcpListener::bind(self.bind_addr)?;
-        listener.set_nonblocking(true).unwrap();
+        for &bind_addr in self.bind_addresses.iter() {
+            tokio::spawn(Self::accept_loop(
+                Arc::clone(&service),
+                bind_addr,
+                net_util::tcp_bind_sync(bind_addr)?,
+            ));
 
-        tokio::spawn(Self::accept_loop(
-            service,
-            TcpListener::from_std(listener).unwrap(),
-        ));
-
-        debug!("server is listening at {}", self.bind_addr);
+            debug!("server is listening at {bind_addr}");
+        }
 
         Ok(())
     }

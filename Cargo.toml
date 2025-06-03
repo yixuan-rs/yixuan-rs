@@ -9,8 +9,9 @@ version = "0.0.1"
 tokio = { version = "1.44.2", features = ["full"] }
 tokio-util = "0.7.15"
 axum = "0.8.3"
+axum-extra = { version = "0.10.1", features = ["query"] }
 ureq = { version = "3.0.11", features = ["json"] }
-sqlx = { version = "0.8.5", features = ["postgres", "runtime-tokio-rustls"] }
+sqlx = { version = "0.8.5", features = ["any", "postgres", "mysql", "sqlite", "runtime-tokio-rustls"] }
 
 const_format = "0.2.34"
 thiserror = "2.0"
@@ -50,8 +51,9 @@ quote = "1.0"
 
 common = { path = "lib/common" }
 config = { path = "lib/config" }
-vivian-codegen = { path = "lib/codegen" }
-vivian-proto = { path = "lib/proto" }
-vivian-logic = { path = "lib/logic" }
-vivian-encryption = { path = "lib/encryption" }
-vivian-service = { path = "lib/service" }
+yixuan-codegen = { path = "lib/codegen" }
+yixuan-proto = { path = "lib/proto" }
+yixuan-logic = { path = "lib/logic" }
+yixuan-models = { path = "lib/models" }
+yixuan-encryption = { path = "lib/encryption" }
+yixuan-service = { path = "lib/service" }
