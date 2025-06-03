@@ -9,8 +9,8 @@ pub struct WeaponItem {
 }
 
 impl WeaponItem {
-    pub fn as_client_proto(&self, uid: u32) -> vivian_proto::WeaponInfo {
-        vivian_proto::WeaponInfo {
+    pub fn as_client_proto(&self, uid: u32) -> yixuan_proto::WeaponInfo {
+        yixuan_proto::WeaponInfo {
             uid,
             id: self.id,
             level: self.level,

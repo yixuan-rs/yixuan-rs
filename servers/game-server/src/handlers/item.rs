@@ -1,5 +1,5 @@
-use vivian_codegen::{handlers, required_state};
-use vivian_proto::{
+use yixuan_codegen::{handlers, required_state};
+use yixuan_proto::{
     GetEquipDataCsReq, GetEquipDataScRsp, GetItemDataCsReq, GetItemDataScRsp, GetWeaponDataCsReq,
     GetWeaponDataScRsp, GetWishlistDataCsReq, GetWishlistDataScRsp,
 };

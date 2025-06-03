@@ -1,6 +1,6 @@
 use std::fmt;
 
-use vivian_proto::common::{HollowGridFlag, HollowGridState, NodeState, NodeSubState, NodeVisible};
+use yixuan_proto::common::{HollowGridFlag, HollowGridState, NodeState, NodeSubState, NodeVisible};
 
 use super::*;
 
@@ -41,13 +41,13 @@ impl GridStateComponent {
     }
 }
 
-impl SerializableComponent<vivian_proto::GridStateComponent> for GridStateComponent {
+impl SerializableComponent<yixuan_proto::GridStateComponent> for GridStateComponent {
     fn component_type(&self) -> HollowComponentType {
         HollowComponentType::GridStateComponent
     }
 
-    fn component_info(&self) -> vivian_proto::GridStateComponent {
-        vivian_proto::GridStateComponent {
+    fn component_info(&self) -> yixuan_proto::GridStateComponent {
+        yixuan_proto::GridStateComponent {
             cur_grid_state: Some(HollowGridState {
                 node_state: self.node_state.into(),
                 node_visible: self.node_visible.into(),

@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 
 use num_enum::IntoPrimitive;
 use serde::Deserialize;
-use vivian_codegen::action;
+use yixuan_codegen::action;
 
 use crate::{EQuestState, ETimePeriodType, util::nap_expr_parser::NapExpr};
 

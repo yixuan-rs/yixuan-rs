@@ -11,7 +11,7 @@ use tracing::error;
 pub use uid::EventUID;
 
 use config::{ConfigEvent, ConfigEventAction, GraphReference, SectionEvent};
-use vivian_proto::{ActionInfo, server_only::GraphReferenceType};
+use yixuan_proto::{ActionInfo, server_only::GraphReferenceType};
 
 use crate::listener::LogicEventListener;
 

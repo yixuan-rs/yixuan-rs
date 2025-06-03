@@ -3,12 +3,13 @@ bound_sid = 1
 [[servers]]
 sid = 1
 bind_versions = [
+	"OSPRODWin2.0.0",
 	"CNBetaWin2.0.4",
 	"CNBetaWin2.0.5",
 	"CNBetaWin2.0.12",
 ]
-name = "vivian_rs"
-title = "Vivian-RS"
+name = "yixuan_rs"
+title = "Yixuan-RS"
 dispatch_url = "http://127.0.0.1:10100/query_gateway"
 gateway_ip = "127.0.0.1"
 gateway_port = 20501

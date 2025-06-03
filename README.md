@@ -1,16 +1,17 @@
-# Vivian-rs
+# Yixuan-rs
 ##### Experimental server emulator for the game Zenless Zone Zero
 ![title](assets/img/title.png)
 
 ## Features
 - Microservices Architecture
 - Quest System
+- VR Training, Notorious Hunt
+- Story Commissions in HDD
 - "TV Mode" aka Monitor Array
-- VR Training
 - Gacha (with configurable banner schedule)
 - NPC Interactions
-- Miscellaneous items (Skins, W-Engines, Wallpapers)
-#### NOTE: vivian-rs is currently under active development
+- Miscellaneous items (Skins, W-Engines, Drive Discs, Proxy Accessories, Wallpapers)
+#### NOTE: yixuan-rs is currently under active development
 
 ## Getting started
 ### Requirements
@@ -24,16 +25,16 @@
 ### Setup
 #### a) building from sources
 ```sh
-git clone https://git.xeondev.com/vivian-rs/vivian-rs.git
-cd vivian-rs
-cargo run --bin vivian-dispatch-server
-cargo run --bin vivian-gate-server
-cargo run --bin vivian-dbgate-server
-cargo run --bin vivian-game-server
-cargo run --bin vivian-muip-server
+git clone https://git.xeondev.com/yixuan-rs/yixuan-rs.git
+cd yixuan-rs
+cargo run --bin yixuan-dispatch-server
+cargo run --bin yixuan-gate-server
+cargo run --bin yixuan-dbgate-server
+cargo run --bin yixuan-game-server
+cargo run --bin yixuan-muip-server
 ```
 #### b) using pre-built binaries
-Navigate to the [Releases](https://git.xeondev.com/vivian-rs/vivian-rs/releases) page and download the latest release for your platform.
+Navigate to the [Releases](https://git.xeondev.com/yixuan-rs/yixuan-rs/releases) page and download the latest release for your platform.
 Start each service in order from option `a)`.
 
 ### Configuration
@@ -44,10 +45,10 @@ The configuration of each server is located under the `config` directory (create
 - To change gameplay-related settings, edit one of game-server configuration files, for example: gacha banner schedule is located in: `config/40-game-server/gacha_schedule.toml`
 
 ### Logging in
-Currently supported client version is `CNBetaWin2.0.4`, you can get it from 3rd party sources (e.g. torrent). Next, you have to apply the necessary [client patch](https://git.xeondev.com/vivian-rs/vivian-patch/src/branch/2.0_beta). It allows you to connect to the local server and replaces encryption keys with custom ones.
+Currently supported client version is `OSPRODWin2.0.0`, you can get it from 3rd party sources (e.g. game launcher). Next, you have to apply the necessary [client patch](https://git.xeondev.com/yixuan-rs/yixuan-patch). It allows you to connect to the local server and replaces encryption keys with custom ones.
 
 ### Obtaining characters without gacha
-While playing on the server, you may want to obtain the characters that are not available in current gacha schedule. In order to do so, you can use in-game debug menu: find the 'Vivian' NPC in the WorkShop location, and interact with it. It'll send you to a debug TV mode scene, where you can select the characters to obtain. (The NPC will spawn as soon as you progress in starting quests!)
+While playing on the server, you may want to obtain the characters that are not available in current gacha schedule. In order to do so, you can use in-game debug menu: find the 'Yixuan' NPC on the second floor of WorkShop location, and interact with it. It'll send you to a debug TV mode scene, where you can select the characters to obtain.
 ![debug_menu](assets/img/debug_menu.png)
 
 ### Gameplay customization

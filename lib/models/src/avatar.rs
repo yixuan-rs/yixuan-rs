@@ -1,4 +1,4 @@
-use vivian_logic::{
+use yixuan_logic::{
     LogicResources,
     item::{AvatarItem, EAvatarSkillType},
     listener::{NotifyListener, NotifyListenerExt},
@@ -12,7 +12,7 @@ use crate::property::{Property, PropertyHashMap};
 pub struct AvatarModel {
     pub avatar_map: PropertyHashMap<u32, AvatarItem>,
     pub add_avatar_perform_map:
-        PropertyHashMap<u32, vivian_proto::add_avatar_sc_notify::PerformType>,
+        PropertyHashMap<u32, yixuan_proto::add_avatar_sc_notify::PerformType>,
 }
 
 impl AvatarModel {
@@ -20,7 +20,7 @@ impl AvatarModel {
         self.add_avatar_perform_map
             .iter_changed_items()
             .for_each(|(&id, &perform_type)| {
-                listener.add(vivian_proto::AddAvatarScNotify {
+                listener.add(yixuan_proto::AddAvatarScNotify {
                     avatar_id: id,
                     perform_type: perform_type.into(),
                     reward_list: Vec::new(),
@@ -78,7 +78,7 @@ impl AvatarModel {
 }
 
 impl Saveable for AvatarModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.avatar = Some(AvatarData {
             avatar_list: self
                 .avatar_map

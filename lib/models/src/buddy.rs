@@ -46,8 +46,8 @@ impl BuddyModel {
 }
 
 impl BuddyItem {
-    pub fn as_client_proto(&self) -> vivian_proto::BuddyInfo {
-        vivian_proto::BuddyInfo {
+    pub fn as_client_proto(&self) -> yixuan_proto::BuddyInfo {
+        yixuan_proto::BuddyInfo {
             id: self.id,
             level: self.level,
             exp: self.exp,
@@ -57,7 +57,7 @@ impl BuddyItem {
             skill_type_level: self
                 .skill_level_map
                 .iter()
-                .map(|(&skill_type, &level)| vivian_proto::BuddySkillLevel { skill_type, level })
+                .map(|(&skill_type, &level)| yixuan_proto::BuddySkillLevel { skill_type, level })
                 .collect(),
             taken_rank_up_reward_list: self.taken_rank_up_reward_list.clone(),
         }
@@ -65,7 +65,7 @@ impl BuddyItem {
 }
 
 impl Saveable for BuddyModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.buddy = Some(BuddyData {
             buddy_list: self
                 .buddy_map

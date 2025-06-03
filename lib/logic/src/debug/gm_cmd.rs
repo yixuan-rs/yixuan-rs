@@ -1,5 +1,5 @@
 use serde::{Deserialize, Deserializer};
-use vivian_codegen::GMInput;
+use yixuan_codegen::GMInput;
 
 #[derive(Debug, Clone, GMInput)]
 pub enum GMCmd {

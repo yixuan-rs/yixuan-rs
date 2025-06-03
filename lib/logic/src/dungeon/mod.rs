@@ -13,7 +13,7 @@ pub use avatar_unit::AvatarUnit;
 use common::time_util;
 use config::TemplateCollection;
 pub use enums::*;
-use vivian_proto::{BigBossInfo, DungeonQuestFinishedScNotify, common::LogBattleStatistics};
+use yixuan_proto::{BigBossInfo, DungeonQuestFinishedScNotify, common::LogBattleStatistics};
 
 #[derive(Default, Clone)]
 pub struct Dungeon {
@@ -67,7 +67,7 @@ impl Dungeon {
                     .avatar_contribution
                     .iter()
                     .map(
-                        |(&avatar_id, &contribution)| vivian_proto::AvatarContributionInfo {
+                        |(&avatar_id, &contribution)| yixuan_proto::AvatarContributionInfo {
                             avatar_id,
                             contribution,
                         },
@@ -100,11 +100,11 @@ impl Dungeon {
             .push(AvatarUnit::new(avatar_id, templates, &self.equipment));
     }
 
-    pub fn as_client_proto(&self) -> vivian_proto::DungeonInfo {
-        vivian_proto::DungeonInfo {
+    pub fn as_client_proto(&self) -> yixuan_proto::DungeonInfo {
+        yixuan_proto::DungeonInfo {
             quest_id: self.quest_id,
             quest_type: self.quest_type,
-            dungeon_equip_info: Some(vivian_proto::DungeonEquipInfo {
+            dungeon_equip_info: Some(yixuan_proto::DungeonEquipInfo {
                 avatar_list: self
                     .equipment
                     .avatars
@@ -123,13 +123,13 @@ impl Dungeon {
                     .iter()
                     .map(|(&uid, equip)| equip.as_client_proto(uid))
                     .collect(),
-                buddy: Some(vivian_proto::BuddyInfo::default()),
+                buddy: Some(yixuan_proto::BuddyInfo::default()),
                 ..Default::default()
             }),
             avatar_list: self
                 .avatar_units
                 .iter()
-                .map(|unit| vivian_proto::AvatarUnitInfo {
+                .map(|unit| yixuan_proto::AvatarUnitInfo {
                     avatar_id: unit.avatar_id,
                     properties: unit
                         .properties
@@ -138,10 +138,10 @@ impl Dungeon {
                         .collect(),
                 })
                 .collect(),
-            dungeon_quest_info: Some(vivian_proto::DungeonQuestInfo {
+            dungeon_quest_info: Some(yixuan_proto::DungeonQuestInfo {
                 inner_quest_id_list: self.inner_quest_id_list.clone(),
             }),
-            dungeon_statistics: Some(vivian_proto::DungeonStatistics::default()),
+            dungeon_statistics: Some(yixuan_proto::DungeonStatistics::default()),
             begin_time: self.begin_time,
             big_boss_info: self.big_boss_info.clone(),
         }

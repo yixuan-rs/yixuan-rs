@@ -6,7 +6,7 @@ use std::{
 use super::*;
 use config::{GraphReference, SectionEvent};
 use property::{PrimitiveProperty, Property, PropertyHashMap};
-use vivian_logic::{
+use yixuan_logic::{
     dungeon::{Dungeon, DungeonEquipment},
     event::{EventState, EventUID, GraphID},
     hall::npc::InteractTarget,
@@ -216,7 +216,7 @@ impl SceneModel {
     }
 
     pub fn load_from_pb(pb: SceneData) -> Self {
-        use vivian_proto::server_only::scene_info::Info;
+        use yixuan_proto::server_only::scene_info::Info;
 
         Self {
             cur_scene_uid: pb.cur_scene_uid.into(),
@@ -269,8 +269,8 @@ impl SceneModel {
 }
 
 impl Saveable for SceneModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
-        use vivian_proto::server_only::scene_info::Info;
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
+        use yixuan_proto::server_only::scene_info::Info;
 
         root.scene = Some(SceneData {
             cur_scene_uid: self.cur_scene_uid.get(),

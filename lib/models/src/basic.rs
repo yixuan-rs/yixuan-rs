@@ -29,8 +29,8 @@ impl PlayerBasicModel {
         }
     }
 
-    pub fn build_self_basic_info(&self) -> vivian_proto::SelfBasicInfo {
-        vivian_proto::SelfBasicInfo {
+    pub fn build_self_basic_info(&self) -> yixuan_proto::SelfBasicInfo {
+        yixuan_proto::SelfBasicInfo {
             nick_name: self.nick_name.get().to_string(),
             role_create_time: self.create_time.get(),
             name_change_times: self.name_change_times.get(),
@@ -45,7 +45,7 @@ impl PlayerBasicModel {
 }
 
 impl Saveable for PlayerBasicModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.basic = Some(BasicData {
             nick_name: self.nick_name.get().to_string(),
             create_time: self.create_time.get(),

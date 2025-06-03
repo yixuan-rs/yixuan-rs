@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use tokio::sync::mpsc;
-use vivian_logic::GameState;
+use yixuan_logic::GameState;
 
 use crate::{
     handlers::{NetContext, NotifyQueue},

@@ -1,5 +1,5 @@
 use config::ETimePeriodType;
-use vivian_proto::common::TimePeriodType;
+use yixuan_proto::common::TimePeriodType;
 
 pub fn logic_to_proto(value: ETimePeriodType) -> TimePeriodType {
     match value {

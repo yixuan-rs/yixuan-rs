@@ -2,9 +2,9 @@ use crate::sync::SyncType;
 
 use super::NetContext;
 use tracing::{debug, error};
-use vivian_codegen::{handlers, required_state};
-use vivian_logic::GameState;
-use vivian_proto::{
+use yixuan_codegen::{handlers, required_state};
+use yixuan_logic::GameState;
+use yixuan_proto::{
     AbyssArpeggioGetDataCsReq, AbyssArpeggioGetDataScRsp, AbyssGetDataCsReq, AbyssGetDataScRsp,
     BeginMonsterCardBattleCsReq, BeginMonsterCardBattleScRsp, GetArchiveDataCsReq,
     GetArchiveDataScRsp, GetHollowDataCsReq, GetHollowDataScRsp, GetQuestDataCsReq,

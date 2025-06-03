@@ -4,7 +4,7 @@ use config::ServerConfig;
 use const_format::concatcp;
 use database::DbConnection;
 use sdk::TokenVerificationModule;
-use vivian_service::{
+use yixuan_service::{
     ServiceContext, ServiceError,
     config::{ServiceType, load_environment_config},
     network::{NetworkEntityManager, NetworkServer},

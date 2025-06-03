@@ -1,5 +1,5 @@
 [package]
-name = "vivian-proto"
+name = "yixuan-proto"
 edition = "2024"
 version.workspace = true
 

@@ -1,5 +1,5 @@
 use config::GraphReference;
-use vivian_proto::EventGraphOwnerType;
+use yixuan_proto::EventGraphOwnerType;
 
 pub fn graph_reference_to_owner_type(graph_ref: GraphReference) -> EventGraphOwnerType {
     use GraphReference::*;

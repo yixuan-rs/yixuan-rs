@@ -1,7 +1,7 @@
-use vivian_models::*;
-use vivian_proto::*;
+use yixuan_models::*;
+use yixuan_proto::*;
 
-use vivian_models::property::Property;
+use yixuan_models::property::Property;
 
 pub trait PlayerSyncComponent {
     fn supports_player_sync(&self) -> bool;
@@ -21,7 +21,7 @@ impl PlayerSyncComponent for PlayerBasicModel {
 impl PlayerSyncComponent for ItemModel {
     fn add_changes_to_player_sync_notify(
         &self,
-        player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
         let item_sync = player_sync_sc_notify.item.get_or_insert_default();
 
@@ -29,7 +29,7 @@ impl PlayerSyncComponent for ItemModel {
             item_sync.item_list.extend(
                 self.item_count_map
                     .iter_changed_items()
-                    .map(|(&id, &count)| vivian_proto::ItemInfo { id, count }),
+                    .map(|(&id, &count)| yixuan_proto::ItemInfo { id, count }),
             )
         }
 
@@ -61,7 +61,7 @@ impl PlayerSyncComponent for ItemModel {
                         .flat_map(|(_, changes)| {
                             changes
                                 .iter()
-                                .map(|&(item_id, amount)| vivian_proto::ItemRewardInfo {
+                                .map(|&(item_id, amount)| yixuan_proto::ItemRewardInfo {
                                     item_id,
                                     amount: amount as u32,
                                 })
@@ -78,7 +78,7 @@ impl PlayerSyncComponent for ItemModel {
 impl PlayerSyncComponent for AvatarModel {
     fn add_changes_to_player_sync_notify(
         &self,
-        player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
         player_sync_sc_notify
             .avatar
@@ -103,7 +103,7 @@ impl PlayerSyncComponent for QuestModel {
 
     fn add_changes_to_player_sync_notify(
         &self,
-        player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
         player_sync_sc_notify.quest = Some(QuestSync {
             quest_list: self
@@ -144,7 +144,7 @@ impl PlayerSyncComponent for ArchiveModel {
 
     fn add_changes_to_player_sync_notify(
         &self,
-        _player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
     }
 }
@@ -156,16 +156,16 @@ impl PlayerSyncComponent for HollowModel {
 
     fn add_changes_to_player_sync_notify(
         &self,
-        player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
-        player_sync_sc_notify.hollow = Some(vivian_proto::HollowSync {
+        player_sync_sc_notify.hollow = Some(yixuan_proto::HollowSync {
             hollow_group_list: self.hollow_groups.iter().copied().collect(),
             unlock_hollow_group_list: self.new_hollow_groups.iter().copied().collect(),
             unlock_hollow_id_list: self.new_unlocked_hollows.iter().copied().collect(),
             hollow_info_list: self
                 .hollows
                 .iter_changed_items()
-                .map(|(_, hollow)| vivian_proto::HollowInfo {
+                .map(|(_, hollow)| yixuan_proto::HollowInfo {
                     hollow_quest_id: hollow.hollow_quest_id,
                     unk_hollow_info_100: 100,
                     acquired_hollow_challenge_reward: hollow.acquired_hollow_challenge_reward,
@@ -182,7 +182,7 @@ impl PlayerSyncComponent for AbyssModel {
 
     fn add_changes_to_player_sync_notify(
         &self,
-        _player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
     }
 }
@@ -194,7 +194,7 @@ impl PlayerSyncComponent for BuddyModel {
 
     fn add_changes_to_player_sync_notify(
         &self,
-        _player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
     }
 }
@@ -206,7 +206,7 @@ impl PlayerSyncComponent for MiscModel {
 
     fn add_changes_to_player_sync_notify(
         &self,
-        player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
         let sync = player_sync_sc_notify.misc.get_or_insert_default();
 
@@ -218,7 +218,7 @@ impl PlayerSyncComponent for MiscModel {
                 self.unlock
                     .quick_access
                     .iter()
-                    .map(|(&quick_access_id, item)| vivian_proto::QuickAccessInfo {
+                    .map(|(&quick_access_id, item)| yixuan_proto::QuickAccessInfo {
                         quick_access_id,
                         quick_access_index: item.index,
                         r#type: item.quick_access_type,
@@ -226,19 +226,19 @@ impl PlayerSyncComponent for MiscModel {
             );
 
         if self.news_stand.current_sign_id.is_changed() || self.news_stand.can_sign.is_changed() {
-            sync.news_stand = Some(vivian_proto::NewsStandSync {
+            sync.news_stand = Some(yixuan_proto::NewsStandSync {
                 current_sign_id: self.news_stand.current_sign_id.get(),
                 can_sign: self.news_stand.can_sign.get(),
             });
         }
 
         if self.post_girl.is_changed() {
-            sync.post_girl = Some(vivian_proto::PostGirlSync {
+            sync.post_girl = Some(yixuan_proto::PostGirlSync {
                 new_post_girl_item_list: self
                     .post_girl
                     .unlocked_items
                     .iter_changed_items()
-                    .map(|(&id, &unlock_time)| vivian_proto::PostGirlItem { id, unlock_time })
+                    .map(|(&id, &unlock_time)| yixuan_proto::PostGirlItem { id, unlock_time })
                     .collect(),
                 selected_post_girl_id_list: self.post_girl.selected_id.iter().copied().collect(),
                 post_girl_random_toggle: self.post_girl.random_toggle.get(),
@@ -246,7 +246,7 @@ impl PlayerSyncComponent for MiscModel {
         }
 
         if self.business_card.is_changed() {
-            sync.business_card = Some(vivian_proto::BusinessCardSync {
+            sync.business_card = Some(yixuan_proto::BusinessCardSync {
                 unlocked_business_card_id_list: self
                     .business_card
                     .unlocked_items
@@ -258,20 +258,20 @@ impl PlayerSyncComponent for MiscModel {
         }
 
         if self.player_accessory.is_changed() {
-            sync.player_accessory = Some(vivian_proto::PlayerAccessorySync {
+            sync.player_accessory = Some(yixuan_proto::PlayerAccessorySync {
                 player_accessory_list: self
                     .player_accessory
                     .player_accessory_map
                     .iter()
                     .map(
-                        |(&avatar_id, player_accessory)| vivian_proto::PlayerAccessoryInfo {
+                        |(&avatar_id, player_accessory)| yixuan_proto::PlayerAccessoryInfo {
                             avatar_id,
                             avatar_skin_id: player_accessory.avatar_skin_id,
                             player_skin_list: player_accessory
                                 .player_skin_map
                                 .iter()
                                 .map(|(&player_skin_id, player_skin)| {
-                                    vivian_proto::PlayerSkinInfo {
+                                    yixuan_proto::PlayerSkinInfo {
                                         player_skin_id,
                                         equipped_accessory_id_list: player_skin
                                             .equipped_accessory_id_list
@@ -294,7 +294,7 @@ impl PlayerSyncComponent for GachaModel {
         false
     }
 
-    fn add_changes_to_player_sync_notify(&self, _: &mut vivian_proto::PlayerSyncScNotify) {}
+    fn add_changes_to_player_sync_notify(&self, _: &mut yixuan_proto::PlayerSyncScNotify) {}
 }
 
 impl PlayerSyncComponent for MapModel {
@@ -302,7 +302,7 @@ impl PlayerSyncComponent for MapModel {
         false
     }
 
-    fn add_changes_to_player_sync_notify(&self, _: &mut vivian_proto::PlayerSyncScNotify) {}
+    fn add_changes_to_player_sync_notify(&self, _: &mut yixuan_proto::PlayerSyncScNotify) {}
 }
 
 impl PlayerSyncComponent for MainCityModel {
@@ -312,7 +312,7 @@ impl PlayerSyncComponent for MainCityModel {
 
     fn add_changes_to_player_sync_notify(
         &self,
-        _player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
     }
 }
@@ -324,7 +324,7 @@ impl PlayerSyncComponent for SceneModel {
 
     fn add_changes_to_player_sync_notify(
         &self,
-        _player_sync_sc_notify: &mut vivian_proto::PlayerSyncScNotify,
+        _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
     ) {
     }
 }

@@ -1,5 +1,5 @@
-use vivian_codegen::handlers;
-use vivian_proto::{GetMonthDailyRewardListCsReq, GetMonthDailyRewardListScRsp};
+use yixuan_codegen::handlers;
+use yixuan_proto::{GetMonthDailyRewardListCsReq, GetMonthDailyRewardListScRsp};
 
 use super::NetContext;
 

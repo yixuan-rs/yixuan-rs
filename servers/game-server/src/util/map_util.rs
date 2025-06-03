@@ -1,4 +1,4 @@
-use vivian_models::{AreaGroupInfo, AreaStreetInfo};
+use yixuan_models::{AreaGroupInfo, AreaStreetInfo};
 
 use crate::player::Player;
 

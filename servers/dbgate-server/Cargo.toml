@@ -1,5 +1,5 @@
 [package]
-name = "vivian-dbgate-server"
+name = "yixuan-dbgate-server"
 edition = "2024"
 version.workspace = true
 
@@ -17,5 +17,5 @@ rand.workspace = true
 tracing.workspace = true
 
 common.workspace = true
-vivian-proto.workspace = true
-vivian-service.workspace = true
+yixuan-proto.workspace = true
+yixuan-service.workspace = true

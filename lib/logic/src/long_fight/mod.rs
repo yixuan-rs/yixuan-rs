@@ -1,5 +1,5 @@
 use tracing::info;
-use vivian_proto::{EnterSceneScNotify, common::LogBattleStatistics};
+use yixuan_proto::{EnterSceneScNotify, common::LogBattleStatistics};
 
 use crate::{
     LogicResources,
@@ -74,20 +74,20 @@ impl GameLongFightState {
         self.dungeon.flush_dungeon_quest_notifies(listener);
     }
 
-    pub fn client_scene_data_proto(&self) -> vivian_proto::SceneData {
-        vivian_proto::SceneData {
+    pub fn client_scene_data_proto(&self) -> yixuan_proto::SceneData {
+        yixuan_proto::SceneData {
             scene_id: self.scene_id,
             play_type: self.play_type.into(),
             scene_type: self.scene_type().into(),
-            long_fight_scene_data: Some(vivian_proto::LongFightSceneData {
-                scene_reward: Some(vivian_proto::SceneRewardInfo::default()),
-                scene_perform: Some(vivian_proto::ScenePerformInfo {
+            long_fight_scene_data: Some(yixuan_proto::LongFightSceneData {
+                scene_reward: Some(yixuan_proto::SceneRewardInfo::default()),
+                scene_perform: Some(yixuan_proto::ScenePerformInfo {
                     time: self.time_period.clone(),
                     weather: self.weather.clone(),
                 }),
-                scene_progress: Some(vivian_proto::LongFightProgressInfo {
-                    quest_cond_progress: Some(vivian_proto::QuestCondProgress::default()),
-                    quest_variables_info: Some(vivian_proto::QuestVariablesInfo::default()),
+                scene_progress: Some(yixuan_proto::LongFightProgressInfo {
+                    quest_cond_progress: Some(yixuan_proto::QuestCondProgress::default()),
+                    quest_variables_info: Some(yixuan_proto::QuestVariablesInfo::default()),
                 }),
             }),
             ..Default::default()

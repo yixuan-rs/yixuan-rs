@@ -60,7 +60,7 @@ impl MapModel {
 }
 
 impl Saveable for MapModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.map = Some(MapData {
             area_group_list: self
                 .area_group_map

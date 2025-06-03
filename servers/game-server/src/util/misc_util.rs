@@ -1,5 +1,5 @@
 use common::time_util;
-use vivian_models::{PlayerAccessory, PlayerSkin, property::PropertyHashSet};
+use yixuan_models::{PlayerAccessory, PlayerSkin, property::PropertyHashSet};
 
 use crate::player::Player;
 

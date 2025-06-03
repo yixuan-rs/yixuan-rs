@@ -76,7 +76,8 @@
                     "Sec2_DefaultTrigger2"
                 ],
                 "OnEnter": [
-                    "Sec2_EnterTrigger1"
+                    "Sec2_EnterTrigger1",
+                    "Sec2_CreateDebugNPC"
                 ],
                 "Events": {
                     "Sec2_DefaultTrigger": {
@@ -176,6 +177,34 @@
                                     "1305": 13005
                                 }
                             }
+                        ]
+                    },
+                    "Sec2_CreateDebugNPC": { 
+                        "ID": 1337,
+                        "Actions": [
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 103,
+                                "TagID": 90400702
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 104,
+                                "InteractID": 100860,
+                                "TagIDs": [
+                                    90400702
+                                ],
+                                "Participators": {
+                                    "90400702": "B"
+                                },
+                                "InteractShape": "Sector",
+                                "InteractScale": {
+                                    "X": 1.2,
+                                    "Y": 0,
+                                    "Z": 0
+                                }   
+                            },
+                            { "$type": "Share.CActionResetEventCfg", "ID": 105 }
                         ]
                     }
                 }

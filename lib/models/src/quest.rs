@@ -1,8 +1,8 @@
 use std::collections::{HashMap, HashSet};
 
 use config::EQuestState;
-use vivian_codegen::Property;
-use vivian_logic::dungeon::EQuestType;
+use yixuan_codegen::Property;
+use yixuan_logic::dungeon::EQuestType;
 
 use crate::property::{PrimitiveProperty, Property, PropertyHashMap, PropertyHashSet};
 
@@ -142,8 +142,8 @@ impl QuestModel {
 }
 
 impl Quest {
-    pub fn to_client_proto(&self) -> vivian_proto::QuestInfo {
-        vivian_proto::QuestInfo {
+    pub fn to_client_proto(&self) -> yixuan_proto::QuestInfo {
+        yixuan_proto::QuestInfo {
             id: self.id,
             state: self.state,
             unlock_time: self.unlock_time,
@@ -151,7 +151,7 @@ impl Quest {
             in_progress_time: self.in_progress_time,
             finish_condition_progress: self.finish_condition_progress.clone(),
             main_city_quest_info: self.main_city_ext.as_ref().map(|ext| {
-                vivian_proto::MainCityQuestInfo {
+                yixuan_proto::MainCityQuestInfo {
                     track_npc_id_list: ext.track_npc_id.iter().copied().collect(),
                 }
             }),
@@ -160,7 +160,7 @@ impl Quest {
 }
 
 impl Saveable for QuestModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.quest = Some(QuestData {
             quest_collection_list: self
                 .quest_collections

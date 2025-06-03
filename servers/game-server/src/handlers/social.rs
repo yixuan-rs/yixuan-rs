@@ -1,5 +1,5 @@
-use vivian_codegen::handlers;
-use vivian_proto::{
+use yixuan_codegen::handlers;
+use yixuan_proto::{
     GetDisplayCaseDataCsReq, GetDisplayCaseDataScRsp, GetFriendListCsReq, GetFriendListScRsp,
 };
 

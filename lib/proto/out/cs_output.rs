@@ -1562,6 +1562,19 @@ pub struct WeaponUnDressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(3101)]
+pub struct TalentSwitchCsReq {
+    #[prost(uint32, tag = "5", xor = "10791")]
+    pub avatar_id: u32,
+    #[prost(bool, repeated, tag = "8")]
+    pub talent_switch_list: ::prost::alloc::vec::Vec<bool>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct TalentSwitchScRsp {
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(3797)]
 pub struct AvatarSetAwakeCsReq {
     #[prost(uint32, tag = "4", xor = "10948")]

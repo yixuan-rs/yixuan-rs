@@ -39,12 +39,14 @@ pub enum EAvatarSkillType {
 }
 
 impl AvatarItem {
+    pub const MAX_TALENT_NUM: usize = 6;
+
     pub fn get_skill_level(&self, ty: EAvatarSkillType) -> u32 {
         self.skill_level_map.get(&ty).copied().unwrap_or(0)
     }
 
-    pub fn as_client_proto(&self) -> vivian_proto::AvatarInfo {
-        vivian_proto::AvatarInfo {
+    pub fn as_client_proto(&self) -> yixuan_proto::AvatarInfo {
+        yixuan_proto::AvatarInfo {
             id: self.id,
             level: self.level,
             exp: self.exp,
@@ -56,7 +58,7 @@ impl AvatarItem {
             skill_type_level: self
                 .skill_level_map
                 .iter()
-                .map(|(&skill_type, &level)| vivian_proto::AvatarSkillLevel {
+                .map(|(&skill_type, &level)| yixuan_proto::AvatarSkillLevel {
                     skill_type: skill_type.into(),
                     level,
                 })
@@ -64,7 +66,7 @@ impl AvatarItem {
             dressed_equip_list: self
                 .dressed_equip_map
                 .iter()
-                .map(|(&equip_uid, &index)| vivian_proto::DressedEquip { equip_uid, index })
+                .map(|(&equip_uid, &index)| yixuan_proto::DressedEquip { equip_uid, index })
                 .collect(),
             avatar_skin_id: self.avatar_skin_id,
             first_get_time: self.first_get_time,

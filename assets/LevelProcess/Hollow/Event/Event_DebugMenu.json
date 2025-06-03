@@ -23,7 +23,7 @@
                     "$type": "Share.CConfigLogText",
                     "ID": 2,
                     "Messages": [
-                        "Welcome to vivian-rs Debug Menu!"
+                        "Welcome to yixuan-rs Debug Menu!"
                     ],
                     "LogTitle": "Debug Menu",
                     "Voicelines": []
@@ -36,7 +36,7 @@
                     "$type": "Share.CConfigMakeDialogChoice",
                     "ID": 4,
                     "Title": "Debug Menu",
-                    "Description": "Welcome to vivian-rs Debug Menu!",
+                    "Description": "Welcome to yixuan-rs Debug Menu!",
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
@@ -75,6 +75,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Yixuan",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1371
+                        },
+                        {
                             "OptionText": "Anby",
                             "OptionID": "1011",
                             "OptionText2": "",
@@ -87,13 +94,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1021
-                        },
-                        {
-                            "OptionText": "Nicole",
-                            "OptionID": "1031",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1031
                         },
                         {
                             "OptionText": "Next page",
@@ -112,6 +112,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Nicole",
+                            "OptionID": "1031",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1031
+                        },
+                        {
                             "OptionText": "Soldier 11",
                             "OptionID": "1041",
                             "OptionText2": "",
@@ -124,13 +131,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1061
-                        },
-                        {
-                            "OptionText": "Caesar",
-                            "OptionID": "1071",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1071
                         },
                         {
                             "OptionText": "Next page",
@@ -156,6 +156,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Caesar",
+                            "OptionID": "1071",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1071
+                        },
+                        {
                             "OptionText": "Billy",
                             "OptionID": "1081",
                             "OptionText2": "",
@@ -168,13 +175,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1091
-                        },
-                        {
-                            "OptionText": "Koleda",
-                            "OptionID": "1101",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1101
                         },
                         {
                             "OptionText": "Next page",
@@ -200,6 +200,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Koleda",
+                            "OptionID": "1101",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1101
+                        },
+                        {
                             "OptionText": "Anton",
                             "OptionID": "1111",
                             "OptionText2": "",
@@ -212,13 +219,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1121
-                        },
-                        {
-                            "OptionText": "Soukaku",
-                            "OptionID": "1131",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1131
                         },
                         {
                             "OptionText": "Next page",
@@ -244,6 +244,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Soukaku",
+                            "OptionID": "1131",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1131
+                        },
+                        {
                             "OptionText": "Lycaon",
                             "OptionID": "1141",
                             "OptionText2": "",
@@ -256,13 +263,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1151
-                        },
-                        {
-                            "OptionText": "Lighter",
-                            "OptionID": "1161",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1161
                         },
                         {
                             "OptionText": "Next page",
@@ -288,6 +288,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Lighter",
+                            "OptionID": "1161",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1161
+                        },
+                        {
                             "OptionText": "Burnice",
                             "OptionID": "1171",
                             "OptionText2": "",
@@ -300,13 +307,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1181
-                        },
-                        {
-                            "OptionText": "Ellen",
-                            "OptionID": "1191",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1191
                         },
                         {
                             "OptionText": "Next page",
@@ -332,6 +332,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Ellen",
+                            "OptionID": "1191",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1191
+                        },
+                        {
                             "OptionText": "Harumasa",
                             "OptionID": "1201",
                             "OptionText2": "",
@@ -344,13 +351,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1211
-                        },
-                        {
-                            "OptionText": "Yanagi",
-                            "OptionID": "1221",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1221
                         },
                         {
                             "OptionText": "Next page",
@@ -376,6 +376,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Yanagi",
+                            "OptionID": "1221",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1221
+                        },
+                        {
                             "OptionText": "Zhu Yuan",
                             "OptionID": "1241",
                             "OptionText2": "",
@@ -388,13 +395,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1251
-                        },
-                        {
-                            "OptionText": "Jane",
-                            "OptionID": "1261",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1261
                         },
                         {
                             "OptionText": "Next page",
@@ -420,6 +420,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Jane",
+                            "OptionID": "1261",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1261
+                        },
+                        {
                             "OptionText": "Seth",
                             "OptionID": "1271",
                             "OptionText2": "",
@@ -432,13 +439,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1281
-                        },
-                        {
-                            "OptionText": "Astra Yao",
-                            "OptionID": "107",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1311
                         },
                         {
                             "OptionText": "Next page",
@@ -464,6 +464,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Astra Yao",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1311
+                        },
+                        {
                             "OptionText": "Evelyn",
                             "OptionID": "107",
                             "OptionText2": "",
@@ -476,13 +483,6 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1331
-                        },
-                        {
-                            "OptionText": "Trigger",
-                            "OptionID": "107",
-                            "OptionText2": "",
-                            "ChoiceID": 5,
-                            "UID": 1361
                         },
                         {
                             "OptionText": "Next page",
@@ -508,6 +508,13 @@
                     "QuestionDescription": "Make a choice..",
                     "ChoiceDetails": [
                         {
+                            "OptionText": "Trigger",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1361
+                        },
+                        {
                             "OptionText": "Soldier 0 Anby",
                             "OptionID": "107",
                             "OptionText2": "",
@@ -520,6 +527,13 @@
                             "OptionText2": "",
                             "ChoiceID": 5,
                             "UID": 1351
+                        },
+                        {
+                            "OptionText": "Next page",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 8888
                         }
                     ],
                     "Predicates": [
@@ -527,6 +541,49 @@
                             "$type": "Share.CConfigEventByChoiceServer",
                             "CompareType": "Equal",
                             "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigMakeDialogChoice",
+                    "ID": 12000,
+                    "Title": "Debug Menu",
+                    "Description": "Choose an agent you want to obtain",
+                    "QuestionDescription": "Make a choice..",
+                    "ChoiceDetails": [
+                        {
+                            "OptionText": "Jufufu",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1391
+                        },
+                        {
+                            "OptionText": "PanYinhu",
+                            "OptionID": "107",
+                            "OptionText2": "",
+                            "ChoiceID": 5,
+                            "UID": 1421
+                        }
+                    ],
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 8888
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1371,
+                    "ItemID": 1371,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1371
                         }
                     ]
                 },
@@ -943,6 +1000,32 @@
                             "$type": "Share.CConfigEventByChoiceServer",
                             "CompareType": "Equal",
                             "UID": 1351
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1391,
+                    "ItemID": 1391,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1391
+                        }
+                    ]
+                },
+                {
+                    "$type": "Share.CConfigAddItem",
+                    "ID": 1421,
+                    "ItemID": 1421,
+                    "Count": 1,
+                    "Predicates": [
+                        {
+                            "$type": "Share.CConfigEventByChoiceServer",
+                            "CompareType": "Equal",
+                            "UID": 1421
                         }
                     ]
                 },

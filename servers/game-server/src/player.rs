@@ -6,8 +6,8 @@ use std::{
 use common::time_util;
 use config::{BoundConditions, Condition, EQuestState, GraphReference, HollowQuestType};
 use rand::RngCore;
-use vivian_codegen::ModelManager;
-use vivian_logic::{
+use yixuan_codegen::ModelManager;
+use yixuan_logic::{
     GameState, LogicResources,
     dungeon::{DungeonEquipment, EQuestType},
     event::Event,
@@ -18,10 +18,10 @@ use vivian_logic::{
     long_fight::GameLongFightState,
     scene::ELocalPlayType,
 };
-use vivian_proto::{BigBossInfo, PlayerSyncScNotify, server_only::PlayerData};
+use yixuan_proto::{BigBossInfo, PlayerSyncScNotify, server_only::PlayerData};
 
 use tracing::{error, info, warn};
-use vivian_models::{property::GachaRandom, *};
+use yixuan_models::{property::GachaRandom, *};
 
 use crate::{
     resources::NapResources,
@@ -216,7 +216,7 @@ impl Player {
                     .avatar_base_template_tb()
                     .find(|tmpl| tmpl.id() == id)
                 {
-                    use vivian_proto::add_avatar_sc_notify::PerformType;
+                    use yixuan_proto::add_avatar_sc_notify::PerformType;
 
                     let perform_type = match source {
                         AddItemSource::Custom => None,

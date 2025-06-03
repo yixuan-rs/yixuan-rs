@@ -2,12 +2,12 @@ use std::sync::Arc;
 
 use tokio::sync::{mpsc, oneshot};
 use tracing::{debug, error, warn};
-use vivian_proto::{
+use yixuan_proto::{
     NetCmd, PlayerGetTokenCsReq, PlayerGetTokenScRsp,
     head::PacketHead,
     server_only::{PlayerData, PlayerDataChangedNotify, PlayerGetDataReq, PlayerGetDataRsp},
 };
-use vivian_service::{
+use yixuan_service::{
     ServiceContext, ServiceScope,
     network::{
         NetworkEntityManager, NetworkEventListener,

@@ -9,7 +9,7 @@ use std::{
 
 use tokio::{net::TcpStream, sync::oneshot};
 use tracing::warn;
-use vivian_proto::{Message, NetCmd, head::PacketHead};
+use yixuan_proto::{Message, NetCmd, head::PacketHead};
 
 use crate::{
     ConfigurableServiceModule, ServiceModule,

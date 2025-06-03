@@ -1,7 +1,7 @@
 use common::time_util;
 use config::AvatarBaseTemplate;
 use std::collections::HashMap;
-use vivian_logic::item::{AvatarItem, EAvatarSkillType};
+use yixuan_logic::item::{AvatarItem, EAvatarSkillType};
 
 use crate::player::Player;
 
@@ -23,7 +23,7 @@ pub fn unlock_avatars_on_first_login(player: &mut Player) {
 pub fn unlock_avatar(
     player: &mut Player,
     base_template: &AvatarBaseTemplate,
-    perform_type: Option<vivian_proto::add_avatar_sc_notify::PerformType>,
+    perform_type: Option<yixuan_proto::add_avatar_sc_notify::PerformType>,
 ) {
     const AVATAR_BLACKLIST: &[u32] = &[];
 
@@ -51,7 +51,7 @@ pub fn unlock_avatar(
                 passive_skill_level: 0,
                 skill_level_map,
                 weapon_uid: 0,
-                show_weapon_type: vivian_proto::AvatarShowWeaponType::ShowWeaponLock.into(),
+                show_weapon_type: yixuan_proto::AvatarShowWeaponType::ShowWeaponLock.into(),
                 dressed_equip_map: HashMap::new(),
                 first_get_time: time_util::unix_timestamp_seconds(),
                 taken_rank_up_reward_list: Vec::new(),

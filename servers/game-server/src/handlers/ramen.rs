@@ -1,5 +1,5 @@
-use vivian_codegen::handlers;
-use vivian_proto::{GetRamenDataCsReq, GetRamenDataScRsp};
+use yixuan_codegen::handlers;
+use yixuan_proto::{GetRamenDataCsReq, GetRamenDataScRsp};
 
 use super::NetContext;
 
@@ -13,7 +13,7 @@ impl RamenHandler {
     ) -> GetRamenDataScRsp {
         GetRamenDataScRsp {
             retcode: 0,
-            ramen_data: Some(vivian_proto::RamenData::default()),
+            ramen_data: Some(yixuan_proto::RamenData::default()),
         }
     }
 }

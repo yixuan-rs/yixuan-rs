@@ -6,7 +6,7 @@ use config::ServerConfig;
 use const_format::concatcp;
 use resources::{LoadResourcesError, NapResources, ServerGameplayConfig};
 use session::PlayerSessionManager;
-use vivian_service::{
+use yixuan_service::{
     ServiceContext, ServiceError,
     config::{ServiceType, load_environment_config},
     network::{NetworkEntityManager, NetworkServer, client::NetworkClient},

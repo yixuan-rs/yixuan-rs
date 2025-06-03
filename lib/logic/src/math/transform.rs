@@ -8,7 +8,7 @@ pub struct Transform {
 pub struct Vector3(pub f64, pub f64, pub f64);
 
 impl Transform {
-    pub fn from_proto(pb: &vivian_proto::common::Transform) -> Self {
+    pub fn from_proto(pb: &yixuan_proto::common::Transform) -> Self {
         #[allow(clippy::get_first)]
         Self {
             position: Vector3(
@@ -24,8 +24,8 @@ impl Transform {
         }
     }
 
-    pub fn to_proto(&self) -> vivian_proto::common::Transform {
-        vivian_proto::common::Transform {
+    pub fn to_proto(&self) -> yixuan_proto::common::Transform {
+        yixuan_proto::common::Transform {
             position: vec![self.position.0, self.position.1, self.position.2],
             rotation: vec![self.rotation.0, self.rotation.1, self.rotation.2],
         }

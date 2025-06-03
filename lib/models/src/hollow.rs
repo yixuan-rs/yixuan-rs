@@ -45,7 +45,7 @@ impl HollowModel {
 }
 
 impl Saveable for HollowModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.hollow = Some(HollowData {
             hollow_group_list: self.hollow_groups.iter().copied().collect(),
             unlock_hollow_group_list: self.new_hollow_groups.iter().copied().collect(),

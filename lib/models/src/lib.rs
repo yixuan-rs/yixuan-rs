@@ -32,8 +32,8 @@ pub use misc::{
 pub use quest::{MainCityQuestExt, Quest, QuestCollection, QuestModel};
 pub use scene::*;
 
-use vivian_codegen::Model;
-use vivian_proto::server_only::*;
+use yixuan_codegen::Model;
+use yixuan_proto::server_only::*;
 
 pub trait Model: Saveable {
     fn is_any_field_changed(&self) -> bool;

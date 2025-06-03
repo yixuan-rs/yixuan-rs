@@ -1,5 +1,5 @@
 [package]
-name = "vivian-models"
+name = "yixuan-models"
 edition = "2024"
 version.workspace = true
 
@@ -7,6 +7,6 @@ version.workspace = true
 tracing.workspace = true
 
 config.workspace = true
-vivian-logic.workspace = true
-vivian-proto.workspace = true
-vivian-codegen.workspace = true
+yixuan-logic.workspace = true
+yixuan-proto.workspace = true
+yixuan-codegen.workspace = true

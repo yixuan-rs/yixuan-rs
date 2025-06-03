@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use config::WeaponTemplate;
 use rand::{RngCore, seq::IteratorRandom};
-use vivian_logic::item::WeaponItem;
+use yixuan_logic::item::WeaponItem;
 
 use crate::player::Player;
 
@@ -118,7 +118,7 @@ pub fn add_items_on_first_login(player: &mut Player) {
 
         player.item_model.equip_map.insert(
             uid,
-            vivian_logic::item::EquipItem {
+            yixuan_logic::item::EquipItem {
                 id,
                 level: 15,
                 exp: 0,

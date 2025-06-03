@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
 
 use super::*;
-use vivian_codegen::Property;
+use yixuan_codegen::Property;
 
 use property::{PrimitiveProperty, Property, PropertyHashMap, PropertyHashSet};
 
@@ -208,7 +208,7 @@ impl MiscModel {
 }
 
 impl Saveable for MiscModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.misc = Some(MiscData {
             switch: Some(SwitchData {
                 open_system_id_list: self.switch.open_system_id.iter().copied().collect(),
@@ -231,7 +231,7 @@ impl Saveable for MiscModel {
                     .map(|(&ty, setting)| {
                         (
                             ty,
-                            vivian_proto::server_only::InputSettingInfo {
+                            yixuan_proto::server_only::InputSettingInfo {
                                 input_type_map: setting.input_type_map.clone(),
                             },
                         )
@@ -300,7 +300,7 @@ impl Saveable for MiscModel {
 }
 
 impl PropertyNewsStandData {
-    pub fn load_from_pb(pb: vivian_proto::server_only::NewsStandData) -> Self {
+    pub fn load_from_pb(pb: yixuan_proto::server_only::NewsStandData) -> Self {
         Self {
             cur_style: pb.cur_style.into(),
             normal_news_id: pb.normal_news_id_list.iter().copied().collect(),
@@ -315,8 +315,8 @@ impl PropertyNewsStandData {
         }
     }
 
-    pub fn save_to_pb(&self) -> vivian_proto::server_only::NewsStandData {
-        vivian_proto::server_only::NewsStandData {
+    pub fn save_to_pb(&self) -> yixuan_proto::server_only::NewsStandData {
+        yixuan_proto::server_only::NewsStandData {
             cur_style: self.cur_style.get(),
             normal_news_id_list: self.normal_news_id.iter().copied().collect(),
             head_lines_id_list: self.head_lines_id.iter().copied().collect(),
@@ -330,8 +330,8 @@ impl PropertyNewsStandData {
         }
     }
 
-    pub fn to_client_proto(&self) -> vivian_proto::NewsStandData {
-        vivian_proto::NewsStandData {
+    pub fn to_client_proto(&self) -> yixuan_proto::NewsStandData {
+        yixuan_proto::NewsStandData {
             cur_style: self.cur_style.get(),
             normal_news_id_list: self.normal_news_id.iter().copied().collect(),
             head_lines_id_list: self.head_lines_id.iter().copied().collect(),

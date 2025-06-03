@@ -1,4 +1,4 @@
-use vivian_logic::math::{Transform, Vector3};
+use yixuan_logic::math::{Transform, Vector3};
 
 use super::{PrimitiveProperty, Property};
 

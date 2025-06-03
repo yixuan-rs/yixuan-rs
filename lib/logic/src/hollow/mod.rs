@@ -1,7 +1,7 @@
 use chessboard::Chessboard;
 use common::time_util;
 use config::HollowChessboardConfig;
-use vivian_proto::{
+use yixuan_proto::{
     EnterSceneScNotify, EventGraphOwnerType, Message, action::MakeChoiceOfEvent, common::Vector2Int,
 };
 
@@ -116,12 +116,12 @@ impl GameHollowState {
         self.dungeon.flush_dungeon_quest_notifies(listener);
     }
 
-    pub fn client_scene_data_proto(&self) -> vivian_proto::SceneData {
-        vivian_proto::SceneData {
+    pub fn client_scene_data_proto(&self) -> yixuan_proto::SceneData {
+        yixuan_proto::SceneData {
             scene_id: self.scene_id,
             play_type: 0,
             scene_type: self.scene_type().into(),
-            hollow_scene_data: Some(vivian_proto::HollowSceneData {
+            hollow_scene_data: Some(yixuan_proto::HollowSceneData {
                 hollow_scene: Some(self.chessboard.as_client_proto()),
             }),
             ..Default::default()

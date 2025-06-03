@@ -62,7 +62,7 @@ pub fn impl_handlers(_attr: TokenStream, input: TokenStream) -> TokenStream {
     quote! {
         impl #impl_name {
             pub fn register_handlers(handler_map: &mut ::std::collections::HashMap<u16, super::PacketHandler>) {
-                use vivian_proto::*;
+                use yixuan_proto::*;
 
                 #registrations
             }

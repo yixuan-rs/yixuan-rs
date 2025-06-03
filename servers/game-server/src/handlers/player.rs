@@ -1,6 +1,6 @@
 use common::time_util;
 use tracing::debug;
-use vivian_proto::{
+use yixuan_proto::{
     GetAuthkeyCsReq, GetAuthkeyScRsp, GetBattleDataCsReq, GetBattleDataScRsp,
     GetPlayerTransactionCsReq, GetPlayerTransactionScRsp, GetSelfBasicInfoCsReq,
     GetSelfBasicInfoScRsp, GetServerTimestampCsReq, GetServerTimestampScRsp, ModAvatarCsReq,
@@ -10,7 +10,7 @@ use vivian_proto::{
 use crate::sync::SyncType;
 
 use super::NetContext;
-use vivian_codegen::{handlers, required_state};
+use yixuan_codegen::{handlers, required_state};
 
 pub struct PlayerHandler;
 

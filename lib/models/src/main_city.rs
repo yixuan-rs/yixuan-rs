@@ -1,6 +1,6 @@
 use super::*;
 use property::{PrimitiveProperty, Property, PropertyTransform};
-use vivian_logic::{hall::HallPosition, math::Transform};
+use yixuan_logic::{hall::HallPosition, math::Transform};
 
 #[derive(Model)]
 pub struct MainCityModel {
@@ -14,7 +14,7 @@ pub struct MainCityModel {
 
 impl MainCityModel {
     pub fn load_from_pb(pb: MainCityData) -> Self {
-        use vivian_proto::server_only::main_city_data::Pos;
+        use yixuan_proto::server_only::main_city_data::Pos;
 
         let (pos_in_main_city, transform_id) = match pb.pos {
             Some(Pos::Position(transform)) => (
@@ -54,8 +54,8 @@ impl MainCityModel {
 }
 
 impl Saveable for MainCityModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
-        use vivian_proto::server_only::main_city_data::Pos;
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
+        use yixuan_proto::server_only::main_city_data::Pos;
 
         root.main_city = Some(MainCityData {
             pos: Some(

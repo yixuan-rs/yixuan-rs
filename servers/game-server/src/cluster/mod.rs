@@ -10,12 +10,12 @@ use std::{
 
 use tokio::{sync::oneshot, task::JoinSet};
 use tracing::info;
-use vivian_logic::debug::GMCmd;
-use vivian_proto::{
+use yixuan_logic::debug::GMCmd;
+use yixuan_proto::{
     head::PacketHead,
     server_only::{PlayerData, PlayerDataChangedNotify},
 };
-use vivian_service::{
+use yixuan_service::{
     ConfigurableServiceModule, ServiceContext, Startable, config::ServiceType,
     network::client::NetworkClient,
 };
@@ -83,7 +83,7 @@ struct PlayerUpdate {
 impl Startable for PlayerLogicClusterManager {
     fn start(
         &self,
-        service: Arc<vivian_service::ServiceContext>,
+        service: Arc<yixuan_service::ServiceContext>,
     ) -> impl Future<Output = ()> + Send + Sync {
         let (report_tx, report_rx) = tokio::sync::mpsc::channel(self.cluster_map.len());
         let (player_update_tx, player_update_rx) =
@@ -110,7 +110,7 @@ impl Startable for PlayerLogicClusterManager {
 impl ConfigurableServiceModule for PlayerLogicClusterManager {
     type Config = LogicClusterConfig;
 
-    fn new(_context: &vivian_service::ServiceContext, config: Self::Config) -> Self {
+    fn new(_context: &yixuan_service::ServiceContext, config: Self::Config) -> Self {
         Self::new(config.cluster.num_clusters, config.resources)
     }
 }

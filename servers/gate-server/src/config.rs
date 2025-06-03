@@ -1,7 +1,7 @@
 use std::{collections::HashMap, net::SocketAddr};
 
 use serde::{Deserialize, Deserializer};
-use vivian_encryption::config::{RsaVersion, ScrambledKey};
+use yixuan_encryption::config::{RsaVersion, ScrambledKey};
 
 #[derive(Deserialize)]
 pub struct ServerConfig {

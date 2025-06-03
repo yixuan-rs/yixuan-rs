@@ -1,5 +1,5 @@
 use config::ConfigEventOwner;
-use vivian_proto::HollowEntityType;
+use yixuan_proto::HollowEntityType;
 
 use super::{
     component::HollowComponentManager,

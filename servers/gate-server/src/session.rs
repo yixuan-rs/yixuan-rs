@@ -5,12 +5,12 @@ use std::{
 
 use tokio::sync::mpsc;
 use tracing::{debug, error, warn};
-use vivian_proto::{
+use yixuan_proto::{
     PlayerGetTokenScRsp,
     head::PacketHead,
     server_only::{ExecuteClientCommandReq, ExecuteClientCommandRsp, NetCommand},
 };
-use vivian_service::{
+use yixuan_service::{
     CreatableServiceModule, ServiceContext, ServiceModule,
     config::ServiceType,
     network::{client::NetworkClient, entity::NetworkEntity, packet::NetPacket},
@@ -281,14 +281,14 @@ impl PlayerSession {
 impl ServiceModule for PlayerSessionManager {
     fn run(
         self: std::sync::Arc<Self>,
-        _service: std::sync::Arc<vivian_service::ServiceContext>,
+        _service: std::sync::Arc<yixuan_service::ServiceContext>,
     ) -> Result<(), Box<dyn std::error::Error>> {
         Ok(())
     }
 }
 
 impl CreatableServiceModule for PlayerSessionManager {
-    fn new(_context: &vivian_service::ServiceContext) -> Self {
+    fn new(_context: &yixuan_service::ServiceContext) -> Self {
         Self::default()
     }
 }

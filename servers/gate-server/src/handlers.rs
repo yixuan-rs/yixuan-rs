@@ -2,13 +2,13 @@ use std::{net::SocketAddr, sync::Arc};
 
 use tokio::sync::{mpsc, oneshot};
 use tracing::{debug, error, warn};
-use vivian_proto::{
+use yixuan_proto::{
     KeepAliveNotify, NetCmd, PlayerGetTokenCsReq, PlayerGetTokenScRsp, PlayerLoginCsReq,
     PlayerLoginScRsp, PlayerLogoutCsReq,
     head::PacketHead,
     server_only::{ClientPerformNotify, StopPlayerLogicReq, StopPlayerLogicRsp},
 };
-use vivian_service::{
+use yixuan_service::{
     ServiceContext, ServiceScope,
     config::ServiceType,
     network::{
@@ -226,7 +226,7 @@ async fn handle_player_get_token(
         rsp,
     ));
 
-    entity.set_session_key(vivian_encryption::mersenne_twister::generate_xorpad(
+    entity.set_session_key(yixuan_encryption::mersenne_twister::generate_xorpad(
         rand_key, true,
     ));
 }

@@ -1,5 +1,5 @@
 use serde::Deserialize;
-use vivian_logic::debug::GMCmd;
+use yixuan_logic::debug::GMCmd;
 
 #[derive(Deserialize)]
 pub struct ServerConfig {

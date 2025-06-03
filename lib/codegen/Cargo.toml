@@ -1,5 +1,5 @@
 [package]
-name = "vivian-codegen"
+name = "yixuan-codegen"
 edition = "2024"
 version.workspace = true
 

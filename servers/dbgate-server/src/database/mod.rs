@@ -1,11 +1,11 @@
 use common::time_util;
 use player_util::ModelData;
 use sqlx::prelude::FromRow;
-use vivian_proto::{
+use yixuan_proto::{
     Message,
     server_only::{BasicData, PlayerData},
 };
-use vivian_service::ServiceModule;
+use yixuan_service::ServiceModule;
 
 use crate::config::{ConnectionString, DbType};
 
@@ -17,7 +17,7 @@ pub struct DbConnection(sqlx::AnyPool, DbType);
 impl ServiceModule for DbConnection {
     fn run(
         self: std::sync::Arc<Self>,
-        _service: std::sync::Arc<vivian_service::ServiceContext>,
+        _service: std::sync::Arc<yixuan_service::ServiceContext>,
     ) -> Result<(), Box<dyn std::error::Error>> {
         Ok(())
     }
@@ -43,7 +43,7 @@ pub enum BinaryDataFetchError {
     #[error("SQL query failed: {0}")]
     Sql(#[from] sqlx::Error),
     #[error("failed to decode data blob: {0}")]
-    Decode(#[from] vivian_proto::DecodeError),
+    Decode(#[from] yixuan_proto::DecodeError),
 }
 
 impl DbConnection {

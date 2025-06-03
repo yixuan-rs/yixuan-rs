@@ -9,11 +9,11 @@ use axum::{
 use axum_extra::extract::OptionalQuery;
 use serde::{Deserialize, Serialize};
 use tracing::{error, info};
-use vivian_proto::{
+use yixuan_proto::{
     head::PacketHead,
     server_only::{GmTalkByMuipReq, GmTalkByMuipRsp},
 };
-use vivian_service::{
+use yixuan_service::{
     ConfigurableServiceModule, ServiceContext, ServiceModule,
     config::ServiceType,
     network::{client::NetworkClient, net_util},
@@ -113,7 +113,7 @@ impl IntoResponse for Response {
 impl ConfigurableServiceModule for HttpServer {
     type Config = ServerConfig;
 
-    fn new(_: &vivian_service::ServiceContext, config: Self::Config) -> Self {
+    fn new(_: &yixuan_service::ServiceContext, config: Self::Config) -> Self {
         Self {
             allowed_tokens: config.tokens,
             http_bind_addr: config.http_bind_addr,
@@ -124,7 +124,7 @@ impl ConfigurableServiceModule for HttpServer {
 impl ServiceModule for HttpServer {
     fn run(
         self: Arc<Self>,
-        service: Arc<vivian_service::ServiceContext>,
+        service: Arc<yixuan_service::ServiceContext>,
     ) -> Result<(), Box<dyn std::error::Error>> {
         let app = Router::new()
             .route(GM_API_ROUTE, routing::get(on_api_gm_request))

@@ -1,6 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-use vivian_proto::HollowEntityType;
+use yixuan_proto::HollowEntityType;
 
 use super::{component::HollowComponentManager, entity_util};
 
@@ -33,8 +33,8 @@ impl HollowEntityManager {
         &self,
         entity @ HollowEntity(uid): HollowEntity,
         hcm: &HollowComponentManager,
-    ) -> vivian_proto::HollowEntityInfo {
-        vivian_proto::HollowEntityInfo {
+    ) -> yixuan_proto::HollowEntityInfo {
+        yixuan_proto::HollowEntityInfo {
             uid,
             entity_type: uid / 1_000_000,
             entity_component_list: hcm.serialize_components(entity),
@@ -45,13 +45,13 @@ impl HollowEntityManager {
         &self,
         section: HollowEntity,
         hcm: &HollowComponentManager,
-    ) -> Vec<vivian_proto::HollowEntityInfo> {
+    ) -> Vec<yixuan_proto::HollowEntityInfo> {
         let mut entities = self
             .running_entities
             .iter()
             .filter(|&&entity| entity_util::belongs_to_section(entity, section, hcm))
             .map(
-                |&entity @ HollowEntity(uid)| vivian_proto::HollowEntityInfo {
+                |&entity @ HollowEntity(uid)| yixuan_proto::HollowEntityInfo {
                     uid,
                     entity_type: uid / 1_000_000,
                     entity_component_list: hcm.serialize_components(entity),

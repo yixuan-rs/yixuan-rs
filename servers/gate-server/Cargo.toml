@@ -1,5 +1,5 @@
 [package]
-name = "vivian-gate-server"
+name = "yixuan-gate-server"
 edition = "2024"
 version.workspace = true
 
@@ -16,6 +16,6 @@ rand.workspace = true
 tracing.workspace = true
 
 common.workspace = true
-vivian-proto.workspace = true
-vivian-encryption.workspace = true
-vivian-service.workspace = true
+yixuan-proto.workspace = true
+yixuan-encryption.workspace = true
+yixuan-service.workspace = true

@@ -2,8 +2,8 @@ use std::collections::HashMap;
 
 use common::time_util;
 use tracing::warn;
-use vivian_logic::dungeon::EQuestType;
-use vivian_models::{Hollow, HollowModel, MainCityQuestExt, Quest};
+use yixuan_logic::dungeon::EQuestType;
+use yixuan_models::{Hollow, HollowModel, MainCityQuestExt, Quest};
 
 use crate::{player::Player, resources::NapResources};
 

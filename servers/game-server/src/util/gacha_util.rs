@@ -1,6 +1,6 @@
-use vivian_logic::item::{EItemRarity, EItemType};
-use vivian_models::GachaModel;
-use vivian_proto::GachaDisplayData;
+use yixuan_logic::item::{EItemRarity, EItemType};
+use yixuan_models::GachaModel;
+use yixuan_proto::GachaDisplayData;
 
 use crate::{
     config::{GachaSchedule, GachaScheduleConfig},
@@ -166,7 +166,7 @@ pub fn display_data(player: &Player, schedule_config: &GachaScheduleConfig) -> G
                 player.gacha_model.gacha_stats.get(&schedule.gacha_id)?,
             ))
         })
-        .map(|(schedule, statistics)| vivian_proto::Gacha {
+        .map(|(schedule, statistics)| yixuan_proto::Gacha {
             gacha_type: schedule.gacha_type,
             gacha_id: schedule.gacha_id,
             gacha_schedule_id: schedule.gacha_schedule_id,
@@ -185,7 +185,7 @@ pub fn display_data(player: &Player, schedule_config: &GachaScheduleConfig) -> G
             gacha_material_list: schedule
                 .gacha_materials
                 .iter()
-                .map(|material| vivian_proto::GachaMaterial {
+                .map(|material| yixuan_proto::GachaMaterial {
                     material_id: material.id,
                     num: material.count,
                 })
@@ -195,6 +195,6 @@ pub fn display_data(player: &Player, schedule_config: &GachaScheduleConfig) -> G
 
     GachaDisplayData {
         gacha_random: player.gacha_model.gacha_random.seed(),
-        gacha_info: Some(vivian_proto::GachaInfo { gacha_list }),
+        gacha_info: Some(yixuan_proto::GachaInfo { gacha_list }),
     }
 }

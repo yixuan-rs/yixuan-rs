@@ -4,7 +4,7 @@ use std::{
 };
 
 use tracing::{debug, error};
-use vivian_proto::{Message, NetCmd, NetResponse};
+use yixuan_proto::{Message, NetCmd, NetResponse};
 
 mod login_sync;
 mod player_sync;

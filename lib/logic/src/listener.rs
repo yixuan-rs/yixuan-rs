@@ -1,4 +1,4 @@
-use vivian_proto::{Message, NetCmd};
+use yixuan_proto::{Message, NetCmd};
 
 pub trait NotifyListener {
     fn push(&mut self, cmd_id: u16, body: Vec<u8>);

@@ -1,5 +1,5 @@
-use vivian_codegen::handlers;
-use vivian_proto::{
+use yixuan_codegen::handlers;
+use yixuan_proto::{
     DoGachaCsReq, DoGachaScRsp, GachaBuyMaterialCsReq, GachaBuyMaterialScRsp,
     GachaSetNewbieAvatarCsReq, GachaSetNewbieAvatarScRsp, GetGachaDataCsReq, GetGachaDataScRsp,
 };
@@ -88,7 +88,7 @@ impl GachaHandler {
                 .player
                 .add_item(reward_item_id, 1, AddItemSource::Gacha);
 
-            drop_item_list.push(vivian_proto::DropItem {
+            drop_item_list.push(yixuan_proto::DropItem {
                 item_id: reward_item_id,
                 uid: item_uid.unwrap_or(0),
                 count: 1,

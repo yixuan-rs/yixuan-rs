@@ -1,13 +1,13 @@
 use std::sync::Arc;
 
-use vivian_logic::debug::{GMCmd, GMInput};
-use vivian_service::{CreatableServiceModule, ServiceModule};
+use yixuan_logic::debug::{GMCmd, GMInput};
+use yixuan_service::{CreatableServiceModule, ServiceModule};
 
 use crate::cluster::{PlayerLogicCluster, PlayerLogicClusterManager};
 
 use tokio::sync::{mpsc, oneshot};
 use tracing::{error, info, warn};
-use vivian_proto::{
+use yixuan_proto::{
     PlayerLoginCsReq, PlayerLoginScRsp,
     head::PacketHead,
     server_only::{
@@ -16,7 +16,7 @@ use vivian_proto::{
         StopPlayerLogicRsp,
     },
 };
-use vivian_service::{
+use yixuan_service::{
     ServiceContext, ServiceScope,
     config::ServiceType,
     network::{
@@ -41,14 +41,14 @@ pub struct PlayerSessionManager {
 impl ServiceModule for PlayerSessionManager {
     fn run(
         self: std::sync::Arc<Self>,
-        _service: std::sync::Arc<vivian_service::ServiceContext>,
+        _service: std::sync::Arc<yixuan_service::ServiceContext>,
     ) -> Result<(), Box<dyn std::error::Error>> {
         Ok(())
     }
 }
 
 impl CreatableServiceModule for PlayerSessionManager {
-    fn new(_context: &vivian_service::ServiceContext) -> Self {
+    fn new(_context: &yixuan_service::ServiceContext) -> Self {
         Self::default()
     }
 }
@@ -282,8 +282,8 @@ macro_rules! handlers {
     ($($name:ident;)*) => {
         async fn handle_cmd(scope: &ServiceScope, packet: NetPacket) -> Result<(), GetProtoError> {
             ::paste::paste! {
-                use vivian_proto::*;
-                use vivian_proto::server_only::*;
+                use yixuan_proto::*;
+                use yixuan_proto::server_only::*;
 
                 match packet.cmd_id {
                     $($name::CMD_ID => {

@@ -1,6 +1,6 @@
 use tracing::debug;
-use vivian_codegen::handlers;
-use vivian_proto::{
+use yixuan_codegen::handlers;
+use yixuan_proto::{
     PerformEndCsReq, PerformEndScRsp, PerformJumpCsReq, PerformJumpScRsp, PerformTriggerCsReq,
     PerformTriggerScRsp, StartTrainingCsReq, StartTrainingScRsp,
 };

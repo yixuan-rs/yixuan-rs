@@ -1,5 +1,5 @@
 [package]
-name = "vivian-service"
+name = "yixuan-service"
 edition = "2024"
 version.workspace = true
 
@@ -13,5 +13,5 @@ scc.workspace = true
 tracing.workspace = true
 serde.workspace = true
 
-vivian-proto.workspace = true
+yixuan-proto.workspace = true
 common.workspace = true

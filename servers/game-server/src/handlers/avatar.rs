@@ -1,13 +1,13 @@
-use vivian_codegen::{handlers, required_state};
-use vivian_logic::item::EItemType;
-use vivian_proto::{
+use yixuan_codegen::{handlers, required_state};
+use yixuan_logic::item::{AvatarItem, EItemType};
+use yixuan_proto::{
     AvatarFavoriteCsReq, AvatarFavoriteScRsp, AvatarLevelUpCsReq, AvatarLevelUpScRsp,
     AvatarSetAwakeCsReq, AvatarSetAwakeScRsp, AvatarShowWeaponCsReq, AvatarShowWeaponScRsp,
     AvatarSkinDressCsReq, AvatarSkinDressScRsp, AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp,
     EquipmentDressCsReq, EquipmentDressScRsp, EquipmentSuitDressCsReq, EquipmentSuitDressScRsp,
     EquipmentUnDressCsReq, EquipmentUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp,
-    GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, WeaponDressCsReq,
-    WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp,
+    GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, TalentSwitchCsReq,
+    TalentSwitchScRsp, WeaponDressCsReq, WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp,
 };
 
 use crate::{
@@ -205,14 +205,14 @@ impl AvatarHandler {
 
         avatar.weapon_uid = request.weapon_uid;
 
-        if avatar.show_weapon_type == vivian_proto::AvatarShowWeaponType::ShowWeaponLock.into()
+        if avatar.show_weapon_type == yixuan_proto::AvatarShowWeaponType::ShowWeaponLock.into()
             && context
                 .resources
                 .templates
                 .weapon_template_tb()
                 .any(|tmpl| tmpl.item_id() == weapon.id && tmpl.avatar_id() == request.avatar_id)
         {
-            avatar.show_weapon_type = vivian_proto::AvatarShowWeaponType::ShowWeaponActive.into();
+            avatar.show_weapon_type = yixuan_proto::AvatarShowWeaponType::ShowWeaponActive.into();
         }
 
         WeaponDressScRsp { retcode: 0 }
@@ -248,7 +248,7 @@ impl AvatarHandler {
             return AvatarShowWeaponScRsp { retcode: 1 };
         };
 
-        if avatar.show_weapon_type == vivian_proto::AvatarShowWeaponType::ShowWeaponLock.into() {
+        if avatar.show_weapon_type == yixuan_proto::AvatarShowWeaponType::ShowWeaponLock.into() {
             return AvatarShowWeaponScRsp { retcode: 1 };
         }
 
@@ -453,5 +453,43 @@ impl AvatarHandler {
         });
 
         EquipmentSuitDressScRsp { retcode: 0 }
+    }
+
+    pub fn on_talent_switch_cs_req(
+        context: &mut NetContext<'_>,
+        request: TalentSwitchCsReq,
+    ) -> TalentSwitchScRsp {
+        let Some(avatar) = context
+            .player
+            .avatar_model
+            .avatar_map
+            .get_mut(&request.avatar_id)
+        else {
+            return TalentSwitchScRsp { retcode: 1 };
+        };
+
+        if request.talent_switch_list.len() != AvatarItem::MAX_TALENT_NUM
+            || (request
+                .talent_switch_list
+                .iter()
+                .enumerate()
+                .rev()
+                .find_map(|(i, switch)| switch.then_some(i + 1))
+                .unwrap_or(0))
+                > avatar.unlocked_talent_num as usize
+        {
+            return TalentSwitchScRsp { retcode: 1 };
+        }
+
+        if (0..AvatarItem::MAX_TALENT_NUM / 2).any(|i| {
+            request.talent_switch_list[i]
+                && request.talent_switch_list[i + AvatarItem::MAX_TALENT_NUM / 2]
+        }) {
+            return TalentSwitchScRsp { retcode: 1 };
+        }
+
+        avatar.talent_switch = request.talent_switch_list.try_into().unwrap();
+
+        TalentSwitchScRsp { retcode: 0 }
     }
 }

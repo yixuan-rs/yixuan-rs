@@ -1,5 +1,5 @@
-use vivian_codegen::handlers;
-use vivian_proto::{
+use yixuan_codegen::handlers;
+use yixuan_proto::{
     AreaGroupInfo, AreaMapData, AreaMapModStateCsReq, AreaMapModStateScRsp,
     AreaStreetInfo, GetAreaMapDataCsReq, GetAreaMapDataScRsp, GetAreaPortalDataCsReq,
     GetAreaPortalDataScRsp,

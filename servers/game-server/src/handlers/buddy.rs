@@ -1,5 +1,5 @@
-use vivian_codegen::{handlers, required_state};
-use vivian_proto::{GetBuddyDataCsReq, GetBuddyDataScRsp};
+use yixuan_codegen::{handlers, required_state};
+use yixuan_proto::{GetBuddyDataCsReq, GetBuddyDataScRsp};
 
 use crate::sync::SyncType;
 

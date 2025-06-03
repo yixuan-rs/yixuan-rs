@@ -5,7 +5,7 @@ use config::{
 };
 use npc::{Interact, InteractTarget, SceneUnit};
 use tracing::{error, warn};
-use vivian_proto::{
+use yixuan_proto::{
     EnterSceneScNotify, EventGraphOwnerType, FinishEventGraphScNotify, SectionEventScNotify,
     common::TimePeriodType, server_only::GraphReferenceType,
 };
@@ -336,11 +336,11 @@ impl GameHallState {
         self.time_period != TimePeriodType::None
     }
 
-    fn remove_pending_refresh(&mut self) -> Option<vivian_proto::HallRefreshScNotify> {
+    fn remove_pending_refresh(&mut self) -> Option<yixuan_proto::HallRefreshScNotify> {
         self.refresh_required.then(|| {
             self.refresh_required = false;
 
-            vivian_proto::HallRefreshScNotify {
+            yixuan_proto::HallRefreshScNotify {
                 force_refresh: true,
                 section_id: self.section_id,
                 bgm_id: self.bgm_id,
@@ -613,10 +613,10 @@ impl GameHallState {
         }
     }
 
-    pub fn client_scene_data_proto(&self) -> vivian_proto::SceneData {
-        vivian_proto::SceneData {
+    pub fn client_scene_data_proto(&self) -> yixuan_proto::SceneData {
+        yixuan_proto::SceneData {
             scene_type: self.scene_type().into(),
-            hall_scene_data: Some(vivian_proto::HallSceneData {
+            hall_scene_data: Some(yixuan_proto::HallSceneData {
                 section_id: self.section_id,
                 bgm_id: self.bgm_id,
                 day_of_week: self.day_of_week,
@@ -690,7 +690,7 @@ impl ActionListener for GameHallState {
     fn enqueue_client_action(
         &mut self,
         (event_uid, event): (EventUID, &Event),
-        info: vivian_proto::ActionInfo,
+        info: yixuan_proto::ActionInfo,
     ) {
         self.pending_event_notifies.push(SectionEventScNotify {
             event_id: event_uid.event_id(),

@@ -1,9 +1,9 @@
 use common::time_util;
 use tracing::{debug, warn};
-use vivian_codegen::{handlers, required_state};
-use vivian_logic::system::{ClientSystemType, EOperator};
-use vivian_models::InputSetting;
-use vivian_proto::{
+use yixuan_codegen::{handlers, required_state};
+use yixuan_logic::system::{ClientSystemType, EOperator};
+use yixuan_models::InputSetting;
+use yixuan_proto::{
     BattleReportCsReq, BattleReportScRsp, EndNewbieCsReq, EndNewbieScRsp, FinishNewbieGroupCsReq, FinishNewbieGroupScRsp, GameLogReportCsReq, GameLogReportScRsp, GetMiscDataCsReq, GetMiscDataScRsp, GetNewsStandDataCsReq, GetNewsStandDataScRsp, GetSwitchDataCsReq, GetSwitchDataScRsp, ItemRewardInfo, NewsStandSignCsReq, NewsStandSignScRsp, PlayerOperationCsReq, PlayerOperationScRsp, ReadNewsCsReq, ReadNewsScRsp, ReportUiLayoutPlatformCsReq, ReportUiLayoutPlatformScRsp, SavePlayerAccessoryCsReq, SavePlayerAccessoryScRsp, SavePlayerSystemSettingCsReq, SavePlayerSystemSettingScRsp, SelectPostGirlCsReq, SelectPostGirlScRsp, SyncGlobalVariablesCsReq, SyncGlobalVariablesScRsp, VideoGetInfoCsReq, VideoGetInfoScRsp
 };
 

@@ -2,8 +2,8 @@ use crate::{player::Player, resources::NapResources};
 
 use std::{collections::HashMap, sync::LazyLock};
 
-use vivian_logic::{GameState, listener::NotifyListener};
-use vivian_proto::{Message, NetCmd};
+use yixuan_logic::{GameState, listener::NotifyListener};
+use yixuan_proto::{Message, NetCmd};
 
 type PacketHandler = fn(&mut NetContext<'_>, u16, Vec<u8>);
 

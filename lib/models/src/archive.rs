@@ -35,7 +35,7 @@ impl ArchiveModel {
 }
 
 impl Saveable for ArchiveModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.archive = Some(ArchiveData {
             hollow_archive_id_list: self.unlocked_hollow_archive_ids.iter().copied().collect(),
             videotape_list: self

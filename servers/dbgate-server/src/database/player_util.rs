@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use vivian_proto::server_only::{
+use yixuan_proto::server_only::{
     AbyssData, ArchiveData, AvatarData, BattleData, BuddyData, BusinessCardData, GachaData,
     HollowData, ItemData, MainCityData, MapData, MiscData, NewbieData, NewsStandData,
     PlayerAccessoryData, PostGirlData, QuestData, SceneData, SwitchData, TeleportUnlockData,

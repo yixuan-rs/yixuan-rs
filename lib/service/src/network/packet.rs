@@ -1,4 +1,4 @@
-use vivian_proto::{Message, NetCmd, head::PacketHead};
+use yixuan_proto::{Message, NetCmd, head::PacketHead};
 
 pub struct NetPacket {
     pub cmd_id: u16,
@@ -15,7 +15,7 @@ pub enum DecodeError {
     #[error("unexpected tail magic (0x{0:X})")]
     TailMagicMismatch(u32),
     #[error("failed to decode PacketHead: {0}")]
-    PacketHeadCorrupted(#[from] vivian_proto::DecodeError),
+    PacketHeadCorrupted(#[from] yixuan_proto::DecodeError),
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -23,7 +23,7 @@ pub enum GetProtoError {
     #[error("unexpected cmd_id: {0} (expected: {1})")]
     CmdIdMismatch(u16, u16),
     #[error("failed to decode: {0}")]
-    Decode(#[from] vivian_proto::DecodeError),
+    Decode(#[from] yixuan_proto::DecodeError),
 }
 
 impl NetPacket {
@@ -72,7 +72,7 @@ impl NetPacket {
         ))
     }
 
-    pub fn get_proto<T: vivian_proto::Message + Default + NetCmd>(
+    pub fn get_proto<T: yixuan_proto::Message + Default + NetCmd>(
         &self,
     ) -> Result<T, GetProtoError> {
         if T::CMD_ID != self.cmd_id {

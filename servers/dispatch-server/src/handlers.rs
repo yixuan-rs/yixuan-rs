@@ -8,7 +8,7 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use tracing::{debug, warn};
-use vivian_encryption::config::RsaVersion;
+use yixuan_encryption::config::RsaVersion;
 
 use crate::{
     SharedState,
@@ -44,7 +44,7 @@ pub async fn query_dispatch(
         .filter(|item| item.bind_versions.contains(&param.version))
         .collect();
 
-    if server_list.len() == 0 {
+    if server_list.is_empty() {
         warn!("No servers for specified version found");
     }
 
@@ -80,8 +80,8 @@ impl QueryGatewayRsp {
         let data = data.as_bytes();
 
         Self::Data {
-            content: vivian_encryption::rsa::encrypt(&rsa_version.client_public_key, data),
-            sign: vivian_encryption::rsa::sign(&rsa_version.server_private_key, data),
+            content: yixuan_encryption::rsa::encrypt(&rsa_version.client_public_key, data),
+            sign: yixuan_encryption::rsa::sign(&rsa_version.server_private_key, data),
         }
     }
 

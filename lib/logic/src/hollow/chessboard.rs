@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use config::{GraphReference, HollowChessboardConfig, HollowSectionConfig, SectionEvent};
 use tracing::{error, warn};
-use vivian_proto::{
+use yixuan_proto::{
     EventGraphOwnerType, FinishEventGraphScNotify, GridLink, GridType, HenshinType,
     HollowEntityType, HollowGridMapType, HollowPushReason, HollowPushScNotify,
     SectionEventScNotify,
@@ -699,7 +699,7 @@ impl Chessboard {
     pub fn sync_hollow_grid(&mut self) {
         if !self.component_manager.is_synchronized() {
             self.global_event_helper
-                .add(vivian_proto::SyncHollowGridMapsScNotify {
+                .add(yixuan_proto::SyncHollowGridMapsScNotify {
                     modify_entity_list: self
                         .component_manager
                         .get_changed_entities()
@@ -715,7 +715,7 @@ impl Chessboard {
         }
     }
 
-    pub fn as_client_proto(&self) -> vivian_proto::HollowScene {
+    pub fn as_client_proto(&self) -> yixuan_proto::HollowScene {
         let player_pos = self
             .component_manager
             .get_pos_component(self.player)
@@ -724,20 +724,20 @@ impl Chessboard {
                 y: comp.pos.1,
             });
 
-        vivian_proto::HollowScene {
+        yixuan_proto::HollowScene {
             henshin_type: self.henshin.into(),
             cur_event_entity_info: self.global_event().map(|e| {
                 self.entity_manager
                     .serialize_entity(e, &self.component_manager)
             }),
-            hollow_grid_maps: Some(vivian_proto::HollowGridMapsInfo {
+            hollow_grid_maps: Some(yixuan_proto::HollowGridMapsInfo {
                 hollow_grid_map_type: HollowGridMapType::Unknown1.into(),
                 cur_section_id: self.cur_section.as_raw_u32(),
                 cur_hollow_position: player_pos,
                 hollow_section_list: self
                     .sections
                     .iter()
-                    .map(|&section| vivian_proto::HollowSectionInfo {
+                    .map(|&section| yixuan_proto::HollowSectionInfo {
                         section_id: section.as_raw_u32(),
                         time: String::from("Afternoon"),
                         weather: String::from("SunShine"),
@@ -752,9 +752,9 @@ impl Chessboard {
                             y: -32768,
                         }),
                         hollow_objective_id: 1000204,
-                        section_grid_map: Some(vivian_proto::HollowSectionGridMapInfo {
+                        section_grid_map: Some(yixuan_proto::HollowSectionGridMapInfo {
                             cur_grid_position: player_pos, // idk?
-                            hollow_grid_map: Some(vivian_proto::HollowGridMap {
+                            hollow_grid_map: Some(yixuan_proto::HollowGridMap {
                                 hollow_grid_list: self
                                     .entity_manager
                                     .serialize_entities(section, &self.component_manager),
@@ -822,7 +822,7 @@ impl ActionListener for Chessboard {
     fn enqueue_client_action(
         &mut self,
         (event_uid, event): (EventUID, &Event),
-        info: vivian_proto::ActionInfo,
+        info: yixuan_proto::ActionInfo,
     ) {
         self.global_event_helper.add(SectionEventScNotify {
             event_id: event_uid.event_id(),

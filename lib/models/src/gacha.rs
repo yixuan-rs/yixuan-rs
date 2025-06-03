@@ -72,7 +72,7 @@ impl GachaModel {
 }
 
 impl Saveable for GachaModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.gacha = Some(GachaData {
             gacha_statistics_list: self
                 .gacha_stats

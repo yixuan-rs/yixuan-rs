@@ -1,5 +1,5 @@
-use vivian_codegen::handlers;
-use vivian_proto::{GetPhotoWallDataCsReq, GetPhotoWallDataScRsp};
+use yixuan_codegen::handlers;
+use yixuan_proto::{GetPhotoWallDataCsReq, GetPhotoWallDataScRsp};
 
 use super::NetContext;
 

@@ -3,13 +3,13 @@ use std::cmp;
 use config::{ActionSwitchSection, ConfigEvent, ConfigEventAction};
 use itertools::Itertools;
 use tracing::{error, instrument};
-use vivian_logic::{
+use yixuan_logic::{
     GameState,
     debug::GMCmd,
     dungeon::EQuestType,
     item::{EAvatarSkillType, EquipItem},
 };
-use vivian_models::SceneSnapshotExt;
+use yixuan_models::SceneSnapshotExt;
 
 use crate::{
     player::{AddItemSource, Player},
@@ -105,6 +105,14 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
             target_avatar_ids.into_iter().for_each(|avatar_id| {
                 let avatar = player.avatar_model.avatar_map.get_mut(&avatar_id).unwrap();
                 avatar.unlocked_talent_num = talent_num;
+                avatar.talent_switch = [
+                    (1..=3).contains(&talent_num),
+                    (2..=4).contains(&talent_num),
+                    (3..=5).contains(&talent_num),
+                    (4..).contains(&talent_num),
+                    (5..).contains(&talent_num),
+                    (6..).contains(&talent_num),
+                ];
             });
         }
         AddWeapon {

@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use super::*;
 use property::{PrimitiveProperty, Property, PropertyHashMap};
-use vivian_logic::item::{EquipItem, WeaponItem};
+use yixuan_logic::item::{EquipItem, WeaponItem};
 
 #[derive(Model)]
 pub struct ItemModel {
@@ -78,7 +78,7 @@ impl ItemModel {
 }
 
 impl Saveable for ItemModel {
-    fn save_to_pb(&self, root: &mut vivian_proto::server_only::PlayerData) {
+    fn save_to_pb(&self, root: &mut yixuan_proto::server_only::PlayerData) {
         root.item = Some(ItemData {
             item_list: self
                 .item_count_map
