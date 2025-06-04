@@ -16,7 +16,6 @@ use yixuan_logic::{
     hollow::GameHollowState,
     listener::LogicEventListener,
     long_fight::GameLongFightState,
-    scene::ELocalPlayType,
 };
 use yixuan_proto::{BigBossInfo, PlayerSyncScNotify, server_only::PlayerData};
 
@@ -148,7 +147,6 @@ impl Player {
                     sections: HashMap::new(),
                     main_city_objects_state: HashMap::new(),
                 }),
-                play_type: ELocalPlayType::Unknown,
                 dungeon_uid: 0,
                 to_be_destroyed: false,
                 back_scene_uid: 0,
@@ -180,19 +178,15 @@ impl Player {
             return;
         };
 
-        let reward_item_list = once_reward_template
+        once_reward_template
             .reward_list()
             .unwrap()
             .iter()
-            .map(|reward| {
+            .for_each(|reward| {
                 self.add_item(reward.item_id(), reward.amount(), AddItemSource::OnceReward);
-                (reward.item_id(), reward.amount() as i32)
-            })
-            .collect();
+            });
 
-        self.item_model
-            .new_reward_map
-            .insert(once_reward_id, reward_item_list);
+        self.item_model.gained_once_rewards.insert(once_reward_id);
     }
 
     pub fn add_item(&mut self, id: u32, count: u32, source: AddItemSource) -> Option<u32> {
@@ -268,14 +262,12 @@ impl Player {
                 self.scene_model.create_long_fight_dungeon(
                     quest_id,
                     battle_group_config.battle_event_id(),
-                    ELocalPlayType::PureHollowBattleLonghfight,
                     self.build_dungeon_equipment(avatars),
                 )
             }
             HollowQuestType::SideQuest => self.scene_model.create_hollow_dungeon(
                 quest_id,
                 hollow_quest_template.chessboard_id(),
-                ELocalPlayType::Unknown,
                 self.build_dungeon_equipment(avatars),
             ),
             HollowQuestType::NormalBattle => {
@@ -290,7 +282,6 @@ impl Player {
                     quest_id,
                     10,
                     battle_group_config.battle_event_id(),
-                    ELocalPlayType::PureHollowBattle,
                     self.build_dungeon_equipment(avatars),
                 )
             }
@@ -320,7 +311,6 @@ impl Player {
             quest_id,
             0,
             quest_template.battle_event_id(),
-            ELocalPlayType::TrainingRoom,
             self.build_dungeon_equipment(avatars),
         );
 
@@ -358,7 +348,6 @@ impl Player {
                         quest_id,
                         EQuestType::DoubleElite.into(),
                         double_elite_template.battle_event_id(),
-                        ELocalPlayType::DualElite,
                         self.build_dungeon_equipment(avatars),
                     )
                 }
@@ -373,7 +362,6 @@ impl Player {
                         quest_id,
                         EQuestType::BigBoss.into(),
                         double_elite_template.battle_event_id(),
-                        ELocalPlayType::BigBossBattle,
                         self.build_dungeon_equipment(avatars),
                     )
                 }
@@ -578,8 +566,7 @@ impl Player {
                     .unwrap()
                     .clone();
 
-                GameFightState::new(snapshot.scene_id, snapshot.play_type, resources, dungeon)
-                    .into()
+                GameFightState::new(snapshot.scene_id, resources, dungeon, self).into()
             }
             SceneSnapshotExt::LongFight(_fight) => {
                 let dungeon = self
@@ -589,8 +576,7 @@ impl Player {
                     .unwrap()
                     .clone();
 
-                GameLongFightState::new(snapshot.scene_id, snapshot.play_type, resources, dungeon)
-                    .into()
+                GameLongFightState::new(snapshot.scene_id, resources, dungeon, self).into()
             }
         }
     }
@@ -908,6 +894,16 @@ impl Player {
                 .newbie
                 .finished_groups
                 .contains(&(*group_id as i32)),
+            Condition::OnceRewardGained {
+                reward_ids,
+                target_num,
+            } => {
+                reward_ids
+                    .iter()
+                    .filter(|&id| self.item_model.gained_once_rewards.contains(id))
+                    .count() as u32
+                    >= *target_num
+            }
             Condition::SignedNewsStandToday => !self.misc_model.news_stand.can_sign.get(),
         }
     }
@@ -964,6 +960,13 @@ impl Player {
     pub fn ensure_state(&mut self, state: LoadingState) -> bool {
         self.loading_state == state
     }
+
+    fn logic_resources(&self) -> LogicResources {
+        LogicResources {
+            template_collection: &self.resources.templates,
+            event_graphs: &self.resources.event_graphs,
+        }
+    }
 }
 
 impl LogicEventListener for Player {
@@ -999,6 +1002,10 @@ impl LogicEventListener for Player {
 
     fn give_once_reward(&mut self, once_reward_id: u32) {
         self.claim_reward(once_reward_id);
+    }
+
+    fn has_gained_once_reward(&self, once_reward_id: u32) -> bool {
+        self.item_model.gained_once_rewards.contains(&once_reward_id)
     }
 
     fn hollow_event_executed(&mut self, hollow_event_id: u32) {

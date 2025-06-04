@@ -1,3 +1,4 @@
+use yixuan_logic::LogicResources;
 use yixuan_models::*;
 use yixuan_proto::*;
 
@@ -5,11 +6,19 @@ use yixuan_models::property::Property;
 
 pub trait PlayerSyncComponent {
     fn supports_player_sync(&self) -> bool;
-    fn add_changes_to_player_sync_notify(&self, player_sync_sc_notify: &mut PlayerSyncScNotify);
+    fn add_changes_to_player_sync_notify(
+        &self,
+        player_sync_sc_notify: &mut PlayerSyncScNotify,
+        res: &LogicResources,
+    );
 }
 
 impl PlayerSyncComponent for PlayerBasicModel {
-    fn add_changes_to_player_sync_notify(&self, player_sync_sc_notify: &mut PlayerSyncScNotify) {
+    fn add_changes_to_player_sync_notify(
+        &self,
+        player_sync_sc_notify: &mut PlayerSyncScNotify,
+        _: &LogicResources,
+    ) {
         player_sync_sc_notify.self_basic_info = Some(self.build_self_basic_info());
     }
 
@@ -22,6 +31,7 @@ impl PlayerSyncComponent for ItemModel {
     fn add_changes_to_player_sync_notify(
         &self,
         player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        res: &LogicResources,
     ) {
         let item_sync = player_sync_sc_notify.item.get_or_insert_default();
 
@@ -49,24 +59,29 @@ impl PlayerSyncComponent for ItemModel {
             );
         }
 
-        if self.new_reward_map.is_changed() {
+        if self.gained_once_rewards.is_changed() {
             let item_changed = item_sync.item_changed.get_or_insert_default();
             let reward_changes = item_changed.item_reward_map.entry(1).or_default();
 
             reward_changes
                 .reward_list
-                .extend(
-                    self.new_reward_map
-                        .iter_changed_items()
-                        .flat_map(|(_, changes)| {
-                            changes
-                                .iter()
-                                .map(|&(item_id, amount)| yixuan_proto::ItemRewardInfo {
-                                    item_id,
-                                    amount: amount as u32,
-                                })
-                        }),
-                );
+                .extend(self.gained_once_rewards.iter_added_keys().flat_map(|&id| {
+                    res.template_collection
+                        .once_reward_template_tb()
+                        .find_map(|tmpl| {
+                            (tmpl.reward_id() == id).then(|| {
+                                tmpl.reward_list()
+                                    .unwrap_or_default()
+                                    .iter()
+                                    .map(|reward| yixuan_proto::ItemRewardInfo {
+                                        item_id: reward.item_id(),
+                                        amount: reward.amount(),
+                                    })
+                                    .collect::<Vec<_>>()
+                            })
+                        })
+                        .unwrap_or_default()
+                }));
         }
     }
 
@@ -79,6 +94,7 @@ impl PlayerSyncComponent for AvatarModel {
     fn add_changes_to_player_sync_notify(
         &self,
         player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
     ) {
         player_sync_sc_notify
             .avatar
@@ -104,6 +120,7 @@ impl PlayerSyncComponent for QuestModel {
     fn add_changes_to_player_sync_notify(
         &self,
         player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
     ) {
         player_sync_sc_notify.quest = Some(QuestSync {
             quest_list: self
@@ -145,6 +162,7 @@ impl PlayerSyncComponent for ArchiveModel {
     fn add_changes_to_player_sync_notify(
         &self,
         _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
     ) {
     }
 }
@@ -157,6 +175,7 @@ impl PlayerSyncComponent for HollowModel {
     fn add_changes_to_player_sync_notify(
         &self,
         player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
     ) {
         player_sync_sc_notify.hollow = Some(yixuan_proto::HollowSync {
             hollow_group_list: self.hollow_groups.iter().copied().collect(),
@@ -183,6 +202,7 @@ impl PlayerSyncComponent for AbyssModel {
     fn add_changes_to_player_sync_notify(
         &self,
         _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
     ) {
     }
 }
@@ -195,6 +215,7 @@ impl PlayerSyncComponent for BuddyModel {
     fn add_changes_to_player_sync_notify(
         &self,
         _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
     ) {
     }
 }
@@ -207,6 +228,7 @@ impl PlayerSyncComponent for MiscModel {
     fn add_changes_to_player_sync_notify(
         &self,
         player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
     ) {
         let sync = player_sync_sc_notify.misc.get_or_insert_default();
 
@@ -294,7 +316,12 @@ impl PlayerSyncComponent for GachaModel {
         false
     }
 
-    fn add_changes_to_player_sync_notify(&self, _: &mut yixuan_proto::PlayerSyncScNotify) {}
+    fn add_changes_to_player_sync_notify(
+        &self,
+        _: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
+    ) {
+    }
 }
 
 impl PlayerSyncComponent for MapModel {
@@ -302,7 +329,12 @@ impl PlayerSyncComponent for MapModel {
         false
     }
 
-    fn add_changes_to_player_sync_notify(&self, _: &mut yixuan_proto::PlayerSyncScNotify) {}
+    fn add_changes_to_player_sync_notify(
+        &self,
+        _: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
+    ) {
+    }
 }
 
 impl PlayerSyncComponent for MainCityModel {
@@ -313,6 +345,7 @@ impl PlayerSyncComponent for MainCityModel {
     fn add_changes_to_player_sync_notify(
         &self,
         _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
     ) {
     }
 }
@@ -325,6 +358,7 @@ impl PlayerSyncComponent for SceneModel {
     fn add_changes_to_player_sync_notify(
         &self,
         _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
+        _: &LogicResources,
     ) {
     }
 }

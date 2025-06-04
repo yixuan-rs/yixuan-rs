@@ -717,7 +717,23 @@ pub struct ScenePerformInfo {
     pub weather: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-pub struct SceneRewardInfo {}
+pub struct DropItems {
+    #[prost(map = "uint32, uint32", tag = "1")]
+    pub drop_items: ::std::collections::HashMap<u32, u32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct BattleRewardInfo {
+    #[prost(uint32, tag = "1")]
+    pub reward_id: u32,
+    #[prost(map = "uint32, message", tag = "3")]
+    pub battle_reward_map: ::std::collections::HashMap<u32, DropItems>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct SceneRewardInfo {
+    pub normal_drop_reward_list: ::prost::alloc::vec::Vec<BattleRewardInfo>,
+    #[prost(message, repeated, tag = "7")]
+    pub special_drop_reward_list: ::prost::alloc::vec::Vec<BattleRewardInfo>,
+}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct FightSceneData {
     #[prost(message, optional, tag = "13")]
@@ -1235,6 +1251,17 @@ pub struct EnterSectionCsReq {
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
 pub struct EnterSectionScRsp {
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(1033)]
+pub struct CollectHollowRewardCsReq {
+    #[prost(uint32, repeated, tag = "8")]
+    pub reward_id_list: ::prost::alloc::vec::Vec<u32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct CollectHollowRewardScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]

@@ -5,16 +5,17 @@ use yixuan_logic::{
     GameState, hall::HallEventGraphError, listener::NotifyListenerExt, math::Transform,
 };
 use yixuan_proto::{
-    EndBattleCsReq, EndBattleScRsp, EndNpcTalkCsReq, EndNpcTalkScRsp, EnterSectionCompleteCsReq,
-    EnterSectionCompleteScRsp, EnterSectionCsReq, EnterSectionScRsp, EnterWorldCsReq,
-    EnterWorldScRsp, EventGraphOwnerType, FightSettle, HollowEventReportCsReq,
-    HollowEventReportScRsp, HollowMoveCsReq, HollowMoveScRsp, HollowTickCsReq, HollowTickScRsp,
-    InteractWithUnitCsReq, InteractWithUnitScRsp, LeaveCurSceneCsReq, LeaveCurSceneScRsp,
-    ModMainCityTimeCsReq, ModMainCityTimeScRsp, RunEventActionCsReq, RunEventActionScRsp,
-    RunEventGraphCsReq, RunEventGraphScRsp, SavePosInMainCityCsReq, SavePosInMainCityScRsp,
-    SceneTransitionCsReq, SceneTransitionScRsp, SectionRefreshCsReq, SectionRefreshScRsp,
-    SyncLongFightProgressCsReq, SyncLongFightProgressScRsp, TriggerHollowEventCsReq,
-    TriggerHollowEventScRsp, TriggerInteractCsReq, TriggerInteractScRsp,
+    CollectHollowRewardCsReq, CollectHollowRewardScRsp, EndBattleCsReq, EndBattleScRsp,
+    EndNpcTalkCsReq, EndNpcTalkScRsp, EnterSectionCompleteCsReq, EnterSectionCompleteScRsp,
+    EnterSectionCsReq, EnterSectionScRsp, EnterWorldCsReq, EnterWorldScRsp, EventGraphOwnerType,
+    FightSettle, HollowEventReportCsReq, HollowEventReportScRsp, HollowMoveCsReq, HollowMoveScRsp,
+    HollowTickCsReq, HollowTickScRsp, InteractWithUnitCsReq, InteractWithUnitScRsp,
+    LeaveCurSceneCsReq, LeaveCurSceneScRsp, ModMainCityTimeCsReq, ModMainCityTimeScRsp,
+    RunEventActionCsReq, RunEventActionScRsp, RunEventGraphCsReq, RunEventGraphScRsp,
+    SavePosInMainCityCsReq, SavePosInMainCityScRsp, SceneTransitionCsReq, SceneTransitionScRsp,
+    SectionRefreshCsReq, SectionRefreshScRsp, SyncLongFightProgressCsReq,
+    SyncLongFightProgressScRsp, TriggerHollowEventCsReq, TriggerHollowEventScRsp,
+    TriggerInteractCsReq, TriggerInteractScRsp,
 };
 
 use super::NetContext;
@@ -261,6 +262,36 @@ impl WorldHandler {
         EndNpcTalkScRsp { retcode: 0 }
     }
 
+    pub fn on_collect_hollow_reward_cs_req(
+        context: &mut NetContext,
+        request: CollectHollowRewardCsReq,
+    ) -> CollectHollowRewardScRsp {
+        debug!("{request:?}");
+
+        match context.game_state.as_mut() {
+            Some(GameState::Fight(fight)) => {
+                if let Err(err) = fight.collect_rewards(&request.reward_id_list, context.player) {
+                    warn!("failed to collect reward: {err}");
+                    return CollectHollowRewardScRsp { retcode: 1 };
+                }
+            }
+            Some(GameState::LongFight(long_fight)) => {
+                if let Err(err) =
+                    long_fight.collect_rewards(&request.reward_id_list, context.player)
+                {
+                    warn!("failed to collect reward: {err}");
+                    return CollectHollowRewardScRsp { retcode: 1 };
+                }
+            }
+            _ => {
+                warn!("received CollectHollowRewardCsReq in invalid state");
+                return CollectHollowRewardScRsp { retcode: 1 };
+            }
+        }
+
+        CollectHollowRewardScRsp { retcode: 0 }
+    }
+
     pub fn on_end_battle_cs_req(
         context: &mut NetContext,
         request: EndBattleCsReq,
@@ -328,23 +359,20 @@ impl WorldHandler {
     ) -> ModMainCityTimeScRsp {
         let Some(GameState::Hall(hall)) = context.game_state.as_mut() else {
             warn!("ModMainCityTimeCsReq received in wrong state");
-            return ModMainCityTimeScRsp {
-                retcode: -1,
-            };
+            return ModMainCityTimeScRsp { retcode: -1 };
         };
 
         let Ok(time_period) = ETimePeriodType::try_from(request.time_period) else {
-            warn!("ModMainCityTimeCsReq: invalid time period type: {}", request.time_period);
-            return ModMainCityTimeScRsp {
-                retcode: -1,
-            };
+            warn!(
+                "ModMainCityTimeCsReq: invalid time period type: {}",
+                request.time_period
+            );
+            return ModMainCityTimeScRsp { retcode: -1 };
         };
 
         if hall.is_time_locked() {
             warn!("received ModMainCityTimeCsReq when MainCityTime is locked");
-            return ModMainCityTimeScRsp {
-                retcode: -1,
-            };
+            return ModMainCityTimeScRsp { retcode: -1 };
         }
 
         hall.set_time_period(time_period);

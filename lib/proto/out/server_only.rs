@@ -106,6 +106,8 @@ pub struct ItemData {
     pub auto_recovery_item_map: ::std::collections::HashMap<u32, AutoRecoveryItemInfo>,
     #[prost(uint32, tag = "5")]
     pub item_uid_counter: u32,
+    #[prost(uint32, repeated, tag = "6")]
+    pub gained_once_reward_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
@@ -487,8 +489,6 @@ pub struct SceneData {
 pub struct SceneInfo {
     #[prost(uint32, tag = "1")]
     pub id: u32,
-    #[prost(uint32, tag = "2")]
-    pub play_type: u32,
     #[prost(uint64, tag = "3")]
     pub dungeon_uid: u64,
     #[prost(uint64, tag = "4")]

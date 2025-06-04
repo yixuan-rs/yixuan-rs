@@ -20,6 +20,10 @@ pub enum Condition {
     FinishNewbie {
         group_id: u32,
     },
+    OnceRewardGained {
+        reward_ids: Vec<u32>,
+        target_num: u32,
+    },
     SignedNewsStandToday,
 }
 
@@ -31,6 +35,7 @@ pub enum ConditionType {
     ClientSystemOpen = 3012,
     QuestStateEqual = 3014,
     FinishNewbie = 3080,
+    OnceRewardGained = 3100,
     SignedNewsStandToday = 3114,
 }
 
@@ -74,6 +79,12 @@ impl Condition {
                 },
                 ConditionType::FinishNewbie => Condition::FinishNewbie {
                     group_id: Self::get_argument(&args, "GroupID", 0)?,
+                },
+                ConditionType::OnceRewardGained => Condition::OnceRewardGained {
+                    reward_ids: (0..Self::named_arg_count(&args, "RewardID")?)
+                        .map(|i| Self::get_argument(&args, "RewardID", i))
+                        .collect::<Result<_, _>>()?,
+                    target_num: tmpl.target_num(),
                 },
                 ConditionType::SignedNewsStandToday => Condition::SignedNewsStandToday,
             },

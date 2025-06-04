@@ -22,6 +22,7 @@ impl ModelData for ItemData {
             equip_list: Vec::new(),
             auto_recovery_item_map: HashMap::new(),
             item_uid_counter: 0,
+            gained_once_reward_id_list: Vec::new(),
         }
     }
 }

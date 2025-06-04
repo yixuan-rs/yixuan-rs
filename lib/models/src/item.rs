@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+use crate::property::PropertyHashSet;
+
 use super::*;
 use property::{PrimitiveProperty, Property, PropertyHashMap};
 use yixuan_logic::item::{EquipItem, WeaponItem};
@@ -10,7 +12,7 @@ pub struct ItemModel {
     pub item_uid_counter: PrimitiveProperty<u32>,
     pub weapon_map: PropertyHashMap<u32, WeaponItem>,
     pub equip_map: PropertyHashMap<u32, EquipItem>,
-    pub new_reward_map: PropertyHashMap<u32, Vec<(u32, i32)>>,
+    pub gained_once_rewards: PropertyHashSet<u32>,
 }
 
 impl ItemModel {
@@ -65,7 +67,7 @@ impl ItemModel {
                 })
                 .collect(),
             item_uid_counter: pb.item_uid_counter.into(),
-            new_reward_map: PropertyHashMap::default(),
+            gained_once_rewards: pb.gained_once_reward_id_list.into_iter().collect(),
         }
     }
 
@@ -130,6 +132,7 @@ impl Saveable for ItemModel {
                 .collect(),
             auto_recovery_item_map: HashMap::new(), // TODO: AutoRecoveryItem
             item_uid_counter: self.item_uid_counter.get(),
+            gained_once_reward_id_list: self.gained_once_rewards.iter().copied().collect(),
         });
     }
 }

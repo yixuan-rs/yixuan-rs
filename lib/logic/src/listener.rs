@@ -14,6 +14,7 @@ pub trait LogicEventListener {
     fn change_back_scene_info(&mut self, section_id: u32, transform: String);
     fn unlock_hollow_quest(&mut self, quest_id: u32);
     fn give_once_reward(&mut self, once_reward_id: u32);
+    fn has_gained_once_reward(&self, once_reward_id: u32) -> bool;
     fn hollow_event_executed(&mut self, hollow_event_id: u32);
     fn add_item(&mut self, id: u32, count: u32);
 }

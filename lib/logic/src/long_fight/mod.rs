@@ -2,38 +2,37 @@ use tracing::info;
 use yixuan_proto::{EnterSceneScNotify, common::LogBattleStatistics};
 
 use crate::{
-    LogicResources,
-    dungeon::Dungeon,
-    listener::{LogicEventListener, NotifyListener, NotifyListenerExt},
-    scene::{ELocalPlayType, SceneType},
+    battle::{BattleLevel, CollectRewardError}, dungeon::Dungeon, listener::{LogicEventListener, NotifyListener, NotifyListenerExt}, scene::SceneType, LogicResources
 };
 
 pub struct GameLongFightState {
     pub resources: LogicResources,
+    pub battle: BattleLevel,
     pub dungeon: Dungeon,
     pub scene_id: u32,
-    pub play_type: ELocalPlayType,
-    pub time_period: String,
-    pub weather: String,
     has_sent_initial_scene_notify: bool,
 }
 
 impl GameLongFightState {
-    pub fn new(
-        scene_id: u32,
-        play_type: ELocalPlayType,
-        resources: LogicResources,
-        dungeon: Dungeon,
-    ) -> Self {
+    pub fn new(scene_id: u32, resources: LogicResources, dungeon: Dungeon, listener: &dyn LogicEventListener) -> Self {
         Self {
             scene_id,
-            play_type,
-            resources,
+            battle: BattleLevel::new(scene_id, &resources, listener),
             dungeon,
-            time_period: String::from("Morning"),
-            weather: String::from("SunShine"),
+            resources,
             has_sent_initial_scene_notify: false,
         }
+    }
+
+    pub fn collect_rewards(&mut self, index_list: &[u32], listener: &mut dyn LogicEventListener) -> Result<(), CollectRewardError> {
+        for &index in index_list {
+            match self.battle.collect_reward(index, listener) {
+                Ok(()) | Err(CollectRewardError::AlreadyCollected(_)) => (),
+                Err(err) => return Err(err),
+            }
+        }
+
+        Ok(())
     }
 
     pub fn end_battle(
@@ -77,14 +76,11 @@ impl GameLongFightState {
     pub fn client_scene_data_proto(&self) -> yixuan_proto::SceneData {
         yixuan_proto::SceneData {
             scene_id: self.scene_id,
-            play_type: self.play_type.into(),
             scene_type: self.scene_type().into(),
+            play_type: self.battle.play_type.into(),
             long_fight_scene_data: Some(yixuan_proto::LongFightSceneData {
-                scene_reward: Some(yixuan_proto::SceneRewardInfo::default()),
-                scene_perform: Some(yixuan_proto::ScenePerformInfo {
-                    time: self.time_period.clone(),
-                    weather: self.weather.clone(),
-                }),
+                scene_reward: Some(self.battle.client_scene_reward_info()),
+                scene_perform: Some(self.battle.perform.as_client_proto()),
                 scene_progress: Some(yixuan_proto::LongFightProgressInfo {
                     quest_cond_progress: Some(yixuan_proto::QuestCondProgress::default()),
                     quest_variables_info: Some(yixuan_proto::QuestVariablesInfo::default()),

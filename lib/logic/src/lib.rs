@@ -6,6 +6,7 @@ use listener::NotifyListener;
 use long_fight::GameLongFightState;
 use scene::SceneType;
 
+pub mod battle;
 pub mod debug;
 pub mod dungeon;
 pub mod event;

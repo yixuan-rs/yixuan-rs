@@ -1,0 +1,13 @@
+table SubAreaDataTemplate {
+    area_id: uint;
+    battle_event_id: uint;
+    fc_asset_path: string;
+    unk_1: string;
+    unk_2: string;
+    time_period: string;
+    weather: string;
+}
+
+table SubAreaDataTemplateTb {
+    data: [SubAreaDataTemplate];
+}

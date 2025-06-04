@@ -11,7 +11,6 @@ use yixuan_logic::{
     event::{EventState, EventUID, GraphID},
     hall::npc::InteractTarget,
     math::Scale,
-    scene::ELocalPlayType,
 };
 
 #[derive(Model)]
@@ -24,7 +23,6 @@ pub struct SceneModel {
 
 pub struct SceneSnapshot {
     pub scene_id: u32,
-    pub play_type: ELocalPlayType,
     pub dungeon_uid: u64,
     pub back_scene_uid: u64,
     pub to_be_destroyed: bool,
@@ -94,7 +92,6 @@ impl SceneModel {
         quest_id: u32,
         quest_type: u32,
         scene_id: u32,
-        play_type: ELocalPlayType,
         equip: DungeonEquipment,
     ) -> (u64, u64) {
         let dungeon_uid = self.next_dungeon_uid();
@@ -109,7 +106,6 @@ impl SceneModel {
             scene_uid,
             SceneSnapshot {
                 scene_id,
-                play_type,
                 dungeon_uid,
                 back_scene_uid: 0,
                 to_be_destroyed: true,
@@ -127,7 +123,6 @@ impl SceneModel {
         &mut self,
         quest_id: u32,
         scene_id: u32,
-        play_type: ELocalPlayType,
         equip: DungeonEquipment,
     ) -> (u64, u64) {
         let dungeon_uid = self.next_dungeon_uid();
@@ -141,7 +136,6 @@ impl SceneModel {
             scene_uid,
             SceneSnapshot {
                 scene_id,
-                play_type,
                 dungeon_uid,
                 back_scene_uid: 0,
                 to_be_destroyed: true,
@@ -156,7 +150,6 @@ impl SceneModel {
         &mut self,
         quest_id: u32,
         scene_id: u32,
-        play_type: ELocalPlayType,
         equip: DungeonEquipment,
     ) -> (u64, u64) {
         let dungeon_uid = self.next_dungeon_uid();
@@ -171,7 +164,6 @@ impl SceneModel {
             scene_uid,
             SceneSnapshot {
                 scene_id,
-                play_type,
                 dungeon_uid,
                 back_scene_uid: 0,
                 to_be_destroyed: true,
@@ -229,7 +221,6 @@ impl SceneModel {
                         uid,
                         SceneSnapshot {
                             scene_id: info.id,
-                            play_type: info.play_type.into(),
                             dungeon_uid: info.dungeon_uid,
                             back_scene_uid: info.back_scene_uid,
                             to_be_destroyed: info.to_be_destroyed,
@@ -283,7 +274,6 @@ impl Saveable for SceneModel {
                         uid,
                         SceneInfo {
                             id: snapshot.scene_id,
-                            play_type: snapshot.play_type.into(),
                             dungeon_uid: snapshot.dungeon_uid,
                             back_scene_uid: snapshot.back_scene_uid,
                             to_be_destroyed: snapshot.to_be_destroyed,

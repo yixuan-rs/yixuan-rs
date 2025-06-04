@@ -51,7 +51,7 @@ pub fn impl_model_manager(item: TokenStream) -> TokenStream {
 
                 #(
                     if self.#model_field_names.supports_player_sync() && self.#model_field_names.is_any_field_changed() {
-                        self.#model_field_names.add_changes_to_player_sync_notify(&mut notify);
+                        self.#model_field_names.add_changes_to_player_sync_notify(&mut notify, &self.logic_resources());
                     }
                 )*
 

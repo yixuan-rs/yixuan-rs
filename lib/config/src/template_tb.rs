@@ -29,6 +29,8 @@ file_cfg! {
     HollowQuestTemplate;
     TraningQuestTemplate;
     BattleGroupConfigTemplate;
+    BattleEventConfigTemplate;
+    SubAreaDataTemplate;
     OnceRewardTemplate;
     ConditionConfigTemplate;
     NewbieGroupTemplate;
