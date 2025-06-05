@@ -207,34 +207,57 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
                 hall.force_refresh();
             }
         }
-        UnlockBigBossQuest { quest_id } => {
+        UnlockBossBattleQuest { quest_id } => {
             player
                 .resources
                 .templates
                 .quest_config_template_tb()
-                .filter(|q| q.quest_type() == EQuestType::BigBoss.into())
+                .filter(|q| q.quest_type() == EQuestType::BossBattle.into())
                 .filter_map(|q| (quest_id == 0 || q.quest_id() == quest_id).then_some(q.quest_id()))
                 .for_each(|quest_id| {
-                    quest_util::add_big_boss_quest(player, quest_id);
+                    quest_util::add_boss_battle_quest(player, quest_id);
+                });
+        }
+        UnlockDoubleEliteQuest { quest_id } => {
+            player
+                .resources
+                .templates
+                .quest_config_template_tb()
+                .filter(|q| q.quest_type() == EQuestType::DoubleElite.into())
+                .filter_map(|q| (quest_id == 0 || q.quest_id() == quest_id).then_some(q.quest_id()))
+                .for_each(|quest_id| {
+                    quest_util::add_double_elite_quest(player, quest_id);
                 });
         }
         UnlockMonsterCardLevel { level } => {
             player
                 .resources
                 .templates
-                .monster_card_difficulty_template_tb()
-                .filter(|tmpl| tmpl.card_type() == 1)
+                .boss_battle_difficulty_template_tb()
                 .filter_map(|tmpl| {
-                    (level == 0 || tmpl.difficulty() == level).then_some(tmpl.difficulty())
+                    (level == 0 || tmpl.difficulty() == level)
+                        .then_some((tmpl.difficulty(), tmpl.battle_type()))
                 })
-                .for_each(|level| {
-                    player
-                        .quest_model
-                        .battle_data
-                        .activity
-                        .monster_card
-                        .unlocked_levels
-                        .insert(level);
+                .for_each(|(level, ty)| match ty {
+                    1 => {
+                        player
+                            .quest_model
+                            .battle_data
+                            .activity
+                            .boss_battle
+                            .unlocked_levels
+                            .insert(level);
+                    }
+                    3 => {
+                        player
+                            .quest_model
+                            .battle_data
+                            .activity
+                            .double_elite
+                            .unlocked_levels
+                            .insert(level);
+                    }
+                    _ => (),
                 });
         }
         Jump {
@@ -269,6 +292,12 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
                         );
                     }
                 }
+            }
+        }
+        ResetSectionState => {
+            if let Some(GameState::Hall(hall)) = state {
+                hall.reset_section(player);
+                hall.force_refresh();
             }
         }
     }

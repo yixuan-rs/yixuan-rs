@@ -13,7 +13,9 @@ pub use avatar_unit::AvatarUnit;
 use common::time_util;
 use config::TemplateCollection;
 pub use enums::*;
-use yixuan_proto::{BigBossInfo, DungeonQuestFinishedScNotify, common::LogBattleStatistics};
+use yixuan_proto::{
+    BigBossInfo, DoubleEliteInfo, DungeonQuestFinishedScNotify, common::LogBattleStatistics,
+};
 
 #[derive(Default, Clone)]
 pub struct Dungeon {
@@ -27,6 +29,7 @@ pub struct Dungeon {
     pub battle_statistic: LogBattleStatistics,
     pub pending_quest_finish_notifies: HashMap<u32, DungeonQuestFinishedScNotify>,
     pub big_boss_info: Option<BigBossInfo>,
+    pub double_elite_info: Option<DoubleEliteInfo>,
 }
 
 #[derive(Default, Clone)]
@@ -49,6 +52,7 @@ impl Dungeon {
             battle_statistic: LogBattleStatistics::default(),
             pending_quest_finish_notifies: HashMap::new(),
             big_boss_info: None,
+            double_elite_info: None,
         }
     }
 
@@ -144,6 +148,7 @@ impl Dungeon {
             dungeon_statistics: Some(yixuan_proto::DungeonStatistics::default()),
             begin_time: self.begin_time,
             big_boss_info: self.big_boss_info.clone(),
+            double_elite_info: self.double_elite_info.clone(),
         }
     }
 }

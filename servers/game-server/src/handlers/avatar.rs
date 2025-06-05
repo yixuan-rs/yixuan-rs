@@ -7,7 +7,7 @@ use yixuan_proto::{
     EquipmentDressCsReq, EquipmentDressScRsp, EquipmentSuitDressCsReq, EquipmentSuitDressScRsp,
     EquipmentUnDressCsReq, EquipmentUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp,
     GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, TalentSwitchCsReq,
-    TalentSwitchScRsp, WeaponDressCsReq, WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp,
+    TalentSwitchScRsp, WeaponDressCsReq, WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp, GetAvatarRecommendItemsCsReq, GetAvatarRecommendItemsScRsp
 };
 
 use crate::{
@@ -368,6 +368,13 @@ impl AvatarHandler {
         _request: GetAvatarRecommendEquipCsReq,
     ) -> GetAvatarRecommendEquipScRsp {
         GetAvatarRecommendEquipScRsp { retcode: 0 }
+    }
+
+    pub fn on_get_avatar_recommend_items_cs_req(
+        _context: &mut NetContext<'_>,
+        _request: GetAvatarRecommendItemsCsReq,
+    ) -> GetAvatarRecommendItemsScRsp {
+        GetAvatarRecommendItemsScRsp { retcode: 0 }
     }
 
     pub fn on_equipment_dress_cs_req(

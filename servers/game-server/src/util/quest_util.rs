@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use common::time_util;
 use tracing::warn;
 use yixuan_logic::dungeon::EQuestType;
-use yixuan_models::{Hollow, HollowModel, MainCityQuestExt, Quest};
+use yixuan_models::{DoubleEliteProgress, Hollow, HollowModel, MainCityQuestExt, Quest};
 
 use crate::{player::Player, resources::NapResources};
 
@@ -127,10 +127,10 @@ pub fn add_main_city_quest(player: &mut Player, id: u32) {
     );
 }
 
-pub fn add_big_boss_quest(player: &mut Player, id: u32) {
+pub fn add_boss_battle_quest(player: &mut Player, id: u32) {
     let collection = player
         .quest_model
-        .get_or_insert_collection(EQuestType::BigBoss);
+        .get_or_insert_collection(EQuestType::BossBattle);
 
     collection.quests.insert(
         id,
@@ -144,6 +144,27 @@ pub fn add_big_boss_quest(player: &mut Player, id: u32) {
             main_city_ext: None,
         },
     );
+}
+
+pub fn add_double_elite_quest(player: &mut Player, id: u32) {
+    let collection = player
+        .quest_model
+        .get_or_insert_collection(EQuestType::DoubleElite);
+
+    collection.quests.insert(
+        id,
+        Quest {
+            id,
+            state: 0,
+            unlock_time: time_util::unix_timestamp_seconds(),
+            progress: 0,
+            in_progress_time: 0,
+            finish_condition_progress: HashMap::new(),
+            main_city_ext: None,
+        },
+    );
+
+    player.quest_model.battle_data.activity.double_elite.progress.insert(id, DoubleEliteProgress::default());
 }
 
 pub fn finish_hollow_challenge(player: &mut Player, id: u32) {

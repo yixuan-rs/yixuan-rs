@@ -1,8 +1,6 @@
 {
     "Commands": [
         "SetYorozuyaLv 60",
-        "UnlockBigBossQuest 0",
-        "UnlockMonsterCardLevel 0",
         "AddAllAvatar",
         "AvatarLvUp 0 60",
         "AvatarSkillUp 0 0 12",
@@ -14,6 +12,9 @@
         "AvatarSkillUp 0 6 12",
         "AvatarTalentUp 0 6",
         "UnlockHollowQuest 0",
+        "UnlockDoubleEliteQuest 0",
+        "UnlockBossBattleQuest 0",
+        "UnlockMonsterCardLevel 0",
         "ClearMainCityQuestCollection",
         "SetAvatarSkin 1371 3113711",
         "SetControlGuiseAvatar 1371",

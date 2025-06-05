@@ -1,5 +1,5 @@
 {
-    "ID": 15001109,
+    "ID": 15001108,
     "Events": {
         "OnInteract": {
             "ID": 100,
@@ -9,7 +9,7 @@
                     "ID": 10,
                     "UI": "",
                     "Args": 0,
-                    "StoreTemplateID": 2012
+                    "StoreTemplateID": 2014
                 },
                 {
                     "$type": "Share.CActionResetEventCfg",

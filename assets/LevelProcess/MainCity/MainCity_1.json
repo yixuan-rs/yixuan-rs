@@ -277,10 +277,17 @@
                     "Sec151_DefaultTrigger2": {
                         "ID": 200,
                         "Actions": [
+                            // HUNT
                             {
                                 "$type": "Share.CActionCreateNPCCfg",
                                 "ID": 202,
                                 "TagID": 102102
+                            },
+                            // Cleanup
+                            {
+                                "$type": "Share.CActionCreateNPCCfg",
+                                "ID": 202,
+                                "TagID": 102302
                             }
                         ]
                     },
@@ -296,6 +303,23 @@
                                 ],
                                 "Participators": {
                                     "102102": "A"
+                                },
+                                "InteractShape": "Sphere",
+                                "InteractScale": {
+                                    "X": 2.0,
+                                    "Y": 0.0,
+                                    "Z": 0.0
+                                }
+                            },
+                            {
+                                "$type": "Share.CActionChangeInteractCfg",
+                                "ID": 303,
+                                "InteractID": 15001108,
+                                "TagIDs": [
+                                    102302
+                                ],
+                                "Participators": {
+                                    "102302": "A"
                                 },
                                 "InteractShape": "Sphere",
                                 "InteractScale": {

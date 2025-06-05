@@ -183,17 +183,35 @@ pub struct QuestData {
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MonsterCardData {
+pub struct BossBattleData {
     #[prost(uint32, repeated, tag = "1")]
     pub unlocked_levels: ::prost::alloc::vec::Vec<u32>,
     #[prost(uint32, tag = "2")]
     pub selected_level: u32,
 }
 #[derive(::proto_derive::NetCmd)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct DoubleEliteProgress {
+    #[prost(uint32, tag = "1")]
+    pub quest_id: u32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DoubleEliteData {
+    #[prost(uint32, repeated, tag = "1")]
+    pub unlocked_levels: ::prost::alloc::vec::Vec<u32>,
+    #[prost(message, repeated, tag = "2")]
+    pub progress_list: ::prost::alloc::vec::Vec<DoubleEliteProgress>,
+    #[prost(uint32, tag = "3")]
+    pub selected_difficulty: u32,
+}
+#[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ActivityBattleData {
     #[prost(message, optional, tag = "1")]
-    pub monster_card: ::core::option::Option<MonsterCardData>,
+    pub boss_battle: ::core::option::Option<BossBattleData>,
+    #[prost(message, optional, tag = "2")]
+    pub double_elite: ::core::option::Option<DoubleEliteData>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]

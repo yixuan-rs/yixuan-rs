@@ -124,6 +124,17 @@ impl GameHallState {
         self.set_time_period(ETimePeriodType::Now);
     }
 
+    pub fn reset_section(&mut self, listener: &mut dyn LogicEventListener) {
+        self.already_executed_events.clear();
+        self.scene_units.clear();
+        self.attached_graphs.clear();
+        self.running_events.clear();
+
+        self.attach_graph(GraphReference::MainCitySection(self.section_id), listener);
+        self.on_before_enter(listener);
+        self.on_enter(listener);
+    }
+
     pub fn attach_graph(
         &mut self,
         graph_ref: GraphReference,

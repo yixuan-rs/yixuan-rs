@@ -29,7 +29,7 @@ pub use misc::{
     PropertyNewsStandData, PropertyPlayerAccessoryData, PropertyPostGirlData, PropertySwitchData,
     PropertyUnlockData, QuickAccess,
 };
-pub use quest::{MainCityQuestExt, Quest, QuestCollection, QuestModel};
+pub use quest::{DoubleEliteProgress, MainCityQuestExt, Quest, QuestCollection, QuestModel};
 pub use scene::*;
 
 use yixuan_codegen::Model;

@@ -113,17 +113,18 @@ impl LoginDataSyncComponent for QuestModel {
                 }),
             },
         );
+
         sync_helper.add_response(
             SyncType::ExtendData,
             yixuan_proto::GetBattleDataScRsp {
                 retcode: 0,
                 battle_data: Some(BattleData {
                     battle_data: Some(ActivityBattleData {
-                        monster_card: Some(MonsterCardData {
+                        boss_battle: Some(BossBattleData {
                             unlocked_levels: self
                                 .battle_data
                                 .activity
-                                .monster_card
+                                .boss_battle
                                 .unlocked_levels
                                 .iter()
                                 .copied()
@@ -131,8 +132,35 @@ impl LoginDataSyncComponent for QuestModel {
                             selected_level: self
                                 .battle_data
                                 .activity
-                                .monster_card
+                                .boss_battle
                                 .selected_level
+                                .get(),
+                        }),
+                        double_elite: Some(DoubleEliteData {
+                            unlocked_levels: self
+                                .battle_data
+                                .activity
+                                .double_elite
+                                .unlocked_levels
+                                .iter()
+                                .copied()
+                                .collect(),
+                            progress_list: self
+                                .battle_data
+                                .activity
+                                .double_elite
+                                .progress
+                                .iter()
+                                .map(|(&quest_id, _progress)| yixuan_proto::DoubleEliteProgress {
+                                    quest_id,
+                                    unlocked: true,
+                                })
+                                .collect(),
+                            selected_difficulty: self
+                                .battle_data
+                                .activity
+                                .double_elite
+                                .selected_difficulty
                                 .get(),
                         }),
                     }),

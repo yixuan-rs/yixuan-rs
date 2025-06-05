@@ -283,16 +283,27 @@ pub struct AvatarSync {
     pub avatar_list: ::prost::alloc::vec::Vec<AvatarInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-pub struct MonsterCardSync {
+pub struct BossBattleSync {
     #[prost(uint32, repeated, tag = "14")]
     pub new_unlocked_levels: ::prost::alloc::vec::Vec<u32>,
     #[prost(uint32, tag = "15", xor = "10254")]
     pub selected_level: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct DoubleEliteSync {
+    #[prost(uint32, repeated, tag = "11")]
+    pub new_unlocked_levels: ::prost::alloc::vec::Vec<u32>,
+    #[prost(message, repeated, tag = "1")]
+    pub progress_list: ::prost::alloc::vec::Vec<DoubleEliteProgress>,
+    #[prost(uint32, tag = "2", xor = "11800")]
+    pub selected_difficulty: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ActivityBattleSync {
     #[prost(message, optional, tag = "10")]
-    pub monster_card: ::core::option::Option<MonsterCardSync>,
+    pub boss_battle: ::core::option::Option<BossBattleSync>,
+    #[prost(message, optional, tag = "1")]
+    pub double_elite: ::core::option::Option<DoubleEliteSync>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(3876)]
@@ -580,17 +591,17 @@ pub struct StartHollowQuestScRsp {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(8743)]
-pub struct RestartBigBossBattleCsReq {}
+pub struct RestartActivityBattleCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
 #[cmd_id(9473)]
-pub struct RestartBigBossBattleScRsp {
+pub struct RestartActivityBattleScRsp {
     #[prost(int32, tag = "12", xor = "16233")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(5971)]
-pub struct BeginMonsterCardBattleCsReq {
+pub struct BeginActivityBattleCsReq {
     #[prost(uint32, tag = "2", xor = "9025")]
     pub quest_id: u32,
     #[prost(uint32, repeated, tag = "8")]
@@ -600,9 +611,7 @@ pub struct BeginMonsterCardBattleCsReq {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(8745)]
-pub struct BeginMonsterCardBattleScRsp {
-    #[prost(int32, tag = "8", xor = "4732")]
+pub struct BeginActivityBattleScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -968,6 +977,11 @@ pub struct BigBossInfo {
     pub difficulty: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct DoubleEliteInfo {
+    #[prost(uint32, tag = "13", xor = "6022")]
+    pub difficulty: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DungeonInfo {
     #[prost(uint32, tag = "4", xor = "15339")]
     pub quest_id: u32,
@@ -985,6 +999,8 @@ pub struct DungeonInfo {
     pub dungeon_quest_info: ::core::option::Option<DungeonQuestInfo>,
     #[prost(message, optional, tag = "158")]
     pub big_boss_info: ::core::option::Option<BigBossInfo>,
+    #[prost(message, optional, tag = "1879")]
+    pub double_elite_info: ::core::option::Option<DoubleEliteInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(8216)]
@@ -1736,6 +1752,16 @@ pub struct GetBuddyDataScRsp {
     pub buddy_list: ::prost::alloc::vec::Vec<BuddyInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(8086)]
+pub struct GetAvatarRecommendItemsCsReq {}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(3185)]
+pub struct GetAvatarRecommendItemsScRsp {
+    #[prost(int32, tag = "12", xor = "4263")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(8255)]
 pub struct GetGachaDataCsReq {
     #[prost(uint32, tag = "3", xor = "1457")]
@@ -2193,14 +2219,32 @@ pub struct BattleData {
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ActivityBattleData {
     #[prost(message, optional, tag = "7")]
-    pub monster_card: ::core::option::Option<MonsterCardData>,
+    pub boss_battle: ::core::option::Option<BossBattleData>,
+    #[prost(message, optional, tag = "9")]
+    pub double_elite: ::core::option::Option<DoubleEliteData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-pub struct MonsterCardData {
+pub struct BossBattleData {
     #[prost(uint32, repeated, tag = "13")]
     pub unlocked_levels: ::prost::alloc::vec::Vec<u32>,
     #[prost(uint32, tag = "2", xor = "5903")]
     pub selected_level: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct DoubleEliteProgress {
+    #[prost(uint32, tag = "9", xor = "14706")]
+    pub quest_id: u32,
+    #[prost(bool, tag = "3")]
+    pub unlocked: bool,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct DoubleEliteData {
+    #[prost(uint32, repeated, tag = "8")]
+    pub unlocked_levels: ::prost::alloc::vec::Vec<u32>,
+    #[prost(message, repeated, tag = "6")]
+    pub progress_list: ::prost::alloc::vec::Vec<DoubleEliteProgress>,
+    #[prost(uint32, tag = "12", xor = "13106")]
+    pub selected_difficulty: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(6344)]

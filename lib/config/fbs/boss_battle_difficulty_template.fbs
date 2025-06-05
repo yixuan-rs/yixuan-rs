@@ -1,0 +1,8 @@
+table BossBattleDifficultyTemplate {
+    difficulty: uint;
+    battle_type: uint;
+}
+
+table BossBattleDifficultyTemplateTb {
+    data: [BossBattleDifficultyTemplate];
+}

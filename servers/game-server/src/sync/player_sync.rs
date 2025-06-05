@@ -138,16 +138,43 @@ impl PlayerSyncComponent for QuestModel {
 
         if self.battle_data.activity.is_changed() {
             player_sync_sc_notify.activity_battle = Some(ActivityBattleSync {
-                monster_card: Some(MonsterCardSync {
+                boss_battle: Some(BossBattleSync {
                     new_unlocked_levels: self
                         .battle_data
                         .activity
-                        .monster_card
+                        .boss_battle
                         .unlocked_levels
                         .iter_added_keys()
                         .copied()
                         .collect(),
-                    selected_level: self.battle_data.activity.monster_card.selected_level.get(),
+                    selected_level: self.battle_data.activity.boss_battle.selected_level.get(),
+                }),
+                double_elite: Some(DoubleEliteSync {
+                    new_unlocked_levels: self
+                        .battle_data
+                        .activity
+                        .double_elite
+                        .unlocked_levels
+                        .iter_added_keys()
+                        .copied()
+                        .collect(),
+                    progress_list: self
+                        .battle_data
+                        .activity
+                        .double_elite
+                        .progress
+                        .iter_changed_items()
+                        .map(|(&quest_id, _progress)| yixuan_proto::DoubleEliteProgress {
+                            quest_id,
+                            unlocked: true,
+                        })
+                        .collect(),
+                    selected_difficulty: self
+                        .battle_data
+                        .activity
+                        .double_elite
+                        .selected_difficulty
+                        .get(),
                 }),
             });
         }

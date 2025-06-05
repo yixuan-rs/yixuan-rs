@@ -18,7 +18,7 @@ use yixuan_logic::{
     long_fight::GameLongFightState,
     scene::ELocalPlayType,
 };
-use yixuan_proto::{BigBossInfo, PlayerSyncScNotify, server_only::PlayerData};
+use yixuan_proto::{BigBossInfo, DoubleEliteInfo, PlayerSyncScNotify, server_only::PlayerData};
 
 use tracing::{error, info, warn};
 use yixuan_models::{property::GachaRandom, *};
@@ -326,7 +326,7 @@ impl Player {
         Some(scene_uid)
     }
 
-    pub fn start_monster_card_battle(
+    pub fn start_activity_battle(
         &mut self,
         quest_id: u32,
         avatars: &[u32],
@@ -341,44 +341,63 @@ impl Player {
         let (dungeon_uid, scene_uid) =
             match EQuestType::try_from(quest_config.quest_type()).unwrap() {
                 EQuestType::DoubleElite => {
-                    let double_elite_template = self
+                    let template = self
                         .resources
                         .templates
                         .double_elite_quest_template_tb()
                         .find(|tmpl| tmpl.quest_id() == quest_id)
                         .unwrap();
+
                     self.scene_model.create_pure_fight_dungeon(
                         quest_id,
                         EQuestType::DoubleElite.into(),
-                        double_elite_template.battle_event_id(),
+                        template.battle_event_id(),
                         self.build_dungeon_equipment(avatars),
                         None,
                     )
                 }
-                EQuestType::BigBoss => {
-                    let double_elite_template = self
+                EQuestType::BossBattle => {
+                    let template = self
                         .resources
                         .templates
                         .boss_battle_quest_template_tb()
                         .find(|tmpl| tmpl.quest_id() == quest_id)
                         .unwrap();
+
                     self.scene_model.create_pure_fight_dungeon(
                         quest_id,
-                        EQuestType::BigBoss.into(),
-                        double_elite_template.battle_event_id(),
+                        EQuestType::BossBattle.into(),
+                        template.battle_event_id(),
                         self.build_dungeon_equipment(avatars),
                         None,
                     )
                 }
                 other => {
-                    error!("start_monster_card_battle: {other:?} is not implemented");
+                    error!("start_activity_battle: {other:?} is not implemented");
                     return None;
                 }
             };
 
         let dungeon = self.scene_model.dungeons.get_mut(&dungeon_uid).unwrap();
-        if quest_config.quest_type() == EQuestType::BigBoss.into() {
+
+        if quest_config.quest_type() == EQuestType::BossBattle.into() {
+            self.quest_model
+                .battle_data
+                .activity
+                .boss_battle
+                .selected_level
+                .set(level);
+
             dungeon.big_boss_info = Some(BigBossInfo { difficulty: level });
+        } else if quest_config.quest_type() == EQuestType::DoubleElite.into() {
+            self.quest_model
+                .battle_data
+                .activity
+                .double_elite
+                .selected_difficulty
+                .set(level);
+
+            dungeon.double_elite_info = Some(DoubleEliteInfo { difficulty: level });
         }
 
         for &id in avatars {

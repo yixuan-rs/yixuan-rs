@@ -46,7 +46,7 @@ file_cfg! {
     PlayerSkinAccessoriesConfigTemplate;
     BossBattleQuestTemplate;
     DoubleEliteQuestTemplate;
-    MonsterCardDifficultyTemplate = 12809700518214419243;
+    BossBattleDifficultyTemplate;
 }
 
 macro_rules! file_cfg {

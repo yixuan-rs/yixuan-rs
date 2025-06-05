@@ -29,5 +29,5 @@ pub enum EQuestType {
     Knowledge = 8,
     Daily = 9,
     DoubleElite = 15,
-    BigBoss = 16,
+    BossBattle = 16,
 }

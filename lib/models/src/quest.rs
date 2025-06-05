@@ -8,15 +8,26 @@ use crate::property::{PrimitiveProperty, Property, PropertyHashMap, PropertyHash
 
 use super::*;
 
+#[derive(Default)]
+pub struct DoubleEliteProgress {}
+
 #[derive(Property, Default)]
-pub struct PropertyMonsterCardData {
+pub struct PropertyDoubleEliteData {
+    pub unlocked_levels: PropertyHashSet<u32>,
+    pub progress: PropertyHashMap<u32, DoubleEliteProgress>,
+    pub selected_difficulty: PrimitiveProperty<u32>,
+}
+
+#[derive(Property, Default)]
+pub struct PropertyBossBattleData {
     pub selected_level: PrimitiveProperty<u32>,
     pub unlocked_levels: PropertyHashSet<u32>,
 }
 
 #[derive(Property, Default)]
 pub struct PropertyActivityBattleData {
-    pub monster_card: PropertyMonsterCardData,
+    pub boss_battle: PropertyBossBattleData,
+    pub double_elite: PropertyDoubleEliteData,
 }
 
 #[derive(Property, Default)]
@@ -123,14 +134,23 @@ impl QuestModel {
                     activity: data
                         .activity
                         .map(|activity_battle_data| PropertyActivityBattleData {
-                            monster_card: activity_battle_data
-                                .monster_card
-                                .map(|monster_card_data| PropertyMonsterCardData {
-                                    unlocked_levels: monster_card_data
-                                        .unlocked_levels
+                            boss_battle: activity_battle_data
+                                .boss_battle
+                                .map(|data| PropertyBossBattleData {
+                                    unlocked_levels: data.unlocked_levels.into_iter().collect(),
+                                    selected_level: data.selected_level.into(),
+                                })
+                                .unwrap_or_default(),
+                            double_elite: activity_battle_data
+                                .double_elite
+                                .map(|data| PropertyDoubleEliteData {
+                                    unlocked_levels: data.unlocked_levels.into_iter().collect(),
+                                    progress: data
+                                        .progress_list
                                         .into_iter()
+                                        .map(|progress| (progress.quest_id, DoubleEliteProgress {}))
                                         .collect(),
-                                    selected_level: monster_card_data.selected_level.into(),
+                                    selected_difficulty: data.selected_difficulty.into(),
                                 })
                                 .unwrap_or_default(),
                         })
@@ -189,16 +209,42 @@ impl Saveable for QuestModel {
                 .collect(),
             battle_data: Some(BattleData {
                 activity: Some(ActivityBattleData {
-                    monster_card: Some(MonsterCardData {
+                    boss_battle: Some(BossBattleData {
                         unlocked_levels: self
                             .battle_data
                             .activity
-                            .monster_card
+                            .boss_battle
                             .unlocked_levels
                             .iter()
                             .copied()
                             .collect(),
-                        selected_level: self.battle_data.activity.monster_card.selected_level.get(),
+                        selected_level: self.battle_data.activity.boss_battle.selected_level.get(),
+                    }),
+                    double_elite: Some(DoubleEliteData {
+                        unlocked_levels: self
+                            .battle_data
+                            .activity
+                            .double_elite
+                            .unlocked_levels
+                            .iter()
+                            .copied()
+                            .collect(),
+                        progress_list: self
+                            .battle_data
+                            .activity
+                            .double_elite
+                            .progress
+                            .iter()
+                            .map(|(&quest_id, _progress)| {
+                                yixuan_proto::server_only::DoubleEliteProgress { quest_id }
+                            })
+                            .collect(),
+                        selected_difficulty: self
+                            .battle_data
+                            .activity
+                            .double_elite
+                            .selected_difficulty
+                            .get(),
                     }),
                 }),
             }),

@@ -6,11 +6,11 @@ use yixuan_codegen::{handlers, required_state};
 use yixuan_logic::GameState;
 use yixuan_proto::{
     AbyssArpeggioGetDataCsReq, AbyssArpeggioGetDataScRsp, AbyssGetDataCsReq, AbyssGetDataScRsp,
-    BeginMonsterCardBattleCsReq, BeginMonsterCardBattleScRsp, GetArchiveDataCsReq,
-    GetArchiveDataScRsp, GetHollowDataCsReq, GetHollowDataScRsp, GetQuestDataCsReq,
-    GetQuestDataScRsp, HollowQuestProgressCsReq, HollowQuestProgressScRsp,
-    RestartBigBossBattleCsReq, RestartBigBossBattleScRsp, StartHollowQuestCsReq,
-    StartHollowQuestScRsp, StartTrainingQuestCsReq, StartTrainingQuestScRsp,
+    BeginActivityBattleCsReq, BeginActivityBattleScRsp, GetArchiveDataCsReq, GetArchiveDataScRsp,
+    GetHollowDataCsReq, GetHollowDataScRsp, GetQuestDataCsReq, GetQuestDataScRsp,
+    HollowQuestProgressCsReq, HollowQuestProgressScRsp, RestartActivityBattleCsReq,
+    RestartActivityBattleScRsp, StartHollowQuestCsReq, StartHollowQuestScRsp,
+    StartTrainingQuestCsReq, StartTrainingQuestScRsp,
 };
 
 pub struct QuestHandler;
@@ -142,8 +142,8 @@ impl QuestHandler {
 
     pub fn on_begin_monster_card_battle_cs_req(
         context: &mut NetContext<'_>,
-        request: BeginMonsterCardBattleCsReq,
-    ) -> BeginMonsterCardBattleScRsp {
+        request: BeginActivityBattleCsReq,
+    ) -> BeginActivityBattleScRsp {
         if let Some(state) = context.game_state.as_mut() {
             if let GameState::Hall(hall) = state {
                 hall.on_exit(context.player);
@@ -152,64 +152,64 @@ impl QuestHandler {
             context.player.save_scene_snapshot(state);
         }
 
-        let Some(scene_uid) = context.player.start_monster_card_battle(
+        let Some(scene_uid) = context.player.start_activity_battle(
             request.quest_id,
             &request.avatar_id_list,
             request.level,
         ) else {
-            error!("failed to start quest {}", request.quest_id);
-            return BeginMonsterCardBattleScRsp { retcode: 1 };
+            error!("failed to start activity battle: {}", request.quest_id);
+            return BeginActivityBattleScRsp { retcode: 1 };
         };
 
         *context.game_state = Some(context.player.load_state_from_snapshot(scene_uid));
 
-        context
-            .player
-            .quest_model
-            .battle_data
-            .activity
-            .monster_card
-            .selected_level
-            .set(request.level);
-
-        BeginMonsterCardBattleScRsp { retcode: 0 }
+        BeginActivityBattleScRsp { retcode: 0 }
     }
 
-    pub fn on_restart_big_boss_battle_cs_req(
+    pub fn on_restart_activity_battle_cs_req(
         context: &mut NetContext<'_>,
-        _request: RestartBigBossBattleCsReq,
-    ) -> RestartBigBossBattleScRsp {
+        _request: RestartActivityBattleCsReq,
+    ) -> RestartActivityBattleScRsp {
         let Some(state) = context.game_state.as_mut() else {
-            return RestartBigBossBattleScRsp { retcode: 1 };
+            return RestartActivityBattleScRsp { retcode: 1 };
         };
 
         context.player.save_scene_snapshot(state);
 
         let GameState::Fight(fight) = state else {
-            return RestartBigBossBattleScRsp { retcode: 1 };
+            return RestartActivityBattleScRsp { retcode: 1 };
         };
 
-        if let Some(big_boss_info) = &fight.dungeon.big_boss_info {
-            let avatar_ids: Vec<u32> = fight
-                .dungeon
-                .avatar_units
-                .iter()
-                .map(|avatar_unit| avatar_unit.avatar_id)
-                .collect();
-            let Some(scene_uid) = context.player.start_monster_card_battle(
-                fight.dungeon.quest_id,
-                avatar_ids.as_slice(),
-                big_boss_info.difficulty,
-            ) else {
-                error!("failed to restart quest {}", fight.dungeon.quest_id);
-                return RestartBigBossBattleScRsp { retcode: 1 };
-            };
-
-            *context.game_state = Some(context.player.load_state_from_snapshot(scene_uid));
-
-            RestartBigBossBattleScRsp { retcode: 0 }
+        let difficulty = if let Some(big_boss_info) = &fight.dungeon.big_boss_info {
+            big_boss_info.difficulty
+        } else if let Some(double_elite_info) = &fight.dungeon.double_elite_info {
+            double_elite_info.difficulty
         } else {
-            RestartBigBossBattleScRsp { retcode: 1 }
-        }
+            error!("RestartActivityBattleCsReq received in wrong state");
+            return RestartActivityBattleScRsp { retcode: 1 };
+        };
+
+        let avatar_ids: Vec<u32> = fight
+            .dungeon
+            .avatar_units
+            .iter()
+            .map(|avatar_unit| avatar_unit.avatar_id)
+            .collect();
+
+        let Some(scene_uid) = context.player.start_activity_battle(
+            fight.dungeon.quest_id,
+            avatar_ids.as_slice(),
+            difficulty,
+        ) else {
+            error!(
+                "failed to restart activity battle: {}",
+                fight.dungeon.quest_id
+            );
+
+            return RestartActivityBattleScRsp { retcode: 1 };
+        };
+
+        *context.game_state = Some(context.player.load_state_from_snapshot(scene_uid));
+        RestartActivityBattleScRsp { retcode: 0 }
     }
 }

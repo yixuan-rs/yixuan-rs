@@ -46,7 +46,10 @@ pub enum GMCmd {
         quest_id: u32,
     },
     ClearMainCityQuestCollection,
-    UnlockBigBossQuest {
+    UnlockBossBattleQuest {
+        quest_id: u32,
+    },
+    UnlockDoubleEliteQuest {
         quest_id: u32,
     },
     UnlockMonsterCardLevel {
@@ -56,6 +59,7 @@ pub enum GMCmd {
         section_id: u32,
         transform_id: String,
     },
+    ResetSectionState,
 }
 
 #[derive(thiserror::Error, Debug)]
