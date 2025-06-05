@@ -6,7 +6,7 @@ use crate::{
     battle::{BattleLevel, CollectRewardError},
     dungeon::Dungeon,
     listener::{LogicEventListener, NotifyListener, NotifyListenerExt},
-    scene::SceneType,
+    scene::{ELocalPlayType, SceneType},
 };
 
 pub struct GameFightState {
@@ -14,14 +14,22 @@ pub struct GameFightState {
     pub battle: BattleLevel,
     pub dungeon: Dungeon,
     pub scene_id: u32,
+    pub play_type: ELocalPlayType,
     has_sent_initial_scene_notify: bool,
 }
 
 impl GameFightState {
-    pub fn new(scene_id: u32, resources: LogicResources, dungeon: Dungeon, listener: &dyn LogicEventListener) -> Self {
+    pub fn new(
+        scene_id: u32,
+        play_type: ELocalPlayType,
+        resources: LogicResources,
+        dungeon: Dungeon,
+        listener: &dyn LogicEventListener,
+    ) -> Self {
         Self {
             battle: BattleLevel::new(scene_id, &resources, listener),
             scene_id,
+            play_type,
             resources,
             dungeon,
             has_sent_initial_scene_notify: false,
@@ -83,7 +91,7 @@ impl GameFightState {
     pub fn client_scene_data_proto(&self) -> yixuan_proto::SceneData {
         yixuan_proto::SceneData {
             scene_id: self.scene_id,
-            play_type: self.battle.play_type.into(),
+            play_type: self.play_type.into(),
             scene_type: self.scene_type().into(),
             fight_scene_data: Some(yixuan_proto::FightSceneData {
                 scene_reward: Some(self.battle.client_scene_reward_info()),

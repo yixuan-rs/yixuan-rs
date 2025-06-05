@@ -7,14 +7,18 @@ use super::*;
 use config::{GraphReference, SectionEvent};
 use property::{PrimitiveProperty, Property, PropertyHashMap};
 use yixuan_logic::{
+    LogicResources,
     dungeon::{Dungeon, DungeonEquipment},
     event::{EventState, EventUID, GraphID},
     hall::npc::InteractTarget,
     math::Scale,
+    scene::ELocalPlayType,
 };
 
 #[derive(Model)]
 pub struct SceneModel {
+    #[ignore_property]
+    resources: LogicResources,
     pub cur_scene_uid: PrimitiveProperty<u64>,
     pub default_scene_uid: PrimitiveProperty<u64>,
     pub scene_snapshots: PropertyHashMap<u64, SceneSnapshot>,
@@ -23,6 +27,7 @@ pub struct SceneModel {
 
 pub struct SceneSnapshot {
     pub scene_id: u32,
+    pub play_type: ELocalPlayType,
     pub dungeon_uid: u64,
     pub back_scene_uid: u64,
     pub to_be_destroyed: bool,
@@ -93,6 +98,7 @@ impl SceneModel {
         quest_type: u32,
         scene_id: u32,
         equip: DungeonEquipment,
+        override_play_type: Option<ELocalPlayType>,
     ) -> (u64, u64) {
         let dungeon_uid = self.next_dungeon_uid();
         let scene_uid = self.next_scene_uid();
@@ -106,6 +112,8 @@ impl SceneModel {
             scene_uid,
             SceneSnapshot {
                 scene_id,
+                play_type: override_play_type
+                    .unwrap_or_else(|| Self::get_fight_play_type(scene_id, &self.resources)),
                 dungeon_uid,
                 back_scene_uid: 0,
                 to_be_destroyed: true,
@@ -136,6 +144,7 @@ impl SceneModel {
             scene_uid,
             SceneSnapshot {
                 scene_id,
+                play_type: ELocalPlayType::Unknown,
                 dungeon_uid,
                 back_scene_uid: 0,
                 to_be_destroyed: true,
@@ -151,6 +160,7 @@ impl SceneModel {
         quest_id: u32,
         scene_id: u32,
         equip: DungeonEquipment,
+        override_play_type: Option<ELocalPlayType>,
     ) -> (u64, u64) {
         let dungeon_uid = self.next_dungeon_uid();
         let scene_uid = self.next_scene_uid();
@@ -164,6 +174,8 @@ impl SceneModel {
             scene_uid,
             SceneSnapshot {
                 scene_id,
+                play_type: override_play_type
+                    .unwrap_or_else(|| Self::get_fight_play_type(scene_id, &self.resources)),
                 dungeon_uid,
                 back_scene_uid: 0,
                 to_be_destroyed: true,
@@ -207,10 +219,11 @@ impl SceneModel {
         self.cur_scene_uid.set(self.default_scene_uid.get());
     }
 
-    pub fn load_from_pb(pb: SceneData) -> Self {
+    pub fn load_from_pb(pb: SceneData, res: LogicResources) -> Self {
         use yixuan_proto::server_only::scene_info::Info;
 
         Self {
+            resources: res,
             cur_scene_uid: pb.cur_scene_uid.into(),
             default_scene_uid: pb.default_scene_uid.into(),
             scene_snapshots: pb
@@ -221,6 +234,7 @@ impl SceneModel {
                         uid,
                         SceneSnapshot {
                             scene_id: info.id,
+                            play_type: info.play_type.into(),
                             dungeon_uid: info.dungeon_uid,
                             back_scene_uid: info.back_scene_uid,
                             to_be_destroyed: info.to_be_destroyed,
@@ -257,6 +271,13 @@ impl SceneModel {
     pub fn next_dungeon_uid(&self) -> u64 {
         self.dungeons.keys().max().copied().unwrap_or(0) + 1
     }
+
+    fn get_fight_play_type(battle_event_id: u32, res: &LogicResources) -> ELocalPlayType {
+        res.template_collection
+            .battle_event_config_template_tb()
+            .find_map(|tmpl| (tmpl.id() == battle_event_id).then(|| tmpl.play_type().into()))
+            .unwrap_or(ELocalPlayType::Unknown)
+    }
 }
 
 impl Saveable for SceneModel {
@@ -274,6 +295,7 @@ impl Saveable for SceneModel {
                         uid,
                         SceneInfo {
                             id: snapshot.scene_id,
+                            play_type: snapshot.play_type.into(),
                             dungeon_uid: snapshot.dungeon_uid,
                             back_scene_uid: snapshot.back_scene_uid,
                             to_be_destroyed: snapshot.to_be_destroyed,

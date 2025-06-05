@@ -4,6 +4,7 @@ use config::{
     Condition, EventGraphCollection, EventGraphCollectionLoadError, HollowChessboardConfig,
     LoadConditionsError, TemplateCollection, TemplateCollectionError,
 };
+use yixuan_logic::LogicResources;
 
 use crate::config::{GMGroupConfig, GachaScheduleConfig, ResourceConfig};
 
@@ -104,5 +105,12 @@ impl NapResources {
 
     fn load_json_data<T: serde::de::DeserializeOwned>(path: &str) -> Result<T, DataLoadError> {
         Ok(serde_json5::from_reader(&std::fs::File::open(path)?)?)
+    }
+
+    pub fn logic_resources(&'static self) -> LogicResources {
+        LogicResources {
+            template_collection: &self.templates,
+            event_graphs: &self.event_graphs,
+        }
     }
 }

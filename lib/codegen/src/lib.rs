@@ -20,7 +20,7 @@ pub fn derive_model_manager(item: TokenStream) -> TokenStream {
     game_server::impl_model_manager(item)
 }
 
-#[proc_macro_derive(Model)]
+#[proc_macro_derive(Model, attributes(ignore_property))]
 pub fn derive_model(item: TokenStream) -> TokenStream {
     game_server::impl_model_trait(item)
 }

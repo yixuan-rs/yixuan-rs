@@ -16,6 +16,7 @@ use yixuan_logic::{
     hollow::GameHollowState,
     listener::LogicEventListener,
     long_fight::GameLongFightState,
+    scene::ELocalPlayType,
 };
 use yixuan_proto::{BigBossInfo, PlayerSyncScNotify, server_only::PlayerData};
 
@@ -84,10 +85,8 @@ pub enum AddItemSource {
 
 impl Player {
     pub fn load_from_pb(uid: u32, pb: PlayerData, res: &'static NapResources) -> Self {
-        let logic_resources = LogicResources {
-            template_collection: &res.templates,
-            event_graphs: &res.event_graphs,
-        };
+        let logic_resources = res.logic_resources();
+
         Self {
             uid,
             loading_state: LoadingState::Login,
@@ -104,7 +103,7 @@ impl Player {
             buddy_model: BuddyModel::load_from_pb(pb.buddy.unwrap()),
             misc_model: MiscModel::load_from_pb(pb.misc.unwrap()),
             main_city_model: MainCityModel::load_from_pb(pb.main_city.unwrap()),
-            scene_model: SceneModel::load_from_pb(pb.scene.unwrap()),
+            scene_model: SceneModel::load_from_pb(pb.scene.unwrap(), logic_resources),
             gacha_model: GachaModel::load_from_pb(pb.gacha.unwrap()),
             map_model: MapModel::load_from_pb(pb.map.unwrap()),
         }
@@ -142,6 +141,7 @@ impl Player {
             scene_uid,
             SceneSnapshot {
                 scene_id: 1,
+                play_type: ELocalPlayType::Unknown,
                 ext: SceneSnapshotExt::Hall(HallSceneSnapshot {
                     cur_section_id: 2,
                     sections: HashMap::new(),
@@ -263,6 +263,7 @@ impl Player {
                     quest_id,
                     battle_group_config.battle_event_id(),
                     self.build_dungeon_equipment(avatars),
+                    Some(ELocalPlayType::PureHollowBattleLonghfight),
                 )
             }
             HollowQuestType::SideQuest => self.scene_model.create_hollow_dungeon(
@@ -283,6 +284,7 @@ impl Player {
                     10,
                     battle_group_config.battle_event_id(),
                     self.build_dungeon_equipment(avatars),
+                    Some(ELocalPlayType::PureHollowBattle),
                 )
             }
             other => {
@@ -312,6 +314,7 @@ impl Player {
             0,
             quest_template.battle_event_id(),
             self.build_dungeon_equipment(avatars),
+            Some(ELocalPlayType::TrainingRoom),
         );
 
         let dungeon = self.scene_model.dungeons.get_mut(&dungeon_uid).unwrap();
@@ -349,6 +352,7 @@ impl Player {
                         EQuestType::DoubleElite.into(),
                         double_elite_template.battle_event_id(),
                         self.build_dungeon_equipment(avatars),
+                        None,
                     )
                 }
                 EQuestType::BigBoss => {
@@ -363,6 +367,7 @@ impl Player {
                         EQuestType::BigBoss.into(),
                         double_elite_template.battle_event_id(),
                         self.build_dungeon_equipment(avatars),
+                        None,
                     )
                 }
                 other => {
@@ -566,7 +571,14 @@ impl Player {
                     .unwrap()
                     .clone();
 
-                GameFightState::new(snapshot.scene_id, resources, dungeon, self).into()
+                GameFightState::new(
+                    snapshot.scene_id,
+                    snapshot.play_type,
+                    resources,
+                    dungeon,
+                    self,
+                )
+                .into()
             }
             SceneSnapshotExt::LongFight(_fight) => {
                 let dungeon = self
@@ -576,7 +588,14 @@ impl Player {
                     .unwrap()
                     .clone();
 
-                GameLongFightState::new(snapshot.scene_id, resources, dungeon, self).into()
+                GameLongFightState::new(
+                    snapshot.scene_id,
+                    snapshot.play_type,
+                    resources,
+                    dungeon,
+                    self,
+                )
+                .into()
             }
         }
     }
@@ -962,10 +981,7 @@ impl Player {
     }
 
     fn logic_resources(&self) -> LogicResources {
-        LogicResources {
-            template_collection: &self.resources.templates,
-            event_graphs: &self.resources.event_graphs,
-        }
+        self.resources.logic_resources()
     }
 }
 
@@ -1005,7 +1021,9 @@ impl LogicEventListener for Player {
     }
 
     fn has_gained_once_reward(&self, once_reward_id: u32) -> bool {
-        self.item_model.gained_once_rewards.contains(&once_reward_id)
+        self.item_model
+            .gained_once_rewards
+            .contains(&once_reward_id)
     }
 
     fn hollow_event_executed(&mut self, hollow_event_id: u32) {

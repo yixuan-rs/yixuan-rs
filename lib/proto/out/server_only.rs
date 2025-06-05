@@ -489,6 +489,8 @@ pub struct SceneData {
 pub struct SceneInfo {
     #[prost(uint32, tag = "1")]
     pub id: u32,
+    #[prost(uint32, tag = "2")]
+    pub play_type: u32,
     #[prost(uint64, tag = "3")]
     pub dungeon_uid: u64,
     #[prost(uint64, tag = "4")]

@@ -2,10 +2,9 @@ use std::collections::HashMap;
 
 use config::{ETimePeriodType, EWeatherType};
 
-use crate::{LogicResources, listener::LogicEventListener, scene::ELocalPlayType};
+use crate::{LogicResources, listener::LogicEventListener};
 
 pub struct BattleLevel {
-    pub play_type: ELocalPlayType,
     pub perform: LevelPerform,
     pub special_rewards: Vec<(u32, Vec<(u32, u32)>)>,
 }
@@ -73,7 +72,6 @@ impl BattleLevel {
             .collect();
 
         Self {
-            play_type: template.play_type().into(),
             perform,
             special_rewards,
         }

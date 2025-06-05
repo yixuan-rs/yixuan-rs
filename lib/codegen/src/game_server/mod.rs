@@ -72,6 +72,7 @@ pub fn impl_model_trait(item: TokenStream) -> TokenStream {
     let fields = data
         .fields
         .iter()
+        .filter(|field| !field.attrs.iter().any(|attr| attr.path().is_ident("ignore_property")))
         .filter_map(|field| field.ident.as_ref())
         .collect::<Vec<_>>();
 
