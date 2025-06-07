@@ -30,6 +30,7 @@ handlers! {
     PhotoWall;
     MonthReward;
     Map;
+    BigScene;
 }
 
 #[derive(Default)]

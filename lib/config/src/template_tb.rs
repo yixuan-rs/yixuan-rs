@@ -41,6 +41,7 @@ file_cfg! {
     TeleportConfigTemplate;
     UrbanAreaMapGroupTemplate;
     UrbanAreaMapTemplate;
+    BigSceneMapAreaTemplate = 9650146283516467511;
     CallingCardConfigTemplate;
     PlayerSkinConfigTemplate;
     PlayerSkinAccessoriesConfigTemplate;

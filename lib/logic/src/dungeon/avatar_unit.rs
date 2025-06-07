@@ -2,9 +2,9 @@ use std::{collections::HashMap, sync::LazyLock};
 
 use config::TemplateCollection;
 
-use crate::item::{EAvatarSkillType, EquipItem};
+use crate::item::{AvatarItem, EAvatarSkillType, EquipItem, WeaponItem};
 
-use super::{DungeonEquipment, property::EPropertyType};
+use super::property::EPropertyType;
 
 #[derive(Debug, Clone)]
 pub struct AvatarUnit {
@@ -12,18 +12,39 @@ pub struct AvatarUnit {
     pub properties: HashMap<EPropertyType, i32>,
 }
 
+pub trait EquipmentRepository {
+    fn get_avatar(&self, id: u32) -> Option<&AvatarItem>;
+    fn get_weapon(&self, uid: u32) -> Option<&WeaponItem>;
+    fn get_equip(&self, uid: u32) -> Option<&EquipItem>;
+
+    fn get_avatar_weapon(&self, id: u32) -> Option<&WeaponItem> {
+        let avatar = self.get_avatar(id)?;
+        (avatar.weapon_uid != 0).then(|| self.get_weapon(avatar.weapon_uid))?
+    }
+
+    fn get_avatar_equips(&self, id: u32) -> Option<Vec<&EquipItem>> {
+        self.get_avatar(id).map(|avatar| {
+            avatar
+                .dressed_equip_map
+                .iter()
+                .filter_map(|(&uid, _)| self.get_equip(uid))
+                .collect()
+        })
+    }
+}
+
 impl AvatarUnit {
     pub fn new(
         avatar_id: u32,
         templates: &TemplateCollection,
-        equipment: &DungeonEquipment,
+        equipment: &dyn EquipmentRepository,
     ) -> Self {
         let mut unit = AvatarUnit {
             avatar_id,
             properties: HashMap::new(),
         };
 
-        let Some(avatar_item) = equipment.avatars.get(&avatar_id) else {
+        let Some(avatar_item) = equipment.get_avatar(avatar_id) else {
             return unit;
         };
 
@@ -50,6 +71,17 @@ impl AvatarUnit {
         unit.set_battle_properties();
 
         unit
+    }
+
+    pub fn as_proto(&self) -> yixuan_proto::common::AvatarUnitInfo {
+        yixuan_proto::common::AvatarUnitInfo {
+            avatar_id: self.avatar_id,
+            properties: self
+                .properties
+                .iter()
+                .map(|(&ty, &value)| (ty.into(), value))
+                .collect(),
+        }
     }
 
     fn set_battle_properties(&mut self) {
@@ -465,5 +497,18 @@ impl AvatarUnit {
 
     fn get_property(&self, ty: EPropertyType) -> i32 {
         self.properties.get(&ty).copied().unwrap_or(0)
+    }
+}
+
+impl From<yixuan_proto::common::AvatarUnitInfo> for AvatarUnit {
+    fn from(value: yixuan_proto::common::AvatarUnitInfo) -> Self {
+        Self {
+            avatar_id: value.avatar_id,
+            properties: value
+                .properties
+                .into_iter()
+                .filter_map(|(ty, value)| Some((EPropertyType::try_from(ty).ok()?, value)))
+                .collect(),
+        }
     }
 }

@@ -8,14 +8,14 @@ use yixuan_proto::{
     CollectHollowRewardCsReq, CollectHollowRewardScRsp, EndBattleCsReq, EndBattleScRsp,
     EndNpcTalkCsReq, EndNpcTalkScRsp, EnterSectionCompleteCsReq, EnterSectionCompleteScRsp,
     EnterSectionCsReq, EnterSectionScRsp, EnterWorldCsReq, EnterWorldScRsp, EventGraphOwnerType,
-    FightSettle, HollowEventReportCsReq, HollowEventReportScRsp, HollowMoveCsReq, HollowMoveScRsp,
-    HollowTickCsReq, HollowTickScRsp, InteractWithUnitCsReq, InteractWithUnitScRsp,
-    LeaveCurSceneCsReq, LeaveCurSceneScRsp, ModMainCityTimeCsReq, ModMainCityTimeScRsp,
-    RunEventActionCsReq, RunEventActionScRsp, RunEventGraphCsReq, RunEventGraphScRsp,
-    SavePosInMainCityCsReq, SavePosInMainCityScRsp, SceneTransitionCsReq, SceneTransitionScRsp,
-    SectionRefreshCsReq, SectionRefreshScRsp, SyncLongFightProgressCsReq,
-    SyncLongFightProgressScRsp, TriggerHollowEventCsReq, TriggerHollowEventScRsp,
-    TriggerInteractCsReq, TriggerInteractScRsp,
+    FightSettle, GetTimeInfoCsReq, GetTimeInfoScRsp, HollowEventReportCsReq,
+    HollowEventReportScRsp, HollowMoveCsReq, HollowMoveScRsp, HollowTickCsReq, HollowTickScRsp,
+    InteractWithUnitCsReq, InteractWithUnitScRsp, LeaveCurSceneCsReq, LeaveCurSceneScRsp,
+    ModMainCityTimeCsReq, ModMainCityTimeScRsp, RunEventActionCsReq, RunEventActionScRsp,
+    RunEventGraphCsReq, RunEventGraphScRsp, SavePosInMainCityCsReq, SavePosInMainCityScRsp,
+    SceneTransitionCsReq, SceneTransitionScRsp, SectionRefreshCsReq, SectionRefreshScRsp,
+    SyncLongFightProgressCsReq, SyncLongFightProgressScRsp, TimeInfo, TriggerHollowEventCsReq,
+    TriggerHollowEventScRsp, TriggerInteractCsReq, TriggerInteractScRsp,
 };
 
 use super::NetContext;
@@ -24,6 +24,16 @@ pub struct WorldHandler;
 
 #[handlers]
 impl WorldHandler {
+    pub fn on_get_time_info_cs_req(
+        _: &mut NetContext,
+        _request: GetTimeInfoCsReq,
+    ) -> GetTimeInfoScRsp {
+        GetTimeInfoScRsp {
+            retcode: 0,
+            time_info: Some(TimeInfo::default()),
+        }
+    }
+
     pub fn on_enter_world_cs_req(
         context: &mut NetContext,
         _request: EnterWorldCsReq,

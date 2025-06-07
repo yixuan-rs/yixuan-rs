@@ -63,3 +63,18 @@ enumeration!(
     Night = 4,
     Now = 99
 );
+
+enumeration!(
+    EGadgetType(u32),
+    Default = 0,
+    Portal = 1,
+    ViewPoint = 2,
+    Treasure = 3,
+    Collection = 4,
+    Unknown7 = 7
+);
+
+enumeration!(
+    EntityType(u32),
+    Avatar = 1
+);

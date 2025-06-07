@@ -191,5 +191,6 @@ async fn fetch_player_data(
         scene: Some(db.fetch_model_data(uid).await?),
         gacha: Some(db.fetch_model_data(uid).await?),
         map: Some(db.fetch_model_data(uid).await?),
+        big_scene: Some(db.fetch_model_data(uid).await?),
     })
 }

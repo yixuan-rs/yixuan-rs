@@ -3,7 +3,7 @@ use config::AvatarBaseTemplate;
 use std::collections::HashMap;
 use yixuan_logic::item::{AvatarItem, EAvatarSkillType};
 
-use crate::player::Player;
+use crate::{player::Player, util::big_scene_util};
 
 pub fn unlock_avatars_on_first_login(player: &mut Player) {
     const DEFAULT_AVATARS: &[u32] = &[1011, 1081];
@@ -74,6 +74,8 @@ pub fn unlock_avatar(
                 .add_avatar_perform_map
                 .insert(avatar_id, perform_type);
         }
+
+        big_scene_util::add_avatar_to_big_scene_team_list(player, avatar_id);
     }
 }
 

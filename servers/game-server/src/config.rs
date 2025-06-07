@@ -16,6 +16,7 @@ pub struct ClusterConfig {
 pub struct ResourceConfig {
     pub fileconfig_directory: String,
     pub level_process_directory: String,
+    pub level_world_directory: String,
     pub usm_keys_path: String,
     pub first_login_gm_group_list: Vec<String>,
 }

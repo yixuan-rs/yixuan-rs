@@ -1,8 +1,7 @@
 use std::{collections::HashMap, fs::File};
 
 use config::{
-    Condition, EventGraphCollection, EventGraphCollectionLoadError, HollowChessboardConfig,
-    LoadConditionsError, TemplateCollection, TemplateCollectionError,
+    world::{LevelWorldConfig, LevelWorldConfigLoadError}, Condition, EventGraphCollection, EventGraphCollectionLoadError, HollowChessboardConfig, LoadConditionsError, TemplateCollection, TemplateCollectionError
 };
 use yixuan_logic::LogicResources;
 
@@ -14,6 +13,8 @@ pub enum LoadResourcesError {
     TemplateCollection(#[from] TemplateCollectionError),
     #[error("failed to load EventGraph assets: {0}")]
     EventGraphCollection(#[from] EventGraphCollectionLoadError),
+    #[error("failed to load LevelWorldConfig: {0}")]
+    LevelWorldConfig(#[from] LevelWorldConfigLoadError),
     #[error("failed to parse condition configs: {0}")]
     Conditions(#[from] LoadConditionsError),
     #[error("failed to load Hollow Chessboard configs, cause: {0}")]
@@ -35,6 +36,7 @@ pub enum DataLoadError {
 pub struct NapResources {
     pub templates: TemplateCollection,
     pub event_graphs: EventGraphCollection,
+    pub level_world: LevelWorldConfig,
     pub hollow_chessboard: HashMap<u32, HollowChessboardConfig>,
     pub conditions: HashMap<i32, Condition>,
     pub video_key_map: HashMap<u32, u64>,
@@ -57,6 +59,7 @@ impl NapResources {
             conditions: config::load_all_conditions(templates.condition_config_template_tb())?,
             templates,
             event_graphs: EventGraphCollection::load(&config.level_process_directory)?,
+            level_world: LevelWorldConfig::load(&config.level_world_directory)?,
             hollow_chessboard: Self::load_hollow_chessboard_map(&format!(
                 "{}/Hollow/Chessboard",
                 config.level_process_directory
@@ -111,6 +114,7 @@ impl NapResources {
         LogicResources {
             template_collection: &self.templates,
             event_graphs: &self.event_graphs,
+            level_world: &self.level_world,
         }
     }
 }

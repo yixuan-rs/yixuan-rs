@@ -9,7 +9,7 @@ mod avatar_unit;
 mod enums;
 mod property;
 
-pub use avatar_unit::AvatarUnit;
+pub use avatar_unit::{EquipmentRepository, AvatarUnit};
 use common::time_util;
 use config::TemplateCollection;
 pub use enums::*;
@@ -133,14 +133,7 @@ impl Dungeon {
             avatar_list: self
                 .avatar_units
                 .iter()
-                .map(|unit| yixuan_proto::AvatarUnitInfo {
-                    avatar_id: unit.avatar_id,
-                    properties: unit
-                        .properties
-                        .iter()
-                        .map(|(&ty, &value)| (ty.into(), value))
-                        .collect(),
-                })
+                .map(AvatarUnit::as_proto)
                 .collect(),
             dungeon_quest_info: Some(yixuan_proto::DungeonQuestInfo {
                 inner_quest_id_list: self.inner_quest_id_list.clone(),
@@ -153,23 +146,16 @@ impl Dungeon {
     }
 }
 
-impl DungeonEquipment {
-    pub fn get_avatar_weapon(&self, avatar_id: u32) -> Option<&WeaponItem> {
-        self.avatars
-            .get(&avatar_id)
-            .and_then(|avatar| {
-                (avatar.weapon_uid != 0).then(|| self.weapons.get(&avatar.weapon_uid))
-            })
-            .flatten()
+impl EquipmentRepository for DungeonEquipment {
+    fn get_avatar(&self, id: u32) -> Option<&AvatarItem> {
+        self.avatars.get(&id)
     }
 
-    pub fn get_avatar_equips(&self, avatar_id: u32) -> Option<Vec<&EquipItem>> {
-        self.avatars.get(&avatar_id).map(|avatar| {
-            self.equips
-                .iter()
-                .filter(|(uid, _)| avatar.dressed_equip_map.contains_key(uid))
-                .map(|(_, equip)| equip)
-                .collect()
-        })
+    fn get_weapon(&self, uid: u32) -> Option<&WeaponItem> {
+        self.weapons.get(&uid)
+    }
+
+    fn get_equip(&self, uid: u32) -> Option<&EquipItem> {
+        self.equips.get(&uid)
     }
 }

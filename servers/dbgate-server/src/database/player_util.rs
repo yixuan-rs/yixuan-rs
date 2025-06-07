@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
 use yixuan_proto::server_only::{
-    AbyssData, ArchiveData, AvatarData, BattleData, BuddyData, BusinessCardData, GachaData,
-    HollowData, ItemData, MainCityData, MapData, MiscData, NewbieData, NewsStandData,
-    PlayerAccessoryData, PostGirlData, QuestData, SceneData, SwitchData, TeleportUnlockData,
-    UnlockData,
+    AbyssData, ArchiveData, AvatarData, BattleData, BigSceneData, BigSceneTeamData, BuddyData,
+    BusinessCardData, GachaData, HollowData, ItemData, MainCityData, MapData, MiscData, NewbieData,
+    NewsStandData, PlayerAccessoryData, PostGirlData, QuestData, SceneData, SwitchData,
+    TeleportUnlockData, UnlockData,
 };
 
 pub trait ModelData {
@@ -154,6 +154,16 @@ impl ModelData for MapData {
         MapData {
             area_group_list: Vec::new(),
             area_street_list: Vec::new(),
+        }
+    }
+}
+
+impl ModelData for BigSceneData {
+    const TABLE: &str = "t_big_scene_data";
+
+    fn create_default(_uid: i32) -> Self {
+        BigSceneData {
+            scene_team_data: Some(BigSceneTeamData::default()),
         }
     }
 }

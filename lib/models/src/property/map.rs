@@ -48,6 +48,12 @@ where
         self.base.keys()
     }
 
+    pub fn removed_keys(&self) -> impl Iterator<Item = &Key> {
+        self.changed_keys
+            .iter()
+            .filter(|key| !self.base.contains_key(key))
+    }
+
     pub fn contains_key(&self, key: &Key) -> bool {
         self.base.contains_key(key)
     }
@@ -58,6 +64,11 @@ where
 
     pub fn is_empty(&self) -> bool {
         self.len() == 0
+    }
+
+    pub fn clear(&mut self) {
+        self.base.clear();
+        self.changed_keys.clear();
     }
 }
 

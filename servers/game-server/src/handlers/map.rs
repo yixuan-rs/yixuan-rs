@@ -1,8 +1,11 @@
+use config::EGadgetType;
+use tracing::{debug, error};
 use yixuan_codegen::handlers;
 use yixuan_proto::{
-    AreaGroupInfo, AreaMapData, AreaMapModStateCsReq, AreaMapModStateScRsp,
-    AreaStreetInfo, GetAreaMapDataCsReq, GetAreaMapDataScRsp, GetAreaPortalDataCsReq,
-    GetAreaPortalDataScRsp,
+    AreaGroupInfo, AreaMapData, AreaMapModStateCsReq, AreaMapModStateScRsp, AreaStreetInfo,
+    FloorGroupMemberInfo, GetAreaMapDataCsReq, GetAreaMapDataScRsp, GetAreaPortalDataCsReq,
+    GetAreaPortalDataScRsp, GetFloorActiveGroupListCsReq, GetFloorActiveGroupListScRsp,
+    GetFloorGroupMemberListCsReq, GetFloorGroupMemberListScRsp,
 };
 
 use super::NetContext;
@@ -82,6 +85,63 @@ impl MapHandler {
         GetAreaPortalDataScRsp {
             retcode: 0,
             area_portal_id_list: Vec::new(),
+        }
+    }
+
+    pub fn on_get_floor_active_group_list_cs_req(
+        context: &mut NetContext<'_>,
+        request: GetFloorActiveGroupListCsReq,
+    ) -> GetFloorActiveGroupListScRsp {
+        debug!("{request:?}");
+
+        let Some(floor_config) = context.resources.level_world.floors.get(&request.floor_id) else {
+            error!("floor with id {} doesn't exist", request.floor_id);
+            return GetFloorActiveGroupListScRsp {
+                retcode: 1,
+                ..Default::default()
+            };
+        };
+
+        GetFloorActiveGroupListScRsp {
+            retcode: 0,
+            group_list: floor_config.group_id_list.clone(),
+        }
+    }
+
+    pub fn on_get_floor_group_member_list_cs_req(
+        context: &mut NetContext<'_>,
+        request: GetFloorGroupMemberListCsReq,
+    ) -> GetFloorGroupMemberListScRsp {
+        debug!("{request:?}");
+
+        let Some(floor_config) = context.resources.level_world.floors.get(&request.floor_id) else {
+            error!("floor with id {} doesn't exist", request.floor_id);
+            return GetFloorGroupMemberListScRsp {
+                retcode: 1,
+                ..Default::default()
+            };
+        };
+
+        GetFloorGroupMemberListScRsp {
+            retcode: 0,
+            floor_group_portal_list: floor_config
+                .group_id_list
+                .iter()
+                .filter_map(|id| context.resources.level_world.groups.get(id))
+                .flat_map(|group| {
+                    [group.group_id]
+                        .into_iter()
+                        .cycle()
+                        .zip(group.members.iter())
+                })
+                .filter(|(_, member)| {
+                    member.gadget_server_metadata.gadget_type == EGadgetType::Portal
+                })
+                .map(|(group_id, member)| FloorGroupMemberInfo {
+                    group_id,
+                    config_id: member.config_id,
+                })
+                .collect(),
         }
     }
 }

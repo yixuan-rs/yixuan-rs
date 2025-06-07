@@ -29,6 +29,14 @@ pub struct HollowGridState {
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AvatarUnitInfo {
+    #[prost(uint32, tag = "1")]
+    pub avatar_id: u32,
+    #[prost(map = "uint32, int32", tag = "2")]
+    pub properties: ::std::collections::HashMap<u32, i32>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogSkillUseInfo {
     #[prost(int32, tag = "1")]
     pub skill_id: i32,
@@ -102,6 +110,81 @@ pub struct FightResult {
     pub star: i32,
     #[prost(message, optional, tag = "6")]
     pub battle_statistic: ::core::option::Option<LogBattleStatistics>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct Vector3 {
+    #[prost(int32, tag = "1")]
+    pub x: i32,
+    #[prost(int32, tag = "2")]
+    pub y: i32,
+    #[prost(int32, tag = "3")]
+    pub z: i32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BigSceneAvatarInfo {
+    #[prost(uint32, tag = "1")]
+    pub avatar_id: u32,
+    #[prost(enumeration = "TeamMemberSource", tag = "2")]
+    pub source: i32,
+    #[prost(enumeration = "SceneAvatarState", tag = "3")]
+    pub cur_state: i32,
+    #[prost(uint32, tag = "4")]
+    pub cur_hp: u32,
+    #[prost(enumeration = "TeamMemberOperation", tag = "5")]
+    pub operation: i32,
+    #[prost(message, optional, tag = "6")]
+    pub avatar_unit: ::core::option::Option<AvatarUnitInfo>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SceneAvatarInfo {
+    #[prost(int32, tag = "1")]
+    pub avatar_id: i32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SceneEntityInfo {
+    #[prost(uint32, tag = "1")]
+    pub entity_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub group_id: u32,
+    #[prost(uint32, tag = "3")]
+    pub config_id: u32,
+    #[prost(message, optional, tag = "4")]
+    pub position: ::core::option::Option<Vector3>,
+    #[prost(message, optional, tag = "5")]
+    pub rotation: ::core::option::Option<Vector3>,
+    #[prost(map = "int32, int32", tag = "6")]
+    pub unk_big_scene_entity_map_1: ::std::collections::HashMap<i32, i32>,
+    #[prost(map = "string, int32", tag = "7")]
+    pub unk_big_scene_entity_map_2: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        i32,
+    >,
+    #[prost(oneof = "scene_entity_info::Entity", tags = "8")]
+    pub entity: ::core::option::Option<scene_entity_info::Entity>,
+}
+/// Nested message and enum types in `SceneEntityInfo`.
+pub mod scene_entity_info {
+    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    pub enum Entity {
+        #[prost(message, tag = "8")]
+        Avatar(super::SceneAvatarInfo),
+    }
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RollbackPointInfo {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub position: ::core::option::Option<Vector3>,
+    #[prost(message, optional, tag = "3")]
+    pub rotation: ::core::option::Option<Vector3>,
+    #[prost(uint32, tag = "4")]
+    pub group_id: u32,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -416,6 +499,99 @@ impl NodeSubState {
             "NODE_SUB_STATE_AFFECTED_EMP" => Some(Self::AffectedEmp),
             "NODE_SUB_STATE_UNAVAILABLE" => Some(Self::Unavailable),
             "NODE_SUB_STATE_ANCHOR_LOCKER_SHOW" => Some(Self::AnchorLockerShow),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum TeamMemberSource {
+    None = 0,
+    Normal = 1,
+    Unk2 = 2,
+    Unk3 = 3,
+}
+impl TeamMemberSource {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::None => "TEAM_MEMBER_SOURCE_NONE",
+            Self::Normal => "TEAM_MEMBER_SOURCE_NORMAL",
+            Self::Unk2 => "TEAM_MEMBER_SOURCE_UNK_2",
+            Self::Unk3 => "TEAM_MEMBER_SOURCE_UNK_3",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "TEAM_MEMBER_SOURCE_NONE" => Some(Self::None),
+            "TEAM_MEMBER_SOURCE_NORMAL" => Some(Self::Normal),
+            "TEAM_MEMBER_SOURCE_UNK_2" => Some(Self::Unk2),
+            "TEAM_MEMBER_SOURCE_UNK_3" => Some(Self::Unk3),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum SceneAvatarState {
+    None = 0,
+    Alive = 1,
+    Dead = 3,
+}
+impl SceneAvatarState {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::None => "SCENE_AVATAR_STATE_NONE",
+            Self::Alive => "SCENE_AVATAR_STATE_ALIVE",
+            Self::Dead => "SCENE_AVATAR_STATE_DEAD",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "SCENE_AVATAR_STATE_NONE" => Some(Self::None),
+            "SCENE_AVATAR_STATE_ALIVE" => Some(Self::Alive),
+            "SCENE_AVATAR_STATE_DEAD" => Some(Self::Dead),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum TeamMemberOperation {
+    None = 0,
+    Unk1 = 1,
+    Unk2 = 2,
+    TeamReplace = 3,
+}
+impl TeamMemberOperation {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::None => "TEAM_MEMBER_OPERATION_NONE",
+            Self::Unk1 => "TEAM_MEMBER_OPERATION_UNK_1",
+            Self::Unk2 => "TEAM_MEMBER_OPERATION_UNK_2",
+            Self::TeamReplace => "TEAM_MEMBER_OPERATION_TEAM_REPLACE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "TEAM_MEMBER_OPERATION_NONE" => Some(Self::None),
+            "TEAM_MEMBER_OPERATION_UNK_1" => Some(Self::Unk1),
+            "TEAM_MEMBER_OPERATION_UNK_2" => Some(Self::Unk2),
+            "TEAM_MEMBER_OPERATION_TEAM_REPLACE" => Some(Self::TeamReplace),
             _ => None,
         }
     }

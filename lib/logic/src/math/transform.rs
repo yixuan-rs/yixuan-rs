@@ -7,6 +7,23 @@ pub struct Transform {
 #[derive(Debug, Default, Clone)]
 pub struct Vector3(pub f64, pub f64, pub f64);
 
+#[derive(Debug, Default, Clone)]
+pub struct Vector3i(pub i32, pub i32, pub i32);
+
+impl Vector3i {
+    pub fn from_proto(pb: &yixuan_proto::common::Vector3) -> Self {
+        Self(pb.x, pb.y, pb.z)
+    }
+
+    pub fn to_proto(&self) -> yixuan_proto::common::Vector3 {
+        yixuan_proto::common::Vector3 {
+            x: self.0,
+            y: self.1,
+            z: self.2,
+        }
+    }
+}
+
 impl Transform {
     pub fn from_proto(pb: &yixuan_proto::common::Transform) -> Self {
         #[allow(clippy::get_first)]

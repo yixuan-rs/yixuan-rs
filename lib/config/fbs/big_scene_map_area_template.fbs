@@ -1,0 +1,11 @@
+table BigSceneMapAreaTemplate {
+    area_id: uint;
+    unk_1: string;
+    unk_2: string;
+    unk_3: string;
+    group_id: uint;
+}
+
+table BigSceneMapAreaTemplateTb {
+    data: [BigSceneMapAreaTemplate];
+}

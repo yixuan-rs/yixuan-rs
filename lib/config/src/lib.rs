@@ -3,6 +3,7 @@ mod enums;
 mod level_process;
 mod template_tb;
 mod util;
+pub mod world;
 
 pub use condition::*;
 pub use enums::*;

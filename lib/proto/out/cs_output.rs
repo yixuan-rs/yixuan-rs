@@ -306,6 +306,19 @@ pub struct ActivityBattleSync {
     pub double_elite: ::core::option::Option<DoubleEliteSync>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct BigSceneSync {
+    #[prost(message, repeated, tag = "13")]
+    pub scene_avatar_list: ::prost::alloc::vec::Vec<super::common::BigSceneAvatarInfo>,
+    #[prost(message, repeated, tag = "14")]
+    pub cur_scene_avatar_list: ::prost::alloc::vec::Vec<
+        super::common::BigSceneAvatarInfo,
+    >,
+    #[prost(uint32, tag = "1241", xor = "7626")]
+    pub cur_avatar_id: u32,
+    #[prost(bool, tag = "184")]
+    pub is_scene_team_replaced: bool,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(3876)]
 pub struct PlayerSyncScNotify {
     #[prost(message, optional, tag = "13")]
@@ -322,6 +335,8 @@ pub struct PlayerSyncScNotify {
     pub hollow: ::core::option::Option<HollowSync>,
     #[prost(message, optional, tag = "1835")]
     pub activity_battle: ::core::option::Option<ActivityBattleSync>,
+    #[prost(message, optional, tag = "43")]
+    pub big_scene: ::core::option::Option<BigSceneSync>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(3896)]
@@ -965,13 +980,6 @@ pub struct DungeonEquipInfo {
     pub buddy: ::core::option::Option<BuddyInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-pub struct AvatarUnitInfo {
-    #[prost(uint32, tag = "1")]
-    pub avatar_id: u32,
-    #[prost(map = "uint32, int32", tag = "2")]
-    pub properties: ::std::collections::HashMap<u32, i32>,
-}
-#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BigBossInfo {
     #[prost(uint32, tag = "9", xor = "12717")]
     pub difficulty: u32,
@@ -988,7 +996,7 @@ pub struct DungeonInfo {
     #[prost(message, optional, tag = "7")]
     pub dungeon_equip_info: ::core::option::Option<DungeonEquipInfo>,
     #[prost(message, repeated, tag = "9")]
-    pub avatar_list: ::prost::alloc::vec::Vec<AvatarUnitInfo>,
+    pub avatar_list: ::prost::alloc::vec::Vec<super::common::AvatarUnitInfo>,
     #[prost(uint32, tag = "892", xor = "6101")]
     pub quest_type: u32,
     #[prost(message, optional, tag = "6")]
@@ -1063,6 +1071,20 @@ pub struct ModMainCityTimeCsReq {
 #[derive(::proto_derive::NetResponse)]
 pub struct ModMainCityTimeScRsp {
     pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(870)]
+pub struct GetTimeInfoCsReq {}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct TimeInfo {}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(497)]
+pub struct GetTimeInfoScRsp {
+    #[prost(int32, tag = "13", xor = "5023")]
+    pub retcode: i32,
+    #[prost(message, optional, tag = "3")]
+    pub time_info: ::core::option::Option<TimeInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(1749)]
@@ -2480,6 +2502,202 @@ pub struct GetAreaPortalDataScRsp {
     #[prost(uint32, repeated, tag = "5")]
     pub area_portal_id_list: ::prost::alloc::vec::Vec<u32>,
 }
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(6953)]
+pub struct GetFloorActiveGroupListCsReq {
+    #[prost(uint32, tag = "14", xor = "843")]
+    pub floor_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(2431)]
+pub struct GetFloorActiveGroupListScRsp {
+    #[prost(int32, tag = "10", xor = "11981")]
+    pub retcode: i32,
+    #[prost(uint32, repeated, tag = "4")]
+    pub group_list: ::prost::alloc::vec::Vec<u32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(9764)]
+pub struct GetFloorGroupMemberListCsReq {
+    #[prost(uint32, tag = "9", xor = "14691")]
+    pub floor_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct FloorGroupMemberInfo {
+    #[prost(uint32, tag = "1")]
+    pub group_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub config_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(4940)]
+pub struct GetFloorGroupMemberListScRsp {
+    #[prost(int32, tag = "6", xor = "13570")]
+    pub retcode: i32,
+    #[prost(message, repeated, tag = "4")]
+    pub floor_group_portal_list: ::prost::alloc::vec::Vec<FloorGroupMemberInfo>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(2243)]
+pub struct GetBigSceneDataCsReq {}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct BigSceneTeamData {
+    #[prost(message, repeated, tag = "7")]
+    pub scene_avatar_list: ::prost::alloc::vec::Vec<super::common::BigSceneAvatarInfo>,
+    #[prost(message, repeated, tag = "11")]
+    pub cur_scene_avatar_list: ::prost::alloc::vec::Vec<
+        super::common::BigSceneAvatarInfo,
+    >,
+    #[prost(uint32, tag = "10", xor = "5108")]
+    pub cur_avatar_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(2095)]
+pub struct GetBigSceneDataScRsp {
+    #[prost(int32, tag = "4", xor = "6947")]
+    pub retcode: i32,
+    #[prost(message, optional, tag = "11")]
+    pub big_scene_team: ::core::option::Option<BigSceneTeamData>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(8153)]
+pub struct BigSceneTeamReplaceCsReq {
+    #[prost(uint32, repeated, tag = "6")]
+    pub scene_avatar_id_list: ::prost::alloc::vec::Vec<u32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(1044)]
+pub struct BigSceneTeamReplaceScRsp {
+    #[prost(int32, tag = "5", xor = "1115")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct FloorPositionInfo {
+    #[prost(message, optional, tag = "14")]
+    pub player_pos: ::core::option::Option<super::common::Vector3>,
+    #[prost(message, optional, tag = "8")]
+    pub player_rot: ::core::option::Option<super::common::Vector3>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(7193)]
+pub struct EnterBigSceneFloorCsReq {
+    #[prost(uint32, tag = "14", xor = "4048")]
+    pub floor_id: u32,
+    #[prost(uint32, tag = "10", xor = "6393")]
+    pub floor_version: u32,
+    #[prost(string, tag = "1")]
+    pub floor_md5: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "4")]
+    pub floor_position: ::core::option::Option<FloorPositionInfo>,
+    #[prost(message, optional, tag = "6")]
+    pub rollback_point: ::core::option::Option<super::common::RollbackPointInfo>,
+    #[prost(message, optional, tag = "15")]
+    pub player_pos: ::core::option::Option<super::common::Vector3>,
+    #[prost(message, optional, tag = "7")]
+    pub player_rot: ::core::option::Option<super::common::Vector3>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(1300)]
+pub struct EnterBigSceneFloorScRsp {
+    #[prost(int32, tag = "13", xor = "8189")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(5823)]
+pub struct EnterBigSceneScNotify {
+    #[prost(uint32, tag = "10", xor = "8277")]
+    pub scene_id: u32,
+    #[prost(uint32, tag = "9", xor = "15892")]
+    pub floor_id: u32,
+    #[prost(message, optional, tag = "15")]
+    pub pos: ::core::option::Option<super::common::Vector3>,
+    #[prost(message, optional, tag = "4")]
+    pub floor_position: ::core::option::Option<FloorPositionInfo>,
+    #[prost(message, optional, tag = "11")]
+    pub rollback_point: ::core::option::Option<super::common::RollbackPointInfo>,
+    #[prost(message, optional, tag = "5")]
+    pub cur_entity_info: ::core::option::Option<super::common::SceneEntityInfo>,
+    #[prost(uint32, tag = "13", xor = "7135")]
+    pub day_of_week: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(4254)]
+pub struct EnterFloorDoneCsReq {
+    #[prost(uint32, tag = "6", xor = "1836")]
+    pub floor_version: u32,
+    #[prost(string, tag = "13")]
+    pub floor_md5: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(7298)]
+pub struct EnterFloorDoneScRsp {
+    #[prost(int32, tag = "9", xor = "130")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(4258)]
+pub struct SaveBigSceneVariablesCsReq {}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(7454)]
+pub struct SaveBigSceneVariablesScRsp {
+    #[prost(int32, tag = "4", xor = "6622")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(4988)]
+pub struct BigSceneAvatarChangeCsReq {
+    #[prost(uint32, tag = "9", xor = "15719")]
+    pub avatar_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(405)]
+pub struct BigSceneAvatarChangeScRsp {
+    #[prost(int32, tag = "1", xor = "15916")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct SceneEntityPositionInfo {
+    #[prost(uint32, tag = "7", xor = "2099")]
+    pub entity_id: u32,
+    #[prost(message, optional, tag = "1")]
+    pub position: ::core::option::Option<super::common::Vector3>,
+    #[prost(message, optional, tag = "15")]
+    pub rotation: ::core::option::Option<super::common::Vector3>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(6699)]
+pub struct SyncSceneEntityPositionCsReq {
+    #[prost(message, repeated, tag = "1")]
+    pub entity_position_list: ::prost::alloc::vec::Vec<SceneEntityPositionInfo>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct SyncSceneEntityPositionScRsp {
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(9293)]
+pub struct ActiveRollbackPointCsReq {
+    #[prost(uint32, tag = "6", xor = "2730")]
+    pub group_id: u32,
+    #[prost(message, optional, tag = "5")]
+    pub rollback_point: ::core::option::Option<super::common::RollbackPointInfo>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(9025)]
+pub struct ActiveRollbackPointScRsp {
+    #[prost(int32, tag = "14", xor = "5852")]
+    pub retcode: i32,
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum ModAvatarType {
@@ -2505,6 +2723,32 @@ impl ModAvatarType {
             "MOD_AVATAR_TYPE_UNK_0" => Some(Self::Unk0),
             "MOD_AVATAR_TYPE_UNK_1" => Some(Self::Unk1),
             "MOD_AVATAR_TYPE_UNK_2" => Some(Self::Unk2),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum BigSceneTeamStatus {
+    None = 0,
+    Modified = 1,
+}
+impl BigSceneTeamStatus {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::None => "BIG_SCENE_TEAM_STATUS_NONE",
+            Self::Modified => "BIG_SCENE_TEAM_STATUS_MODIFIED",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "BIG_SCENE_TEAM_STATUS_NONE" => Some(Self::None),
+            "BIG_SCENE_TEAM_STATUS_MODIFIED" => Some(Self::Modified),
             _ => None,
         }
     }

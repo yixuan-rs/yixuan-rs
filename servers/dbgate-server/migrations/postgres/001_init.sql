@@ -76,3 +76,8 @@ CREATE TABLE t_map_data (
         uid INT PRIMARY KEY NOT NULL,
         data BYTEA NOT NULL
 );
+
+CREATE TABLE t_big_scene_data (
+        uid INT PRIMARY KEY NOT NULL,
+        data BYTEA NOT NULL
+);

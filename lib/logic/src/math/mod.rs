@@ -1,7 +1,7 @@
 mod transform;
 
 use config::ConfigInteractScale;
-pub use transform::{Transform, Vector3};
+pub use transform::{Transform, Vector3, Vector3i};
 
 #[derive(Debug, Default, Clone)]
 pub struct Scale(pub f64, pub f64, pub f64, pub f64, pub f64);

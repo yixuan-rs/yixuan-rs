@@ -1,5 +1,6 @@
 pub mod avatar_util;
 pub mod basic_util;
+pub mod big_scene_util;
 pub mod gacha_util;
 pub mod gm_util;
 pub mod item_util;

@@ -1,10 +1,10 @@
-use config::{EventGraphCollection, TemplateCollection};
+use config::{EventGraphCollection, TemplateCollection, world::LevelWorldConfig};
 use fight::GameFightState;
 use hall::GameHallState;
 use hollow::GameHollowState;
 use listener::NotifyListener;
 use long_fight::GameLongFightState;
-use scene::SceneType;
+use big_scene::GameBigSceneState;
 
 pub mod battle;
 pub mod debug;
@@ -20,6 +20,7 @@ pub mod math;
 mod predicate_util;
 pub mod scene;
 pub mod system;
+pub mod big_scene;
 
 macro_rules! game_state {
     ($($state:ident;)*) => {
@@ -28,12 +29,6 @@ macro_rules! game_state {
         });
 
         impl GameState {
-            pub fn scene_type(&self) -> SceneType {
-                match self {
-                    $(Self::$state(state) => state.scene_type(),)*
-                }
-            }
-
             pub fn flush_notifies(&mut self, listener: &mut dyn NotifyListener) {
                 match self {
                     $(Self::$state(state) => state.flush_notifies(listener),)*
@@ -54,10 +49,12 @@ game_state! {
     Hollow;
     Fight;
     LongFight;
+    BigScene;
 }
 
 #[derive(Clone, Copy)]
 pub struct LogicResources {
     pub template_collection: &'static TemplateCollection,
     pub event_graphs: &'static EventGraphCollection,
+    pub level_world: &'static LevelWorldConfig,
 }

@@ -106,12 +106,12 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
                 let avatar = player.avatar_model.avatar_map.get_mut(&avatar_id).unwrap();
                 avatar.unlocked_talent_num = talent_num;
                 avatar.talent_switch = [
-                    (1..=3).contains(&talent_num),
-                    (2..=4).contains(&talent_num),
-                    (3..=5).contains(&talent_num),
-                    (4..).contains(&talent_num),
-                    (5..).contains(&talent_num),
-                    (6..).contains(&talent_num),
+                    matches!(talent_num, 1..=3),
+                    matches!(talent_num, 2..=4),
+                    matches!(talent_num, 3..=5),
+                    matches!(talent_num, 4..),
+                    matches!(talent_num, 5..),
+                    matches!(talent_num, 6..),
                 ];
             });
         }

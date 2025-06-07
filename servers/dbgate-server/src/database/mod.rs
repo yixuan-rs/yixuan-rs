@@ -143,7 +143,8 @@ impl DbConnection {
             main_city,
             scene,
             gacha,
-            map
+            map,
+            big_scene
         );
 
         Ok(())

@@ -1,6 +1,10 @@
-use yixuan_logic::LogicResources;
+use itertools::Itertools;
+use yixuan_logic::{LogicResources, dungeon::AvatarUnit};
 use yixuan_models::*;
-use yixuan_proto::*;
+use yixuan_proto::{
+    common::{BigSceneAvatarInfo, SceneAvatarState, TeamMemberOperation, TeamMemberSource},
+    *,
+};
 
 use yixuan_models::property::Property;
 
@@ -387,5 +391,53 @@ impl PlayerSyncComponent for SceneModel {
         _player_sync_sc_notify: &mut yixuan_proto::PlayerSyncScNotify,
         _: &LogicResources,
     ) {
+    }
+}
+
+impl PlayerSyncComponent for BigSceneModel {
+    fn supports_player_sync(&self) -> bool {
+        true
+    }
+
+    fn add_changes_to_player_sync_notify(
+        &self,
+        player_sync_sc_notify: &mut PlayerSyncScNotify,
+        _: &LogicResources,
+    ) {
+        player_sync_sc_notify.big_scene = Some(BigSceneSync {
+            scene_avatar_list: self
+                .team
+                .avatars
+                .iter_changed_items()
+                .map(|(&id, avatar)| BigSceneAvatarInfo {
+                    avatar_id: avatar.avatar_id,
+                    source: TeamMemberSource::Normal.into(),
+                    cur_hp: avatar.cur_hp,
+                    avatar_unit: avatar.avatar_unit.as_ref().map(AvatarUnit::as_proto),
+                    cur_state: SceneAvatarState::Alive.into(),
+                    operation: if self.team.cur_avatars.contains_key(&id) {
+                        TeamMemberOperation::TeamReplace.into()
+                    } else {
+                        TeamMemberOperation::None.into()
+                    },
+                })
+                .collect(),
+            cur_scene_avatar_list: self
+                .team
+                .cur_avatars
+                .iter()
+                .sorted_by_key(|(_, avatar)| avatar.team_slot_index)
+                .map(|(_, avatar)| BigSceneAvatarInfo {
+                    avatar_id: avatar.avatar_id,
+                    source: TeamMemberSource::Normal.into(),
+                    cur_hp: avatar.cur_hp,
+                    avatar_unit: avatar.avatar_unit.as_ref().map(AvatarUnit::as_proto),
+                    cur_state: SceneAvatarState::Alive.into(),
+                    operation: TeamMemberOperation::None.into(),
+                })
+                .collect(),
+            cur_avatar_id: self.team.cur_avatar_id.get(),
+            is_scene_team_replaced: self.team.cur_avatars.is_changed(),
+        });
     }
 }

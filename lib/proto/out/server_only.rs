@@ -28,6 +28,8 @@ pub struct PlayerData {
     pub gacha: ::core::option::Option<GachaData>,
     #[prost(message, optional, tag = "13")]
     pub map: ::core::option::Option<MapData>,
+    #[prost(message, optional, tag = "14")]
+    pub big_scene: ::core::option::Option<BigSceneData>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -698,6 +700,34 @@ pub struct MapData {
     pub area_group_list: ::prost::alloc::vec::Vec<MapAreaGroupInfo>,
     #[prost(message, repeated, tag = "2")]
     pub area_street_list: ::prost::alloc::vec::Vec<MapAreaStreetInfo>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BigSceneAvatarData {
+    #[prost(uint32, tag = "1")]
+    pub avatar_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub cur_hp: u32,
+    #[prost(message, optional, tag = "3")]
+    pub avatar_unit: ::core::option::Option<super::common::AvatarUnitInfo>,
+    #[prost(uint32, tag = "4")]
+    pub team_slot_index: u32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BigSceneTeamData {
+    #[prost(message, repeated, tag = "1")]
+    pub scene_avatar_list: ::prost::alloc::vec::Vec<BigSceneAvatarData>,
+    #[prost(message, repeated, tag = "2")]
+    pub cur_scene_avatar_list: ::prost::alloc::vec::Vec<BigSceneAvatarData>,
+    #[prost(uint32, tag = "3")]
+    pub cur_avatar_id: u32,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BigSceneData {
+    #[prost(message, optional, tag = "1")]
+    pub scene_team_data: ::core::option::Option<BigSceneTeamData>,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]

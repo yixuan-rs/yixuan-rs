@@ -9,7 +9,7 @@ use rand::RngCore;
 use yixuan_codegen::ModelManager;
 use yixuan_logic::{
     GameState, LogicResources,
-    dungeon::{DungeonEquipment, EQuestType},
+    dungeon::{DungeonEquipment, EQuestType, EquipmentRepository},
     event::Event,
     fight::GameFightState,
     hall::{GameHallState, HallGameParameters},
@@ -37,6 +37,25 @@ pub enum LoadingState {
     ExtendDataSync,
     EnterWorldCsReq,
     EnterWorldScRsp,
+}
+
+pub struct EquipmentDataProxy<'models> {
+    pub item_model: &'models ItemModel,
+    pub avatar_model: &'models AvatarModel,
+}
+
+impl EquipmentRepository for EquipmentDataProxy<'_> {
+    fn get_avatar(&self, id: u32) -> Option<&yixuan_logic::item::AvatarItem> {
+        self.avatar_model.avatar_map.get(&id)
+    }
+
+    fn get_weapon(&self, uid: u32) -> Option<&yixuan_logic::item::WeaponItem> {
+        self.item_model.weapon_map.get(&uid)
+    }
+
+    fn get_equip(&self, uid: u32) -> Option<&yixuan_logic::item::EquipItem> {
+        self.item_model.equip_map.get(&uid)
+    }
 }
 
 #[derive(ModelManager)]
@@ -72,6 +91,8 @@ pub struct Player {
     pub gacha_model: GachaModel,
     #[model]
     pub map_model: MapModel,
+    #[model]
+    pub big_scene_model: BigSceneModel,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -106,6 +127,7 @@ impl Player {
             scene_model: SceneModel::load_from_pb(pb.scene.unwrap(), logic_resources),
             gacha_model: GachaModel::load_from_pb(pb.gacha.unwrap()),
             map_model: MapModel::load_from_pb(pb.map.unwrap()),
+            big_scene_model: BigSceneModel::load_from_pb(pb.big_scene.unwrap()),
         }
     }
 
@@ -443,12 +465,9 @@ impl Player {
     }
 
     pub fn load_state_from_snapshot(&mut self, scene_snapshot_uid: u64) -> GameState {
-        let resources = LogicResources {
-            template_collection: &self.resources.templates,
-            event_graphs: &self.resources.event_graphs,
-        };
-
         self.scene_model.cur_scene_uid.set(scene_snapshot_uid);
+
+        let resources = self.resources.logic_resources();
 
         let snapshot = self
             .scene_model
@@ -703,6 +722,7 @@ impl Player {
             GameState::Hollow(_) => (),
             GameState::Fight(_) => (),
             GameState::LongFight(_) => (),
+            GameState::BigScene(_) => (),
         }
     }
 
