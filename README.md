@@ -16,11 +16,11 @@
 ## Getting started
 ### Requirements
 - [Rust 1.86+](https://www.rust-lang.org/tools/install)
-- [PostgreSQL](https://www.postgresql.org/download/)
+- SQLite (used by default, no separate installation needed)
 - [SDK server](https://git.xeondev.com/reversedrooms/hoyo-sdk)
 ##### NOTE: this server doesn't include the sdk server as it's not specific per game. You can use `hoyo-sdk` with this server.
 
-#### For additional help, you can join our [discord server](https://discord.xeondev.com)
+#### For additional help, you can join the Original Dev's Server: [discord server](https://discord.xeondev.com)
 
 ### Setup
 #### a) building from sources
@@ -41,7 +41,7 @@ Start each service in order from option `a)`.
 The configuration of each server is located under the `config` directory (created upon first startup)
 - To change network settings for internal server communication, edit the: `config/00-service/environment.toml`
 - To change network settings for outer communication (e.g. with the game client), edit the dispatch-server and gate-server configuration, located in `config/10-dispatch-server/config.toml` and `config/20-gate-server/config.toml` respectively.
-- To change database connection settings, edit the dbgate-server configuration, located in: `config/30-dbgate-server/config.toml`
+- The dbgate-server now uses SQLite by default. Its configuration, primarily the path to the database file (e.g., `data/yixuan.db`), is in: `config/30-dbgate-server/config.toml`
 - To change gameplay-related settings, edit one of game-server configuration files, for example: gacha banner schedule is located in: `config/40-game-server/gacha_schedule.toml`
 
 ### Logging in
@@ -54,6 +54,9 @@ While playing on the server, you may want to obtain the characters that are not 
 ### Gameplay customization
 The MainCity quests and TV mode levels are highly customizable by their nature. You may look around the `assets/LevelProcess` directory.
 ![tv_mode](assets/img/tv_mode.png)
+
+## Acknowledgements
+- Special thanks to @TomerGamerTV for assistance with migrating the database to SQLite.
 
 ### Support
 Your support for this project is greatly appreciated! If you'd like to contribute, feel free to send a tip [via Boosty](https://boosty.to/xeondev/donate)!

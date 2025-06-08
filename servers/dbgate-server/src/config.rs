@@ -1,11 +1,10 @@
-use std::fmt;
-
-use serde::Deserialize;
+use std::fmt; // Keep this import for the new Display impl
+use serde::Deserialize; // Keep this import
 
 #[derive(Deserialize)]
 pub struct ServerConfig {
     pub auth: AuthConfig,
-    pub database: ConnectionString,
+    pub database: ConnectionString, // This remains
 }
 
 #[derive(Deserialize)]
@@ -20,39 +19,21 @@ pub enum AuthConfig {
     },
 }
 
-#[derive(Deserialize, Debug, Clone, Copy)]
-pub enum DbType {
-    #[serde(rename = "postgres")]
-    Postgres,
-    #[serde(rename = "mysql")]
-    Mysql,
-    #[serde(rename = "sqlite")]
-    Sqlite,
-}
+// Remove the DbType enum as it's no longer needed
 
 #[derive(Deserialize, Debug)]
 pub struct ConnectionString {
-    pub db_type: DbType,
-    pub addr: String,
-    pub username: String,
-    pub password: String,
-    pub database: String,
+    pub database_file_path: String,
 }
 
-impl fmt::Display for ConnectionString {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self.db_type {
-            DbType::Postgres => write!(
-                f,
-                "postgres://{}:{}@{}/{}",
-                self.username, self.password, self.addr, self.database
-            ),
-            DbType::Mysql => write!(
-                f,
-                "mysql://{}:{}@{}/{}",
-                self.username, self.password, self.addr, self.database
-            ),
-            DbType::Sqlite => write!(f, "sqlite://{}.db?mode=rwc", self.database),
-        }
+impl ConnectionString {
+    pub fn get_db_path(&self) -> &str {
+        &self.database_file_path
+    }
+}
+
+impl std::fmt::Display for ConnectionString {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.database_file_path)
     }
 }

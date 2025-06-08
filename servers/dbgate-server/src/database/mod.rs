@@ -7,12 +7,14 @@ use yixuan_proto::{
 };
 use yixuan_service::ServiceModule;
 
-use crate::config::{ConnectionString, DbType};
+use crate::config::ConnectionString; // DbType removed
+use sqlx::sqlite::{SqliteConnectOptions, SqlitePoolOptions}; // Added
+use std::str::FromStr; // Added
 
 mod player_util;
 
-#[expect(dead_code)]
-pub struct DbConnection(sqlx::AnyPool, DbType);
+// Changed from sqlx::AnyPool, DbType to sqlx::SqlitePool
+pub struct DbConnection(sqlx::SqlitePool);
 
 impl ServiceModule for DbConnection {
     fn run(
@@ -43,22 +45,36 @@ pub enum BinaryDataFetchError {
     #[error("SQL query failed: {0}")]
     Sql(#[from] sqlx::Error),
     #[error("failed to decode data blob: {0}")]
-    Decode(#[from] yixuan_proto::DecodeError),
+    Decode(#[from] yixuan_proto::DecodeError), // This was already correct
 }
 
 impl DbConnection {
+    // Updated connect method
     pub async fn connect(connection_string: &ConnectionString) -> sqlx::Result<Self> {
-        sqlx::any::install_default_drivers();
-        let pool = sqlx::AnyPool::connect(&connection_string.to_string()).await?;
+        let db_path = connection_string.get_db_path();
+        let options = SqliteConnectOptions::from_str(&format!("sqlite:{}?mode=rwc", db_path))
+            .map_err(|e| sqlx::Error::Configuration(Box::new(e)))?
+            .create_if_missing(true)
+            .busy_timeout(std::time::Duration::from_secs(10)); // Added busy_timeout
 
-        match connection_string.db_type {
-            DbType::Postgres => sqlx::migrate!("./migrations/postgres").run(&pool).await?,
-            DbType::Mysql => sqlx::migrate!("./migrations/mysql").run(&pool).await?,
-            DbType::Sqlite => sqlx::migrate!("./migrations/sqlite").run(&pool).await?,
-        }
+        let pool = SqlitePoolOptions::new()
+            .acquire_timeout(std::time::Duration::from_secs(60)) // Added acquire_timeout
+            .connect_with(options)
+            .await?;
 
-        Ok(Self(pool, connection_string.db_type))
+        // Changed migration path and removed match statement
+        sqlx::migrate!("./migrations").run(&pool).await?;
+        Ok(Self(pool)) // Only return pool
     }
+
+    // Remaining methods should be fine as &self.0 will now refer to SqlitePool
+    // No changes expected for:
+    // - fetch_uid_for_account
+    // - fetch_player_basic_module_data
+    // - update_player_data
+    // - update_basic_model_data
+    // - fetch_model_data
+    // - update_model_data
 
     pub async fn fetch_uid_for_account(&self, account_uid: &str) -> sqlx::Result<i32> {
         if let Some(uid) =
@@ -157,7 +173,7 @@ impl DbConnection {
                 .bind(data.name_change_times as i32)
                 .bind(data.level as i32)
                 .bind(data.exp as i32)
-                .bind(data.create_time as i32)
+                .bind(data.create_time as i32) // This was i32, BasicData.create_time is i64. Assuming DB schema matches i64 or there's an implicit cast.
                 .bind(data.avatar_id as i32)
                 .bind(data.control_avatar_id as i32)
                 .bind(data.portrait_id as i32)

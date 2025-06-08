@@ -1,11 +1,17 @@
 use std::sync::Arc;
 
+use futures::try_join; // Add this new import
 use tokio::sync::{mpsc, oneshot};
 use tracing::{debug, error, warn};
 use yixuan_proto::{
+    server_only::{
+        PlayerData, PlayerDataChangedNotify, PlayerGetDataReq, PlayerGetDataRsp, // Existing
+        AbyssData, ArchiveData, AvatarData, BasicData, BigSceneData, BuddyData, // Added
+        GachaData, HollowData, ItemData, MainCityData, MapData, MiscData,       // Added
+        QuestData, SceneData                                                    // Added
+    },
     NetCmd, PlayerGetTokenCsReq, PlayerGetTokenScRsp,
     head::PacketHead,
-    server_only::{PlayerData, PlayerDataChangedNotify, PlayerGetDataReq, PlayerGetDataRsp},
 };
 use yixuan_service::{
     ServiceContext, ServiceScope,
@@ -173,24 +179,72 @@ async fn handle_player_data_changed(
 }
 
 async fn fetch_player_data(
-    db: &DbConnection,
+    db: &DbConnection, // This is crate::database::DbConnection
     uid: i32,
-) -> Result<PlayerData, BinaryDataFetchError> {
+) -> Result<PlayerData, BinaryDataFetchError> { // BinaryDataFetchError from crate::database
+    let basic_fut = async {
+        db.fetch_player_basic_module_data(uid).await.map_err(BinaryDataFetchError::from)
+    };
+    let avatar_fut = db.fetch_model_data::<AvatarData>(uid);
+    let item_fut = db.fetch_model_data::<ItemData>(uid);
+    let quest_fut = db.fetch_model_data::<QuestData>(uid);
+    let archive_fut = db.fetch_model_data::<ArchiveData>(uid);
+    let hollow_fut = db.fetch_model_data::<HollowData>(uid);
+    let abyss_fut = db.fetch_model_data::<AbyssData>(uid);
+    let buddy_fut = db.fetch_model_data::<BuddyData>(uid);
+    let misc_fut = db.fetch_model_data::<MiscData>(uid);
+    let main_city_fut = db.fetch_model_data::<MainCityData>(uid);
+    let scene_fut = db.fetch_model_data::<SceneData>(uid);
+    let gacha_fut = db.fetch_model_data::<GachaData>(uid);
+    let map_fut = db.fetch_model_data::<MapData>(uid);
+    let big_scene_fut = db.fetch_model_data::<BigSceneData>(uid);
+
+    let (
+        basic_data,
+        avatar_data,
+        item_data,
+        quest_data,
+        archive_data,
+        hollow_data,
+        abyss_data,
+        buddy_data,
+        misc_data,
+        main_city_data,
+        scene_data,
+        gacha_data,
+        map_data,
+        big_scene_data,
+    ) = try_join!(
+        basic_fut,
+        avatar_fut,
+        item_fut,
+        quest_fut,
+        archive_fut,
+        hollow_fut,
+        abyss_fut,
+        buddy_fut,
+        misc_fut,
+        main_city_fut,
+        scene_fut,
+        gacha_fut,
+        map_fut,
+        big_scene_fut
+    )?;
+
     Ok(PlayerData {
-        basic: Some(db.fetch_player_basic_module_data(uid).await?),
-        avatar: Some(db.fetch_model_data(uid).await?),
-        item: Some(db.fetch_model_data(uid).await?),
-        // TODO: store each quest collection separately
-        quest: Some(db.fetch_model_data(uid).await?),
-        archive: Some(db.fetch_model_data(uid).await?),
-        hollow: Some(db.fetch_model_data(uid).await?),
-        abyss: Some(db.fetch_model_data(uid).await?),
-        buddy: Some(db.fetch_model_data(uid).await?),
-        misc: Some(db.fetch_model_data(uid).await?),
-        main_city: Some(db.fetch_model_data(uid).await?),
-        scene: Some(db.fetch_model_data(uid).await?),
-        gacha: Some(db.fetch_model_data(uid).await?),
-        map: Some(db.fetch_model_data(uid).await?),
-        big_scene: Some(db.fetch_model_data(uid).await?),
+        basic: Some(basic_data),
+        avatar: Some(avatar_data),
+        item: Some(item_data),
+        quest: Some(quest_data),
+        archive: Some(archive_data),
+        hollow: Some(hollow_data),
+        abyss: Some(abyss_data),
+        buddy: Some(buddy_data),
+        misc: Some(misc_data),
+        main_city: Some(main_city_data),
+        scene: Some(scene_data),
+        gacha: Some(gacha_data),
+        map: Some(map_data),
+        big_scene: Some(big_scene_data),
     })
 }
