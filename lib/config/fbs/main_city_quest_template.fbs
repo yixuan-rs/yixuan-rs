@@ -29,9 +29,20 @@ table MainCityQuestTemplate {
         action_arg_4: string;
         unk_9: bool;
         unk_10: bool;
-        npcs: [int];
-        areas: [int];
-        unk_11: [int];
+        unk_11: bool;
+        unk_12: uint;
+        unk_13: uint;
+        unk_14: bool;
+        unk_15: uint;
+        unk_16: bool;
+        unk_17: uint;
+        unk_18: uint;
+        unk_19: uint;
+        unk_20: uint;
+        unk_21: uint;
+        unk_22: [uint];
+        unk_23: [uint];
+        npcs: [uint];
 }
 
 table MainCityQuestTemplateTb {

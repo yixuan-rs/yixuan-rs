@@ -57,7 +57,6 @@ impl SceneUnit {
                                 })
                                 .collect(),
                             participators: interact.participators.clone(),
-                            unk_interact_info_bool: true,
                         },
                     )
                 })

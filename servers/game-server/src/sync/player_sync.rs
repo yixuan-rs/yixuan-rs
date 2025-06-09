@@ -1,5 +1,8 @@
 use itertools::Itertools;
-use yixuan_logic::{LogicResources, dungeon::AvatarUnit};
+use yixuan_logic::{
+    LogicResources,
+    dungeon::{AvatarUnit, EQuestType},
+};
 use yixuan_models::*;
 use yixuan_proto::{
     common::{BigSceneAvatarInfo, SceneAvatarState, TeamMemberOperation, TeamMemberSource},
@@ -138,6 +141,18 @@ impl PlayerSyncComponent for QuestModel {
                 .flat_map(|(_, qc)| qc.finished_quests.iter().copied())
                 .collect(),
             new_hollow_quest_id_list: self.new_hollow_quests.iter_added_keys().copied().collect(),
+            track_quest_sync: self.quest_collections.get(&EQuestType::MainCity).and_then(
+                |collection| {
+                    collection
+                        .track_quest
+                        .as_ref()
+                        .map(|track_quest| TrackQuestSync {
+                            cur_main_quest_id: track_quest.cur_main_quest_id,
+                            cur_track_quest_id: track_quest.cur_track_quest_id,
+                            cur_track_special_quest_id: track_quest.cur_track_special_quest_id,
+                        })
+                },
+            ),
         });
 
         if self.battle_data.activity.is_changed() {

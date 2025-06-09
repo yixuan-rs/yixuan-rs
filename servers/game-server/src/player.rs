@@ -155,7 +155,7 @@ impl Player {
         item_util::add_items_on_first_login(self);
         misc_util::init_misc_structs_on_first_login(self);
         map_util::init_map_structs_on_first_login(self);
-        quest_util::add_main_city_quest(self, 10020001);
+        quest_util::add_special_quest(self, 100300000, true);
 
         // Initialize hall scene with WorkShop section
         let scene_uid = self.scene_model.next_scene_uid();

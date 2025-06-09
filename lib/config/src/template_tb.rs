@@ -25,6 +25,7 @@ file_cfg! {
     HollowConfigTemplate;
     MainCityObjectTemplate;
     QuestConfigTemplate;
+    SpecialQuestTemplate;
     MainCityQuestTemplate;
     HollowQuestTemplate;
     TraningQuestTemplate;

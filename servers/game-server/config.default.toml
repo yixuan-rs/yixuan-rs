@@ -6,4 +6,7 @@ fileconfig_directory = "assets/Filecfg"
 level_process_directory = "assets/LevelProcess"
 level_world_directory = "assets/LevelWorld"
 usm_keys_path = "assets/usm_enc_keys.json"
-first_login_gm_group_list = [ "assets/GM/GMDemo.json" ]
+first_login_gm_group_list = [
+    "assets/GM/GMPlayable.json"
+    # "assets/GM/GMDemo.json" # Uncomment this if you want to unlock everything and skip story
+]

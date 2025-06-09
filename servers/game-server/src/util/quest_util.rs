@@ -3,7 +3,9 @@ use std::collections::HashMap;
 use common::time_util;
 use tracing::warn;
 use yixuan_logic::dungeon::EQuestType;
-use yixuan_models::{DoubleEliteProgress, Hollow, HollowModel, MainCityQuestExt, Quest};
+use yixuan_models::{
+    DoubleEliteProgress, Hollow, HollowModel, MainCityQuestExt, Quest, SpecialQuestExt, TrackQuest,
+};
 
 use crate::{player::Player, resources::NapResources};
 
@@ -22,6 +24,7 @@ pub fn add_hollow_quest(player: &mut Player, id: u32) {
             in_progress_time: 0,
             finish_condition_progress: HashMap::new(),
             main_city_ext: None,
+            special_ext: None,
         },
     );
 
@@ -89,9 +92,55 @@ fn add_hollow_challenges(player: &mut Player, hollow_quest_id: u32) {
                     progress: 0,
                     finish_condition_progress: HashMap::new(),
                     main_city_ext: None,
+                    special_ext: None,
                 },
             );
         })
+}
+
+pub fn add_special_quest(player: &mut Player, id: u32, main: bool) {
+    let special_quest_template = player
+        .resources
+        .templates
+        .special_quest_template_tb()
+        .find(|tmpl| tmpl.id() == id)
+        .unwrap();
+
+    let collection = player
+        .quest_model
+        .get_or_insert_collection(EQuestType::MainCity);
+
+    if let Some(first_quest_id) = special_quest_template
+        .quest_lists()
+        .and_then(|list| list.iter().next())
+    {
+        if main {
+            collection.track_quest = Some(TrackQuest {
+                cur_main_quest_id: id,
+                cur_track_special_quest_id: id,
+                cur_track_quest_id: first_quest_id,
+            });
+
+            collection.quests.insert(
+                id,
+                Quest {
+                    id,
+                    state: 1,
+                    unlock_time: time_util::unix_timestamp_seconds(),
+                    in_progress_time: 0,
+                    progress: 0,
+                    finish_condition_progress: HashMap::new(),
+                    main_city_ext: None,
+                    special_ext: Some(SpecialQuestExt {
+                        prev_quest_id: first_quest_id,
+                        cur_quest_id: first_quest_id,
+                    }),
+                },
+            );
+        }
+
+        add_main_city_quest(player, first_quest_id);
+    }
 }
 
 pub fn add_main_city_quest(player: &mut Player, id: u32) {
@@ -123,6 +172,7 @@ pub fn add_main_city_quest(player: &mut Player, id: u32) {
                     .map(|id| id as u32)
                     .collect(),
             }),
+            special_ext: None,
         },
     );
 }
@@ -142,6 +192,7 @@ pub fn add_boss_battle_quest(player: &mut Player, id: u32) {
             in_progress_time: 0,
             finish_condition_progress: HashMap::new(),
             main_city_ext: None,
+            special_ext: None,
         },
     );
 }
@@ -161,10 +212,17 @@ pub fn add_double_elite_quest(player: &mut Player, id: u32) {
             in_progress_time: 0,
             finish_condition_progress: HashMap::new(),
             main_city_ext: None,
+            special_ext: None,
         },
     );
 
-    player.quest_model.battle_data.activity.double_elite.progress.insert(id, DoubleEliteProgress::default());
+    player
+        .quest_model
+        .battle_data
+        .activity
+        .double_elite
+        .progress
+        .insert(id, DoubleEliteProgress::default());
 }
 
 pub fn finish_hollow_challenge(player: &mut Player, id: u32) {
@@ -216,6 +274,36 @@ pub fn finish_main_city_quest(player: &mut Player, id: u32) -> Vec<u32> {
     {
         newly_added_quests.push(next_quest_template.quest_id());
         add_main_city_quest(player, next_quest_template.quest_id());
+
+        if let Some(track_quest) = player
+            .quest_model
+            .get_or_insert_collection(EQuestType::MainCity)
+            .track_quest
+            .as_mut()
+        {
+            if track_quest.cur_track_quest_id == id {
+                track_quest.cur_track_quest_id = next_quest_template.quest_id();
+            }
+        }
+
+        if let Some((_, special_quest)) = player
+            .quest_model
+            .get_or_insert_collection(EQuestType::MainCity)
+            .quests
+            .iter_mut()
+            .find(|(_, quest)| {
+                quest
+                    .special_ext
+                    .as_ref()
+                    .map(|ext| ext.cur_quest_id == id)
+                    .unwrap_or(false)
+            })
+        {
+            let ext = special_quest.special_ext.as_mut().unwrap();
+
+            ext.prev_quest_id = ext.cur_quest_id;
+            ext.cur_quest_id = next_quest_template.quest_id();
+        }
     }
 
     let main_city_quest_template = player

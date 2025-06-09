@@ -6,8 +6,9 @@ use yixuan_proto::{
     AvatarSkinDressCsReq, AvatarSkinDressScRsp, AvatarSkinUnDressCsReq, AvatarSkinUnDressScRsp,
     EquipmentDressCsReq, EquipmentDressScRsp, EquipmentSuitDressCsReq, EquipmentSuitDressScRsp,
     EquipmentUnDressCsReq, EquipmentUnDressScRsp, GetAvatarDataCsReq, GetAvatarDataScRsp,
-    GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, ItemRewardInfo, TalentSwitchCsReq,
-    TalentSwitchScRsp, WeaponDressCsReq, WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp, GetAvatarRecommendItemsCsReq, GetAvatarRecommendItemsScRsp
+    GetAvatarRecommendEquipCsReq, GetAvatarRecommendEquipScRsp, GetAvatarRecommendItemsCsReq,
+    GetAvatarRecommendItemsScRsp, ItemRewardInfo, TalentSwitchCsReq, TalentSwitchScRsp,
+    WeaponDressCsReq, WeaponDressScRsp, WeaponUnDressCsReq, WeaponUnDressScRsp,
 };
 
 use crate::{

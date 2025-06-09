@@ -228,6 +228,14 @@ pub struct MainCityQuestInfo {
     pub track_npc_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(::proto_derive::NetCmd)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SpecialQuestInfo {
+    #[prost(uint32, tag = "1")]
+    pub prev_quest_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub cur_quest_id: u32,
+}
+#[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuestInfo {
     #[prost(uint32, tag = "1")]
@@ -244,6 +252,18 @@ pub struct QuestInfo {
     pub finish_condition_progress: ::std::collections::HashMap<u32, u32>,
     #[prost(message, optional, tag = "7")]
     pub main_city_quest_info: ::core::option::Option<MainCityQuestInfo>,
+    #[prost(message, optional, tag = "8")]
+    pub special_quest_info: ::core::option::Option<SpecialQuestInfo>,
+}
+#[derive(::proto_derive::NetCmd)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct TrackQuestInfo {
+    #[prost(uint32, tag = "1")]
+    pub cur_main_quest_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub cur_track_quest_id: u32,
+    #[prost(uint32, tag = "3")]
+    pub cur_track_special_quest_id: u32,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -254,6 +274,8 @@ pub struct QuestCollectionInfo {
     pub quest_list: ::prost::alloc::vec::Vec<QuestInfo>,
     #[prost(uint32, repeated, tag = "3")]
     pub finish_quest_id_list: ::prost::alloc::vec::Vec<u32>,
+    #[prost(message, optional, tag = "4")]
+    pub track_quest: ::core::option::Option<TrackQuestInfo>,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]

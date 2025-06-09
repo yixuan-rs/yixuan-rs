@@ -164,9 +164,20 @@ impl<'a> MainCityQuestTemplate<'a> {
   pub const VT_ACTION_ARG_4: flatbuffers::VOffsetT = 48;
   pub const VT_UNK_9: flatbuffers::VOffsetT = 50;
   pub const VT_UNK_10: flatbuffers::VOffsetT = 52;
-  pub const VT_NPCS: flatbuffers::VOffsetT = 54;
-  pub const VT_AREAS: flatbuffers::VOffsetT = 56;
-  pub const VT_UNK_11: flatbuffers::VOffsetT = 58;
+  pub const VT_UNK_11: flatbuffers::VOffsetT = 54;
+  pub const VT_UNK_12: flatbuffers::VOffsetT = 56;
+  pub const VT_UNK_13: flatbuffers::VOffsetT = 58;
+  pub const VT_UNK_14: flatbuffers::VOffsetT = 60;
+  pub const VT_UNK_15: flatbuffers::VOffsetT = 62;
+  pub const VT_UNK_16: flatbuffers::VOffsetT = 64;
+  pub const VT_UNK_17: flatbuffers::VOffsetT = 66;
+  pub const VT_UNK_18: flatbuffers::VOffsetT = 68;
+  pub const VT_UNK_19: flatbuffers::VOffsetT = 70;
+  pub const VT_UNK_20: flatbuffers::VOffsetT = 72;
+  pub const VT_UNK_21: flatbuffers::VOffsetT = 74;
+  pub const VT_UNK_22: flatbuffers::VOffsetT = 76;
+  pub const VT_UNK_23: flatbuffers::VOffsetT = 78;
+  pub const VT_NPCS: flatbuffers::VOffsetT = 80;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -178,9 +189,17 @@ impl<'a> MainCityQuestTemplate<'a> {
     args: &'args MainCityQuestTemplateArgs<'args>
   ) -> flatbuffers::WIPOffset<MainCityQuestTemplate<'bldr>> {
     let mut builder = MainCityQuestTemplateBuilder::new(_fbb);
-    if let Some(x) = args.unk_11 { builder.add_unk_11(x); }
-    if let Some(x) = args.areas { builder.add_areas(x); }
     if let Some(x) = args.npcs { builder.add_npcs(x); }
+    if let Some(x) = args.unk_23 { builder.add_unk_23(x); }
+    if let Some(x) = args.unk_22 { builder.add_unk_22(x); }
+    builder.add_unk_21(args.unk_21);
+    builder.add_unk_20(args.unk_20);
+    builder.add_unk_19(args.unk_19);
+    builder.add_unk_18(args.unk_18);
+    builder.add_unk_17(args.unk_17);
+    builder.add_unk_15(args.unk_15);
+    builder.add_unk_13(args.unk_13);
+    builder.add_unk_12(args.unk_12);
     if let Some(x) = args.action_arg_4 { builder.add_action_arg_4(x); }
     if let Some(x) = args.action_arg_3 { builder.add_action_arg_3(x); }
     if let Some(x) = args.action_arg_2 { builder.add_action_arg_2(x); }
@@ -202,6 +221,9 @@ impl<'a> MainCityQuestTemplate<'a> {
     builder.add_type_(args.type_);
     if let Some(x) = args.quest_name { builder.add_quest_name(x); }
     builder.add_id(args.id);
+    builder.add_unk_16(args.unk_16);
+    builder.add_unk_14(args.unk_14);
+    builder.add_unk_11(args.unk_11);
     builder.add_unk_10(args.unk_10);
     builder.add_unk_9(args.unk_9);
     builder.add_auto_distribution(args.auto_distribution);
@@ -386,25 +408,102 @@ impl<'a> MainCityQuestTemplate<'a> {
     unsafe { self._tab.get::<bool>(MainCityQuestTemplate::VT_UNK_10, Some(false)).unwrap()}
   }
   #[inline]
-  pub fn npcs(&self) -> Option<flatbuffers::Vector<'a, i32>> {
+  pub fn unk_11(&self) -> bool {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, i32>>>(MainCityQuestTemplate::VT_NPCS, None)}
+    unsafe { self._tab.get::<bool>(MainCityQuestTemplate::VT_UNK_11, Some(false)).unwrap()}
   }
   #[inline]
-  pub fn areas(&self) -> Option<flatbuffers::Vector<'a, i32>> {
+  pub fn unk_12(&self) -> u32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, i32>>>(MainCityQuestTemplate::VT_AREAS, None)}
+    unsafe { self._tab.get::<u32>(MainCityQuestTemplate::VT_UNK_12, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn unk_11(&self) -> Option<flatbuffers::Vector<'a, i32>> {
+  pub fn unk_13(&self) -> u32 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, i32>>>(MainCityQuestTemplate::VT_UNK_11, None)}
+    unsafe { self._tab.get::<u32>(MainCityQuestTemplate::VT_UNK_13, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_14(&self) -> bool {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<bool>(MainCityQuestTemplate::VT_UNK_14, Some(false)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_15(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(MainCityQuestTemplate::VT_UNK_15, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_16(&self) -> bool {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<bool>(MainCityQuestTemplate::VT_UNK_16, Some(false)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_17(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(MainCityQuestTemplate::VT_UNK_17, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_18(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(MainCityQuestTemplate::VT_UNK_18, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_19(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(MainCityQuestTemplate::VT_UNK_19, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_20(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(MainCityQuestTemplate::VT_UNK_20, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_21(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(MainCityQuestTemplate::VT_UNK_21, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn unk_22(&self) -> Option<flatbuffers::Vector<'a, u32>> {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, u32>>>(MainCityQuestTemplate::VT_UNK_22, None)}
+  }
+  #[inline]
+  pub fn unk_23(&self) -> Option<flatbuffers::Vector<'a, u32>> {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, u32>>>(MainCityQuestTemplate::VT_UNK_23, None)}
+  }
+  #[inline]
+  pub fn npcs(&self) -> Option<flatbuffers::Vector<'a, u32>> {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, u32>>>(MainCityQuestTemplate::VT_NPCS, None)}
   }
 }
 
@@ -440,9 +539,20 @@ impl flatbuffers::Verifiable for MainCityQuestTemplate<'_> {
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("action_arg_4", Self::VT_ACTION_ARG_4, false)?
      .visit_field::<bool>("unk_9", Self::VT_UNK_9, false)?
      .visit_field::<bool>("unk_10", Self::VT_UNK_10, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("npcs", Self::VT_NPCS, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("areas", Self::VT_AREAS, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("unk_11", Self::VT_UNK_11, false)?
+     .visit_field::<bool>("unk_11", Self::VT_UNK_11, false)?
+     .visit_field::<u32>("unk_12", Self::VT_UNK_12, false)?
+     .visit_field::<u32>("unk_13", Self::VT_UNK_13, false)?
+     .visit_field::<bool>("unk_14", Self::VT_UNK_14, false)?
+     .visit_field::<u32>("unk_15", Self::VT_UNK_15, false)?
+     .visit_field::<bool>("unk_16", Self::VT_UNK_16, false)?
+     .visit_field::<u32>("unk_17", Self::VT_UNK_17, false)?
+     .visit_field::<u32>("unk_18", Self::VT_UNK_18, false)?
+     .visit_field::<u32>("unk_19", Self::VT_UNK_19, false)?
+     .visit_field::<u32>("unk_20", Self::VT_UNK_20, false)?
+     .visit_field::<u32>("unk_21", Self::VT_UNK_21, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u32>>>("unk_22", Self::VT_UNK_22, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u32>>>("unk_23", Self::VT_UNK_23, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u32>>>("npcs", Self::VT_NPCS, false)?
      .finish();
     Ok(())
   }
@@ -473,9 +583,20 @@ pub struct MainCityQuestTemplateArgs<'a> {
     pub action_arg_4: Option<flatbuffers::WIPOffset<&'a str>>,
     pub unk_9: bool,
     pub unk_10: bool,
-    pub npcs: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
-    pub areas: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
-    pub unk_11: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
+    pub unk_11: bool,
+    pub unk_12: u32,
+    pub unk_13: u32,
+    pub unk_14: bool,
+    pub unk_15: u32,
+    pub unk_16: bool,
+    pub unk_17: u32,
+    pub unk_18: u32,
+    pub unk_19: u32,
+    pub unk_20: u32,
+    pub unk_21: u32,
+    pub unk_22: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u32>>>,
+    pub unk_23: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u32>>>,
+    pub npcs: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u32>>>,
 }
 impl<'a> Default for MainCityQuestTemplateArgs<'a> {
   #[inline]
@@ -506,9 +627,20 @@ impl<'a> Default for MainCityQuestTemplateArgs<'a> {
       action_arg_4: None,
       unk_9: false,
       unk_10: false,
+      unk_11: false,
+      unk_12: 0,
+      unk_13: 0,
+      unk_14: false,
+      unk_15: 0,
+      unk_16: false,
+      unk_17: 0,
+      unk_18: 0,
+      unk_19: 0,
+      unk_20: 0,
+      unk_21: 0,
+      unk_22: None,
+      unk_23: None,
       npcs: None,
-      areas: None,
-      unk_11: None,
     }
   }
 }
@@ -619,16 +751,60 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> MainCityQuestTemplateBuilder<'a
     self.fbb_.push_slot::<bool>(MainCityQuestTemplate::VT_UNK_10, unk_10, false);
   }
   #[inline]
-  pub fn add_npcs(&mut self, npcs: flatbuffers::WIPOffset<flatbuffers::Vector<'b , i32>>) {
+  pub fn add_unk_11(&mut self, unk_11: bool) {
+    self.fbb_.push_slot::<bool>(MainCityQuestTemplate::VT_UNK_11, unk_11, false);
+  }
+  #[inline]
+  pub fn add_unk_12(&mut self, unk_12: u32) {
+    self.fbb_.push_slot::<u32>(MainCityQuestTemplate::VT_UNK_12, unk_12, 0);
+  }
+  #[inline]
+  pub fn add_unk_13(&mut self, unk_13: u32) {
+    self.fbb_.push_slot::<u32>(MainCityQuestTemplate::VT_UNK_13, unk_13, 0);
+  }
+  #[inline]
+  pub fn add_unk_14(&mut self, unk_14: bool) {
+    self.fbb_.push_slot::<bool>(MainCityQuestTemplate::VT_UNK_14, unk_14, false);
+  }
+  #[inline]
+  pub fn add_unk_15(&mut self, unk_15: u32) {
+    self.fbb_.push_slot::<u32>(MainCityQuestTemplate::VT_UNK_15, unk_15, 0);
+  }
+  #[inline]
+  pub fn add_unk_16(&mut self, unk_16: bool) {
+    self.fbb_.push_slot::<bool>(MainCityQuestTemplate::VT_UNK_16, unk_16, false);
+  }
+  #[inline]
+  pub fn add_unk_17(&mut self, unk_17: u32) {
+    self.fbb_.push_slot::<u32>(MainCityQuestTemplate::VT_UNK_17, unk_17, 0);
+  }
+  #[inline]
+  pub fn add_unk_18(&mut self, unk_18: u32) {
+    self.fbb_.push_slot::<u32>(MainCityQuestTemplate::VT_UNK_18, unk_18, 0);
+  }
+  #[inline]
+  pub fn add_unk_19(&mut self, unk_19: u32) {
+    self.fbb_.push_slot::<u32>(MainCityQuestTemplate::VT_UNK_19, unk_19, 0);
+  }
+  #[inline]
+  pub fn add_unk_20(&mut self, unk_20: u32) {
+    self.fbb_.push_slot::<u32>(MainCityQuestTemplate::VT_UNK_20, unk_20, 0);
+  }
+  #[inline]
+  pub fn add_unk_21(&mut self, unk_21: u32) {
+    self.fbb_.push_slot::<u32>(MainCityQuestTemplate::VT_UNK_21, unk_21, 0);
+  }
+  #[inline]
+  pub fn add_unk_22(&mut self, unk_22: flatbuffers::WIPOffset<flatbuffers::Vector<'b , u32>>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(MainCityQuestTemplate::VT_UNK_22, unk_22);
+  }
+  #[inline]
+  pub fn add_unk_23(&mut self, unk_23: flatbuffers::WIPOffset<flatbuffers::Vector<'b , u32>>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(MainCityQuestTemplate::VT_UNK_23, unk_23);
+  }
+  #[inline]
+  pub fn add_npcs(&mut self, npcs: flatbuffers::WIPOffset<flatbuffers::Vector<'b , u32>>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(MainCityQuestTemplate::VT_NPCS, npcs);
-  }
-  #[inline]
-  pub fn add_areas(&mut self, areas: flatbuffers::WIPOffset<flatbuffers::Vector<'b , i32>>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(MainCityQuestTemplate::VT_AREAS, areas);
-  }
-  #[inline]
-  pub fn add_unk_11(&mut self, unk_11: flatbuffers::WIPOffset<flatbuffers::Vector<'b , i32>>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(MainCityQuestTemplate::VT_UNK_11, unk_11);
   }
   #[inline]
   pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> MainCityQuestTemplateBuilder<'a, 'b, A> {
@@ -673,9 +849,20 @@ impl core::fmt::Debug for MainCityQuestTemplate<'_> {
       ds.field("action_arg_4", &self.action_arg_4());
       ds.field("unk_9", &self.unk_9());
       ds.field("unk_10", &self.unk_10());
-      ds.field("npcs", &self.npcs());
-      ds.field("areas", &self.areas());
       ds.field("unk_11", &self.unk_11());
+      ds.field("unk_12", &self.unk_12());
+      ds.field("unk_13", &self.unk_13());
+      ds.field("unk_14", &self.unk_14());
+      ds.field("unk_15", &self.unk_15());
+      ds.field("unk_16", &self.unk_16());
+      ds.field("unk_17", &self.unk_17());
+      ds.field("unk_18", &self.unk_18());
+      ds.field("unk_19", &self.unk_19());
+      ds.field("unk_20", &self.unk_20());
+      ds.field("unk_21", &self.unk_21());
+      ds.field("unk_22", &self.unk_22());
+      ds.field("unk_23", &self.unk_23());
+      ds.field("npcs", &self.npcs());
       ds.finish()
   }
 }

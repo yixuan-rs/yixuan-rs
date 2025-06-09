@@ -1,0 +1,28 @@
+table SpecialQuestTemplate {
+    id: uint;
+    unk_2: uint;
+    unk_3: uint;
+    unk_4: uint;
+    unk_5: string;
+    unk_6: uint;
+    unk_7: uint;
+    unk_8: string;
+    unk_9: string;
+    unk_10: string;
+    unk_11: bool;
+    unk_12: bool;
+    unk_13: uint;
+    unk_14: uint;
+    unk_15: uint;
+    unk_16: uint;
+    unk_17: string;
+    unk_18: string;
+    unk_19: string;
+    unk_20: uint;
+    unk_21: uint;
+    quest_lists: [uint];
+}
+
+table SpecialQuestTemplateTb {
+    data: [SpecialQuestTemplate];
+}

@@ -3,6 +3,7 @@ use std::collections::{HashMap, HashSet};
 use config::EQuestState;
 use yixuan_codegen::Property;
 use yixuan_logic::dungeon::EQuestType;
+use yixuan_proto::QuestSceneInfo;
 
 use crate::property::{PrimitiveProperty, Property, PropertyHashMap, PropertyHashSet};
 
@@ -42,14 +43,26 @@ pub struct QuestModel {
     pub battle_data: PropertyBattleData,
 }
 
+pub struct TrackQuest {
+    pub cur_main_quest_id: u32,
+    pub cur_track_quest_id: u32,
+    pub cur_track_special_quest_id: u32,
+}
+
 #[derive(Default)]
 pub struct QuestCollection {
     pub finished_quests: HashSet<u32>,
     pub quests: HashMap<u32, Quest>,
+    pub track_quest: Option<TrackQuest>,
 }
 
 pub struct MainCityQuestExt {
     pub track_npc_id: HashSet<u32>,
+}
+
+pub struct SpecialQuestExt {
+    pub prev_quest_id: u32,
+    pub cur_quest_id: u32,
 }
 
 pub struct Quest {
@@ -60,6 +73,7 @@ pub struct Quest {
     pub progress: u32,
     pub finish_condition_progress: HashMap<u32, u32>,
     pub main_city_ext: Option<MainCityQuestExt>,
+    pub special_ext: Option<SpecialQuestExt>,
 }
 
 impl QuestModel {
@@ -119,10 +133,21 @@ impl QuestModel {
                                                         .collect(),
                                                 }
                                             }),
+                                            special_ext: quest.special_quest_info.map(|info| {
+                                                SpecialQuestExt {
+                                                    prev_quest_id: info.prev_quest_id,
+                                                    cur_quest_id: info.cur_quest_id,
+                                                }
+                                            }),
                                         },
                                     )
                                 })
                                 .collect(),
+                            track_quest: collection.track_quest.map(|info| TrackQuest {
+                                cur_main_quest_id: info.cur_main_quest_id,
+                                cur_track_quest_id: info.cur_track_quest_id,
+                                cur_track_special_quest_id: info.cur_track_special_quest_id,
+                            }),
                         },
                     ))
                 })
@@ -170,9 +195,19 @@ impl Quest {
             progress: self.progress,
             in_progress_time: self.in_progress_time,
             finish_condition_progress: self.finish_condition_progress.clone(),
-            main_city_quest_info: self.main_city_ext.as_ref().map(|ext| {
-                yixuan_proto::MainCityQuestInfo {
+            track_info: self
+                .main_city_ext
+                .as_ref()
+                .map(|ext| yixuan_proto::TrackQuestNpcInfo {
                     track_npc_id_list: ext.track_npc_id.iter().copied().collect(),
+                    quest_scene_info: Some(QuestSceneInfo {
+                        quest_scene_unit_id_list: ext.track_npc_id.iter().copied().collect(),
+                    }),
+                }),
+            special_quest_info: self.special_ext.as_ref().map(|ext| {
+                yixuan_proto::SpecialQuestInfo {
+                    previous_main_city_quest_id: ext.prev_quest_id,
+                    cur_main_city_quest_id: ext.cur_quest_id,
                 }
             }),
         }
@@ -203,8 +238,21 @@ impl Saveable for QuestModel {
                                     track_npc_id_list: ext.track_npc_id.iter().copied().collect(),
                                 }
                             }),
+                            special_quest_info: quest.special_ext.as_ref().map(|ext| {
+                                SpecialQuestInfo {
+                                    cur_quest_id: ext.cur_quest_id,
+                                    prev_quest_id: ext.prev_quest_id,
+                                }
+                            }),
                         })
                         .collect(),
+                    track_quest: collection.track_quest.as_ref().map(|track_quest| {
+                        TrackQuestInfo {
+                            cur_main_quest_id: track_quest.cur_main_quest_id,
+                            cur_track_quest_id: track_quest.cur_track_quest_id,
+                            cur_track_special_quest_id: track_quest.cur_track_special_quest_id,
+                        }
+                    }),
                 })
                 .collect(),
             battle_data: Some(BattleData {

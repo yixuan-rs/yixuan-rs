@@ -108,6 +108,14 @@ impl LoginDataSyncComponent for QuestModel {
                                 .values()
                                 .map(yixuan_models::Quest::to_client_proto)
                                 .collect(),
+                            track_info: collection.track_quest.as_ref().map(|track_quest| {
+                                TrackQuestInfo {
+                                    cur_main_quest_id: track_quest.cur_main_quest_id,
+                                    cur_track_quest_id: track_quest.cur_track_quest_id,
+                                    cur_track_special_quest_id: track_quest
+                                        .cur_track_special_quest_id,
+                                }
+                            }),
                         })
                         .collect(),
                 }),

@@ -406,9 +406,23 @@ pub struct GetQuestDataCsReq {
     pub quest_type: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-pub struct MainCityQuestInfo {
+pub struct TrackQuestNpcInfo {
     #[prost(uint32, repeated, tag = "2")]
     pub track_npc_id_list: ::prost::alloc::vec::Vec<u32>,
+    #[prost(message, optional, tag = "10")]
+    pub quest_scene_info: ::core::option::Option<QuestSceneInfo>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct QuestSceneInfo {
+    #[prost(uint32, repeated, tag = "9")]
+    pub quest_scene_unit_id_list: ::prost::alloc::vec::Vec<u32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct SpecialQuestInfo {
+    #[prost(uint32, tag = "13", xor = "7406")]
+    pub previous_main_city_quest_id: u32,
+    #[prost(uint32, tag = "14", xor = "595")]
+    pub cur_main_city_quest_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestInfo {
@@ -425,7 +439,18 @@ pub struct QuestInfo {
     #[prost(map = "uint32, uint32", tag = "11")]
     pub finish_condition_progress: ::std::collections::HashMap<u32, u32>,
     #[prost(message, optional, tag = "8")]
-    pub main_city_quest_info: ::core::option::Option<MainCityQuestInfo>,
+    pub track_info: ::core::option::Option<TrackQuestNpcInfo>,
+    #[prost(message, optional, tag = "5")]
+    pub special_quest_info: ::core::option::Option<SpecialQuestInfo>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct TrackQuestSync {
+    #[prost(uint32, tag = "12", xor = "10471")]
+    pub cur_main_quest_id: u32,
+    #[prost(uint32, tag = "7", xor = "4485")]
+    pub cur_track_quest_id: u32,
+    #[prost(uint32, tag = "10", xor = "2879")]
+    pub cur_track_special_quest_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestSync {
@@ -435,6 +460,17 @@ pub struct QuestSync {
     pub finished_quest_id_list: ::prost::alloc::vec::Vec<u32>,
     #[prost(uint32, repeated, tag = "10")]
     pub new_hollow_quest_id_list: ::prost::alloc::vec::Vec<u32>,
+    #[prost(message, optional, tag = "7")]
+    pub track_quest_sync: ::core::option::Option<TrackQuestSync>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct TrackQuestInfo {
+    #[prost(uint32, tag = "5", xor = "999")]
+    pub cur_main_quest_id: u32,
+    #[prost(uint32, tag = "7", xor = "686")]
+    pub cur_track_quest_id: u32,
+    #[prost(uint32, tag = "11", xor = "10192")]
+    pub cur_track_special_quest_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestCollection {
@@ -444,6 +480,8 @@ pub struct QuestCollection {
     pub quest_list: ::prost::alloc::vec::Vec<QuestInfo>,
     #[prost(uint32, repeated, tag = "8")]
     pub finished_quest_id_list: ::prost::alloc::vec::Vec<u32>,
+    #[prost(message, optional, tag = "14")]
+    pub track_info: ::core::option::Option<TrackQuestInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestData {
@@ -690,7 +728,6 @@ pub struct InteractInfo {
     pub participators: ::std::collections::HashMap<u32, ::prost::alloc::string::String>,
     #[prost(enumeration = "InteractTarget", repeated, tag = "15")]
     pub interact_target_list: ::prost::alloc::vec::Vec<i32>,
-    pub unk_interact_info_bool: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct SceneUnitProtocolInfo {
@@ -730,7 +767,7 @@ pub struct HallSceneData {
     pub transform_id: ::prost::alloc::string::String,
     #[prost(uint32, tag = "222", xor = "2933")]
     pub control_guise_avatar_id: u32,
-    #[prost(uint32, repeated, tag = "601")]
+    #[prost(uint32, repeated, tag = "472")]
     pub main_city_quest_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1058,7 +1095,7 @@ pub struct HallRefreshScNotify {
     pub transform_id: ::prost::alloc::string::String,
     #[prost(uint32, tag = "13", xor = "614")]
     pub control_guise_avatar_id: u32,
-    #[prost(uint32, repeated, tag = "554")]
+    #[prost(uint32, repeated, tag = "860")]
     pub main_city_quest_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]

@@ -121,28 +121,6 @@
                                  "$type": "Share.CActionCreateNPCCfg",
                                  "ID": 206,
                                  "TagID": 520001
-                            },
-                            {
-                                "$type": "Share.CActionCreateNPCCfg",
-                                "ID": 210,
-                                "TagID": 90330301
-                            },
-                            {
-                                "$type": "Share.CActionChangeInteractCfg",
-                                "ID": 211,
-                                "InteractID": 100860,
-                                "TagIDs": [
-                                    90330301
-                                ],
-                                "Participators": {
-                                    "90330301": "B"
-                                },
-                                "InteractShape": "Sector",
-                                "InteractScale": {
-                                    "X": 1.2,
-                                    "Y": 0,
-                                    "Z": 0
-                                }   
                             }
                         ]
                     }
