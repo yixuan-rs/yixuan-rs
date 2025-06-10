@@ -198,7 +198,7 @@ impl PlayerSession {
 
         if let Some(mut response) = rsp.response {
             if response.cmd_id == 0 {
-                response.cmd_id = 5002;
+                response.cmd_id = 5566;
             }
 
             *last_server_packet_id += 1;

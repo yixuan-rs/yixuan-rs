@@ -3,10 +3,7 @@ bound_sid = 1
 [[servers]]
 sid = 1
 bind_versions = [
-	"OSPRODWin2.0.0",
-	"CNBetaWin2.0.4",
-	"CNBetaWin2.0.5",
-	"CNBetaWin2.0.12",
+	"CNBetaWin2.1.1",
 ]
 name = "yixuan_rs"
 title = "Yixuan-RS"

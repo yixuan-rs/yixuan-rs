@@ -17,7 +17,7 @@
         "UnlockMonsterCardLevel 0",
         "ClearMainCityQuestCollection",
         "SetAvatarSkin 1371 3113711",
-        "SetControlGuiseAvatar 1371",
+        "SetControlGuiseAvatar 1411",
         "Jump 1 Street_PlayerPos_FromWorkshop"
     ]
 }

@@ -1,46 +1,48 @@
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7179)]
+#[cmd_id(140)]
 pub struct KeepAliveNotify {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2055)]
+#[cmd_id(1222)]
 pub struct PlayerGetTokenCsReq {
-    #[prost(uint32, tag = "6", xor = "1699")]
+    #[prost(uint32, tag = "1", xor = "10568")]
     pub uid: u32,
     pub channel_id: u32,
     pub account_type: u32,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag = "14")]
     pub account_uid: ::prost::alloc::string::String,
-    #[prost(string, tag = "9")]
+    #[prost(string, tag = "8")]
     pub token: ::prost::alloc::string::String,
     pub platform: u32,
-    #[prost(string, tag = "1")]
-    pub device: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "4", xor = "344")]
-    pub rsa_ver: u32,
     #[prost(string, tag = "13")]
+    pub device: ::prost::alloc::string::String,
+    #[prost(uint32, tag = "9", xor = "8732")]
+    pub rsa_ver: u32,
+    #[prost(string, tag = "5")]
     pub client_rand_key: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(2943)]
+#[cmd_id(6047)]
 pub struct PlayerGetTokenScRsp {
-    #[prost(int32, tag = "15", xor = "9980")]
+    #[prost(int32, tag = "11", xor = "15754")]
     pub retcode: i32,
-    #[prost(string, tag = "14")]
+    #[prost(string, tag = "12")]
     pub msg: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "12", xor = "8889")]
+    #[prost(uint32, tag = "13", xor = "11625")]
     pub uid: u32,
-    #[prost(uint32, tag = "9", xor = "12316")]
+    #[prost(uint32, tag = "14", xor = "11892")]
     pub blacklist_reason: u32,
-    #[prost(int64, tag = "6", xor = "5837")]
+    #[prost(int64, tag = "2", xor = "1616")]
     pub blacklist_end_timestamp: i64,
-    #[prost(string, tag = "1")]
+    /// VMP DETECTED
+    ///
+    #[prost(string, tag = "3")]
     pub server_rand_key: ::prost::alloc::string::String,
-    #[prost(string, tag = "11")]
+    #[prost(string, tag = "15")]
     pub sign: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6316)]
+#[cmd_id(3460)]
 pub struct PlayerLoginCsReq {
     pub platform: u32,
     pub cps: ::prost::alloc::string::String,
@@ -51,127 +53,120 @@ pub struct PlayerLoginCsReq {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5155)]
+#[cmd_id(5410)]
 pub struct PlayerLoginScRsp {
-    #[prost(int32, tag = "15", xor = "9363")]
+    #[prost(int32, tag = "14", xor = "14633")]
     pub retcode: i32,
-    #[prost(uint64, tag = "10", xor = "5035")]
+    #[prost(uint64, tag = "1", xor = "9171")]
     pub timestamp: u64,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1087)]
+#[cmd_id(3016)]
 pub struct PlayerLogoutCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(354)]
+#[cmd_id(6960)]
 pub struct GetSelfBasicInfoCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct SelfBasicInfo {
-    #[prost(string, tag = "4")]
+    #[prost(string, tag = "13")]
     pub nick_name: ::prost::alloc::string::String,
-    #[prost(int64, tag = "1", xor = "15562")]
+    #[prost(int64, tag = "8", xor = "8036")]
     pub role_create_time: i64,
-    #[prost(uint32, tag = "10", xor = "10689")]
+    #[prost(uint32, tag = "11", xor = "9987")]
     pub level: u32,
-    #[prost(uint32, tag = "7", xor = "16043")]
+    #[prost(uint32, tag = "1", xor = "286")]
     pub exp: u32,
-    #[prost(uint32, tag = "2", xor = "8148")]
+    #[prost(uint32, tag = "15", xor = "9773")]
     pub avatar_id: u32,
-    #[prost(uint32, tag = "8", xor = "16176")]
+    #[prost(uint32, tag = "6", xor = "4624")]
     pub player_avatar_id: u32,
-    #[prost(uint32, tag = "1847", xor = "11393")]
+    #[prost(uint32, tag = "1207", xor = "372")]
     pub control_guise_avatar_id: u32,
-    #[prost(uint32, tag = "11", xor = "4408")]
+    #[prost(uint32, tag = "9", xor = "15189")]
     pub portrait_id: u32,
-    #[prost(uint32, tag = "15", xor = "14303")]
+    #[prost(uint32, tag = "7", xor = "11787")]
     pub name_change_times: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(9449)]
+#[cmd_id(8500)]
 pub struct GetSelfBasicInfoScRsp {
-    #[prost(int32, tag = "10", xor = "11906")]
+    /// VMP DETECTED
+    ///
+    #[prost(int32, tag = "1", xor = "11917")]
     pub retcode: i32,
-    #[prost(message, optional, tag = "5")]
+    #[prost(message, optional, tag = "7")]
     pub self_basic_info: ::core::option::Option<SelfBasicInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4040)]
+#[cmd_id(9061)]
 pub struct GetPlayerTransactionCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(2405)]
+#[cmd_id(209)]
 pub struct GetPlayerTransactionScRsp {
-    #[prost(int32, tag = "1", xor = "3044")]
+    #[prost(int32, tag = "15", xor = "10934")]
     pub retcode: i32,
-    #[prost(string, tag = "11")]
+    /// VMP DETECTED
+    ///
+    #[prost(string, tag = "1")]
     pub transaction: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4470)]
+#[cmd_id(9663)]
 pub struct GetServerTimestampCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5765)]
 pub struct GetServerTimestampScRsp {
-    #[prost(int32, tag = "7", xor = "5162")]
     pub retcode: i32,
-    #[prost(uint64, tag = "6", xor = "11550")]
     pub timestamp: u64,
-    #[prost(int32, tag = "10", xor = "15867")]
     pub utc_offset: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9176)]
+#[cmd_id(5725)]
 pub struct GetAuthkeyCsReq {
-    #[prost(string, tag = "5")]
+    #[prost(string, tag = "14")]
     pub auth_appid: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "4", xor = "15196")]
+    /// VMP DETECTED
+    ///
+    #[prost(uint32, tag = "9", xor = "397")]
     pub sign_type: u32,
-    #[prost(uint32, tag = "15", xor = "9626")]
+    #[prost(uint32, tag = "7", xor = "2088")]
     pub authkey_ver: u32,
-    #[prost(uint32, tag = "6", xor = "14114")]
+    #[prost(uint32, tag = "8", xor = "13662")]
     pub offline_verify_value: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(1828)]
 pub struct GetAuthkeyScRsp {
-    #[prost(int32, tag = "15", xor = "10912")]
     pub retcode: i32,
-    #[prost(string, tag = "4")]
     pub authkey: ::prost::alloc::string::String,
-    #[prost(string, tag = "12")]
     pub auth_appid: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "14", xor = "10765")]
     pub sign_type: u32,
-    #[prost(uint32, tag = "10", xor = "1442")]
     pub authkey_ver: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1109)]
 pub struct ModNickNameCsReq {
-    #[prost(string, tag = "2")]
     pub nick_name: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "13", xor = "8587")]
     pub avatar_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(4684)]
 pub struct ModNickNameScRsp {
-    #[prost(int32, tag = "4", xor = "4291")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7464)]
+#[cmd_id(3658)]
 pub struct ModAvatarCsReq {
-    #[prost(uint32, tag = "9", xor = "5465")]
+    #[prost(uint32, tag = "7", xor = "1534")]
     pub avatar_id: u32,
-    #[prost(uint32, tag = "8", xor = "2509")]
+    #[prost(uint32, tag = "3", xor = "10035")]
     pub player_avatar_id: u32,
-    #[prost(uint32, tag = "15", xor = "7574")]
+    #[prost(uint32, tag = "1", xor = "10112")]
     pub control_guise_avatar_id: u32,
-    #[prost(enumeration = "ModAvatarType", tag = "5")]
+    /// VMP DETECTED
+    ///
+    #[prost(enumeration = "ModAvatarType", tag = "4")]
     pub r#type: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -180,72 +175,72 @@ pub struct ModAvatarScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1907)]
+#[cmd_id(9937)]
 pub struct GetDisplayCaseDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(1886)]
+#[cmd_id(8498)]
 pub struct GetDisplayCaseDataScRsp {
-    #[prost(int32, tag = "4", xor = "1656")]
+    #[prost(int32, tag = "2", xor = "5024")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ItemInfo {
-    #[prost(uint32, tag = "6", xor = "1805")]
+    #[prost(uint32, tag = "3", xor = "2600")]
     pub id: u32,
-    #[prost(int32, tag = "1", xor = "13932")]
+    #[prost(int32, tag = "14", xor = "16021")]
     pub count: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct WeaponInfo {
-    #[prost(uint32, tag = "11", xor = "8872")]
+    #[prost(uint32, tag = "14", xor = "3603")]
     pub uid: u32,
-    #[prost(uint32, tag = "15", xor = "10159")]
+    #[prost(uint32, tag = "8", xor = "8292")]
     pub id: u32,
-    #[prost(uint32, tag = "13", xor = "6108")]
+    #[prost(uint32, tag = "15", xor = "2264")]
     pub level: u32,
-    #[prost(uint32, tag = "4", xor = "13139")]
+    #[prost(uint32, tag = "10", xor = "16293")]
     pub exp: u32,
-    #[prost(uint32, tag = "14", xor = "9041")]
+    #[prost(uint32, tag = "1", xor = "2726")]
     pub star: u32,
-    #[prost(uint32, tag = "1", xor = "2213")]
+    #[prost(uint32, tag = "7", xor = "3522")]
     pub refine_level: u32,
-    #[prost(bool, tag = "6")]
+    #[prost(bool, tag = "9")]
     pub lock: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct EquipProperty {
-    #[prost(uint32, tag = "14", xor = "3555")]
+    #[prost(uint32, tag = "11", xor = "170")]
     pub key: u32,
-    #[prost(uint32, tag = "9", xor = "11046")]
+    #[prost(uint32, tag = "6", xor = "2311")]
     pub base_value: u32,
-    #[prost(uint32, tag = "8", xor = "14241")]
+    #[prost(uint32, tag = "4", xor = "9742")]
     pub add_value: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct EquipInfo {
-    #[prost(uint32, tag = "2", xor = "7062")]
+    #[prost(uint32, tag = "2", xor = "12433")]
     pub uid: u32,
-    #[prost(uint32, tag = "3", xor = "11495")]
+    #[prost(uint32, tag = "12", xor = "5667")]
     pub id: u32,
-    #[prost(uint32, tag = "6", xor = "1513")]
+    #[prost(uint32, tag = "11", xor = "6577")]
     pub level: u32,
-    #[prost(uint32, tag = "15", xor = "2603")]
+    #[prost(uint32, tag = "1", xor = "8508")]
     pub exp: u32,
-    #[prost(uint32, tag = "4", xor = "12566")]
+    #[prost(uint32, tag = "5", xor = "7189")]
     pub star: u32,
-    #[prost(bool, tag = "13")]
+    #[prost(bool, tag = "8")]
     pub lock: bool,
-    #[prost(message, repeated, tag = "8")]
+    #[prost(message, repeated, tag = "3")]
     pub propertys: ::prost::alloc::vec::Vec<EquipProperty>,
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag = "10")]
     pub sub_propertys: ::prost::alloc::vec::Vec<EquipProperty>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AutoRecoveryInfo {
-    #[prost(uint32, tag = "15", xor = "1786")]
+    #[prost(uint32, tag = "11", xor = "2180")]
     pub buy_times: u32,
-    #[prost(int64, tag = "8", xor = "1225")]
+    #[prost(int64, tag = "12", xor = "7288")]
     pub last_recovery_timestamp: i64,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -261,246 +256,216 @@ pub struct ItemReward {
     pub reward_list: ::prost::alloc::vec::Vec<ItemRewardInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9752)]
+#[cmd_id(7687)]
 pub struct ItemChangedScNotify {
-    #[prost(map = "uint32, message", tag = "9")]
+    #[prost(map = "uint32, message", tag = "13")]
     pub item_reward_map: ::std::collections::HashMap<u32, ItemReward>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ItemSync {
-    #[prost(message, repeated, tag = "5")]
+    #[prost(message, repeated, tag = "9")]
     pub item_list: ::prost::alloc::vec::Vec<ItemInfo>,
-    #[prost(message, repeated, tag = "4")]
+    #[prost(message, repeated, tag = "14")]
     pub weapon_list: ::prost::alloc::vec::Vec<WeaponInfo>,
-    #[prost(message, repeated, tag = "12")]
+    #[prost(message, repeated, tag = "4")]
     pub equip_list: ::prost::alloc::vec::Vec<EquipInfo>,
-    #[prost(message, optional, tag = "7")]
     pub item_changed: ::core::option::Option<ItemChangedScNotify>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AvatarSync {
-    #[prost(message, repeated, tag = "2")]
+    #[prost(message, repeated, tag = "13")]
     pub avatar_list: ::prost::alloc::vec::Vec<AvatarInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BossBattleSync {
-    #[prost(uint32, repeated, tag = "14")]
     pub new_unlocked_levels: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, tag = "15", xor = "10254")]
     pub selected_level: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DoubleEliteSync {
-    #[prost(uint32, repeated, tag = "11")]
     pub new_unlocked_levels: ::prost::alloc::vec::Vec<u32>,
-    #[prost(message, repeated, tag = "1")]
     pub progress_list: ::prost::alloc::vec::Vec<DoubleEliteProgress>,
-    #[prost(uint32, tag = "2", xor = "11800")]
     pub selected_difficulty: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ActivityBattleSync {
-    #[prost(message, optional, tag = "10")]
     pub boss_battle: ::core::option::Option<BossBattleSync>,
-    #[prost(message, optional, tag = "1")]
     pub double_elite: ::core::option::Option<DoubleEliteSync>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BigSceneSync {
-    #[prost(message, repeated, tag = "13")]
     pub scene_avatar_list: ::prost::alloc::vec::Vec<super::common::BigSceneAvatarInfo>,
-    #[prost(message, repeated, tag = "14")]
     pub cur_scene_avatar_list: ::prost::alloc::vec::Vec<
         super::common::BigSceneAvatarInfo,
     >,
-    #[prost(uint32, tag = "1241", xor = "7626")]
     pub cur_avatar_id: u32,
-    #[prost(bool, tag = "184")]
     pub is_scene_team_replaced: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3876)]
+#[cmd_id(678)]
 pub struct PlayerSyncScNotify {
-    #[prost(message, optional, tag = "13")]
-    pub self_basic_info: ::core::option::Option<SelfBasicInfo>,
     #[prost(message, optional, tag = "11")]
-    pub item: ::core::option::Option<ItemSync>,
-    #[prost(message, optional, tag = "1")]
-    pub avatar: ::core::option::Option<AvatarSync>,
+    pub self_basic_info: ::core::option::Option<SelfBasicInfo>,
     #[prost(message, optional, tag = "3")]
+    pub item: ::core::option::Option<ItemSync>,
+    #[prost(message, optional, tag = "8")]
+    pub avatar: ::core::option::Option<AvatarSync>,
+    #[prost(message, optional, tag = "10")]
     pub misc: ::core::option::Option<MiscSync>,
-    #[prost(message, optional, tag = "6")]
+    #[prost(message, optional, tag = "4")]
     pub quest: ::core::option::Option<QuestSync>,
-    #[prost(message, optional, tag = "2")]
     pub hollow: ::core::option::Option<HollowSync>,
-    #[prost(message, optional, tag = "1835")]
     pub activity_battle: ::core::option::Option<ActivityBattleSync>,
-    #[prost(message, optional, tag = "43")]
     pub big_scene: ::core::option::Option<BigSceneSync>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3896)]
 pub struct GetFriendListCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(8162)]
 pub struct GetFriendListScRsp {
-    #[prost(int32, tag = "1", xor = "12219")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AvatarSkillLevel {
-    #[prost(uint32, tag = "5", xor = "13038")]
+    #[prost(uint32, tag = "6", xor = "672")]
     pub skill_type: u32,
-    #[prost(uint32, tag = "12", xor = "7947")]
+    #[prost(uint32, tag = "13", xor = "15660")]
     pub level: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DressedEquip {
-    #[prost(uint32, tag = "11", xor = "719")]
+    #[prost(uint32, tag = "11", xor = "1332")]
     pub index: u32,
-    #[prost(uint32, tag = "7", xor = "3511")]
+    #[prost(uint32, tag = "8", xor = "8462")]
     pub equip_uid: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AvatarInfo {
-    #[prost(uint32, tag = "6", xor = "4520")]
+    #[prost(uint32, tag = "13", xor = "5953")]
     pub id: u32,
-    #[prost(uint32, tag = "11", xor = "5219")]
+    #[prost(uint32, tag = "1", xor = "8387")]
     pub level: u32,
-    #[prost(uint32, tag = "9", xor = "4358")]
+    #[prost(uint32, tag = "15", xor = "1049")]
     pub exp: u32,
-    #[prost(uint32, tag = "10", xor = "10345")]
+    #[prost(uint32, tag = "8", xor = "2500")]
     pub rank: u32,
-    #[prost(uint32, tag = "15", xor = "12511")]
+    #[prost(uint32, tag = "7", xor = "15104")]
     pub unlocked_talent_num: u32,
-    #[prost(uint32, tag = "8", xor = "5620")]
+    #[prost(uint32, tag = "6", xor = "3511")]
     pub cur_weapon_uid: u32,
-    #[prost(uint32, tag = "5", xor = "6345")]
+    #[prost(uint32, tag = "9", xor = "290")]
     pub passive_skill_level: u32,
-    #[prost(message, repeated, tag = "14")]
+    #[prost(message, repeated, tag = "11")]
     pub skill_type_level: ::prost::alloc::vec::Vec<AvatarSkillLevel>,
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag = "14")]
     pub dressed_equip_list: ::prost::alloc::vec::Vec<DressedEquip>,
-    #[prost(enumeration = "AvatarShowWeaponType", tag = "7")]
+    #[prost(enumeration = "AvatarShowWeaponType", tag = "3")]
     pub show_weapon_type: i32,
-    #[prost(int64, tag = "2", xor = "5506")]
+    #[prost(int64, tag = "5", xor = "5867")]
     pub first_get_time: i64,
-    #[prost(bool, repeated, tag = "3")]
+    #[prost(bool, repeated, tag = "4")]
     pub talent_switch_list: ::prost::alloc::vec::Vec<bool>,
-    #[prost(uint32, repeated, tag = "13")]
+    #[prost(uint32, repeated, tag = "12")]
     pub taken_rank_up_reward_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(bool, tag = "4")]
+    #[prost(bool, tag = "2")]
     pub is_favorite: bool,
-    #[prost(uint32, tag = "2018", xor = "3995")]
+    #[prost(uint32, tag = "312", xor = "13907")]
     pub avatar_skin_id: u32,
-    #[prost(bool, tag = "962")]
+    #[prost(bool, tag = "1169")]
     pub is_awake_available: bool,
-    #[prost(uint32, tag = "479", xor = "4005")]
+    #[prost(uint32, tag = "598", xor = "1368")]
     pub awake_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7970)]
+#[cmd_id(4052)]
 pub struct GetQuestDataCsReq {
-    #[prost(uint32, tag = "9", xor = "4059")]
+    /// VMP DETECTED
+    ///
+    #[prost(uint32, tag = "1", xor = "5952")]
     pub quest_type: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct TrackQuestNpcInfo {
-    #[prost(uint32, repeated, tag = "2")]
     pub track_npc_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(message, optional, tag = "10")]
     pub quest_scene_info: ::core::option::Option<QuestSceneInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestSceneInfo {
-    #[prost(uint32, repeated, tag = "9")]
     pub quest_scene_unit_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct SpecialQuestInfo {
-    #[prost(uint32, tag = "13", xor = "7406")]
     pub previous_main_city_quest_id: u32,
-    #[prost(uint32, tag = "14", xor = "595")]
     pub cur_main_city_quest_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestInfo {
-    #[prost(uint32, tag = "4", xor = "2681")]
+    #[prost(uint32, tag = "15", xor = "4316")]
     pub id: u32,
-    #[prost(enumeration = "QuestState", tag = "14")]
+    #[prost(enumeration = "QuestState", tag = "3")]
     pub state: i32,
-    #[prost(int64, tag = "3", xor = "3001")]
+    #[prost(int64, tag = "10", xor = "14764")]
     pub unlock_time: i64,
-    #[prost(uint32, tag = "12", xor = "9163")]
+    #[prost(uint32, tag = "7", xor = "11821")]
     pub progress: u32,
-    #[prost(int64, tag = "15", xor = "295")]
+    #[prost(int64, tag = "14", xor = "11751")]
     pub in_progress_time: i64,
-    #[prost(map = "uint32, uint32", tag = "11")]
+    #[prost(map = "uint32, uint32", tag = "8")]
     pub finish_condition_progress: ::std::collections::HashMap<u32, u32>,
-    #[prost(message, optional, tag = "8")]
     pub track_info: ::core::option::Option<TrackQuestNpcInfo>,
-    #[prost(message, optional, tag = "5")]
     pub special_quest_info: ::core::option::Option<SpecialQuestInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct TrackQuestSync {
-    #[prost(uint32, tag = "12", xor = "10471")]
     pub cur_main_quest_id: u32,
-    #[prost(uint32, tag = "7", xor = "4485")]
     pub cur_track_quest_id: u32,
-    #[prost(uint32, tag = "10", xor = "2879")]
     pub cur_track_special_quest_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestSync {
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag = "11")]
     pub quest_list: ::prost::alloc::vec::Vec<QuestInfo>,
-    #[prost(uint32, repeated, tag = "14")]
+    #[prost(uint32, repeated, tag = "6")]
     pub finished_quest_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, repeated, tag = "10")]
     pub new_hollow_quest_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(message, optional, tag = "7")]
     pub track_quest_sync: ::core::option::Option<TrackQuestSync>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct TrackQuestInfo {
-    #[prost(uint32, tag = "5", xor = "999")]
     pub cur_main_quest_id: u32,
-    #[prost(uint32, tag = "7", xor = "686")]
     pub cur_track_quest_id: u32,
-    #[prost(uint32, tag = "11", xor = "10192")]
     pub cur_track_special_quest_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestCollection {
-    #[prost(uint32, tag = "11", xor = "896")]
+    #[prost(uint32, tag = "1", xor = "13887")]
     pub quest_type: u32,
-    #[prost(message, repeated, tag = "2")]
+    #[prost(message, repeated, tag = "13")]
     pub quest_list: ::prost::alloc::vec::Vec<QuestInfo>,
-    #[prost(uint32, repeated, tag = "8")]
+    #[prost(uint32, repeated, tag = "5")]
     pub finished_quest_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(message, optional, tag = "14")]
     pub track_info: ::core::option::Option<TrackQuestInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestData {
-    #[prost(message, repeated, tag = "9")]
+    #[prost(message, repeated, tag = "4")]
     pub quest_collection_list: ::prost::alloc::vec::Vec<QuestCollection>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(2139)]
+#[cmd_id(3576)]
 pub struct GetQuestDataScRsp {
-    #[prost(int32, tag = "14", xor = "3452")]
+    /// VMP DETECTED
+    ///
+    #[prost(int32, tag = "13", xor = "12034")]
     pub retcode: i32,
-    #[prost(uint32, tag = "10", xor = "6581")]
+    #[prost(uint32, tag = "15", xor = "16021")]
     pub quest_type: u32,
-    #[prost(message, optional, tag = "5")]
+    #[prost(message, optional, tag = "9")]
     pub quest_data: ::core::option::Option<QuestData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3561)]
+#[cmd_id(1921)]
 pub struct GetArchiveDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct VideotapeInfo {
@@ -509,65 +474,58 @@ pub struct VideotapeInfo {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ArchiveData {
-    #[prost(uint32, repeated, tag = "3")]
+    #[prost(uint32, repeated, tag = "7")]
     pub hollow_archive_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(message, repeated, tag = "6")]
+    #[prost(message, repeated, tag = "11")]
     pub videotape_list: ::prost::alloc::vec::Vec<VideotapeInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5371)]
+#[cmd_id(7588)]
 pub struct GetArchiveDataScRsp {
-    #[prost(int32, tag = "5", xor = "11030")]
+    /// VMP DETECTED
+    ///
+    #[prost(int32, tag = "9", xor = "334")]
     pub retcode: i32,
-    #[prost(message, optional, tag = "9")]
+    #[prost(message, optional, tag = "14")]
     pub archive_data: ::core::option::Option<ArchiveData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2895)]
+#[cmd_id(2968)]
 pub struct GetHollowDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowInfo {
-    #[prost(uint32, tag = "14", xor = "14173")]
     pub hollow_quest_id: u32,
-    #[prost(uint32, tag = "10", xor = "736")]
     pub unk_hollow_info_100: u32,
-    #[prost(uint32, tag = "13", xor = "15100")]
     pub acquired_hollow_challenge_reward: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowData {
-    #[prost(uint32, repeated, tag = "8")]
     pub unlock_hollow_group_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, repeated, tag = "5")]
     pub hollow_group_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, repeated, tag = "12")]
     pub unlock_hollow_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(message, repeated, tag = "14")]
     pub hollow_info_list: ::prost::alloc::vec::Vec<HollowInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowSync {
-    #[prost(uint32, repeated, tag = "12")]
     pub unlock_hollow_group_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, repeated, tag = "5")]
     pub hollow_group_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, repeated, tag = "9")]
     pub unlock_hollow_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(message, repeated, tag = "13")]
     pub hollow_info_list: ::prost::alloc::vec::Vec<HollowInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(6445)]
+#[cmd_id(558)]
 pub struct GetHollowDataScRsp {
-    #[prost(int32, tag = "13", xor = "7250")]
+    #[prost(int32, tag = "9", xor = "15717")]
     pub retcode: i32,
-    #[prost(message, optional, tag = "12")]
+    /// VMP DETECTED
+    ///
+    #[prost(message, optional, tag = "7")]
     pub hollow_data: ::core::option::Option<HollowData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8558)]
+#[cmd_id(5448)]
 pub struct AbyssGetDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AbyssData {}
@@ -577,89 +535,69 @@ pub struct AbyssDungeon {}
 pub struct AbyssGroup {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(8360)]
 pub struct AbyssGetDataScRsp {
-    #[prost(int32, tag = "3", xor = "6547")]
     pub retcode: i32,
     pub abyss_data: ::core::option::Option<AbyssData>,
     pub abyss_dungeon_list: ::prost::alloc::vec::Vec<AbyssDungeon>,
     pub abyss_group_list: ::prost::alloc::vec::Vec<AbyssGroup>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8238)]
+#[cmd_id(8335)]
 pub struct AbyssArpeggioGetDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(8281)]
 pub struct AbyssArpeggioGetDataScRsp {
-    #[prost(int32, tag = "3", xor = "13683")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5260)]
+#[cmd_id(2034)]
 pub struct StartTrainingQuestCsReq {
-    #[prost(uint32, tag = "8", xor = "12244")]
+    #[prost(uint32, tag = "3", xor = "10838")]
     pub quest_id: u32,
-    #[prost(uint32, repeated, tag = "2")]
+    #[prost(uint32, repeated, tag = "4")]
     pub avatar_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5499)]
+#[cmd_id(4250)]
 pub struct StartTrainingQuestScRsp {
-    #[prost(int32, tag = "6", xor = "12575")]
+    /// VMP DETECTED
+    ///
+    #[prost(int32, tag = "10", xor = "10960")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2453)]
 pub struct StartHollowQuestCsReq {
-    #[prost(uint32, tag = "12", xor = "5576")]
     pub quest_id: u32,
-    #[prost(uint32, repeated, tag = "8")]
     pub avatar_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4116)]
 pub struct HollowQuestProgressCsReq {
-    #[prost(uint32, tag = "11", xor = "4318")]
     pub quest_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5791)]
 pub struct HollowQuestProgressScRsp {
-    #[prost(int32, tag = "14", xor = "9194")]
     pub retcode: i32,
-    #[prost(uint32, tag = "6", xor = "1787")]
     pub new_progress: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(8642)]
 pub struct StartHollowQuestScRsp {
-    #[prost(int32, tag = "15", xor = "791")]
     pub retcode: i32,
-    #[prost(uint32, tag = "4", xor = "16021")]
     pub quest_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8743)]
 pub struct RestartActivityBattleCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(9473)]
 pub struct RestartActivityBattleScRsp {
-    #[prost(int32, tag = "12", xor = "16233")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5971)]
 pub struct BeginActivityBattleCsReq {
-    #[prost(uint32, tag = "2", xor = "9025")]
     pub quest_id: u32,
-    #[prost(uint32, repeated, tag = "8")]
     pub avatar_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, tag = "4", xor = "4256")]
     pub level: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -669,112 +607,112 @@ pub struct BeginActivityBattleScRsp {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AvatarContributionInfo {
-    #[prost(uint32, tag = "3", xor = "3343")]
+    #[prost(uint32, tag = "2", xor = "1205")]
     pub avatar_id: u32,
-    #[prost(uint32, tag = "1", xor = "9538")]
+    #[prost(uint32, tag = "15", xor = "14324")]
     pub contribution: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(369)]
+#[cmd_id(1458)]
 pub struct DungeonQuestFinishedScNotify {
-    #[prost(uint32, tag = "2", xor = "9227")]
+    #[prost(uint32, tag = "8", xor = "15868")]
     pub quest_id: u32,
-    #[prost(uint32, tag = "6", xor = "3824")]
+    #[prost(uint32, tag = "13", xor = "13260")]
     pub result: u32,
-    #[prost(uint32, tag = "1", xor = "2976")]
+    #[prost(uint32, tag = "7", xor = "470")]
     pub rank: u32,
-    #[prost(map = "uint32, uint64", tag = "4")]
+    #[prost(map = "uint32, uint64", tag = "1")]
     pub statistics: ::std::collections::HashMap<u32, u64>,
-    #[prost(map = "uint32, message", tag = "15")]
+    #[prost(map = "uint32, message", tag = "6")]
     pub battle_reward_map: ::std::collections::HashMap<u32, ItemReward>,
-    #[prost(message, repeated, tag = "12")]
+    #[prost(message, repeated, tag = "9")]
     pub avatar_contribution_list: ::prost::alloc::vec::Vec<AvatarContributionInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8864)]
+#[cmd_id(5906)]
 pub struct MainCityQuestTrackNpcScNotify {
-    #[prost(uint32, tag = "5", xor = "6364")]
+    #[prost(uint32, tag = "8", xor = "14785")]
     pub quest_id: u32,
-    #[prost(uint32, repeated, tag = "12")]
+    #[prost(uint32, repeated, tag = "4")]
     pub track_npc_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2122)]
+#[cmd_id(4468)]
 pub struct EnterWorldCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5373)]
+#[cmd_id(4936)]
 pub struct EnterWorldScRsp {
-    #[prost(int32, tag = "4", xor = "5455")]
+    #[prost(int32, tag = "11", xor = "4251")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct InteractInfo {
-    #[prost(int32, tag = "9", xor = "15065")]
+    #[prost(int32, tag = "14", xor = "13414")]
     pub tag_id: i32,
-    #[prost(string, tag = "3")]
+    #[prost(string, tag = "9")]
     pub name: ::prost::alloc::string::String,
-    #[prost(double, tag = "10")]
+    #[prost(double, tag = "6")]
     pub scale_x: f64,
-    #[prost(double, tag = "13")]
-    pub scale_y: f64,
-    #[prost(double, tag = "4")]
-    pub scale_z: f64,
     #[prost(double, tag = "5")]
+    pub scale_y: f64,
+    #[prost(double, tag = "11")]
+    pub scale_z: f64,
+    #[prost(double, tag = "10")]
     pub scale_w: f64,
-    #[prost(double, tag = "1")]
+    #[prost(double, tag = "7")]
     pub scale_r: f64,
-    #[prost(map = "uint32, string", tag = "14")]
+    #[prost(map = "uint32, string", tag = "13")]
     pub participators: ::std::collections::HashMap<u32, ::prost::alloc::string::String>,
-    #[prost(enumeration = "InteractTarget", repeated, tag = "15")]
+    #[prost(enumeration = "InteractTarget", repeated, tag = "2")]
     pub interact_target_list: ::prost::alloc::vec::Vec<i32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct SceneUnitProtocolInfo {
-    #[prost(uint32, tag = "10", xor = "1947")]
+    #[prost(uint32, tag = "11", xor = "9480")]
     pub npc_id: u32,
-    #[prost(bool, tag = "6")]
+    #[prost(bool, tag = "10")]
     pub is_interactable: bool,
-    #[prost(map = "uint32, message", tag = "1")]
+    #[prost(map = "uint32, message", tag = "6")]
     pub interacts_info: ::std::collections::HashMap<u32, InteractInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HallSceneData {
-    #[prost(uint32, tag = "11", xor = "12330")]
+    #[prost(uint32, tag = "6", xor = "714")]
     pub section_id: u32,
-    #[prost(message, optional, tag = "10")]
+    #[prost(message, optional, tag = "12")]
     pub position: ::core::option::Option<super::common::Transform>,
     #[prost(message, repeated, tag = "13")]
     pub scene_unit_list: ::prost::alloc::vec::Vec<SceneUnitProtocolInfo>,
-    #[prost(map = "int32, int32", tag = "5")]
+    #[prost(map = "int32, int32", tag = "14")]
     pub main_city_objects_state: ::std::collections::HashMap<i32, i32>,
     pub hall_unknown_map_string_int: ::std::collections::HashMap<
         ::prost::alloc::string::String,
         i32,
     >,
-    #[prost(uint32, tag = "14", xor = "289")]
+    #[prost(uint32, tag = "1", xor = "9867")]
     pub time_period: u32,
-    #[prost(uint32, tag = "2", xor = "14067")]
+    #[prost(uint32, tag = "11", xor = "3281")]
     pub time_of_day: u32,
-    #[prost(uint32, tag = "9", xor = "6734")]
+    #[prost(uint32, tag = "4", xor = "3832")]
     pub bgm_id: u32,
-    #[prost(uint32, tag = "1186", xor = "8946")]
+    #[prost(uint32, tag = "637", xor = "5221")]
     pub day_of_week: u32,
     pub hall_unknown_map_uint_uint: ::std::collections::HashMap<u32, u32>,
-    #[prost(uint32, tag = "377", xor = "2081")]
+    #[prost(uint32, tag = "1672", xor = "15297")]
     pub player_avatar_id: u32,
-    #[prost(string, tag = "1108")]
+    #[prost(string, tag = "1136")]
     pub transform_id: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "222", xor = "2933")]
+    #[prost(uint32, tag = "810", xor = "2511")]
     pub control_guise_avatar_id: u32,
-    #[prost(uint32, repeated, tag = "472")]
+    #[prost(uint32, repeated, tag = "1310")]
     pub main_city_quest_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ScenePerformInfo {
-    #[prost(string, tag = "9")]
+    #[prost(string, tag = "1")]
     pub time: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
+    #[prost(string, tag = "13")]
     pub weather: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -792,30 +730,24 @@ pub struct BattleRewardInfo {
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct SceneRewardInfo {
     pub normal_drop_reward_list: ::prost::alloc::vec::Vec<BattleRewardInfo>,
-    #[prost(message, repeated, tag = "7")]
     pub special_drop_reward_list: ::prost::alloc::vec::Vec<BattleRewardInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct FightSceneData {
-    #[prost(message, optional, tag = "13")]
+    #[prost(message, optional, tag = "14")]
     pub scene_perform: ::core::option::Option<ScenePerformInfo>,
-    #[prost(message, optional, tag = "10")]
+    #[prost(message, optional, tag = "15")]
     pub scene_reward: ::core::option::Option<SceneRewardInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct PublicVariable {
-    #[prost(int64, tag = "3")]
     pub var_int: i64,
-    #[prost(uint32, tag = "1")]
     pub r#type: u32,
-    #[prost(double, tag = "5")]
     pub var_number: f64,
-    #[prost(string, tag = "6")]
     pub var_str: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestCondProgress {
-    #[prost(map = "string, message", tag = "1")]
     pub public_variables: ::std::collections::HashMap<
         ::prost::alloc::string::String,
         PublicVariable,
@@ -823,66 +755,47 @@ pub struct QuestCondProgress {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct LongFightProgressInfo {
-    #[prost(message, optional, tag = "4")]
     pub quest_cond_progress: ::core::option::Option<QuestCondProgress>,
-    #[prost(message, optional, tag = "5")]
     pub quest_variables_info: ::core::option::Option<QuestVariablesInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuestVariablesInfo {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct LongFightSceneData {
-    #[prost(message, optional, tag = "7")]
     pub scene_perform: ::core::option::Option<ScenePerformInfo>,
-    #[prost(message, optional, tag = "6")]
     pub scene_reward: ::core::option::Option<SceneRewardInfo>,
-    #[prost(message, optional, tag = "4")]
     pub scene_progress: ::core::option::Option<LongFightProgressInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct IdComponent {
-    #[prost(uint32, tag = "4", xor = "12689")]
     pub id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowPosComponent {
-    #[prost(message, optional, tag = "8")]
     pub pos: ::core::option::Option<super::common::Vector2Int>,
-    #[prost(uint32, tag = "9", xor = "3494")]
     pub section_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowGridComponent {
-    #[prost(enumeration = "GridType", tag = "7")]
     pub grid_type: i32,
-    #[prost(enumeration = "GridLink", tag = "13")]
     pub grid_link: i32,
-    #[prost(enumeration = "GridUnkEnum", tag = "1")]
     pub grid_unk_enum: i32,
-    #[prost(message, optional, tag = "6")]
     pub prev_grid_state: ::core::option::Option<super::common::HollowGridState>,
-    #[prost(message, optional, tag = "9")]
     pub cur_grid_state: ::core::option::Option<super::common::HollowGridState>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowEventComponent {
-    #[prost(int32, tag = "5", xor = "7917")]
     pub icon_texture_sheet_id: i32,
-    #[prost(int32, tag = "9", xor = "10178")]
     pub interact_texture_sheet_id: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct CategoryComponent {
-    #[prost(string, repeated, tag = "2")]
     pub category_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BehaviorComponent {
-    #[prost(bool, tag = "3")]
     pub unk_behavior_state: bool,
-    #[prost(map = "string, int32", tag = "14")]
     pub int_specials: ::std::collections::HashMap<::prost::alloc::string::String, i32>,
-    #[prost(map = "string, string", tag = "4")]
     pub str_specials: ::std::collections::HashMap<
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
@@ -890,64 +803,53 @@ pub struct BehaviorComponent {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct OwnerComponent {
-    #[prost(uint32, tag = "3", xor = "11675")]
     pub owner_entity_uid: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct EntityPriorityComponent {
-    #[prost(int32, tag = "11", xor = "13749")]
     pub priority: i32,
-    #[prost(int32, tag = "14", xor = "450")]
     pub secondary_priority: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct GridStateComponent {
-    #[prost(message, optional, tag = "15")]
     pub cur_grid_state: ::core::option::Option<super::common::HollowGridState>,
-    #[prost(message, optional, tag = "6")]
     pub prev_grid_state: ::core::option::Option<super::common::HollowGridState>,
-    #[prost(int32, tag = "10", xor = "8744")]
     pub grid_state_component_unknown: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowEntityComponentInfo {
-    #[prost(uint32, tag = "12", xor = "12258")]
     pub r#type: u32,
-    #[prost(bytes = "vec", tag = "8")]
     pub component_info: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowEntityInfo {
-    #[prost(uint32, tag = "10", xor = "11323")]
+    #[prost(uint32, tag = "3", xor = "10490")]
     pub uid: u32,
-    #[prost(uint32, tag = "9", xor = "10074")]
     pub entity_type: u32,
-    #[prost(message, repeated, tag = "2")]
     pub entity_component_list: ::prost::alloc::vec::Vec<HollowEntityComponentInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowGridMap {
-    #[prost(message, repeated, tag = "6")]
+    #[prost(message, repeated, tag = "5")]
     pub hollow_grid_list: ::prost::alloc::vec::Vec<HollowEntityInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowSectionGridMapInfo {
-    #[prost(message, optional, tag = "4")]
+    #[prost(message, optional, tag = "13")]
     pub cur_grid_position: ::core::option::Option<super::common::Vector2Int>,
-    #[prost(message, optional, tag = "10")]
+    #[prost(message, optional, tag = "15")]
     pub hollow_grid_map: ::core::option::Option<HollowGridMap>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowSectionInfo {
-    #[prost(uint32, tag = "1", xor = "16201")]
+    #[prost(uint32, tag = "12", xor = "4720")]
     pub section_id: u32,
-    #[prost(int32, tag = "9", xor = "12775")]
     pub hollow_objective_id: i32,
-    #[prost(string, tag = "194")]
+    #[prost(string, tag = "1571")]
     pub time: ::prost::alloc::string::String,
-    #[prost(string, tag = "664")]
+    #[prost(string, tag = "775")]
     pub weather: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "6")]
+    #[prost(message, optional, tag = "11")]
     pub section_grid_map: ::core::option::Option<HollowSectionGridMapInfo>,
     pub hollow_vector_zero_1: ::core::option::Option<super::common::Vector2Int>,
     pub hollow_vector_zero_2: ::core::option::Option<super::common::Vector2Int>,
@@ -956,152 +858,145 @@ pub struct HollowSectionInfo {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowGridMapsInfo {
-    #[prost(message, optional, tag = "3")]
     pub cur_hollow_position: ::core::option::Option<super::common::Vector2Int>,
-    #[prost(uint32, tag = "9", xor = "8423")]
     pub cur_section_id: u32,
-    #[prost(enumeration = "HollowGridMapType", tag = "15")]
     pub hollow_grid_map_type: i32,
-    #[prost(message, repeated, tag = "6")]
     pub hollow_section_list: ::prost::alloc::vec::Vec<HollowSectionInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowScene {
-    #[prost(enumeration = "HenshinType", tag = "6")]
+    #[prost(enumeration = "HenshinType", tag = "12")]
     pub henshin_type: i32,
-    #[prost(message, optional, tag = "11")]
+    #[prost(message, optional, tag = "9")]
     pub cur_event_entity_info: ::core::option::Option<HollowEntityInfo>,
-    #[prost(message, optional, tag = "34")]
     pub hollow_grid_maps: ::core::option::Option<HollowGridMapsInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowSceneData {
-    #[prost(message, optional, tag = "9")]
+    #[prost(message, optional, tag = "7")]
     pub hollow_scene: ::core::option::Option<HollowScene>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct SceneData {
-    #[prost(uint32, tag = "9", xor = "13095")]
+    #[prost(uint32, tag = "1", xor = "8848")]
     pub scene_type: u32,
-    #[prost(uint32, tag = "8", xor = "14993")]
+    #[prost(uint32, tag = "6", xor = "10521")]
     pub scene_id: u32,
-    #[prost(uint32, tag = "6", xor = "13643")]
+    #[prost(uint32, tag = "4", xor = "2305")]
     pub play_type: u32,
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag = "11")]
     pub hall_scene_data: ::core::option::Option<HallSceneData>,
-    #[prost(message, optional, tag = "12")]
+    #[prost(message, optional, tag = "14")]
     pub fight_scene_data: ::core::option::Option<FightSceneData>,
-    #[prost(message, optional, tag = "15")]
     pub long_fight_scene_data: ::core::option::Option<LongFightSceneData>,
-    #[prost(message, optional, tag = "3")]
+    #[prost(message, optional, tag = "10")]
     pub hollow_scene_data: ::core::option::Option<HollowSceneData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DungeonQuestInfo {
-    #[prost(uint32, repeated, tag = "9")]
+    #[prost(uint32, repeated, tag = "6")]
     pub inner_quest_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DungeonStatistics {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DungeonEquipInfo {
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag = "13")]
     pub avatar_list: ::prost::alloc::vec::Vec<AvatarInfo>,
-    #[prost(message, repeated, tag = "4")]
-    pub weapon_list: ::prost::alloc::vec::Vec<WeaponInfo>,
-    #[prost(message, repeated, tag = "6")]
-    pub equip_list: ::prost::alloc::vec::Vec<EquipInfo>,
     #[prost(message, repeated, tag = "12")]
+    pub weapon_list: ::prost::alloc::vec::Vec<WeaponInfo>,
+    #[prost(message, repeated, tag = "9")]
+    pub equip_list: ::prost::alloc::vec::Vec<EquipInfo>,
+    #[prost(message, repeated, tag = "6")]
     pub buddy_list: ::prost::alloc::vec::Vec<BuddyInfo>,
-    #[prost(message, optional, tag = "1225")]
+    #[prost(message, optional, tag = "1174")]
     pub buddy: ::core::option::Option<BuddyInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BigBossInfo {
-    #[prost(uint32, tag = "9", xor = "12717")]
+    #[prost(uint32, tag = "12", xor = "6683")]
     pub difficulty: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DoubleEliteInfo {
-    #[prost(uint32, tag = "13", xor = "6022")]
+    #[prost(uint32, tag = "11", xor = "15634")]
     pub difficulty: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DungeonInfo {
-    #[prost(uint32, tag = "4", xor = "15339")]
+    #[prost(uint32, tag = "14", xor = "14440")]
     pub quest_id: u32,
-    #[prost(message, optional, tag = "7")]
+    #[prost(message, optional, tag = "9")]
     pub dungeon_equip_info: ::core::option::Option<DungeonEquipInfo>,
-    #[prost(message, repeated, tag = "9")]
+    #[prost(message, repeated, tag = "4")]
     pub avatar_list: ::prost::alloc::vec::Vec<super::common::AvatarUnitInfo>,
-    #[prost(uint32, tag = "892", xor = "6101")]
+    #[prost(uint32, tag = "154", xor = "5573")]
     pub quest_type: u32,
     #[prost(message, optional, tag = "6")]
     pub dungeon_statistics: ::core::option::Option<DungeonStatistics>,
-    #[prost(int64, tag = "10", xor = "8871")]
+    #[prost(int64, tag = "2", xor = "9697")]
     pub begin_time: i64,
-    #[prost(message, optional, tag = "708")]
+    #[prost(message, optional, tag = "1329")]
     pub dungeon_quest_info: ::core::option::Option<DungeonQuestInfo>,
-    #[prost(message, optional, tag = "158")]
+    #[prost(message, optional, tag = "741")]
     pub big_boss_info: ::core::option::Option<BigBossInfo>,
-    #[prost(message, optional, tag = "1879")]
+    #[prost(message, optional, tag = "542")]
     pub double_elite_info: ::core::option::Option<DoubleEliteInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8216)]
+#[cmd_id(874)]
 pub struct EnterSceneScNotify {
-    #[prost(message, optional, tag = "14")]
+    #[prost(message, optional, tag = "3")]
     pub scene: ::core::option::Option<SceneData>,
-    #[prost(message, optional, tag = "8")]
+    #[prost(message, optional, tag = "9")]
     pub dungeon: ::core::option::Option<DungeonInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9745)]
+#[cmd_id(2188)]
 pub struct EnterSectionCompleteCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(1678)]
+#[cmd_id(7387)]
 pub struct EnterSectionCompleteScRsp {
-    #[prost(int32, tag = "4", xor = "6723")]
+    #[prost(int32, tag = "6", xor = "13289")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2682)]
+#[cmd_id(3431)]
 pub struct HallRefreshScNotify {
-    #[prost(bool, tag = "7")]
     pub force_refresh: bool,
-    #[prost(uint32, tag = "12", xor = "15924")]
+    #[prost(uint32, tag = "3", xor = "6130")]
     pub section_id: u32,
     pub position: ::core::option::Option<super::common::Transform>,
-    #[prost(message, repeated, tag = "4")]
+    #[prost(message, repeated, tag = "15")]
     pub scene_unit_list: ::prost::alloc::vec::Vec<SceneUnitProtocolInfo>,
-    #[prost(map = "int32, int32", tag = "3")]
+    #[prost(map = "int32, int32", tag = "7")]
     pub main_city_objects_state: ::std::collections::HashMap<i32, i32>,
     pub hall_unknown_map_string_int: ::std::collections::HashMap<
         ::prost::alloc::string::String,
         i32,
     >,
-    #[prost(uint32, tag = "5", xor = "2641")]
+    #[prost(uint32, tag = "14", xor = "12996")]
     pub time_period: u32,
-    #[prost(uint32, tag = "1362", xor = "7881")]
+    #[prost(uint32, tag = "123", xor = "8290")]
     pub time_of_day: u32,
-    #[prost(uint32, tag = "8", xor = "16007")]
+    #[prost(uint32, tag = "5", xor = "8358")]
     pub bgm_id: u32,
-    #[prost(uint32, tag = "1155", xor = "5843")]
+    #[prost(uint32, tag = "1459", xor = "11000")]
     pub day_of_week: u32,
     pub hall_unknown_map_uint_uint: ::std::collections::HashMap<u32, u32>,
-    #[prost(uint32, tag = "1", xor = "758")]
+    #[prost(uint32, tag = "6", xor = "7060")]
     pub player_avatar_id: u32,
     pub transform_id: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "13", xor = "614")]
+    #[prost(uint32, tag = "11", xor = "585")]
     pub control_guise_avatar_id: u32,
-    #[prost(uint32, repeated, tag = "860")]
+    #[prost(uint32, repeated, tag = "1832")]
     pub main_city_quest_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9915)]
+#[cmd_id(8835)]
 pub struct ModMainCityTimeCsReq {
-    #[prost(uint32, tag = "6", xor = "9317")]
+    #[prost(uint32, tag = "13", xor = "5197")]
     pub time_period: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1110,111 +1005,100 @@ pub struct ModMainCityTimeScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(870)]
+#[cmd_id(7618)]
 pub struct GetTimeInfoCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct TimeInfo {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(497)]
 pub struct GetTimeInfoScRsp {
-    #[prost(int32, tag = "13", xor = "5023")]
     pub retcode: i32,
-    #[prost(message, optional, tag = "3")]
     pub time_info: ::core::option::Option<TimeInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1749)]
+#[cmd_id(4005)]
 pub struct SceneTransitionCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5575)]
 pub struct SceneTransitionScRsp {
-    #[prost(int32, tag = "6", xor = "14784")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(528)]
+#[cmd_id(5905)]
 pub struct SavePosInMainCityCsReq {
-    #[prost(uint32, tag = "7", xor = "1494")]
+    #[prost(uint32, tag = "9", xor = "7146")]
     pub section_id: u32,
-    #[prost(message, optional, tag = "14")]
+    #[prost(message, optional, tag = "2")]
     pub position: ::core::option::Option<super::common::Transform>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(4159)]
 pub struct SavePosInMainCityScRsp {
-    #[prost(int32, tag = "13", xor = "12618")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3859)]
+#[cmd_id(1850)]
 pub struct TriggerInteractCsReq {
-    #[prost(int32, tag = "6", xor = "5841")]
+    #[prost(int32, tag = "11", xor = "14845")]
     pub interact_id: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(2225)]
 pub struct TriggerInteractScRsp {
-    #[prost(int32, tag = "2", xor = "7374")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2524)]
+#[cmd_id(6440)]
 pub struct InteractWithUnitCsReq {
-    #[prost(int32, tag = "7", xor = "9074")]
+    #[prost(int32, tag = "1", xor = "4292")]
     pub npc_tag_id: i32,
-    #[prost(int32, tag = "15", xor = "7525")]
+    #[prost(int32, tag = "10", xor = "2507")]
     pub interact_id: i32,
-    #[prost(enumeration = "InteractTarget", tag = "9")]
+    /// VMP DETECTED
+    ///
+    #[prost(enumeration = "InteractTarget", tag = "13")]
     pub r#type: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(8692)]
 pub struct InteractWithUnitScRsp {
-    #[prost(int32, tag = "11", xor = "8435")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5099)]
+#[cmd_id(1669)]
 pub struct EndNpcTalkCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5295)]
 pub struct EndNpcTalkScRsp {
-    #[prost(int32, tag = "10", xor = "1008")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ActionInfo {
-    #[prost(uint32, tag = "3", xor = "10153")]
+    #[prost(uint32, tag = "12", xor = "3110")]
     pub action_id: u32,
-    #[prost(enumeration = "ActionType", tag = "5")]
+    #[prost(enumeration = "ActionType", tag = "14")]
     pub action_type: i32,
-    #[prost(bytes = "vec", tag = "13")]
+    #[prost(bytes = "vec", tag = "9")]
     pub body: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5720)]
+#[cmd_id(1164)]
 pub struct SectionEventScNotify {
-    #[prost(uint32, tag = "13", xor = "9812")]
+    #[prost(uint32, tag = "11", xor = "4540")]
     pub event_id: u32,
-    #[prost(uint32, tag = "11", xor = "15269")]
+    #[prost(uint32, tag = "3", xor = "15318")]
     pub section_id: u32,
-    #[prost(uint32, tag = "15", xor = "5033")]
+    #[prost(uint32, tag = "14", xor = "5979")]
     pub tag: u32,
-    #[prost(uint32, tag = "2", xor = "56")]
+    #[prost(uint32, tag = "10", xor = "8296")]
     pub section_event_unk_1: u32,
-    #[prost(uint32, tag = "12", xor = "802")]
+    #[prost(uint32, tag = "15", xor = "10207")]
     pub section_event_unk_2: u32,
     pub section_event_unk_3: u32,
     pub section_event_unk_4: u32,
-    #[prost(map = "string, int32", tag = "7")]
+    #[prost(map = "string, int32", tag = "2")]
     pub int_specials: ::std::collections::HashMap<::prost::alloc::string::String, i32>,
-    #[prost(map = "string, string", tag = "10")]
+    #[prost(map = "string, string", tag = "13")]
     pub str_specials: ::std::collections::HashMap<
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
@@ -1227,100 +1111,106 @@ pub struct SectionEventScNotify {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
-    #[prost(enumeration = "EventGraphOwnerType", tag = "8")]
+    #[prost(enumeration = "EventGraphOwnerType", tag = "6")]
     pub owner_type: i32,
-    #[prost(message, repeated, tag = "6")]
+    #[prost(message, repeated, tag = "7")]
     pub action_list: ::prost::alloc::vec::Vec<ActionInfo>,
     pub section_event_unk_string_list: ::prost::alloc::vec::Vec<
         ::prost::alloc::string::String,
     >,
-    #[prost(uint32, tag = "9", xor = "9379")]
+    #[prost(uint32, tag = "5", xor = "1914")]
     pub hollow_event_id: u32,
-    #[prost(string, tag = "1031")]
+    #[prost(string, tag = "773")]
     pub event_name: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9754)]
+#[cmd_id(1406)]
 pub struct RunEventGraphCsReq {
-    #[prost(uint32, tag = "12", xor = "6612")]
+    #[prost(uint32, tag = "13", xor = "13604")]
     pub event_id: u32,
-    #[prost(uint32, tag = "1", xor = "887")]
+    #[prost(uint32, tag = "9", xor = "12800")]
     pub section_id: u32,
-    #[prost(uint32, tag = "13", xor = "12871")]
+    #[prost(uint32, tag = "6", xor = "4351")]
     pub tag: u32,
-    #[prost(uint32, tag = "8", xor = "7899")]
+    #[prost(uint32, tag = "8", xor = "5151")]
     pub section_event_unk_1: u32,
-    #[prost(uint32, tag = "2", xor = "5575")]
+    #[prost(uint32, tag = "7", xor = "12090")]
     pub section_event_unk_2: u32,
-    #[prost(enumeration = "EventGraphOwnerType", tag = "4")]
+    #[prost(enumeration = "EventGraphOwnerType", tag = "1")]
     pub owner_type: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(7043)]
+#[cmd_id(1370)]
 pub struct RunEventGraphScRsp {
-    #[prost(int32, tag = "12", xor = "2082")]
+    #[prost(int32, tag = "5", xor = "6351")]
     pub retcode: i32,
-    #[prost(bool, tag = "14")]
+    /// VMP DETECTED
+    ///
+    #[prost(bool, tag = "11")]
     pub finish_event: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3343)]
+#[cmd_id(3076)]
 pub struct RunEventActionCsReq {
-    #[prost(uint32, tag = "12", xor = "678")]
+    #[prost(uint32, tag = "6", xor = "3988")]
     pub event_id: u32,
-    #[prost(uint32, tag = "5", xor = "15544")]
+    #[prost(uint32, tag = "1", xor = "12960")]
     pub tag: u32,
-    #[prost(uint32, tag = "13", xor = "15497")]
+    #[prost(uint32, tag = "15", xor = "13554")]
     pub section_event_unk_1: u32,
-    #[prost(uint32, tag = "9", xor = "6580")]
+    #[prost(uint32, tag = "9", xor = "15591")]
     pub section_event_unk_2: u32,
-    #[prost(uint32, tag = "3", xor = "15706")]
+    #[prost(uint32, tag = "5", xor = "7132")]
     pub section_id: u32,
-    #[prost(enumeration = "EventGraphOwnerType", tag = "2")]
+    #[prost(enumeration = "EventGraphOwnerType", tag = "7")]
     pub owner_type: i32,
-    #[prost(uint32, tag = "6", xor = "539")]
+    #[prost(uint32, tag = "4", xor = "1470")]
     pub action_id: u32,
     #[prost(enumeration = "ActionType", tag = "11")]
     pub action_type: i32,
-    #[prost(bytes = "vec", tag = "10")]
+    #[prost(bytes = "vec", tag = "3")]
     pub action_body: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(7688)]
+#[cmd_id(2794)]
 pub struct RunEventActionScRsp {
-    #[prost(int32, tag = "7", xor = "2556")]
+    #[prost(int32, tag = "8", xor = "6843")]
     pub retcode: i32,
-    #[prost(bool, tag = "8")]
+    #[prost(bool, tag = "6")]
     pub finish_event: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(120)]
+#[cmd_id(5818)]
 pub struct FinishEventGraphScNotify {
-    #[prost(uint32, tag = "5", xor = "13904")]
+    #[prost(uint32, tag = "4", xor = "13702")]
     pub tag: u32,
-    #[prost(uint32, tag = "6", xor = "8489")]
+    #[prost(uint32, tag = "12", xor = "14641")]
     pub section_event_unk_2: u32,
-    #[prost(enumeration = "EventGraphOwnerType", tag = "7")]
+    #[prost(enumeration = "EventGraphOwnerType", tag = "8")]
     pub owner_type: i32,
-    #[prost(string, tag = "3")]
+    /// VMP DETECTED
+    ///
+    #[prost(string, tag = "14")]
     pub event_name: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "1", xor = "7468")]
+    #[prost(uint32, tag = "6", xor = "10393")]
     pub event_uid: u32,
-    #[prost(uint32, tag = "4", xor = "605")]
+    #[prost(uint32, tag = "7", xor = "10711")]
     pub finish_event_unk_1: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4955)]
+#[cmd_id(2900)]
 pub struct EnterSectionCsReq {
-    #[prost(uint32, tag = "8", xor = "7783")]
+    #[prost(uint32, tag = "4", xor = "5805")]
     pub section_id: u32,
-    #[prost(string, tag = "9")]
+    /// VMP DETECTED
+    ///
+    #[prost(string, tag = "14")]
     pub transform_id: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "3", xor = "11325")]
+    #[prost(uint32, tag = "15", xor = "15504")]
     pub tag: u32,
-    #[prost(enumeration = "EventGraphOwnerType", tag = "10")]
+    #[prost(enumeration = "EventGraphOwnerType", tag = "7")]
     pub owner_type: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1329,9 +1219,7 @@ pub struct EnterSectionScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1033)]
 pub struct CollectHollowRewardCsReq {
-    #[prost(uint32, repeated, tag = "8")]
     pub reward_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1340,24 +1228,25 @@ pub struct CollectHollowRewardScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3715)]
+#[cmd_id(4133)]
 pub struct EndBattleCsReq {
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag = "12")]
     pub fight_result: ::core::option::Option<super::common::FightResult>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct FightSettle {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(3616)]
+#[cmd_id(5259)]
 pub struct EndBattleScRsp {
-    #[prost(int32, tag = "6", xor = "859")]
+    #[prost(int32, tag = "6", xor = "4559")]
     pub retcode: i32,
+    /// VMP DETECTED
+    ///
     #[prost(message, optional, tag = "14")]
     pub fight_settle: ::core::option::Option<FightSettle>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1428)]
 pub struct SyncLongFightProgressCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
@@ -1365,7 +1254,6 @@ pub struct SyncLongFightProgressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6188)]
 pub struct SyncGlobalVariablesCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
@@ -1373,46 +1261,41 @@ pub struct SyncGlobalVariablesScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1613)]
+#[cmd_id(4372)]
 pub struct LeaveCurSceneCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(4596)]
+#[cmd_id(8266)]
 pub struct LeaveCurSceneScRsp {
-    #[prost(int32, tag = "15", xor = "12916")]
+    /// VMP DETECTED
+    ///
+    #[prost(int32, tag = "11", xor = "1222")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1439)]
+#[cmd_id(5501)]
 pub struct SectionRefreshCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(304)]
+#[cmd_id(1331)]
 pub struct SectionRefreshScRsp {
-    #[prost(int32, tag = "9", xor = "14014")]
+    #[prost(int32, tag = "1", xor = "10257")]
     pub retcode: i32,
-    #[prost(uint32, tag = "3", xor = "15244")]
+    #[prost(uint32, tag = "10", xor = "2948")]
     pub refresh_status: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ServerPerformMsg {
-    #[prost(uint32, tag = "7", xor = "6155")]
     pub cmd_id: u32,
-    #[prost(bytes = "vec", tag = "6")]
     pub content: ::prost::alloc::vec::Vec<u8>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8336)]
 pub struct HollowPerformScNotify {
-    #[prost(message, repeated, tag = "7")]
     pub msg_list: ::prost::alloc::vec::Vec<ServerPerformMsg>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9993)]
 pub struct HollowTickCsReq {
-    #[prost(uint32, tag = "13", xor = "13644")]
     pub quest_id: u32,
-    #[prost(uint32, tag = "15", xor = "12304")]
     pub unknown_hollow_tick: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1421,30 +1304,20 @@ pub struct HollowTickScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2707)]
 pub struct HollowMoveCsReq {
-    #[prost(message, repeated, tag = "11")]
     pub move_path: ::prost::alloc::vec::Vec<super::common::Vector2Int>,
-    #[prost(message, optional, tag = "14")]
     pub hollow_move_unknown: ::core::option::Option<super::common::Vector2Int>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(7708)]
 pub struct HollowMoveScRsp {
-    #[prost(int32, tag = "9", xor = "908")]
     pub retcode: i32,
-    #[prost(uint32, tag = "14", xor = "1671")]
     pub section_id: u32,
-    #[prost(message, optional, tag = "6")]
     pub new_position: ::core::option::Option<super::common::Vector2Int>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4611)]
 pub struct HollowEventReportCsReq {
-    #[prost(uint32, repeated, tag = "15")]
     pub hollow_event_report_int_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(string, repeated, tag = "1")]
     pub hollow_event_report_str_list: ::prost::alloc::vec::Vec<
         ::prost::alloc::string::String,
     >,
@@ -1455,27 +1328,18 @@ pub struct HollowEventReportScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2549)]
 pub struct SyncHollowGridMapsScNotify {
-    #[prost(message, repeated, tag = "8")]
     pub modify_entity_list: ::prost::alloc::vec::Vec<HollowEntityInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1116)]
 pub struct HollowPushScNotify {
-    #[prost(message, optional, tag = "12")]
     pub prev_position: ::core::option::Option<super::common::Vector2Int>,
-    #[prost(message, optional, tag = "1")]
     pub cur_position: ::core::option::Option<super::common::Vector2Int>,
-    #[prost(uint32, tag = "2", xor = "13874")]
     pub cur_section_id: u32,
-    #[prost(enumeration = "HollowEntityType", tag = "6")]
     pub entity_type: i32,
-    #[prost(enumeration = "HollowPushReason", tag = "15")]
     pub reason: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9552)]
 pub struct TriggerHollowEventCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
@@ -1483,53 +1347,55 @@ pub struct TriggerHollowEventScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3565)]
+#[cmd_id(1084)]
 pub struct GetWeaponDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(7471)]
+#[cmd_id(8821)]
 pub struct GetWeaponDataScRsp {
-    #[prost(int32, tag = "5", xor = "12842")]
+    #[prost(int32, tag = "6", xor = "1141")]
     pub retcode: i32,
-    #[prost(message, repeated, tag = "8")]
+    #[prost(message, repeated, tag = "15")]
     pub weapon_list: ::prost::alloc::vec::Vec<WeaponInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5095)]
+#[cmd_id(1393)]
 pub struct GetItemDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(6708)]
+#[cmd_id(702)]
 pub struct GetItemDataScRsp {
-    #[prost(int32, tag = "7", xor = "11666")]
+    #[prost(int32, tag = "4", xor = "15460")]
     pub retcode: i32,
-    #[prost(message, repeated, tag = "13")]
+    #[prost(message, repeated, tag = "15")]
     pub item_list: ::prost::alloc::vec::Vec<ItemInfo>,
-    #[prost(map = "uint32, message", tag = "12")]
+    #[prost(map = "uint32, message", tag = "6")]
     pub auto_recovery_info: ::std::collections::HashMap<u32, AutoRecoveryInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4228)]
+#[cmd_id(1392)]
 pub struct GetAvatarDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(3783)]
+#[cmd_id(4387)]
 pub struct GetAvatarDataScRsp {
-    #[prost(int32, tag = "15", xor = "1237")]
+    #[prost(int32, tag = "14", xor = "5755")]
     pub retcode: i32,
+    /// VMP DETECTED
+    ///
     #[prost(message, repeated, tag = "2")]
     pub avatar_list: ::prost::alloc::vec::Vec<AvatarInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3863)]
+#[cmd_id(683)]
 pub struct AddAvatarScNotify {
-    #[prost(uint32, tag = "1", xor = "6694")]
+    #[prost(uint32, tag = "5", xor = "13685")]
     pub avatar_id: u32,
-    #[prost(enumeration = "add_avatar_sc_notify::PerformType", tag = "8")]
+    #[prost(enumeration = "add_avatar_sc_notify::PerformType", tag = "15")]
     pub perform_type: i32,
-    #[prost(message, repeated, tag = "12")]
+    #[prost(message, repeated, tag = "11")]
     pub reward_list: ::prost::alloc::vec::Vec<ItemRewardInfo>,
-    #[prost(bool, tag = "11")]
+    #[prost(bool, tag = "12")]
     pub lock: bool,
 }
 /// Nested message and enum types in `AddAvatarScNotify`.
@@ -1575,30 +1441,24 @@ pub mod add_avatar_sc_notify {
     }
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3824)]
 pub struct AvatarLevelUpCsReq {
-    #[prost(uint32, tag = "9", xor = "13351")]
     pub avatar_id: u32,
-    #[prost(map = "uint32, uint32", tag = "11")]
     pub exp_materials: ::std::collections::HashMap<u32, u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(9184)]
 pub struct AvatarLevelUpScRsp {
-    #[prost(int32, tag = "5", xor = "11584")]
     pub retcode: i32,
-    #[prost(message, repeated, tag = "4")]
     pub return_item_list: ::prost::alloc::vec::Vec<ItemRewardInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7328)]
+#[cmd_id(9903)]
 pub struct EquipmentDressCsReq {
-    #[prost(uint32, tag = "11", xor = "16296")]
+    #[prost(uint32, tag = "1", xor = "7662")]
     pub avatar_id: u32,
-    #[prost(uint32, tag = "6", xor = "14070")]
+    #[prost(uint32, tag = "4", xor = "10503")]
     pub equip_uid: u32,
-    #[prost(uint32, tag = "14", xor = "14568")]
+    #[prost(uint32, tag = "13", xor = "3070")]
     pub dress_index: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1607,11 +1467,11 @@ pub struct EquipmentDressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5649)]
+#[cmd_id(6262)]
 pub struct EquipmentUnDressCsReq {
-    #[prost(uint32, tag = "4", xor = "8840")]
+    #[prost(uint32, tag = "14", xor = "10228")]
     pub avatar_id: u32,
-    #[prost(uint32, repeated, tag = "1")]
+    #[prost(uint32, repeated, tag = "12")]
     pub undress_index_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1621,17 +1481,19 @@ pub struct EquipmentUnDressScRsp {
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct EquipmentDressParam {
-    #[prost(uint32, tag = "1", xor = "3187")]
+    #[prost(uint32, tag = "4", xor = "9587")]
     pub equip_uid: u32,
-    #[prost(uint32, tag = "2", xor = "14225")]
+    #[prost(uint32, tag = "9", xor = "9817")]
     pub dress_index: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(681)]
+#[cmd_id(8236)]
 pub struct EquipmentSuitDressCsReq {
-    #[prost(uint32, tag = "11", xor = "8422")]
+    /// VMP DETECTED
+    ///
+    #[prost(uint32, tag = "14", xor = "35")]
     pub avatar_id: u32,
-    #[prost(message, repeated, tag = "10")]
+    #[prost(message, repeated, tag = "3")]
     pub param_list: ::prost::alloc::vec::Vec<EquipmentDressParam>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1640,11 +1502,13 @@ pub struct EquipmentSuitDressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6213)]
+#[cmd_id(9237)]
 pub struct WeaponDressCsReq {
-    #[prost(uint32, tag = "10", xor = "6182")]
+    /// VMP DETECTED
+    ///
+    #[prost(uint32, tag = "4", xor = "13693")]
     pub avatar_id: u32,
-    #[prost(uint32, tag = "14", xor = "2235")]
+    #[prost(uint32, tag = "1", xor = "14593")]
     pub weapon_uid: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1653,9 +1517,11 @@ pub struct WeaponDressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6525)]
+#[cmd_id(9021)]
 pub struct WeaponUnDressCsReq {
-    #[prost(uint32, tag = "9", xor = "11054")]
+    /// VMP DETECTED
+    ///
+    #[prost(uint32, tag = "14", xor = "848")]
     pub avatar_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1664,11 +1530,8 @@ pub struct WeaponUnDressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3101)]
 pub struct TalentSwitchCsReq {
-    #[prost(uint32, tag = "5", xor = "10791")]
     pub avatar_id: u32,
-    #[prost(bool, repeated, tag = "8")]
     pub talent_switch_list: ::prost::alloc::vec::Vec<bool>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1677,11 +1540,11 @@ pub struct TalentSwitchScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3797)]
+#[cmd_id(2990)]
 pub struct AvatarSetAwakeCsReq {
-    #[prost(uint32, tag = "4", xor = "10948")]
+    #[prost(uint32, tag = "4", xor = "11637")]
     pub avatar_id: u32,
-    #[prost(uint32, tag = "3", xor = "4591")]
+    #[prost(uint32, tag = "7", xor = "12933")]
     pub awake_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1690,11 +1553,11 @@ pub struct AvatarSetAwakeScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8609)]
+#[cmd_id(3804)]
 pub struct AvatarShowWeaponCsReq {
-    #[prost(uint32, tag = "1", xor = "15296")]
+    #[prost(uint32, tag = "13", xor = "8695")]
     pub avatar_id: u32,
-    #[prost(enumeration = "AvatarShowWeaponType", tag = "7")]
+    #[prost(enumeration = "AvatarShowWeaponType", tag = "8")]
     pub show_weapon_type: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1703,11 +1566,11 @@ pub struct AvatarShowWeaponScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5048)]
+#[cmd_id(4565)]
 pub struct AvatarFavoriteCsReq {
-    #[prost(uint32, tag = "10", xor = "8915")]
+    #[prost(uint32, tag = "5", xor = "14233")]
     pub avatar_id: u32,
-    #[prost(bool, tag = "2")]
+    #[prost(bool, tag = "7")]
     pub is_favorite: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1716,11 +1579,13 @@ pub struct AvatarFavoriteScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4200)]
+#[cmd_id(8678)]
 pub struct AvatarSkinDressCsReq {
-    #[prost(uint32, tag = "5", xor = "15310")]
+    #[prost(uint32, tag = "5", xor = "5514")]
     pub avatar_id: u32,
-    #[prost(uint32, tag = "10", xor = "14019")]
+    /// VMP DETECTED
+    ///
+    #[prost(uint32, tag = "7", xor = "5008")]
     pub avatar_skin_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1729,9 +1594,11 @@ pub struct AvatarSkinDressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3123)]
+#[cmd_id(1093)]
 pub struct AvatarSkinUnDressCsReq {
-    #[prost(uint32, tag = "6", xor = "5167")]
+    /// VMP DETECTED
+    ///
+    #[prost(uint32, tag = "8", xor = "821")]
     pub avatar_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1740,9 +1607,9 @@ pub struct AvatarSkinUnDressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5664)]
+#[cmd_id(4431)]
 pub struct GetAvatarRecommendEquipCsReq {
-    #[prost(uint32, tag = "7", xor = "13877")]
+    #[prost(uint32, tag = "13", xor = "4631")]
     pub avatar_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1751,188 +1618,142 @@ pub struct GetAvatarRecommendEquipScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9336)]
+#[cmd_id(8140)]
 pub struct GetEquipDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(1093)]
+#[cmd_id(633)]
 pub struct GetEquipDataScRsp {
-    #[prost(int32, tag = "15", xor = "12763")]
+    #[prost(int32, tag = "3", xor = "13699")]
     pub retcode: i32,
-    #[prost(message, repeated, tag = "4")]
+    #[prost(message, repeated, tag = "2")]
     pub equip_list: ::prost::alloc::vec::Vec<EquipInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4859)]
+#[cmd_id(7331)]
 pub struct GetWishlistDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(1643)]
+#[cmd_id(6962)]
 pub struct GetWishlistDataScRsp {
-    #[prost(int32, tag = "11", xor = "1124")]
+    #[prost(int32, tag = "9", xor = "16095")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7676)]
+#[cmd_id(3225)]
 pub struct GetBuddyDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BuddySkillLevel {
-    #[prost(uint32, tag = "11", xor = "2707")]
+    #[prost(uint32, tag = "14", xor = "1534")]
     pub skill_type: u32,
-    #[prost(uint32, tag = "10", xor = "4787")]
+    #[prost(uint32, tag = "15", xor = "12250")]
     pub level: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BuddyInfo {
-    #[prost(uint32, tag = "8", xor = "5125")]
+    #[prost(uint32, tag = "5", xor = "13963")]
     pub id: u32,
-    #[prost(uint32, tag = "10", xor = "16247")]
+    #[prost(uint32, tag = "2", xor = "12785")]
     pub level: u32,
-    #[prost(uint32, tag = "14", xor = "6122")]
+    #[prost(uint32, tag = "14", xor = "1925")]
     pub exp: u32,
-    #[prost(uint32, tag = "11", xor = "9757")]
+    #[prost(uint32, tag = "4", xor = "2154")]
     pub rank: u32,
-    #[prost(uint32, tag = "1", xor = "3457")]
+    #[prost(uint32, tag = "7", xor = "1101")]
     pub star: u32,
-    #[prost(int64, tag = "9", xor = "14711")]
+    #[prost(int64, tag = "15", xor = "11589")]
     pub first_get_time: i64,
     #[prost(message, repeated, tag = "3")]
     pub skill_type_level: ::prost::alloc::vec::Vec<BuddySkillLevel>,
-    #[prost(uint32, repeated, tag = "6")]
+    #[prost(uint32, repeated, tag = "13")]
     pub taken_rank_up_reward_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(854)]
 pub struct GetBuddyDataScRsp {
-    #[prost(int32, tag = "11", xor = "1482")]
     pub retcode: i32,
-    #[prost(message, repeated, tag = "4")]
     pub buddy_list: ::prost::alloc::vec::Vec<BuddyInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8086)]
 pub struct GetAvatarRecommendItemsCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(3185)]
 pub struct GetAvatarRecommendItemsScRsp {
-    #[prost(int32, tag = "12", xor = "4263")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8255)]
+#[cmd_id(2891)]
 pub struct GetGachaDataCsReq {
-    #[prost(uint32, tag = "3", xor = "1457")]
+    /// VMP DETECTED
+    ///
+    #[prost(uint32, tag = "7", xor = "8759")]
     pub gacha_type: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct GachaMaterial {
-    #[prost(uint32, tag = "6", xor = "9964")]
     pub material_id: u32,
-    #[prost(uint32, tag = "10", xor = "4176")]
     pub num: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct Gacha {
-    #[prost(uint32, tag = "13", xor = "4604")]
     pub gacha_type: u32,
-    #[prost(uint32, tag = "10", xor = "10483")]
     pub gacha_id: u32,
-    #[prost(uint32, tag = "7", xor = "15335")]
     pub gacha_schedule_id: u32,
-    #[prost(int64, tag = "11", xor = "11675")]
     pub begin_time: i64,
-    #[prost(int64, tag = "2", xor = "3617")]
     pub end_time: i64,
-    #[prost(uint32, repeated, tag = "3")]
     pub up_item_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, repeated, tag = "6")]
     pub optional_up_item_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(message, repeated, tag = "14")]
     pub gacha_material_list: ::prost::alloc::vec::Vec<GachaMaterial>,
-    #[prost(string, tag = "12")]
     pub gacha_info_webview: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
     pub gacha_log_webview: ::prost::alloc::string::String,
-    #[prost(uint32, tag = "1840", xor = "14752")]
     pub remain_up_item_times: u32,
-    #[prost(uint32, tag = "1684", xor = "14033")]
     pub remain_optional_up_item_times: u32,
-    #[prost(uint32, repeated, tag = "1687")]
     pub newbie_avatar_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, tag = "2033", xor = "12047")]
     pub newbie_remain_up_item_times: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct GachaInfo {
-    #[prost(message, repeated, tag = "8")]
     pub gacha_list: ::prost::alloc::vec::Vec<Gacha>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct GachaDisplayData {
-    #[prost(uint32, tag = "9", xor = "3448")]
     pub gacha_random: u32,
-    #[prost(message, optional, tag = "12")]
     pub gacha_info: ::core::option::Option<GachaInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(4015)]
 pub struct GetGachaDataScRsp {
-    #[prost(int32, tag = "8", xor = "9581")]
     pub retcode: i32,
-    #[prost(uint32, tag = "1", xor = "8909")]
     pub gacha_type: u32,
-    #[prost(message, optional, tag = "4")]
     pub display: ::core::option::Option<GachaDisplayData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1872)]
 pub struct DoGachaCsReq {
-    #[prost(uint32, tag = "5", xor = "9926")]
     pub gacha_type: u32,
-    #[prost(uint32, tag = "11", xor = "15629")]
     pub gacha_id: u32,
-    #[prost(uint32, tag = "9", xor = "8959")]
     pub gacha_random: u32,
-    #[prost(uint32, tag = "2", xor = "2004")]
     pub times: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DropItem {
-    #[prost(uint32, tag = "4", xor = "9838")]
     pub item_id: u32,
-    #[prost(uint32, tag = "9", xor = "3631")]
     pub uid: u32,
-    #[prost(uint32, tag = "1", xor = "3680")]
     pub count: u32,
-    #[prost(uint32, tag = "5", xor = "9943")]
     pub point_item_id: u32,
-    #[prost(uint32, tag = "10", xor = "8561")]
     pub point_item_count: u32,
-    #[prost(bool, tag = "2")]
     pub lock: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(1903)]
 pub struct DoGachaScRsp {
-    #[prost(int32, tag = "6", xor = "4185")]
     pub retcode: i32,
-    #[prost(uint32, tag = "13", xor = "13051")]
     pub times: u32,
-    #[prost(message, optional, tag = "4")]
     pub display: ::core::option::Option<GachaDisplayData>,
-    #[prost(message, repeated, tag = "9")]
     pub drop_item_list: ::prost::alloc::vec::Vec<DropItem>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1244)]
 pub struct GachaBuyMaterialCsReq {
-    #[prost(uint32, tag = "13", xor = "11332")]
     pub buy_material_id: u32,
-    #[prost(uint32, tag = "15", xor = "8219")]
     pub count: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1941,11 +1762,8 @@ pub struct GachaBuyMaterialScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(736)]
 pub struct GachaSetNewbieAvatarCsReq {
-    #[prost(uint32, tag = "12", xor = "10370")]
     pub gacha_id: u32,
-    #[prost(uint32, tag = "15", xor = "10905")]
     pub avatar_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -1954,54 +1772,55 @@ pub struct GachaSetNewbieAvatarScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9304)]
+#[cmd_id(603)]
 pub struct VideoGetInfoCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(9793)]
+#[cmd_id(3951)]
 pub struct VideoGetInfoScRsp {
-    #[prost(int32, tag = "6", xor = "7231")]
+    #[prost(int32, tag = "8", xor = "13264")]
     pub retcode: i32,
-    #[prost(map = "uint32, uint64", tag = "13")]
+    /// VMP DETECTED
+    ///
+    #[prost(map = "uint32, uint64", tag = "11")]
     pub video_key_map: ::std::collections::HashMap<u32, u64>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(709)]
+#[cmd_id(5879)]
 pub struct SavePlayerAccessoryCsReq {
-    #[prost(message, optional, tag = "9")]
+    #[prost(message, optional, tag = "6")]
     pub player_accessory: ::core::option::Option<PlayerAccessoryInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(9927)]
 pub struct SavePlayerAccessoryScRsp {
-    #[prost(int32, tag = "15", xor = "7398")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct SystemSwitchStateInfo {
-    #[prost(uint32, tag = "2", xor = "958")]
+    #[prost(uint32, tag = "5", xor = "3917")]
     pub r#type: u32,
-    #[prost(bool, tag = "12")]
     pub switch_state: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct InputSettingInfo {
-    #[prost(map = "uint32, int32", tag = "11")]
+    #[prost(map = "uint32, int32", tag = "5")]
     pub input_type_map: ::std::collections::HashMap<u32, i32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(1424)]
+#[cmd_id(2476)]
 pub struct SavePlayerSystemSettingCsReq {
-    #[prost(uint32, tag = "5", xor = "2444")]
+    #[prost(uint32, tag = "8", xor = "440")]
     pub r#type: u32,
-    #[prost(uint32, tag = "9", xor = "6414")]
+    /// VMP DETECTED
+    ///
+    #[prost(uint32, tag = "11", xor = "12276")]
     pub params: u32,
-    #[prost(message, optional, tag = "7")]
+    #[prost(message, optional, tag = "9")]
     pub system_switch_state: ::core::option::Option<SystemSwitchStateInfo>,
-    #[prost(message, optional, tag = "8")]
+    #[prost(message, optional, tag = "15")]
     pub input_setting: ::core::option::Option<InputSettingInfo>,
-    #[prost(map = "uint32, uint32", tag = "6")]
+    #[prost(map = "uint32, uint32", tag = "4")]
     pub setting_content_map: ::std::collections::HashMap<u32, u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2010,199 +1829,181 @@ pub struct SavePlayerSystemSettingScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3303)]
+#[cmd_id(2262)]
 pub struct GetSwitchDataCsReq {
-    #[prost(uint32, tag = "1", xor = "10479")]
+    #[prost(uint32, tag = "12", xor = "6188")]
     pub r#type: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct SwitchData {
-    #[prost(uint32, repeated, tag = "15")]
+    #[prost(uint32, repeated, tag = "2")]
     pub open_system_id_list: ::prost::alloc::vec::Vec<u32>,
     pub switch_of_qte: bool,
     pub switch_of_story_mode: bool,
-    #[prost(message, repeated, tag = "7")]
+    #[prost(message, repeated, tag = "13")]
     pub system_switch_state_list: ::prost::alloc::vec::Vec<SystemSwitchStateInfo>,
-    #[prost(map = "uint32, message", tag = "12")]
+    #[prost(map = "uint32, message", tag = "1")]
     pub input_setting_map: ::std::collections::HashMap<u32, InputSettingInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(810)]
+#[cmd_id(3150)]
 pub struct GetSwitchDataScRsp {
-    #[prost(int32, tag = "7", xor = "3091")]
+    #[prost(int32, tag = "8", xor = "12321")]
     pub retcode: i32,
-    #[prost(uint32, tag = "2", xor = "5401")]
+    #[prost(uint32, tag = "14", xor = "10004")]
     pub r#type: u32,
-    #[prost(message, optional, tag = "11")]
+    #[prost(message, optional, tag = "5")]
     pub switch_data: ::core::option::Option<SwitchData>,
-    #[prost(map = "uint32, uint32", tag = "4")]
+    #[prost(map = "uint32, uint32", tag = "1")]
     pub setting_switch_map: ::std::collections::HashMap<u32, u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7449)]
+#[cmd_id(5473)]
 pub struct GetMiscDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct QuickAccessInfo {
-    #[prost(uint32, tag = "3", xor = "1033")]
+    #[prost(uint32, tag = "8", xor = "5547")]
     pub quick_access_id: u32,
-    #[prost(uint32, tag = "12", xor = "4951")]
+    #[prost(uint32, tag = "13", xor = "13726")]
     pub quick_access_index: u32,
-    #[prost(enumeration = "QuickAccessType", tag = "10")]
+    #[prost(enumeration = "QuickAccessType", tag = "2")]
     pub r#type: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct UnlockInfo {
-    #[prost(int32, repeated, tag = "10")]
+    #[prost(int32, repeated, tag = "7")]
     pub unlocked_list: ::prost::alloc::vec::Vec<i32>,
     #[prost(message, repeated, tag = "8")]
     pub quick_access_list: ::prost::alloc::vec::Vec<QuickAccessInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct TeleportUnlockInfo {
-    #[prost(int32, repeated, tag = "4")]
+    #[prost(int32, repeated, tag = "12")]
     pub unlocked_list: ::prost::alloc::vec::Vec<i32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct NewsStandData {
-    #[prost(int32, tag = "7", xor = "4085")]
     pub cur_style: i32,
-    #[prost(uint32, repeated, tag = "4")]
     pub normal_news_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, repeated, tag = "12")]
     pub head_lines_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, repeated, tag = "11")]
     pub advertisement_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(bool, tag = "1")]
     pub news_read_state: bool,
-    #[prost(bool, tag = "13")]
     pub can_sign: bool,
-    #[prost(uint32, tag = "2", xor = "5637")]
     pub current_sign_id: u32,
-    #[prost(uint32, tag = "10", xor = "7763")]
     pub sign_count: u32,
-    #[prost(int64, tag = "5", xor = "10192")]
     pub sign_refresh_time: i64,
-    #[prost(int64, tag = "6", xor = "14653")]
     pub last_sign_time: i64,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct PostGirlItem {
-    #[prost(uint32, tag = "14", xor = "8752")]
+    #[prost(uint32, tag = "2", xor = "8410")]
     pub id: u32,
-    #[prost(int64, tag = "7", xor = "5981")]
+    #[prost(int64, tag = "14", xor = "3898")]
     pub unlock_time: i64,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct PostGirlInfo {
-    #[prost(message, repeated, tag = "3")]
+    #[prost(message, repeated, tag = "11")]
     pub post_girl_item_list: ::prost::alloc::vec::Vec<PostGirlItem>,
-    #[prost(uint32, repeated, tag = "4")]
+    #[prost(uint32, repeated, tag = "14")]
     pub selected_post_girl_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(bool, tag = "14")]
+    #[prost(bool, tag = "3")]
     pub post_girl_random_toggle: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BusinessCardData {
-    #[prost(uint32, repeated, tag = "7")]
+    #[prost(uint32, repeated, tag = "6")]
     pub unlocked_business_card_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, tag = "3", xor = "3297")]
+    #[prost(uint32, tag = "7", xor = "1436")]
     pub selected_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct PlayerSkinInfo {
-    #[prost(uint32, tag = "3", xor = "10029")]
+    #[prost(uint32, tag = "1", xor = "14215")]
     pub player_skin_id: u32,
-    #[prost(uint32, repeated, tag = "15")]
+    #[prost(uint32, repeated, tag = "6")]
     pub equipped_accessory_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct PlayerAccessoryInfo {
-    #[prost(uint32, tag = "15", xor = "7026")]
+    #[prost(uint32, tag = "13", xor = "16022")]
     pub avatar_id: u32,
-    #[prost(uint32, tag = "14", xor = "2826")]
+    #[prost(uint32, tag = "5", xor = "5931")]
     pub avatar_skin_id: u32,
-    #[prost(message, repeated, tag = "9")]
+    #[prost(message, repeated, tag = "6")]
     pub player_skin_list: ::prost::alloc::vec::Vec<PlayerSkinInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct PlayerAccessoryData {
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag = "15")]
     pub player_accessory_list: ::prost::alloc::vec::Vec<PlayerAccessoryInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct MiscData {
-    #[prost(message, optional, tag = "15")]
-    pub unlock: ::core::option::Option<UnlockInfo>,
-    #[prost(message, optional, tag = "1")]
-    pub teleport: ::core::option::Option<TeleportUnlockInfo>,
     #[prost(message, optional, tag = "13")]
+    pub unlock: ::core::option::Option<UnlockInfo>,
+    #[prost(message, optional, tag = "15")]
+    pub teleport: ::core::option::Option<TeleportUnlockInfo>,
     pub news_stand: ::core::option::Option<NewsStandData>,
-    #[prost(message, optional, tag = "10")]
+    #[prost(message, optional, tag = "1")]
     pub post_girl: ::core::option::Option<PostGirlInfo>,
-    #[prost(message, optional, tag = "1745")]
+    #[prost(message, optional, tag = "732")]
     pub business_card: ::core::option::Option<BusinessCardData>,
-    #[prost(message, optional, tag = "520")]
+    #[prost(message, optional, tag = "1309")]
     pub player_accessory: ::core::option::Option<PlayerAccessoryData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(4580)]
+#[cmd_id(8977)]
 pub struct GetMiscDataScRsp {
-    #[prost(int32, tag = "3", xor = "919")]
+    #[prost(int32, tag = "7", xor = "1606")]
     pub retcode: i32,
     #[prost(message, optional, tag = "9")]
     pub data: ::core::option::Option<MiscData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct NewsStandSync {
-    #[prost(uint32, tag = "14", xor = "2445")]
     pub current_sign_id: u32,
-    #[prost(bool, tag = "5")]
     pub can_sign: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct PostGirlSync {
-    #[prost(message, repeated, tag = "6")]
+    #[prost(message, repeated, tag = "2")]
     pub new_post_girl_item_list: ::prost::alloc::vec::Vec<PostGirlItem>,
-    #[prost(uint32, repeated, tag = "1")]
+    #[prost(uint32, repeated, tag = "4")]
     pub selected_post_girl_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(bool, tag = "13")]
+    #[prost(bool, tag = "3")]
     pub post_girl_random_toggle: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BusinessCardSync {
-    #[prost(uint32, repeated, tag = "4")]
+    #[prost(uint32, repeated, tag = "13")]
     pub unlocked_business_card_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, tag = "11", xor = "10987")]
+    #[prost(uint32, tag = "3", xor = "9439")]
     pub selected_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct PlayerAccessorySync {
-    #[prost(message, repeated, tag = "5")]
+    #[prost(message, repeated, tag = "12")]
     pub player_accessory_list: ::prost::alloc::vec::Vec<PlayerAccessoryInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct MiscSync {
-    #[prost(int32, repeated, tag = "3")]
     pub trigger_newbie_group_list: ::prost::alloc::vec::Vec<i32>,
-    #[prost(message, repeated, tag = "10")]
+    #[prost(message, repeated, tag = "1")]
     pub quick_access_list: ::prost::alloc::vec::Vec<QuickAccessInfo>,
-    #[prost(message, optional, tag = "13")]
     pub news_stand: ::core::option::Option<NewsStandSync>,
-    #[prost(message, optional, tag = "1613")]
+    #[prost(message, optional, tag = "576")]
     pub post_girl: ::core::option::Option<PostGirlSync>,
-    #[prost(message, optional, tag = "1443")]
+    #[prost(message, optional, tag = "925")]
     pub business_card: ::core::option::Option<BusinessCardSync>,
-    #[prost(message, optional, tag = "1165")]
+    #[prost(message, optional, tag = "1472")]
     pub player_accessory: ::core::option::Option<PlayerAccessorySync>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2929)]
 pub struct SelectPostGirlCsReq {
-    #[prost(uint32, repeated, tag = "3")]
     pub post_girl_id_list: ::prost::alloc::vec::Vec<u32>,
-    #[prost(bool, tag = "4")]
     pub post_girl_random_toggle: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2211,7 +2012,7 @@ pub struct SelectPostGirlScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5193)]
+#[cmd_id(72)]
 pub struct GameLogReportCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
@@ -2219,26 +2020,22 @@ pub struct GameLogReportScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7031)]
+#[cmd_id(3995)]
 pub struct PlayerOperationCsReq {
-    #[prost(uint32, tag = "10", xor = "6949")]
+    #[prost(uint32, tag = "11", xor = "11054")]
     pub system: u32,
-    #[prost(uint32, tag = "9", xor = "553")]
+    #[prost(uint32, tag = "1", xor = "211")]
     pub operator: u32,
-    #[prost(int32, tag = "15", xor = "2789")]
+    #[prost(int32, tag = "4", xor = "9976")]
     pub param: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(6620)]
 pub struct PlayerOperationScRsp {
-    #[prost(int32, tag = "4", xor = "9442")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8319)]
 pub struct EndNewbieCsReq {
-    #[prost(uint32, tag = "15", xor = "12112")]
     pub group_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2248,9 +2045,7 @@ pub struct EndNewbieScRsp {
     pub group_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6255)]
 pub struct FinishNewbieGroupCsReq {
-    #[prost(uint32, tag = "8", xor = "15102")]
     pub group_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2259,66 +2054,47 @@ pub struct FinishNewbieGroupScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(614)]
 pub struct GetBattleDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(6013)]
 pub struct GetBattleDataScRsp {
-    #[prost(int32, tag = "13", xor = "9116")]
     pub retcode: i32,
-    #[prost(message, optional, tag = "15")]
     pub battle_data: ::core::option::Option<BattleData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BattleData {
-    #[prost(message, optional, tag = "7")]
     pub battle_data: ::core::option::Option<ActivityBattleData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct ActivityBattleData {
-    #[prost(message, optional, tag = "7")]
     pub boss_battle: ::core::option::Option<BossBattleData>,
-    #[prost(message, optional, tag = "9")]
     pub double_elite: ::core::option::Option<DoubleEliteData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BossBattleData {
-    #[prost(uint32, repeated, tag = "13")]
     pub unlocked_levels: ::prost::alloc::vec::Vec<u32>,
-    #[prost(uint32, tag = "2", xor = "5903")]
     pub selected_level: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DoubleEliteProgress {
-    #[prost(uint32, tag = "9", xor = "14706")]
     pub quest_id: u32,
-    #[prost(bool, tag = "3")]
     pub unlocked: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct DoubleEliteData {
-    #[prost(uint32, repeated, tag = "8")]
     pub unlocked_levels: ::prost::alloc::vec::Vec<u32>,
-    #[prost(message, repeated, tag = "6")]
     pub progress_list: ::prost::alloc::vec::Vec<DoubleEliteProgress>,
-    #[prost(uint32, tag = "12", xor = "13106")]
     pub selected_difficulty: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6344)]
 pub struct GetNewsStandDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(1010)]
 pub struct GetNewsStandDataScRsp {
-    #[prost(int32, tag = "2", xor = "14543")]
     pub retcode: i32,
-    #[prost(message, optional, tag = "11")]
     pub news_stand_data: ::core::option::Option<NewsStandData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7891)]
 pub struct ReadNewsCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
@@ -2326,23 +2102,17 @@ pub struct ReadNewsScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6447)]
 pub struct NewsStandSignCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(8595)]
 pub struct NewsStandSignScRsp {
-    #[prost(int32, tag = "12", xor = "3785")]
     pub retcode: i32,
-    #[prost(int32, tag = "13", xor = "4361")]
     pub sign_count: i32,
-    #[prost(int64, tag = "8", xor = "8502")]
     pub last_sign_time: i64,
-    #[prost(message, repeated, tag = "10")]
     pub reward_list: ::prost::alloc::vec::Vec<ItemRewardInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4825)]
+#[cmd_id(6230)]
 pub struct ReportUiLayoutPlatformCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
@@ -2350,7 +2120,7 @@ pub struct ReportUiLayoutPlatformScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8578)]
+#[cmd_id(5969)]
 pub struct BattleReportCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
@@ -2358,44 +2128,30 @@ pub struct BattleReportScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6738)]
 pub struct GetRamenDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct RamenData {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(6583)]
 pub struct GetRamenDataScRsp {
-    #[prost(int32, tag = "15", xor = "9558")]
     pub retcode: i32,
-    #[prost(message, optional, tag = "7")]
     pub ramen_data: ::core::option::Option<RamenData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5766)]
 pub struct PerformTriggerCsReq {
-    #[prost(int32, tag = "14", xor = "5852")]
     pub perform_id: i32,
-    #[prost(int32, tag = "3", xor = "12793")]
     pub perform_type: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5813)]
 pub struct PerformTriggerScRsp {
-    #[prost(int32, tag = "11", xor = "11064")]
     pub retcode: i32,
-    #[prost(int64, tag = "6", xor = "14631")]
     pub perform_uid: i64,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3543)]
 pub struct PerformEndCsReq {
-    #[prost(int32, tag = "1", xor = "7996")]
     pub perform_id: i32,
-    #[prost(int32, tag = "15", xor = "14820")]
     pub perform_type: i32,
-    #[prost(int64, tag = "12", xor = "601")]
     pub perform_uid: i64,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2404,13 +2160,9 @@ pub struct PerformEndScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5302)]
 pub struct PerformJumpCsReq {
-    #[prost(int32, tag = "3", xor = "765")]
     pub perform_id: i32,
-    #[prost(int32, tag = "4", xor = "2641")]
     pub perform_type: i32,
-    #[prost(int64, tag = "14", xor = "8082")]
     pub perform_uid: i64,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2419,104 +2171,76 @@ pub struct PerformJumpScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7566)]
+#[cmd_id(1001)]
 pub struct StartTrainingCsReq {
-    #[prost(int32, repeated, tag = "10")]
+    #[prost(int32, repeated, tag = "5")]
     pub avatar_list: ::prost::alloc::vec::Vec<i32>,
-    #[prost(int32, tag = "3", xor = "9079")]
+    #[prost(int32, tag = "6", xor = "15261")]
     pub special_training_id: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(4888)]
 pub struct StartTrainingScRsp {
-    #[prost(int32, tag = "5", xor = "5832")]
     pub retcode: i32,
-    #[prost(int64, tag = "8", xor = "8484")]
     pub training_uid: i64,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3640)]
+#[cmd_id(8619)]
 pub struct GetPhotoWallDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(6396)]
+#[cmd_id(7669)]
 pub struct GetPhotoWallDataScRsp {
-    #[prost(int32, tag = "6", xor = "12535")]
+    #[prost(int32, tag = "14", xor = "14733")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(3813)]
+#[cmd_id(8598)]
 pub struct GetMonthDailyRewardListCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(8069)]
 pub struct GetMonthDailyRewardListScRsp {
-    #[prost(int32, tag = "10", xor = "8475")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5422)]
 pub struct GetAreaMapDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AreaMapData {
-    #[prost(message, repeated, tag = "3")]
     pub group: ::prost::alloc::vec::Vec<AreaGroupInfo>,
-    #[prost(message, repeated, tag = "11")]
     pub collect: ::prost::alloc::vec::Vec<AreaCollectInfo>,
-    #[prost(message, repeated, tag = "6")]
     pub street: ::prost::alloc::vec::Vec<AreaStreetInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AreaGroupInfo {
-    #[prost(uint32, tag = "7", xor = "364")]
     pub group_id: u32,
-    #[prost(bool, tag = "6")]
     pub is_unlocked: bool,
-    #[prost(uint32, tag = "15", xor = "11914")]
     pub area_progress: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AreaCollectInfo {
-    #[prost(uint32, tag = "5", xor = "12051")]
     pub r#type: u32,
-    #[prost(uint32, tag = "2", xor = "14886")]
     pub owner_type: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct AreaStreetInfo {
-    #[prost(uint32, tag = "3", xor = "8348")]
     pub area_id: u32,
-    #[prost(bool, tag = "14")]
     pub is_unlocked: bool,
-    #[prost(uint32, tag = "11", xor = "5884")]
     pub area_progress: u32,
-    #[prost(bool, tag = "9")]
     pub location_pop_showed: bool,
-    #[prost(bool, tag = "7")]
     pub new_area_showed: bool,
-    #[prost(bool, tag = "8")]
     pub new_area_portals_showed: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(6060)]
 pub struct GetAreaMapDataScRsp {
-    #[prost(int32, tag = "13", xor = "10415")]
     pub retcode: i32,
-    #[prost(message, optional, tag = "12")]
     pub data: ::core::option::Option<AreaMapData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6820)]
 pub struct AreaMapModStateCsReq {
-    #[prost(uint32, tag = "11", xor = "13862")]
     pub area_id: u32,
-    #[prost(bool, tag = "14")]
     pub location_pop_showed: bool,
-    #[prost(bool, tag = "7")]
     pub new_area_showed: bool,
-    #[prost(bool, tag = "10")]
     pub new_area_portals_showed: bool,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2525,194 +2249,142 @@ pub struct AreaMapModStateScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6980)]
 pub struct GetAreaPortalDataCsReq {
-    #[prost(uint32, repeated, tag = "11")]
     pub area_portal_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(5117)]
 pub struct GetAreaPortalDataScRsp {
-    #[prost(int32, tag = "15", xor = "14153")]
     pub retcode: i32,
-    #[prost(uint32, repeated, tag = "5")]
     pub area_portal_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6953)]
 pub struct GetFloorActiveGroupListCsReq {
-    #[prost(uint32, tag = "14", xor = "843")]
     pub floor_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(2431)]
 pub struct GetFloorActiveGroupListScRsp {
-    #[prost(int32, tag = "10", xor = "11981")]
     pub retcode: i32,
-    #[prost(uint32, repeated, tag = "4")]
     pub group_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9764)]
 pub struct GetFloorGroupMemberListCsReq {
-    #[prost(uint32, tag = "9", xor = "14691")]
     pub floor_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct FloorGroupMemberInfo {
-    #[prost(uint32, tag = "1")]
     pub group_id: u32,
-    #[prost(uint32, tag = "2")]
     pub config_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(4940)]
 pub struct GetFloorGroupMemberListScRsp {
-    #[prost(int32, tag = "6", xor = "13570")]
     pub retcode: i32,
-    #[prost(message, repeated, tag = "4")]
     pub floor_group_portal_list: ::prost::alloc::vec::Vec<FloorGroupMemberInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(2243)]
+#[cmd_id(5082)]
 pub struct GetBigSceneDataCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct BigSceneTeamData {
-    #[prost(message, repeated, tag = "7")]
     pub scene_avatar_list: ::prost::alloc::vec::Vec<super::common::BigSceneAvatarInfo>,
-    #[prost(message, repeated, tag = "11")]
     pub cur_scene_avatar_list: ::prost::alloc::vec::Vec<
         super::common::BigSceneAvatarInfo,
     >,
-    #[prost(uint32, tag = "10", xor = "5108")]
     pub cur_avatar_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(2095)]
 pub struct GetBigSceneDataScRsp {
-    #[prost(int32, tag = "4", xor = "6947")]
     pub retcode: i32,
-    #[prost(message, optional, tag = "11")]
     pub big_scene_team: ::core::option::Option<BigSceneTeamData>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(8153)]
 pub struct BigSceneTeamReplaceCsReq {
-    #[prost(uint32, repeated, tag = "6")]
     pub scene_avatar_id_list: ::prost::alloc::vec::Vec<u32>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(1044)]
 pub struct BigSceneTeamReplaceScRsp {
-    #[prost(int32, tag = "5", xor = "1115")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct FloorPositionInfo {
-    #[prost(message, optional, tag = "14")]
     pub player_pos: ::core::option::Option<super::common::Vector3>,
-    #[prost(message, optional, tag = "8")]
     pub player_rot: ::core::option::Option<super::common::Vector3>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(7193)]
+#[cmd_id(8226)]
 pub struct EnterBigSceneFloorCsReq {
-    #[prost(uint32, tag = "14", xor = "4048")]
+    #[prost(uint32, tag = "5", xor = "4799")]
     pub floor_id: u32,
-    #[prost(uint32, tag = "10", xor = "6393")]
     pub floor_version: u32,
-    #[prost(string, tag = "1")]
     pub floor_md5: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "4")]
-    pub floor_position: ::core::option::Option<FloorPositionInfo>,
-    #[prost(message, optional, tag = "6")]
-    pub rollback_point: ::core::option::Option<super::common::RollbackPointInfo>,
     #[prost(message, optional, tag = "15")]
+    pub floor_position: ::core::option::Option<FloorPositionInfo>,
+    #[prost(message, optional, tag = "4")]
+    pub rollback_point: ::core::option::Option<super::common::RollbackPointInfo>,
     pub player_pos: ::core::option::Option<super::common::Vector3>,
-    #[prost(message, optional, tag = "7")]
     pub player_rot: ::core::option::Option<super::common::Vector3>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(1300)]
 pub struct EnterBigSceneFloorScRsp {
-    #[prost(int32, tag = "13", xor = "8189")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(5823)]
+#[cmd_id(5365)]
 pub struct EnterBigSceneScNotify {
-    #[prost(uint32, tag = "10", xor = "8277")]
+    #[prost(uint32, tag = "13", xor = "7056")]
     pub scene_id: u32,
-    #[prost(uint32, tag = "9", xor = "15892")]
+    #[prost(uint32, tag = "10", xor = "8272")]
     pub floor_id: u32,
-    #[prost(message, optional, tag = "15")]
+    #[prost(message, optional, tag = "14")]
     pub pos: ::core::option::Option<super::common::Vector3>,
-    #[prost(message, optional, tag = "4")]
-    pub floor_position: ::core::option::Option<FloorPositionInfo>,
-    #[prost(message, optional, tag = "11")]
-    pub rollback_point: ::core::option::Option<super::common::RollbackPointInfo>,
     #[prost(message, optional, tag = "5")]
+    pub floor_position: ::core::option::Option<FloorPositionInfo>,
+    #[prost(message, optional, tag = "8")]
+    pub rollback_point: ::core::option::Option<super::common::RollbackPointInfo>,
+    #[prost(message, optional, tag = "6")]
     pub cur_entity_info: ::core::option::Option<super::common::SceneEntityInfo>,
-    #[prost(uint32, tag = "13", xor = "7135")]
+    #[prost(uint32, tag = "11", xor = "3113")]
     pub day_of_week: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4254)]
 pub struct EnterFloorDoneCsReq {
-    #[prost(uint32, tag = "6", xor = "1836")]
     pub floor_version: u32,
-    #[prost(string, tag = "13")]
     pub floor_md5: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(7298)]
 pub struct EnterFloorDoneScRsp {
-    #[prost(int32, tag = "9", xor = "130")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4258)]
 pub struct SaveBigSceneVariablesCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(7454)]
 pub struct SaveBigSceneVariablesScRsp {
-    #[prost(int32, tag = "4", xor = "6622")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(4988)]
 pub struct BigSceneAvatarChangeCsReq {
-    #[prost(uint32, tag = "9", xor = "15719")]
     pub avatar_id: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(405)]
 pub struct BigSceneAvatarChangeScRsp {
-    #[prost(int32, tag = "1", xor = "15916")]
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct SceneEntityPositionInfo {
-    #[prost(uint32, tag = "7", xor = "2099")]
     pub entity_id: u32,
-    #[prost(message, optional, tag = "1")]
     pub position: ::core::option::Option<super::common::Vector3>,
-    #[prost(message, optional, tag = "15")]
     pub rotation: ::core::option::Option<super::common::Vector3>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(6699)]
 pub struct SyncSceneEntityPositionCsReq {
-    #[prost(message, repeated, tag = "1")]
     pub entity_position_list: ::prost::alloc::vec::Vec<SceneEntityPositionInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2721,18 +2393,16 @@ pub struct SyncSceneEntityPositionScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
-#[cmd_id(9293)]
+#[cmd_id(2190)]
 pub struct ActiveRollbackPointCsReq {
-    #[prost(uint32, tag = "6", xor = "2730")]
+    #[prost(uint32, tag = "5", xor = "6031")]
     pub group_id: u32,
-    #[prost(message, optional, tag = "5")]
+    #[prost(message, optional, tag = "10")]
     pub rollback_point: ::core::option::Option<super::common::RollbackPointInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[derive(::proto_derive::NetResponse)]
-#[cmd_id(9025)]
 pub struct ActiveRollbackPointScRsp {
-    #[prost(int32, tag = "14", xor = "5852")]
     pub retcode: i32,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]

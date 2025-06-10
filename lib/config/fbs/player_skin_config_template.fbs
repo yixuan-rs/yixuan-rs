@@ -2,7 +2,7 @@ table PlayerSkinConfigTemplate {
     player_skin_id: uint;
     gender: uint;
     needs_unlock: bool;
-    unk_3: int;
+    unk_3: bool;
     unk_4: string;
     unk_5: uint;
     unk_6: int;

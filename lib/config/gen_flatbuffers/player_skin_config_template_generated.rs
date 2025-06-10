@@ -52,9 +52,9 @@ impl<'a> PlayerSkinConfigTemplate<'a> {
     builder.add_unk_6(args.unk_6);
     builder.add_unk_5(args.unk_5);
     if let Some(x) = args.unk_4 { builder.add_unk_4(x); }
-    builder.add_unk_3(args.unk_3);
     builder.add_gender(args.gender);
     builder.add_player_skin_id(args.player_skin_id);
+    builder.add_unk_3(args.unk_3);
     builder.add_needs_unlock(args.needs_unlock);
     builder.finish()
   }
@@ -82,11 +82,11 @@ impl<'a> PlayerSkinConfigTemplate<'a> {
     unsafe { self._tab.get::<bool>(PlayerSkinConfigTemplate::VT_NEEDS_UNLOCK, Some(false)).unwrap()}
   }
   #[inline]
-  pub fn unk_3(&self) -> i32 {
+  pub fn unk_3(&self) -> bool {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<i32>(PlayerSkinConfigTemplate::VT_UNK_3, Some(0)).unwrap()}
+    unsafe { self._tab.get::<bool>(PlayerSkinConfigTemplate::VT_UNK_3, Some(false)).unwrap()}
   }
   #[inline]
   pub fn unk_4(&self) -> Option<&'a str> {
@@ -142,7 +142,7 @@ impl flatbuffers::Verifiable for PlayerSkinConfigTemplate<'_> {
      .visit_field::<u32>("player_skin_id", Self::VT_PLAYER_SKIN_ID, false)?
      .visit_field::<u32>("gender", Self::VT_GENDER, false)?
      .visit_field::<bool>("needs_unlock", Self::VT_NEEDS_UNLOCK, false)?
-     .visit_field::<i32>("unk_3", Self::VT_UNK_3, false)?
+     .visit_field::<bool>("unk_3", Self::VT_UNK_3, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("unk_4", Self::VT_UNK_4, false)?
      .visit_field::<u32>("unk_5", Self::VT_UNK_5, false)?
      .visit_field::<i32>("unk_6", Self::VT_UNK_6, false)?
@@ -157,7 +157,7 @@ pub struct PlayerSkinConfigTemplateArgs<'a> {
     pub player_skin_id: u32,
     pub gender: u32,
     pub needs_unlock: bool,
-    pub unk_3: i32,
+    pub unk_3: bool,
     pub unk_4: Option<flatbuffers::WIPOffset<&'a str>>,
     pub unk_5: u32,
     pub unk_6: i32,
@@ -172,7 +172,7 @@ impl<'a> Default for PlayerSkinConfigTemplateArgs<'a> {
       player_skin_id: 0,
       gender: 0,
       needs_unlock: false,
-      unk_3: 0,
+      unk_3: false,
       unk_4: None,
       unk_5: 0,
       unk_6: 0,
@@ -201,8 +201,8 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> PlayerSkinConfigTemplateBuilder
     self.fbb_.push_slot::<bool>(PlayerSkinConfigTemplate::VT_NEEDS_UNLOCK, needs_unlock, false);
   }
   #[inline]
-  pub fn add_unk_3(&mut self, unk_3: i32) {
-    self.fbb_.push_slot::<i32>(PlayerSkinConfigTemplate::VT_UNK_3, unk_3, 0);
+  pub fn add_unk_3(&mut self, unk_3: bool) {
+    self.fbb_.push_slot::<bool>(PlayerSkinConfigTemplate::VT_UNK_3, unk_3, false);
   }
   #[inline]
   pub fn add_unk_4(&mut self, unk_4: flatbuffers::WIPOffset<&'b  str>) {
