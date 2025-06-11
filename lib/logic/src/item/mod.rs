@@ -7,7 +7,7 @@ pub use equip::EquipItem;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 pub use weapon::WeaponItem;
 
-#[derive(Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, TryFromPrimitive, IntoPrimitive)]
 #[repr(u32)]
 pub enum EItemType {
     Currency = 1,
@@ -18,6 +18,7 @@ pub enum EItemType {
     Equip = 7,
     Buddy = 8,
     AvatarLevelUpMaterial = 12,
+    WeaponLevelUpMaterial = 13,
 }
 
 #[derive(Debug, PartialEq, Eq, TryFromPrimitive, IntoPrimitive)]

@@ -2,9 +2,9 @@ use std::collections::HashMap;
 
 use config::WeaponTemplate;
 use rand::{RngCore, seq::IteratorRandom};
-use yixuan_logic::item::WeaponItem;
+use yixuan_logic::item::{EItemType, WeaponItem};
 
-use crate::player::Player;
+use crate::{player::Player, resources::NapResources};
 
 pub fn add_items_on_first_login(player: &mut Player) {
     player.item_model.item_count_map.insert(10, 10_000_000);
@@ -139,7 +139,7 @@ pub fn add_weapon(player: &mut Player, template: &WeaponTemplate) -> u32 {
             id: template.item_id(),
             level: 0,
             exp: 0,
-            star: 1,
+            star: 0,
             refine_level: 0,
             lock: false,
         },
@@ -189,4 +189,52 @@ pub fn use_item(player: &mut Player, item_id: u32, amount: u32) -> bool {
     } else {
         false
     }
+}
+
+pub fn materials_to_exp(
+    materials: &HashMap<u32, u32>,
+    material_type: EItemType,
+    res: &NapResources,
+) -> u32 {
+    materials
+        .iter()
+        .filter_map(|(&id, &count)| {
+            let template = res
+                .templates
+                .item_template_tb()
+                .find(|tmpl| tmpl.id() == id)?;
+
+            (template.class() == material_type.into())
+                .then(|| template.parameters().unwrap().get(0) * count)
+        })
+        .sum()
+}
+
+pub fn exp_to_materials(
+    exp: &mut u32,
+    material_type: EItemType,
+    res: &NapResources,
+) -> HashMap<u32, u32> {
+    let mut materials = HashMap::new();
+
+    while *exp > 0 {
+        let Some(return_material) = res
+            .templates
+            .item_template_tb()
+            .filter(|tmpl| {
+                tmpl.class() == material_type.into() && tmpl.parameters().unwrap().get(0) <= *exp
+            })
+            .max_by_key(|tmpl| tmpl.parameters().unwrap().get(0))
+        else {
+            *exp = 0;
+            break;
+        };
+
+        let exp_amount = return_material.parameters().unwrap().get(0);
+        materials.insert(return_material.id(), *exp / exp_amount);
+
+        *exp %= exp_amount;
+    }
+
+    materials
 }

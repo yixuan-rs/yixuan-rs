@@ -1664,6 +1664,23 @@ pub struct WeaponUnDressScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(6184)]
+pub struct WeaponLevelUpCsReq {
+    #[prost(uint32, tag = "15", xor = "9837")]
+    pub weapon_uid: u32,
+    #[prost(map = "uint32, uint32", tag = "4")]
+    pub exp_materials: ::std::collections::HashMap<u32, u32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(9680)]
+pub struct WeaponLevelUpScRsp {
+    #[prost(int32, tag = "3", xor = "8188")]
+    pub retcode: i32,
+    #[prost(message, repeated, tag = "5")]
+    pub return_item_list: ::prost::alloc::vec::Vec<ItemRewardInfo>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(3101)]
 pub struct TalentSwitchCsReq {
     #[prost(uint32, tag = "5", xor = "10791")]

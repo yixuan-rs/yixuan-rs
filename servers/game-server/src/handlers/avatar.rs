@@ -63,20 +63,11 @@ impl AvatarHandler {
             item_util::use_item(context.player, id, count);
         });
 
-        let added_exp = request
-            .exp_materials
-            .iter()
-            .filter_map(|(&id, &count)| {
-                let template = context
-                    .resources
-                    .templates
-                    .item_template_tb()
-                    .find(|tmpl| tmpl.id() == id)?;
-
-                (template.class() == EItemType::AvatarLevelUpMaterial.into())
-                    .then(|| template.parameters().unwrap().get(0) * count)
-            })
-            .sum::<u32>();
+        let added_exp = item_util::materials_to_exp(
+            &request.exp_materials,
+            EItemType::AvatarLevelUpMaterial,
+            context.resources,
+        );
 
         let avatar = context
             .player
@@ -112,50 +103,24 @@ impl AvatarHandler {
             avatar.level += 1;
         }
 
-        let mut rsp = AvatarLevelUpScRsp::default();
-
-        if avatar.level == max_level {
-            while avatar.exp > 0 {
-                let Some(return_material) = context
-                    .resources
-                    .templates
-                    .item_template_tb()
-                    .filter(|tmpl| {
-                        tmpl.class() == EItemType::AvatarLevelUpMaterial.into()
-                            && tmpl.parameters().unwrap().get(0) <= avatar.exp
-                    })
-                    .max_by_key(|tmpl| tmpl.parameters().unwrap().get(0))
-                else {
-                    avatar.exp = 0;
-                    break;
-                };
-
-                let exp_amount = return_material.parameters().unwrap().get(0);
-
-                rsp.return_item_list.push(ItemRewardInfo {
-                    item_id: return_material.id(),
-                    amount: avatar.exp / exp_amount,
-                });
-
-                let cur = context
-                    .player
-                    .item_model
-                    .item_count_map
-                    .get(&return_material.id())
-                    .copied()
-                    .unwrap_or_default();
-
-                context
-                    .player
-                    .item_model
-                    .item_count_map
-                    .insert(return_material.id(), cur + (avatar.exp / exp_amount) as i32);
-
-                avatar.exp %= exp_amount;
-            }
+        AvatarLevelUpScRsp {
+            retcode: 0,
+            return_item_list: if avatar.level == max_level {
+                item_util::exp_to_materials(
+                    &mut avatar.exp,
+                    EItemType::AvatarLevelUpMaterial,
+                    context.resources,
+                )
+                .into_iter()
+                .map(|(item_id, amount)| {
+                    item_util::add_item(context.player, item_id, amount);
+                    ItemRewardInfo { item_id, amount }
+                })
+                .collect()
+            } else {
+                Vec::new()
+            },
         }
-
-        rsp
     }
 
     pub fn on_weapon_dress_cs_req(
