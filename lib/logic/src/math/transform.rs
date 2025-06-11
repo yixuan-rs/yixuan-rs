@@ -1,3 +1,5 @@
+use config::world::ConfigVector3;
+
 #[derive(Debug, Default, Clone)]
 pub struct Transform {
     pub position: Vector3,
@@ -21,6 +23,14 @@ impl Vector3i {
             y: self.1,
             z: self.2,
         }
+    }
+
+    pub fn from_config(config: &ConfigVector3) -> Self {
+        Self(
+            (config.x * 100.0) as i32,
+            (config.y * 100.0) as i32,
+            (config.z * 100.0) as i32,
+        )
     }
 }
 

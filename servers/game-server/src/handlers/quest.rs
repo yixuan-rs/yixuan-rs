@@ -140,7 +140,7 @@ impl QuestHandler {
         }
     }
 
-    pub fn on_begin_monster_card_battle_cs_req(
+    pub fn on_begin_activity_battle_cs_req(
         context: &mut NetContext<'_>,
         request: BeginActivityBattleCsReq,
     ) -> BeginActivityBattleScRsp {

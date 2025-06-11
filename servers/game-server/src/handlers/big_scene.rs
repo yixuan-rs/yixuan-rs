@@ -7,9 +7,15 @@ use yixuan_logic::{GameState, dungeon::AvatarUnit, math::Vector3i};
 use yixuan_proto::{
     ActiveRollbackPointCsReq, ActiveRollbackPointScRsp, BigSceneAvatarChangeCsReq,
     BigSceneAvatarChangeScRsp, BigSceneTeamData, BigSceneTeamReplaceCsReq,
-    BigSceneTeamReplaceScRsp, EnterBigSceneFloorCsReq, EnterBigSceneFloorScRsp,
-    EnterFloorDoneCsReq, EnterFloorDoneScRsp, GetBigSceneDataCsReq, GetBigSceneDataScRsp,
-    SaveBigSceneVariablesCsReq, SaveBigSceneVariablesScRsp, SyncSceneEntityPositionCsReq,
+    BigSceneTeamReplaceScRsp, ChangeSceneTeamDatasCsReq, ChangeSceneTeamDatasScRsp,
+    CreateGroupMemberCsReq, CreateGroupMemberScRsp, DestroySceneMonsterCsReq,
+    DestroySceneMonsterScRsp, EnterBigSceneFloorCsReq, EnterBigSceneFloorScRsp,
+    EnterFloorDoneCsReq, EnterFloorDoneScRsp, FloorPositionInfo, GetBigSceneDataCsReq,
+    GetBigSceneDataScRsp, GetSceneGroupStateCsReq, GetSceneGroupStateScRsp,
+    SaveBigSceneVariablesCsReq, SaveBigSceneVariablesScRsp, SceneEnterBattleCsReq,
+    SceneEnterBattleScRsp, SceneExitBattleCsReq, SceneExitBattleScRsp, SceneReloadGroupCsReq,
+    SceneReloadGroupScRsp, SetSceneGroupCompleteCsReq, SetSceneGroupCompleteScRsp,
+    SetSceneGroupStateValueCsReq, SetSceneGroupStateValueScRsp, SyncSceneEntityPositionCsReq,
     SyncSceneEntityPositionScRsp,
     common::{BigSceneAvatarInfo, SceneAvatarState, TeamMemberOperation, TeamMemberSource},
 };
@@ -77,6 +83,48 @@ impl BigSceneHandler {
         }
     }
 
+    pub fn on_change_scene_team_datas_cs_req(
+        context: &mut NetContext,
+        request: ChangeSceneTeamDatasCsReq,
+    ) -> ChangeSceneTeamDatasScRsp {
+        debug!("{request:?}");
+
+        let Some(GameState::BigScene(big_scene)) = context.game_state.as_mut() else {
+            error!("ChangeSceneTeamDatasCsReq received in wrong state");
+            return ChangeSceneTeamDatasScRsp {
+                retcode: 1,
+                ..Default::default()
+            };
+        };
+
+        let mut avatar_unit_list = Vec::with_capacity(request.avatar_id_list.len());
+
+        for id in request.avatar_id_list {
+            if let Some(avatar_unit) = big_scene_util::refresh_avatar_data(context.player, id) {
+                avatar_unit_list.push(avatar_unit);
+            } else {
+                return ChangeSceneTeamDatasScRsp {
+                    retcode: 1,
+                    ..Default::default()
+                };
+            }
+        }
+
+        // ..and now we also have to re-enter entire scene, sigh
+
+        *context.game_state = Some(big_scene_util::load_big_scene_state(
+            context.player,
+            big_scene.floor_id,
+            big_scene.cur_rollback_point(),
+            big_scene.cur_floor_position(),
+        ));
+
+        ChangeSceneTeamDatasScRsp {
+            retcode: 0,
+            avatar_unit_list,
+        }
+    }
+
     pub fn on_enter_big_scene_floor_cs_req(
         context: &mut NetContext,
         request: EnterBigSceneFloorCsReq,
@@ -128,11 +176,46 @@ impl BigSceneHandler {
     }
 
     pub fn on_enter_floor_done_cs_req(
-        _: &mut NetContext,
+        context: &mut NetContext,
         request: EnterFloorDoneCsReq,
     ) -> EnterFloorDoneScRsp {
         debug!("{request:?}");
+
+        let Some(GameState::BigScene(big_scene)) = context.game_state.as_mut() else {
+            error!("EnterFloorDoneCsReq received in wrong state");
+            return EnterFloorDoneScRsp { retcode: 1 };
+        };
+
+        big_scene.on_enter_done();
+
         EnterFloorDoneScRsp { retcode: 0 }
+    }
+
+    pub fn on_scene_enter_battle_cs_req(
+        _: &mut NetContext,
+        _request: SceneEnterBattleCsReq,
+    ) -> SceneEnterBattleScRsp {
+        SceneEnterBattleScRsp { retcode: 0 }
+    }
+
+    pub fn on_scene_exit_battle_cs_req(
+        _: &mut NetContext,
+        request: SceneExitBattleCsReq,
+    ) -> SceneExitBattleScRsp {
+        debug!("{request:?}");
+        SceneExitBattleScRsp { retcode: 0 }
+    }
+
+    pub fn on_get_scene_group_state_cs_req(
+        _: &mut NetContext,
+        request: GetSceneGroupStateCsReq,
+    ) -> GetSceneGroupStateScRsp {
+        debug!("{request:?}");
+
+        GetSceneGroupStateScRsp {
+            retcode: 0,
+            ..Default::default()
+        }
     }
 
     pub fn on_save_big_scene_variables_cs_req(
@@ -206,5 +289,60 @@ impl BigSceneHandler {
 
         big_scene.active_rollback_point(request.group_id, request.rollback_point.unwrap());
         ActiveRollbackPointScRsp { retcode: 0 }
+    }
+
+    pub fn on_scene_reload_group_cs_req(
+        context: &mut NetContext,
+        request: SceneReloadGroupCsReq,
+    ) -> SceneReloadGroupScRsp {
+        debug!("{request:?}");
+
+        let Some(GameState::BigScene(big_scene)) = context.game_state.as_mut() else {
+            error!("SceneReloadGroupCsReq received in wrong state");
+            return SceneReloadGroupScRsp { retcode: 1 };
+        };
+
+        *context.game_state = Some(big_scene_util::load_big_scene_state(
+            context.player,
+            big_scene.floor_id,
+            big_scene.cur_rollback_point(),
+            FloorPositionInfo {
+                player_pos: request.pos,
+                player_rot: request.rot,
+            },
+        ));
+
+        SceneReloadGroupScRsp { retcode: 0 }
+    }
+
+    pub fn on_create_group_member_cs_req(
+        _: &mut NetContext,
+        _request: CreateGroupMemberCsReq,
+    ) -> CreateGroupMemberScRsp {
+        CreateGroupMemberScRsp { retcode: 0 }
+    }
+
+    pub fn on_set_scene_group_state_value_cs_req(
+        _: &mut NetContext,
+        request: SetSceneGroupStateValueCsReq,
+    ) -> SetSceneGroupStateValueScRsp {
+        debug!("{request:?}");
+        SetSceneGroupStateValueScRsp { retcode: 0 }
+    }
+
+    pub fn on_set_scene_group_complete_cs_req(
+        _: &mut NetContext,
+        request: SetSceneGroupCompleteCsReq,
+    ) -> SetSceneGroupCompleteScRsp {
+        debug!("{request:?}");
+        SetSceneGroupCompleteScRsp { retcode: 0 }
+    }
+
+    pub fn on_destroy_scene_monster_cs_req(
+        _: &mut NetContext,
+        request: DestroySceneMonsterCsReq,
+    ) -> DestroySceneMonsterScRsp {
+        debug!("{request:?}");
+        DestroySceneMonsterScRsp { retcode: 0 }
     }
 }

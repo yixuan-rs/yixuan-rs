@@ -169,7 +169,6 @@ pub fn add_main_city_quest(player: &mut Player, id: u32) {
                     .npcs()
                     .unwrap_or_default()
                     .iter()
-                    .map(|id| id as u32)
                     .collect(),
             }),
             special_ext: None,

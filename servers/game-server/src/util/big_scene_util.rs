@@ -60,6 +60,29 @@ pub fn replace_team(player: &mut Player, ids: &[u32]) {
     });
 }
 
+pub fn refresh_avatar_data(
+    player: &mut Player,
+    avatar_id: u32,
+) -> Option<yixuan_proto::common::AvatarUnitInfo> {
+    let big_scene_model = &mut player.big_scene_model;
+    let equipment_data_proxy = EquipmentDataProxy {
+        avatar_model: &player.avatar_model,
+        item_model: &player.item_model,
+    };
+
+    if let Some(avatar) = big_scene_model.team.cur_avatars.get_mut(&avatar_id) {
+        avatar.avatar_unit = Some(AvatarUnit::new(
+            avatar_id,
+            &player.resources.templates,
+            &equipment_data_proxy,
+        ));
+
+        Some(avatar.avatar_unit.as_ref().unwrap().as_proto())
+    } else {
+        None
+    }
+}
+
 pub fn load_big_scene_state(
     player: &mut Player,
     floor_id: u32,

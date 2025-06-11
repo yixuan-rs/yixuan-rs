@@ -753,9 +753,9 @@ impl Chessboard {
                         }),
                         hollow_objective_id: 1000204,
                         section_grid_map: Some(yixuan_proto::HollowSectionGridMapInfo {
-                            cur_grid_position: player_pos, // idk?
+                            cur_grid_position: player_pos,
                             hollow_grid_map: Some(yixuan_proto::HollowGridMap {
-                                hollow_grid_list: self
+                                entity_list: self
                                     .entity_manager
                                     .serialize_entities(section, &self.component_manager),
                             }),

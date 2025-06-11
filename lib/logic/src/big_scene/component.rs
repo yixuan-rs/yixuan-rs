@@ -14,7 +14,7 @@ pub trait ViewObjectComponent {
 macro_rules! components {
     ($($name:ident;)*) => {
         pub enum VoComponentType {
-            $($name)*,
+            $($name),*
         }
 
         ::paste::paste!($(impl ViewObjectComponentBase for [<Vo $name Component>] {
@@ -65,11 +65,17 @@ macro_rules! components {
     };
 }
 
-components!{ BattleAvatarMember; }
+components!{ BattleAvatarMember; MonsterProxy; }
 
 #[derive(Debug, Clone)]
 pub struct VoBattleAvatarMemberComponent {
     pub current_avatar_id: u32,
+}
+
+#[derive(Debug, Clone)]
+pub struct VoMonsterProxyComponent {
+    pub monster_id: u32,
+    pub level: u32,
 }
 
 impl ViewObjectComponent for VoBattleAvatarMemberComponent {
@@ -84,14 +90,32 @@ impl ViewObjectComponent for VoBattleAvatarMemberComponent {
             }
         }
     }
-} 
+}
+
+impl ViewObjectComponent for VoMonsterProxyComponent {
+    fn receive_event(&mut self, vo: &mut ViewObject, evt: &ViewObjectEvent) {
+        match evt {
+            ViewObjectEvent::EntityMoveEvt(evt) => {
+                vo.position = evt.position.clone();
+                vo.rotation = evt.rotation.clone();
+            }
+            ViewObjectEvent::AvatarChangeEvt(_) => (),
+        }
+    }
+}
 
 pub trait ViewObjectExtension {
+    #[expect(dead_code)]
     fn has_component<VoComponent: ViewObjectComponentBase>(&self, cc: &ComponentContainer) -> bool;
+    fn find_component<VoComponent: ViewObjectComponentBase>(&self, cc: &ComponentContainer) -> Option<VoComponent>;
 }
 
 impl ViewObjectExtension for ViewObjectHandle {
     fn has_component<VoComponent: ViewObjectComponentBase>(&self, cc: &ComponentContainer) -> bool {
         cc.has_component::<VoComponent>(*self)
+    }
+
+    fn find_component<VoComponent: ViewObjectComponentBase>(&self, cc: &ComponentContainer) -> Option<VoComponent> {
+        cc.get_component(*self)
     }
 } 

@@ -433,7 +433,7 @@ impl PlayerSyncComponent for BigSceneModel {
                     operation: if self.team.cur_avatars.contains_key(&id) {
                         TeamMemberOperation::TeamReplace.into()
                     } else {
-                        TeamMemberOperation::None.into()
+                        TeamMemberOperation::Unk1.into()
                     },
                 })
                 .collect(),
@@ -452,7 +452,7 @@ impl PlayerSyncComponent for BigSceneModel {
                 })
                 .collect(),
             cur_avatar_id: self.team.cur_avatar_id.get(),
-            is_scene_team_replaced: self.team.cur_avatars.is_changed(),
+            is_scene_team_replaced: self.team.is_changed(),
         });
     }
 }

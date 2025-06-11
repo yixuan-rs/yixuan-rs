@@ -74,7 +74,4 @@ enumeration!(
     Unknown7 = 7
 );
 
-enumeration!(
-    EntityType(u32),
-    Avatar = 1
-);
+enumeration!(EntityType(u32), Avatar = 1, Monster = 2);

@@ -3,13 +3,16 @@ use std::{collections::HashMap, fs::File, num::ParseIntError};
 
 mod floor;
 mod group;
+mod object;
 
 pub use floor::*;
 pub use group::*;
+pub use object::*;
 
 pub struct LevelWorldConfig {
     pub floors: HashMap<u32, ConfigFloor>,
     pub groups: HashMap<u32, ConfigGroup>,
+    pub view_objects: HashMap<u32, ConfigViewObject>,
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -27,6 +30,7 @@ impl LevelWorldConfig {
         Ok(Self {
             floors: Self::load_map(&format!("{level_world_path}/ConfigFloor.json"))?,
             groups: Self::load_map(&format!("{level_world_path}/ConfigGroup.json"))?,
+            view_objects: Self::load_map(&format!("{level_world_path}/ConfigViewObject.json"))?,
         })
     }
 

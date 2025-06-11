@@ -928,7 +928,7 @@ pub struct HollowEntityInfo {
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowGridMap {
     #[prost(message, repeated, tag = "6")]
-    pub hollow_grid_list: ::prost::alloc::vec::Vec<HollowEntityInfo>,
+    pub entity_list: ::prost::alloc::vec::Vec<HollowEntityInfo>,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 pub struct HollowSectionGridMapInfo {
@@ -2663,6 +2663,39 @@ pub struct EnterBigSceneScNotify {
     pub day_of_week: u32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(6444)]
+pub struct SceneEntityAppearScNotify {
+    #[prost(message, repeated, tag = "5")]
+    pub entity_list: ::prost::alloc::vec::Vec<super::common::SceneEntityInfo>,
+    #[prost(uint32, tag = "4", xor = "12602")]
+    pub param: u32,
+    #[prost(enumeration = "ViewType", tag = "1")]
+    pub appear_type: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+pub struct GroupOrderReasonInfo {
+    #[prost(enumeration = "GroupOrderReason", tag = "1")]
+    pub group_order_reason: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(978)]
+pub struct GroupOrderReadyScNotify {
+    #[prost(uint32, tag = "13", xor = "1454")]
+    pub group_id: u32,
+    #[prost(message, optional, tag = "3")]
+    pub reason: ::core::option::Option<GroupOrderReasonInfo>,
+    #[prost(uint32, repeated, tag = "5")]
+    pub member_config_id_list: ::prost::alloc::vec::Vec<u32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(2685)]
+pub struct GroupMemberCreateScNotify {
+    #[prost(uint32, tag = "1", xor = "14838")]
+    pub group_id: u32,
+    #[prost(uint32, tag = "10", xor = "4953")]
+    pub config_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(4254)]
 pub struct EnterFloorDoneCsReq {
     #[prost(uint32, tag = "6", xor = "1836")]
@@ -2678,6 +2711,48 @@ pub struct EnterFloorDoneScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(1086)]
+pub struct SetSceneGroupStateValueCsReq {
+    #[prost(uint32, tag = "5", xor = "13952")]
+    pub group_id: u32,
+    #[prost(string, tag = "11")]
+    pub state_name: ::prost::alloc::string::String,
+    #[prost(int32, tag = "13", xor = "11609")]
+    pub value: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct SetSceneGroupStateValueScRsp {
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(7776)]
+pub struct CreateGroupMemberCsReq {
+    #[prost(uint32, tag = "9", xor = "3250")]
+    pub group_id: u32,
+    #[prost(uint32, tag = "15", xor = "6935")]
+    pub config_id: u32,
+    #[prost(message, repeated, tag = "5")]
+    pub group_member_list: ::prost::alloc::vec::Vec<FloorGroupMemberInfo>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(8999)]
+pub struct CreateGroupMemberScRsp {
+    #[prost(int32, tag = "11", xor = "5960")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(1211)]
+pub struct SceneEnterBattleCsReq {}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(3989)]
+pub struct SceneEnterBattleScRsp {
+    #[prost(int32, tag = "1", xor = "6284")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
 #[cmd_id(4258)]
 pub struct SaveBigSceneVariablesCsReq {}
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2685,6 +2760,32 @@ pub struct SaveBigSceneVariablesCsReq {}
 #[cmd_id(7454)]
 pub struct SaveBigSceneVariablesScRsp {
     #[prost(int32, tag = "4", xor = "6622")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(8560)]
+pub struct GetSceneGroupStateCsReq {
+    #[prost(uint32, tag = "6", xor = "885")]
+    pub group_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(5325)]
+pub struct GetSceneGroupStateScRsp {
+    #[prost(int32, tag = "10", xor = "9134")]
+    pub retcode: i32,
+    #[prost(map = "string, int32", tag = "3")]
+    pub int_specials: ::std::collections::HashMap<::prost::alloc::string::String, i32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(2550)]
+pub struct SetSceneGroupCompleteCsReq {
+    #[prost(uint32, tag = "7", xor = "2240")]
+    pub group_id: u32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct SetSceneGroupCompleteScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
@@ -2733,6 +2834,60 @@ pub struct ActiveRollbackPointCsReq {
 #[cmd_id(9025)]
 pub struct ActiveRollbackPointScRsp {
     #[prost(int32, tag = "14", xor = "5852")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(3032)]
+pub struct DestroySceneMonsterCsReq {
+    #[prost(uint32, tag = "5", xor = "10849")]
+    pub entity_id: u32,
+    #[prost(message, optional, tag = "2")]
+    pub log_monster_info: ::core::option::Option<super::common::LogMonsterInfo>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct DestroySceneMonsterScRsp {
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(757)]
+pub struct SceneExitBattleCsReq {
+    #[prost(message, optional, tag = "12")]
+    pub battle_statistic: ::core::option::Option<super::common::LogBattleStatistics>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(3201)]
+pub struct SceneExitBattleScRsp {
+    #[prost(int32, tag = "12", xor = "6016")]
+    pub retcode: i32,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(8778)]
+pub struct ChangeSceneTeamDatasCsReq {
+    #[prost(uint32, repeated, tag = "11")]
+    pub avatar_id_list: ::prost::alloc::vec::Vec<u32>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+#[cmd_id(2586)]
+pub struct ChangeSceneTeamDatasScRsp {
+    #[prost(int32, tag = "13", xor = "1234")]
+    pub retcode: i32,
+    #[prost(message, repeated, tag = "8")]
+    pub avatar_unit_list: ::prost::alloc::vec::Vec<super::common::AvatarUnitInfo>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[cmd_id(3589)]
+pub struct SceneReloadGroupCsReq {
+    #[prost(message, optional, tag = "15")]
+    pub pos: ::core::option::Option<super::common::Vector3>,
+    #[prost(message, optional, tag = "5")]
+    pub rot: ::core::option::Option<super::common::Vector3>,
+}
+#[derive(Clone, PartialEq, ::proto_derive::Message, ::proto_derive::NetCmd)]
+#[derive(::proto_derive::NetResponse)]
+pub struct SceneReloadGroupScRsp {
     pub retcode: i32,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -3511,6 +3666,61 @@ impl QuickAccessType {
             "QUICK_ACCESS_TYPE_NONE" => Some(Self::None),
             "QUICK_ACCESS_TYPE_DIRECT" => Some(Self::Direct),
             "QUICK_ACCESS_TYPE_QUICK_MENU" => Some(Self::QuickMenu),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum ViewType {
+    None = 0,
+    Born = 1,
+}
+impl ViewType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::None => "VIEW_TYPE_NONE",
+            Self::Born => "VIEW_TYPE_BORN",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "VIEW_TYPE_NONE" => Some(Self::None),
+            "VIEW_TYPE_BORN" => Some(Self::Born),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum GroupOrderReason {
+    None = 0,
+    Unk1 = 1,
+    Unk2 = 2,
+}
+impl GroupOrderReason {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::None => "GROUP_ORDER_REASON_NONE",
+            Self::Unk1 => "GROUP_ORDER_REASON_UNK1",
+            Self::Unk2 => "GROUP_ORDER_REASON_UNK2",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "GROUP_ORDER_REASON_NONE" => Some(Self::None),
+            "GROUP_ORDER_REASON_UNK1" => Some(Self::Unk1),
+            "GROUP_ORDER_REASON_UNK2" => Some(Self::Unk2),
             _ => None,
         }
     }
