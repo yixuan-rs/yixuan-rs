@@ -25,7 +25,7 @@ pub fn unlock_avatar(
     base_template: &AvatarBaseTemplate,
     perform_type: Option<yixuan_proto::add_avatar_sc_notify::PerformType>,
 ) {
-    const AVATAR_BLACKLIST: &[u32] = &[];
+    const AVATAR_BLACKLIST: &[u32] = &[1441, 1301]; // const PIDORS situation all over again
 
     let avatar_id = base_template.id();
 

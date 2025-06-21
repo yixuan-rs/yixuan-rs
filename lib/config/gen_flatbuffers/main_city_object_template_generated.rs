@@ -79,7 +79,6 @@ impl<'a> MainCityObjectTemplate<'a> {
   ) -> flatbuffers::WIPOffset<MainCityObjectTemplate<'bldr>> {
     let mut builder = MainCityObjectTemplateBuilder::new(_fbb);
     if let Some(x) = args.default_interact_ids { builder.add_default_interact_ids(x); }
-    builder.add_unk_27(args.unk_27);
     builder.add_unk_26(args.unk_26);
     builder.add_unk_24(args.unk_24);
     builder.add_unk_22(args.unk_22);
@@ -110,6 +109,7 @@ impl<'a> MainCityObjectTemplate<'a> {
     if let Some(x) = args.create_position { builder.add_create_position(x); }
     builder.add_npc_id(args.npc_id);
     builder.add_tag_id(args.tag_id);
+    builder.add_unk_27(args.unk_27);
     builder.add_unk_25(args.unk_25);
     builder.add_unk_23(args.unk_23);
     builder.add_unk_17(args.unk_17);
@@ -405,11 +405,11 @@ impl<'a> MainCityObjectTemplate<'a> {
     unsafe { self._tab.get::<u32>(MainCityObjectTemplate::VT_UNK_26, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn unk_27(&self) -> u32 {
+  pub fn unk_27(&self) -> u8 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u32>(MainCityObjectTemplate::VT_UNK_27, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u8>(MainCityObjectTemplate::VT_UNK_27, Some(0)).unwrap()}
   }
   #[inline]
   pub fn default_interact_ids(&self) -> Option<flatbuffers::Vector<'a, i32>> {
@@ -467,7 +467,7 @@ impl flatbuffers::Verifiable for MainCityObjectTemplate<'_> {
      .visit_field::<u32>("unk_24", Self::VT_UNK_24, false)?
      .visit_field::<bool>("unk_25", Self::VT_UNK_25, false)?
      .visit_field::<u32>("unk_26", Self::VT_UNK_26, false)?
-     .visit_field::<u32>("unk_27", Self::VT_UNK_27, false)?
+     .visit_field::<u8>("unk_27", Self::VT_UNK_27, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, i32>>>("default_interact_ids", Self::VT_DEFAULT_INTERACT_IDS, false)?
      .finish();
     Ok(())
@@ -514,7 +514,7 @@ pub struct MainCityObjectTemplateArgs<'a> {
     pub unk_24: u32,
     pub unk_25: bool,
     pub unk_26: u32,
-    pub unk_27: u32,
+    pub unk_27: u8,
     pub default_interact_ids: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, i32>>>,
 }
 impl<'a> Default for MainCityObjectTemplateArgs<'a> {
@@ -733,8 +733,8 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> MainCityObjectTemplateBuilder<'
     self.fbb_.push_slot::<u32>(MainCityObjectTemplate::VT_UNK_26, unk_26, 0);
   }
   #[inline]
-  pub fn add_unk_27(&mut self, unk_27: u32) {
-    self.fbb_.push_slot::<u32>(MainCityObjectTemplate::VT_UNK_27, unk_27, 0);
+  pub fn add_unk_27(&mut self, unk_27: u8) {
+    self.fbb_.push_slot::<u8>(MainCityObjectTemplate::VT_UNK_27, unk_27, 0);
   }
   #[inline]
   pub fn add_default_interact_ids(&mut self, default_interact_ids: flatbuffers::WIPOffset<flatbuffers::Vector<'b , i32>>) {

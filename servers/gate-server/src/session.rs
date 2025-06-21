@@ -198,13 +198,25 @@ impl PlayerSession {
 
         if let Some(mut response) = rsp.response {
             if response.cmd_id == 0 {
-                response.cmd_id = 5566;
+                response.cmd_id = 5138;
             }
 
             *last_server_packet_id += 1;
             network_entity.send(NetPacket {
                 cmd_id: response.cmd_id as u16,
                 body: response.body,
+                head: PacketHead {
+                    packet_id: *last_server_packet_id,
+                    ack_packet_id: packet.head.packet_id,
+                    player_uid: uid,
+                    ..Default::default()
+                },
+            });
+        } else if packet.head.packet_id != 0 {
+            *last_server_packet_id += 1;
+            network_entity.send(NetPacket {
+                cmd_id: 5138,
+                body: vec![],
                 head: PacketHead {
                     packet_id: *last_server_packet_id,
                     ack_packet_id: packet.head.packet_id,

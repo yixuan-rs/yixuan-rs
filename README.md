@@ -9,7 +9,7 @@
 - ~~Story Commissions in HDD~~
 - ~~"TV Mode" aka Monitor Array~~
 - ~~Gacha (with configurable banner schedule)~~
-- NPC Interactions
+- ~~NPC Interactions~~
 - Miscellaneous items (Skins, W-Engines, Drive Discs, Proxy Accessories, ~~Wallpapers~~)
 #### NOTE: yixuan-rs is currently under active development
 
@@ -45,7 +45,7 @@ The configuration of each server is located under the `config` directory (create
 - To change gameplay-related settings, edit one of game-server configuration files, for example: gacha banner schedule is located in: `config/40-game-server/gacha_schedule.toml`
 
 ### Logging in
-Currently supported client version is `CNBetaWin2.1.1`, you can get it from 3rd party sources (e.g. game launcher). Next, you have to apply the necessary [client patch](https://git.xeondev.com/yixuan-rs/yixuan-patch/src/branch/2.1_beta). It allows you to connect to the local server and replaces encryption keys with custom ones.
+Currently supported client version is `CNBetaWin2.1.3`, you can get it from 3rd party sources (e.g. game launcher). Next, you have to apply the necessary [client patch](https://git.xeondev.com/yuzuha-rs/yuzuha-patch/releases/tag/beta_2.1.3). It allows you to connect to the local server and replaces encryption keys with custom ones.
 
 ### Obtaining characters without gacha
 While playing on the server, you may want to obtain the characters that are not available in current gacha schedule. In order to do so, you can use in-game debug menu: find the 'Yixuan' NPC on the second floor of WorkShop location, and interact with it. It'll send you to a debug TV mode scene, where you can select the characters to obtain.

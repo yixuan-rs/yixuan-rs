@@ -39,7 +39,7 @@ table MainCityObjectTemplate {
     unk_24: uint;
     unk_25: bool;
     unk_26: uint;
-    unk_27: uint;
+    unk_27: ubyte;
     default_interact_ids: [int];
 }
 

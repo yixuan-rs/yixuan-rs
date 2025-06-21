@@ -2,8 +2,8 @@
 pub enum TemplateCollectionError {
     #[error("failed to read asset file at {0}, cause: {1}")]
     Read(String, std::io::Error),
-    #[error("TemplateTb at {0} is invalid, cause: {1}")]
-    InvalidFlatbuffer(String, flatbuffers::InvalidFlatbuffer),
+    #[error("{0} TemplateTb at {1} is invalid, cause: {2}")]
+    InvalidFlatbuffer(&'static str, String, flatbuffers::InvalidFlatbuffer),
 }
 
 file_cfg! {
@@ -95,7 +95,7 @@ macro_rules! file_cfg {
                                let mut verifier = ::flatbuffers::Verifier::new(&verifier_options, &data);
                                match ::flatbuffers::ForwardsUOffset::<[<$name Tb>]>::run_verifier(&mut verifier, 0) {
                                    Ok(()) => data,
-                                   Err(err) => return Err(TemplateCollectionError::InvalidFlatbuffer(file_path, err)),
+                                   Err(err) => return Err(TemplateCollectionError::InvalidFlatbuffer(stringify!($name), file_path, err)),
                                }
                             },
                         )*

@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use num_enum::{IntoPrimitive, TryFromPrimitive};
+use yixuan_proto::AvatarShowWeaponType;
 
 #[derive(Debug, Clone)]
 pub struct AvatarItem {
