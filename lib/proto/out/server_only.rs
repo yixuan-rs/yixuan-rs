@@ -391,6 +391,8 @@ pub struct PlayerAccessoryInfo {
 pub struct PlayerAccessoryData {
     #[prost(message, repeated, tag = "1")]
     pub player_accessory_list: ::prost::alloc::vec::Vec<PlayerAccessoryInfo>,
+    #[prost(uint32, tag = "2")]
+    pub control_guise_avatar_id: u32,
 }
 #[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]

@@ -82,6 +82,12 @@ pub struct LogBattleAvatarInfo {
     pub skill_use: ::prost::alloc::vec::Vec<LogSkillUseInfo>,
 }
 #[derive(::proto_derive::NetCmd)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct LogMonsterInfo {
+    #[prost(int32, tag = "1")]
+    pub monster_id: i32,
+}
+#[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogBattleStatistics {
     #[prost(int64, tag = "1")]
@@ -98,6 +104,8 @@ pub struct LogBattleStatistics {
     pub score: i32,
     #[prost(message, repeated, tag = "7")]
     pub avatar_list: ::prost::alloc::vec::Vec<LogBattleAvatarInfo>,
+    #[prost(message, repeated, tag = "8")]
+    pub monster_list: ::prost::alloc::vec::Vec<LogMonsterInfo>,
     #[prost(int32, tag = "11")]
     pub star: i32,
 }
@@ -144,6 +152,14 @@ pub struct SceneAvatarInfo {
     pub avatar_id: i32,
 }
 #[derive(::proto_derive::NetCmd)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct SceneMonsterInfo {
+    #[prost(int32, tag = "1")]
+    pub monster_id: i32,
+    #[prost(int32, tag = "2")]
+    pub level: i32,
+}
+#[derive(::proto_derive::NetCmd)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SceneEntityInfo {
     #[prost(uint32, tag = "1")]
@@ -163,7 +179,7 @@ pub struct SceneEntityInfo {
         ::prost::alloc::string::String,
         i32,
     >,
-    #[prost(oneof = "scene_entity_info::Entity", tags = "8")]
+    #[prost(oneof = "scene_entity_info::Entity", tags = "8, 9")]
     pub entity: ::core::option::Option<scene_entity_info::Entity>,
 }
 /// Nested message and enum types in `SceneEntityInfo`.
@@ -172,6 +188,8 @@ pub mod scene_entity_info {
     pub enum Entity {
         #[prost(message, tag = "8")]
         Avatar(super::SceneAvatarInfo),
+        #[prost(message, tag = "9")]
+        Monster(super::SceneMonsterInfo),
     }
 }
 #[derive(::proto_derive::NetCmd)]

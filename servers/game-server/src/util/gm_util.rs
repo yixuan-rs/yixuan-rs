@@ -181,6 +181,11 @@ pub fn execute_gm_cmd(player: &mut Player, state: Option<&mut GameState>, cmd: G
         }
         SetControlGuiseAvatar { avatar_id } => {
             player.basic_model.control_guise_avatar_id.set(avatar_id);
+            player
+                .misc_model
+                .player_accessory
+                .control_guise_avatar_id
+                .set(avatar_id);
 
             if let Some(GameState::Hall(hall)) = state {
                 hall.control_guise_avatar_id = avatar_id;

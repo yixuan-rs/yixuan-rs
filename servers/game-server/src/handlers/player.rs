@@ -79,6 +79,11 @@ impl PlayerHandler {
         basic_model
             .control_guise_avatar_id
             .set(request.control_guise_avatar_id);
+        let misc_model = &mut context.player.misc_model;
+        misc_model
+            .player_accessory
+            .control_guise_avatar_id
+            .set(request.control_guise_avatar_id);
 
         ModAvatarScRsp { retcode: 0 }
     }

@@ -144,7 +144,8 @@ async fn handle_player_login_cs_req(
         };
     }
 
-    info!("PlayerGetData success, data: {:?}", rsp.player_data);
+    info!("PlayerGetData success");
+    // info!("PlayerGetData success, data: {:?}", rsp.player_data);
 
     let cluster = cluster_manager.get_least_loaded_cluster();
     cluster.create_player_slot(head.player_uid, rsp.player_data.unwrap());

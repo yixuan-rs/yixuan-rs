@@ -82,6 +82,7 @@ pub struct PlayerAccessory {
 #[derive(Property, Default)]
 pub struct PropertyPlayerAccessoryData {
     pub player_accessory_map: PropertyHashMap<u32, PlayerAccessory>,
+    pub control_guise_avatar_id: PrimitiveProperty<u32>,
 }
 
 #[derive(Model)]
@@ -201,6 +202,7 @@ impl MiscModel {
                             )
                         })
                         .collect(),
+                    control_guise_avatar_id: data.control_guise_avatar_id.into(),
                 })
                 .unwrap_or_default(),
         }
@@ -294,6 +296,7 @@ impl Saveable for MiscModel {
                             .collect(),
                     })
                     .collect(),
+                control_guise_avatar_id: self.player_accessory.control_guise_avatar_id.get(),
             }),
         });
     }

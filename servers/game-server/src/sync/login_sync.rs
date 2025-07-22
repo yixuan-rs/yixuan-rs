@@ -385,6 +385,10 @@ impl LoginDataSyncComponent for MiscModel {
                                 }
                             })
                             .collect(),
+                        control_guise_avatar_id: self
+                            .player_accessory
+                            .control_guise_avatar_id
+                            .get(),
                     }),
                 }),
             },

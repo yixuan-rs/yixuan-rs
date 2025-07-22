@@ -1,13 +1,13 @@
-["CNBetaWin2.1.3"]
-dispatch_seed = "f6c92934291301ac"
-design_data_url = "https://autopatchcn.juequling.com/design_data/beta_live/output_8945799_d64bdc8a8c/client/"
-design_data_revision = "8945799"
-design_data_files = '[{"fileName":"data_version","fileSize":4734,"fileMD5":"16451188438300278736"}]'
-game_res_url = "https://autopatchcn.juequling.com/game_res/beta_live/output_8945799_d64bdc8a8c/client/"
+["CNBetaWin2.2.1"]
+dispatch_seed = "65c9dd0ba8e3b7dc"
+design_data_url = "https://autopatchcn.juequling.com/design_data/beta_live/output_9409091_ac718f634b/client/"
+design_data_revision = "9409091"
+design_data_files = '[{"fileName": "data_version", "fileSize": 4731, "fileMD5": "9905338427140773853"}]'
+game_res_url = "https://autopatchcn.juequling.com/game_res/beta_live/output_9409091_ac718f634b/client/"
 game_res_branch = "beta_live"
-game_audio_revision = "8920011"
-game_res_revision = "8945799"
-game_res_files = '[{"fileName":"res_version","fileSize":2262911,"fileMD5":"10136370641064591087"},{"fileName":"audio_version","fileSize":30442,"fileMD5":"7896957815161279544"},{"fileName":"base_revision","fileSize":18,"fileMD5":"11405540300378698857"}]'
-silence_url = "https://autopatchcn.juequling.com/design_data/beta_live/output_8945799_d64bdc8a8c/client_silence/"
-silence_revision = "8940829"
-silence_files = '[{"fileName":"silence_version","fileSize":646,"fileMD5":"5468108319415622651"}]'
+game_audio_revision = "9387117"
+game_res_revision = "9409091"
+game_res_files = '[{"fileName": "res_version", "fileSize": 2329654, "fileMD5": "4323864784738100567"}, {"fileName": "audio_version", "fileSize": 30436, "fileMD5": "2492318498133758580"}, {"fileName": "base_revision", "fileSize": 18, "fileMD5": "16700263288882502529"}]'
+silence_url = "https://autopatchcn.juequling.com/design_data/beta_live/output_9409091_ac718f634b/client_silence/"
+silence_revision = "9400751"
+silence_files = '[{"fileName": "silence_version", "fileSize": 645, "fileMD5": "6249233167123064870"}]'
