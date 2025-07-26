@@ -2866,6 +2866,7 @@ version = "0.0.1"
 dependencies = [
  "common",
  "config",
+ "flatbuffers",
  "num_enum",
  "paste",
  "serde",

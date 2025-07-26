@@ -9,9 +9,9 @@ table MainCityObjectTemplate {
     dialogue: string;
     interact_name: string;
     interact_shape: int;
-    interact_scale: string;
+    interact_scale: [float];
     secondary_interact_shape: int;
-    secondary_interact_scale: string;
+    secondary_interact_scale: [float];
     fan_interact_param: string;
     focus_interact_scale: float;
     unk_2: bool;

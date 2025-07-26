@@ -219,8 +219,8 @@ impl GameHallState {
                                     .unwrap_or_default(),
                                 participators: HashMap::from([(tag_id, String::from("A"))]),
                                 targets: HashSet::from([InteractTarget::Npc]),
-                                scale: Scale::new_by_config_str(
-                                    main_city_object.interact_scale().unwrap(),
+                                scale: Scale::new_by_config_vec(
+                                    &main_city_object.interact_scale().unwrap(),
                                 ),
                             },
                         )
@@ -319,8 +319,8 @@ impl GameHallState {
                                 .unwrap_or_default(),
                             participators: HashMap::from([(unit.npc_id, String::from("A"))]),
                             targets: HashSet::from([InteractTarget::Npc]),
-                            scale: Scale::new_by_config_str(
-                                main_city_object.interact_scale().unwrap(),
+                            scale: Scale::new_by_config_vec(
+                                &main_city_object.interact_scale().unwrap(),
                             ),
                         },
                     )

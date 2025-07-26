@@ -198,7 +198,7 @@ impl PlayerSession {
 
         if let Some(mut response) = rsp.response {
             if response.cmd_id == 0 {
-                response.cmd_id = 6120;
+                response.cmd_id = 6763;
             }
 
             *last_server_packet_id += 1;
@@ -215,7 +215,7 @@ impl PlayerSession {
         } else if packet.head.packet_id != 0 {
             *last_server_packet_id += 1;
             network_entity.send(NetPacket {
-                cmd_id: 6120,
+                cmd_id: 6763,
                 body: vec![],
                 head: PacketHead {
                     packet_id: *last_server_packet_id,

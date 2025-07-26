@@ -195,11 +195,11 @@ impl<'a> MainCityObjectTemplate<'a> {
     unsafe { self._tab.get::<i32>(MainCityObjectTemplate::VT_INTERACT_SHAPE, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn interact_scale(&self) -> Option<&'a str> {
+  pub fn interact_scale(&self) -> Option<flatbuffers::Vector<'a, f32>> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(MainCityObjectTemplate::VT_INTERACT_SCALE, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, f32>>>(MainCityObjectTemplate::VT_INTERACT_SCALE, None)}
   }
   #[inline]
   pub fn secondary_interact_shape(&self) -> i32 {
@@ -209,11 +209,11 @@ impl<'a> MainCityObjectTemplate<'a> {
     unsafe { self._tab.get::<i32>(MainCityObjectTemplate::VT_SECONDARY_INTERACT_SHAPE, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn secondary_interact_scale(&self) -> Option<&'a str> {
+  pub fn secondary_interact_scale(&self) -> Option<flatbuffers::Vector<'a, f32>> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(MainCityObjectTemplate::VT_SECONDARY_INTERACT_SCALE, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, f32>>>(MainCityObjectTemplate::VT_SECONDARY_INTERACT_SCALE, None)}
   }
   #[inline]
   pub fn fan_interact_param(&self) -> Option<&'a str> {
@@ -437,9 +437,9 @@ impl flatbuffers::Verifiable for MainCityObjectTemplate<'_> {
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("dialogue", Self::VT_DIALOGUE, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("interact_name", Self::VT_INTERACT_NAME, false)?
      .visit_field::<i32>("interact_shape", Self::VT_INTERACT_SHAPE, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("interact_scale", Self::VT_INTERACT_SCALE, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, f32>>>("interact_scale", Self::VT_INTERACT_SCALE, false)?
      .visit_field::<i32>("secondary_interact_shape", Self::VT_SECONDARY_INTERACT_SHAPE, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("secondary_interact_scale", Self::VT_SECONDARY_INTERACT_SCALE, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, f32>>>("secondary_interact_scale", Self::VT_SECONDARY_INTERACT_SCALE, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("fan_interact_param", Self::VT_FAN_INTERACT_PARAM, false)?
      .visit_field::<f32>("focus_interact_scale", Self::VT_FOCUS_INTERACT_SCALE, false)?
      .visit_field::<bool>("unk_2", Self::VT_UNK_2, false)?
@@ -484,9 +484,9 @@ pub struct MainCityObjectTemplateArgs<'a> {
     pub dialogue: Option<flatbuffers::WIPOffset<&'a str>>,
     pub interact_name: Option<flatbuffers::WIPOffset<&'a str>>,
     pub interact_shape: i32,
-    pub interact_scale: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub interact_scale: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, f32>>>,
     pub secondary_interact_shape: i32,
-    pub secondary_interact_scale: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub secondary_interact_scale: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, f32>>>,
     pub fan_interact_param: Option<flatbuffers::WIPOffset<&'a str>>,
     pub focus_interact_scale: f32,
     pub unk_2: bool,
@@ -613,7 +613,7 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> MainCityObjectTemplateBuilder<'
     self.fbb_.push_slot::<i32>(MainCityObjectTemplate::VT_INTERACT_SHAPE, interact_shape, 0);
   }
   #[inline]
-  pub fn add_interact_scale(&mut self, interact_scale: flatbuffers::WIPOffset<&'b  str>) {
+  pub fn add_interact_scale(&mut self, interact_scale: flatbuffers::WIPOffset<flatbuffers::Vector<'b , f32>>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(MainCityObjectTemplate::VT_INTERACT_SCALE, interact_scale);
   }
   #[inline]
@@ -621,7 +621,7 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> MainCityObjectTemplateBuilder<'
     self.fbb_.push_slot::<i32>(MainCityObjectTemplate::VT_SECONDARY_INTERACT_SHAPE, secondary_interact_shape, 0);
   }
   #[inline]
-  pub fn add_secondary_interact_scale(&mut self, secondary_interact_scale: flatbuffers::WIPOffset<&'b  str>) {
+  pub fn add_secondary_interact_scale(&mut self, secondary_interact_scale: flatbuffers::WIPOffset<flatbuffers::Vector<'b , f32>>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(MainCityObjectTemplate::VT_SECONDARY_INTERACT_SCALE, secondary_interact_scale);
   }
   #[inline]

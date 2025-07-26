@@ -5,6 +5,7 @@ version.workspace = true
 
 [dependencies]
 tracing.workspace = true
+flatbuffers.workspace = true
 serde.workspace = true
 num_enum.workspace = true
 paste.workspace = true
